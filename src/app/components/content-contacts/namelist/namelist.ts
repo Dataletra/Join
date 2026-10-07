@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { Supabase } from '../../../services/supabase';
 import { JsonPipe } from '@angular/common';
-import { Iuser } from '../../../interfaces/iuser';
+import { IUser } from '../../../interfaces/iuser';
 @Component({
     imports: [JsonPipe],
     selector: 'app-namelist',
@@ -10,7 +10,8 @@ import { Iuser } from '../../../interfaces/iuser';
 })
 export class Namelist {
     dbService = inject(Supabase);
-    userList: Iuser[] | null = [];
+    userList: IUser[] | null = [];
+
     async startapi() {
         await this.dbService.getUsers();
         this.userList = this.dbService.users();
@@ -19,7 +20,9 @@ export class Namelist {
     }
 
     sortUsers() {
-        if (!this.userList) return;
+        if (!this.userList) {
+            return;
+        }
         this.userList.sort((a, b) => a.name.localeCompare(b.name));
     }
 }

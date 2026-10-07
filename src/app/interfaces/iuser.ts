@@ -1,4 +1,4 @@
-export interface Iuser {
+export interface IUser {
     id: number;
     created_at: string;
     name: string;
