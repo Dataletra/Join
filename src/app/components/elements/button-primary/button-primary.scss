@@ -1,12 +1,17 @@
 @use '../../../../../public/styles/abstract/variables.scss' as *;
-// @use '../../../../../public/styles/abstract/fonts.scss' as *;
+@use '../../../../../public/styles/abstract/functions.scss' as *;
 
 .btn-primary {
+    display: flex;
+    justify-content: center;
     width: auto;
+    height: clamp-px(56, 61, 400, 1400);
     padding-inline: 16px;
     background-color: $color-base;
     border-radius: 10px;
-
+    border: 1px solid $color-base;
+    gap: 4px;
+    transition: all 100ms ease-in-out;
 
     &__p {
         font-family: 'Inter';
@@ -14,12 +19,122 @@
         font-weight: 700;
         line-height: 120%;
         color: white;
+        text-align: center;
+    }
+
+    &__img {
+        width: 32px;
+        height: 32px;
+        object-fit: contain;
+    }
+
+    &:hover,
+    &:active {
+        box-shadow: 0 4px 4px 0 #00000040;
     }
 }
 
-.btn-lignt {
+.btn-light,
+.btn-dark {
+    height: clamp-px(27, 48);
+    border-radius: 8px;
+
+    .btn-primary__p {
+        font-size: 16px;
+    }
+
+    .btn-primary__img {
+        display: none;
+    }
+
+    &:hover {
+        border: 2px solid $color-high-1;
+    }
+}
+
+.btn-cancel,
+.btn-light {
     background-color: transparent;
-    border: 1px solid $color-base;
-    font-weight: 400;
-    color: $color-base;
+
+    .btn-primary__p {
+        font-weight: 400;
+    }
+
+    .btn-primary__p {
+        color: $color-base;
+    }
+
+    &:hover {
+        .btn-primary__p {
+            color: $color-high-1;
+        }
+    }
+
+    &:active {
+        border: 2px solid $color-high-3;
+    }
+}
+
+.btn-createTask {
+    .btn-primary__img {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+.btn-dark,
+.btn-createTask {
+    &:hover {
+        background-color: $color-high-1;
+    }
+}
+
+.btn-addTask {
+    height: clamp-px(56, 51);
+}
+
+.btn-addTask,
+.btn-addContact {
+    &:hover {
+        background-color: $color-high-2;
+        border: 1px solid $color-high-2;
+    }
+}
+
+.btn-addContact {
+    gap: 16px;
+}
+
+.btn-cancel:hover {
+    border: 2px solid $color-high-1;
+}
+
+.btn-dark,
+.btn-createTask,
+.btn-addContact,
+.btn-addTask {
+    &:active {
+        border: 1px solid $color-high-3;
+        background-color: $color-high-3;
+    }
+}
+
+@media screen and (max-width: $media-sm) {
+    .btn-addTask,
+    .btn-addContact {
+        .btn-primary__p {
+            display: none;
+        }
+    }
+
+    .btn-addTask {
+        width: 40px;
+        height: 40px;
+    }
+
+    .btn-addContact {
+        border-radius: 50%;
+        width: 56px;
+        height: 56px;
+    }
 }

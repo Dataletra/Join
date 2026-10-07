@@ -1,4 +1,13 @@
-<button class="btn-primary" [class.btn-lignt]="isLight() == true" [style.height]="height()">
+<!-- <button class="btn-primary" [class.btn-lignt]="isLight() == true" [style.height]="height()"> -->
+<button
+    class="btn-primary"
+    [class.btn-dark]="typeStr() === 'dark'"
+    [class.btn-light]="typeStr() === 'light'"
+    [class.btn-createTask]="typeStr() === 'createTask'"
+    [class.btn-addTask]="typeStr() === 'addTask'"
+    [class.btn-addContact]="typeStr() === 'addContact'"
+    [class.btn-cancel]="typeStr() === 'cancel'"
+>
     <p class="btn-primary__p"><ng-content></ng-content></p>
-    <img class="btn-primary__img" src="" aria-hidden="true"/>
+    <img class="btn-primary__img" src="{{ btnSrc.get(typeStr()) }}" aria-hidden="true" />
 </button>
