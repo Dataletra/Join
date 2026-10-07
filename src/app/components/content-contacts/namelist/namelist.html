@@ -1,0 +1,9 @@
+<div class="wrapper">
+    <button (click)="startapi()">asdasd</button>
+    <!-- <p>{{ dbService.users() | json }}</p> -->
+    <div>
+        @for (user of dbService.users(); track $index) {
+            <p>{{ user.name }}</p>
+        }
+    </div>
+</div>
