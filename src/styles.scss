@@ -1,1 +1,28 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+    text-decoration: none;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100svh;
+    height: 100svh;
+}
+
+
+app-root {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+}
+
+@media screen and (max-width: 500px) {
+    app-root {
+        flex-direction: column;
+    }
+}
