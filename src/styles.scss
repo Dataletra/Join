@@ -1,3 +1,7 @@
+@use '../public/styles/abstract/variables.scss' as *;
+@use '../public/styles/abstract/fonts.scss' as *;
+@use '../public/styles/abstract/mixin.scss' as mixin;
+
 * {
     margin: 0;
     padding: 0;
@@ -11,6 +15,7 @@ body {
     flex-direction: column;
     min-height: 100svh;
     height: 100svh;
+    background-color: $color-bg-content;
 }
 
 app-root {
@@ -18,6 +23,67 @@ app-root {
     justify-content: flex-start;
     width: 100%;
     height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+    font-family: 'Inter';
+    color: black;
+    line-height: 120%;
+}
+
+h1 {
+    font-size: 64px;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 47px;
+    font-weight: 500;
+}
+
+h3 {
+    font-size: 61px;
+    font-weight: 700;
+}
+
+h4 {
+    font-size: 27px;
+    font-weight: 400;
+}
+
+h5 {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+p {
+    font-size: 16px;
+    font-weight: 400;
+}
+
+button {
+    @include mixin.flex-center;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    text-decoration: none;
+    user-select: none;
+    touch-action: none;
+    -webkit-user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+
+    img {
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -webkit-user-drag: none;
+        user-select: none;
+    }
 }
 
 @media screen and (max-width: 500px) {
