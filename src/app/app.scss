@@ -1,7 +1,7 @@
 @use '../../public/styles/abstract/variables.scss' as *;
 
 // TODO DELETE ME
-.placeholder-nav {
+app-nav-bar {
     background-color: $color-base;
     width: 232px;
     height: 100svh;
@@ -27,7 +27,6 @@
         height: 100%;
     }
 }
-
 
 @media screen and (max-width: 500px) {
     .header-content-wrapper {
