@@ -1,1 +1,4 @@
-<p>button-primary works!</p>
+<button class="btn-primary" [class.btn-lignt]="isLight() == true" [style.height]="height()">
+    <p class="btn-primary__p"><ng-content></ng-content></p>
+    <img class="btn-primary__img" src="" aria-hidden="true"/>
+</button>

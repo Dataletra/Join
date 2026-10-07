@@ -1,0 +1,25 @@
+@use '../../../../../public/styles/abstract/variables.scss' as *;
+// @use '../../../../../public/styles/abstract/fonts.scss' as *;
+
+.btn-primary {
+    width: auto;
+    padding-inline: 16px;
+    background-color: $color-base;
+    border-radius: 10px;
+
+
+    &__p {
+        font-family: 'Inter';
+        font-size: 21px;
+        font-weight: 700;
+        line-height: 120%;
+        color: white;
+    }
+}
+
+.btn-lignt {
+    background-color: transparent;
+    border: 1px solid $color-base;
+    font-weight: 400;
+    color: $color-base;
+}
