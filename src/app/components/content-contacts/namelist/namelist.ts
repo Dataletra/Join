@@ -3,6 +3,7 @@ import { Supabase } from '../../../services/supabase';
 import { SlicePipe } from '@angular/common';
 import { IUser } from '../../../interfaces/iuser';
 import { ButtonPrimary } from '../../elements/button-primary/button-primary';
+
 @Component({
     imports: [ButtonPrimary, SlicePipe],
     selector: 'app-namelist',
