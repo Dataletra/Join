@@ -1,8 +1,7 @@
 import { Component } from '@angular/core';
-import { IcContact } from '../elements/ic-contact/ic-contact';
 
 @Component({
-  imports: [IcContact],
+  imports: [],
   selector: 'app-content-contacts',
   styleUrl: './content-contacts.scss',
   templateUrl: './content-contacts.html',
