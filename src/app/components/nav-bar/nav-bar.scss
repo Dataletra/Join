@@ -1,11 +1,66 @@
+.nav-wrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 64px;
+    padding-bottom: 72px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+}
+
+.logo-nav {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.nav-logo {
+    width: 100px;
+    height: 121px;
+}
+
 nav {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    ul {
+        display: flex;
+        flex-direction: column;
+        gap: 35px;
+    }
+}
+
+li {
+    list-style: none;
+
     a {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: rgba(231, 231, 231, 1);
+
         img {
             width: 25px;
             height: 25px;
         }
+    }
+}
+
+.legal-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: auto;
+
+    a {
+        color: rgba(231, 231, 231, 1);
     }
 }
