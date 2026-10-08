@@ -22,6 +22,10 @@ const iconColors = [
 })
 export class IcContact {
     readonly name = input.required<string>();
+    readonly enableShadow = input<boolean>(false);
+    readonly isHeader = input<boolean>(false);
+    readonly isDummy = input<boolean>(false);
+
     initials: string = '';
     colorStr: string = '';
 
