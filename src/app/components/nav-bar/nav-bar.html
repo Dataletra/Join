@@ -4,17 +4,34 @@
 
         <nav>
             <ul>
-                <li class="summary-link">
-                    <a routerLink=""><img src="./assets/icons/summary.svg" alt="" /> Summary</a>
+                <li>
+                    <!-- remove class "active" -->
+                    <a routerLink="" routerLinkActive="active" class="active">
+                        <img class="icon-default" src="./assets/icons/summary.svg" aria-hidden="true" />
+                        <img class="icon-active" src="./assets/icons/summary-active.svg" aria-hidden="true" />
+                        Summary
+                    </a>
                 </li>
                 <li>
-                    <a routerLink=""><img src="./assets/icons/add-task.svg" alt="" /> Add Task</a>
+                    <a routerLink="" routerLinkActive="active">
+                        <img class="icon-default" src="./assets/icons/add-task.svg" aria-hidden="true" />
+                        <img class="icon-active" src="./assets/icons/add-task-active.svg" aria-hidden="true" />
+                        Add Task
+                    </a>
                 </li>
                 <li>
-                    <a routerLink=""><img src="./assets/icons/board.svg" alt="" /> Board</a>
+                    <a routerLink="" routerLinkActive="active">
+                        <img class="icon-default" src="./assets/icons/board.svg" aria-hidden="true" />
+                        <img class="icon-active" src="./assets/icons/board-active.svg" aria-hidden="true" />
+                        Board
+                    </a>
                 </li>
                 <li>
-                    <a routerLink=""><img src="./assets/icons/contact-calendar.svg" alt="" /> Contacts</a>
+                    <a routerLink="" routerLinkActive="active">
+                        <img class="icon-default" src="./assets/icons/contact-calendar.svg" aria-hidden="true" />
+                        <img class="icon-active" src="./assets/icons/contact-calendar-active.svg" aria-hidden="true" />
+                        Contacts
+                    </a>
                 </li>
             </ul>
         </nav>
