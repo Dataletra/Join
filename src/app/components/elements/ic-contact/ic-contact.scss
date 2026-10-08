@@ -1,0 +1,25 @@
+@use '../../../../../public/styles/abstract/variables.scss' as *;
+@use '../../../../../public/styles/abstract/mixin.scss' as *;
+
+:host {
+    display: block;
+    container-type: size;
+}
+
+.ic-contact {
+    @include flex-center;
+    container-type: size;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+
+    border: clamp(2px, 4cqh, 3px) solid white;
+    background-color: red;
+
+    &__p {
+        @include flex-center;
+
+        color: white;
+        font-size: 42cqh;
+    }
+}
