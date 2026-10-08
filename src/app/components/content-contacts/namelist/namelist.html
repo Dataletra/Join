@@ -13,7 +13,11 @@
                     <div class="circle-placeholder">AD</div>
                     <div class="flex-column">
                         <h5 class="username">
-                            {{ user.name.length > 20 ? (user.name | slice: 0 : 20) + '...' : user.name }}
+                            {{
+                                (user.name | titlecase).length > 20
+                                    ? (user.name | titlecase | slice: 0 : 20) + '...'
+                                    : (user.name | titlecase)
+                            }}
                         </h5>
                         <a class="email" [attr.href]="'mailto:' + user.email">{{
                             user.email.length > 30 ? (user.email | slice: 0 : 30) + '...' : user.email
