@@ -1,0 +1,164 @@
+@use '../../../../public/styles/abstract/variables.scss' as *;
+@use '../../../../public/styles/abstract/mixin.scss';
+
+.nav-wrapper {
+    width: 232px;
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 64px;
+    padding-bottom: 72px;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    background-color: $color-base;
+}
+
+.logo-nav {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 114px;
+}
+
+.logo {
+    width: 100px;
+    height: 121px;
+}
+
+nav {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    ul {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+}
+
+li {
+    width: 100%;
+    list-style: none;
+
+    a {
+        height: 46px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: $color-nav;
+        padding-left: 56px;
+
+        transition:
+            background-color 0.15s ease,
+            transform 0.15s ease;
+
+        &:hover {
+            background-color: $color-nav-hover-bg;
+            transform: translateX(-0.5px);
+        }
+
+        &.active {
+            background-color: $color-nav-aktive-bg;
+            color: $color-nav-high;
+            transform: none;
+            cursor: default;
+
+            .icon-default {
+                display: none;
+            }
+
+            .icon-active {
+                display: block;
+            }
+        }
+
+        img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .icon-active {
+            display: none;
+        }
+    }
+}
+
+.legal-links {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: auto;
+
+    a {
+        color: $color-nav;
+        border-radius: 16px;
+
+        &:hover {
+            color: $color-nav-legal-hover;
+        }
+    }
+}
+
+// adjust media with variable
+@media screen and (max-width: 500px) {
+    .nav-wrapper {
+        width: 100%;
+        height: 80px;
+        padding: 0 clamp(8px, calc(-34.667px + 13.333vw), 16px);
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .logo-nav {
+        width: 100%;
+        height: 100%;
+    }
+
+    nav {
+        width: 100%;
+        height: 100%;
+
+        ul {
+            width: 100%;
+            height: 100%;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            align-items: center;
+            gap: 0;
+
+            li {
+                height: 100%;
+
+                a {
+                    height: 100%;
+                    width: clamp(70px, calc(16.667px + 16.667vw), 80px);
+                    @include mixin.flex-center;
+                    flex-direction: column;
+                    padding: 0;
+                    border-radius: 16px;
+                    font-size: clamp(14px, calc(3.333px + 3.333vw), 16px);
+
+                    img {
+                        width: clamp(20px, calc(-1.333px + 6.667vw), 24px);
+                        height: clamp(20px, calc(-1.333px + 6.667vw), 24px);
+                    }
+                }
+            }
+        }
+    }
+
+    .legal-links {
+        display: none;
+    }
+}
