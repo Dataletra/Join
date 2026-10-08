@@ -1,5 +1,13 @@
+@use '../../elements/button-primary/button-primary.scss' as *;
 .wrapper {
     width: 400px;
     height: 100%;
     background-color: white;
+}
+
+.user-panel {
+    margin: 5px;
+    a {
+        color: blue;
+    }
 }

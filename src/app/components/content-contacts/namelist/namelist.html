@@ -1,17 +1,15 @@
 <div class="wrapper">
-    <button (click)="startapi()">asdasd</button>
-    <!-- <p>{{ dbService.users() | json }}</p> -->
+    <app-button-primary [typeStr]="'addContact'">Add new contact</app-button-primary>
     <div>
-        @for (letterGroup of groupedUsers(); track $index) {
-            @for (username of groupedUsers(); track username[1].length) {
-                <p>{{ letterGroup[$index] }}</p>
-                <p>{{ username[1][2] | json }}</p>
+        @for (entry of groupedUsers(); track entry[0]) {
+            <p>{{ entry[0] }}</p>
+            <hr />
+            @for (user of entry[1]; track user.id) {
+                <div class="user-panel" [attr.id]="'user-' + user.id">
+                    <h5>{{ user.name }}</h5>
+                    <a [attr.href]="'mailto:' + user.email">{{ user.email }}</a>
+                </div>
             }
         }
-        <!-- @for (user of dbService.users(); track $index) {
-            @if (user.name.startsWith('A')) {
-                <p>{{ user.name }}</p>
-            }
-        } -->
     </div>
 </div>
