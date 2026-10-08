@@ -10,8 +10,10 @@
                 <div class="user-item" [attr.id]="'user-' + user.id">
                     <div class="circle-placeholder">AD</div>
                     <div class="flex-column">
-                        <h5>{{ user.name }}</h5>
-                        <a [attr.href]="'mailto:' + user.email">{{ user.email }}</a>
+                        <h5>{{ user.name.length > 20 ? (user.name | slice: 0 : 20) + '...' : user.name }}</h5>
+                        <a [attr.href]="'mailto:' + user.email">{{
+                            user.email.length > 30 ? (user.email | slice: 0 : 30) + '...' : user.email
+                        }}</a>
                     </div>
                 </div>
             }
