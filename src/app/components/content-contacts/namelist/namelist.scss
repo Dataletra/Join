@@ -2,14 +2,18 @@
 @use '../../../../../public/styles/abstract/variables.scss' as *;
 .wrapper {
     width: 400px;
-    height: 100%;
     background-color: white;
-    padding: 25px;
+    height: calc(100svh - 96px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 20px;
 }
 
 .btn-container {
     color: red;
-    margin-bottom: 20px !important;
+    flex-shrink: 0;
+    margin-bottom: 20px;
     width: 100%;
 }
 
@@ -33,6 +37,23 @@
         margin-left: 33px;
         margin-bottom: 20px;
         margin-top: 30px;
+    }
+}
+hr {
+    width: 95%;
+}
+.user-list {
+    flex: 1;
+    overflow-y: auto;
+    margin-right: -18px;
+    padding-right: 8px;
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: #a8a8a8;
+        border-radius: 4px;
     }
 }
 
