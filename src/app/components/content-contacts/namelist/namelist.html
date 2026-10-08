@@ -1,13 +1,18 @@
 <div class="wrapper">
-    <app-button-primary [typeStr]="'addContact'">Add new contact</app-button-primary>
+    <div class="btn-container">
+        <app-button-primary class="add-contact-btn" [typeStr]="'addContact'">Add new contact</app-button-primary>
+    </div>
     <div>
         @for (entry of groupedUsers(); track entry[0]) {
-            <p>{{ entry[0] }}</p>
+            <h5 class="user-item-label">{{ entry[0] }}</h5>
             <hr />
             @for (user of entry[1]; track user.id) {
-                <div class="user-panel" [attr.id]="'user-' + user.id">
-                    <h5>{{ user.name }}</h5>
-                    <a [attr.href]="'mailto:' + user.email">{{ user.email }}</a>
+                <div class="user-item" [attr.id]="'user-' + user.id">
+                    <div class="circle-placeholder">AD</div>
+                    <div class="flex-column">
+                        <h5>{{ user.name }}</h5>
+                        <a [attr.href]="'mailto:' + user.email">{{ user.email }}</a>
+                    </div>
                 </div>
             }
         }

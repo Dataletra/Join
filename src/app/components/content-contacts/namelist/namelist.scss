@@ -1,13 +1,51 @@
 @use '../../elements/button-primary/button-primary.scss' as *;
+@use '../../../../../public/styles/abstract/variables.scss' as *;
 .wrapper {
     width: 400px;
     height: 100%;
     background-color: white;
+    padding: 25px;
 }
 
-.user-panel {
-    margin: 5px;
-    a {
-        color: blue;
+.btn-container {
+    color: red;
+    margin-bottom: 20px !important;
+    width: 100%;
+}
+
+.add-contact-btn {
+    width: 100%;
+    .btn-container {
+        width: 100%;
     }
+}
+
+.user-item {
+    margin: 20px;
+    a {
+        color: $color-high-2;
+        font-size: 14px;
+    }
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    &-label {
+        margin-left: 33px;
+        margin-bottom: 20px;
+        margin-top: 30px;
+    }
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.circle-placeholder {
+    width: 35px;
+    height: 35px;
+    background-color: orange;
+    border: 1px solid red;
+    border-radius: 50%;
+    text-align: center;
 }
