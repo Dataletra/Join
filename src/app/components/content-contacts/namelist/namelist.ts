@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { Supabase } from '../../../services/supabase';
 import { JsonPipe } from '@angular/common';
 import { IUser } from '../../../interfaces/iuser';
@@ -17,6 +17,7 @@ export class Namelist {
         this.userList = this.dbService.users();
         console.log(this.userList);
         this.sortUsers();
+        console.warn(this.groupedUsers());
     }
 
     sortUsers() {
@@ -25,4 +26,20 @@ export class Namelist {
         }
         this.userList.sort((a, b) => a.name.localeCompare(b.name));
     }
+
+    groupedUsers = () => {
+        if (!this.userList) {
+            return;
+        }
+
+        const userMap = new Map<string, IUser[]>();
+        for (const user of this.userList) {
+            const firstLetter = user.name.charAt(0).toUpperCase();
+            if (!userMap.has(firstLetter)) {
+                userMap.set(firstLetter, []);
+            }
+            userMap.get(firstLetter)?.push(user);
+        }
+        return userMap.entries();
+    };
 }

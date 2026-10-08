@@ -2,8 +2,16 @@
     <button (click)="startapi()">asdasd</button>
     <!-- <p>{{ dbService.users() | json }}</p> -->
     <div>
-        @for (user of dbService.users(); track $index) {
-            <p>{{ user.name }}</p>
+        @for (letterGroup of groupedUsers(); track $index) {
+            @for (username of groupedUsers(); track username[1].length) {
+                <p>{{ letterGroup[$index] }}</p>
+                <p>{{ username[1][2] | json }}</p>
+            }
         }
+        <!-- @for (user of dbService.users(); track $index) {
+            @if (user.name.startsWith('A')) {
+                <p>{{ user.name }}</p>
+            }
+        } -->
     </div>
 </div>
