@@ -1,12 +1,5 @@
 @use '../../public/styles/abstract/variables.scss' as *;
 
-// TODO DELETE ME
-app-nav-bar {
-    background-color: $color-base;
-    width: 232px;
-    height: 100svh;
-}
-
 .header-content-wrapper {
     display: flex;
     flex-direction: column;
