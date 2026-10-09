@@ -1,0 +1,112 @@
+@use '../../elements/button-primary/button-primary.scss' as *;
+@use '../../../../../public/styles/abstract/variables.scss' as *;
+
+.wrapper {
+    width: 400px;
+    background-color: white;
+    height: calc(100svh - 96px);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 20px;
+    position: relative;
+}
+
+.btn-container {
+    color: red;
+    flex-shrink: 0;
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 680px) {
+    .btn-container {
+        position: absolute;
+        bottom: 0;
+        right: 5%;
+    }
+}
+
+.user-item {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    padding-inline: 24px;
+    transition: 0.2s ease;
+    border-radius: 10px;
+    margin: 20px;
+    margin-left: 0px;
+    align-items: center;
+    height: 80px;
+
+    .email {
+        color: #007cee;
+        font-size: 15px;
+        margin-top: 3px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        max-width: 240px;
+    }
+
+    &-label {
+        margin-left: 33px;
+        margin-bottom: 20px;
+        margin-top: 30px;
+    }
+
+    .username {
+        transition: 0.2s ease;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        max-width: 240px;
+    }
+
+    &:hover {
+        background-color: $color-high-1;
+        cursor: pointer;
+        transition: 0.2s ease;
+        .username {
+            color: white;
+            transition: 0.2s ease;
+        }
+    }
+
+    &:active {
+        background-color: $color-base;
+        transition: 0.2s ease;
+    }
+}
+
+hr {
+    width: 95%;
+}
+
+.user-list {
+    flex: 1;
+    overflow-y: auto;
+    margin-right: -18px;
+    padding-right: 8px;
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: #a8a8a8;
+        border-radius: 4px;
+    }
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.circle-placeholder {
+    width: 35px;
+    height: 35px;
+    background-color: orange;
+    border: 1px solid red;
+    border-radius: 50%;
+    text-align: center;
+    min-width: 35px;
+}

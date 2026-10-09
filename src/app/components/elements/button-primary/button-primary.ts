@@ -16,6 +16,7 @@ enum BtnType {
     templateUrl: './button-primary.html',
 })
 export class ButtonPrimary {
+    readonly widthStr = input<string>('auto');
     readonly typeStr = input<string>(BtnType.Dark);
     btnSrc = new Map<string, string>([
         ['dark', ''],
