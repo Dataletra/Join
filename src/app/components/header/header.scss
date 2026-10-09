@@ -13,8 +13,8 @@
 }
 
 .header-user {
-    width: 56px;
-    height: 56px;
+    width: clamp-px(40, 56);
+    height: clamp-px(40, 56);
 }
 
 .header-nav {
@@ -36,6 +36,7 @@
 }
 
 @media screen and (max-width: $media-sm) {
+    .btn-help,
     .header-title {
         display: none;
     }
