@@ -1,5 +1,4 @@
 import { Service, signal } from '@angular/core';
-import { email } from '@angular/forms/signals';
 import { createClient } from '@supabase/supabase-js';
 import { IUser } from '../interfaces/iuser';
 
