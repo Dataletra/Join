@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, output } from '@angular/core';
 import { Supabase } from '../../../services/supabase';
 import { TitleCasePipe } from '@angular/common';
 import { IUser } from '../../../interfaces/iuser';
@@ -12,6 +12,7 @@ import { IcContact } from '../../elements/ic-contact/ic-contact';
     templateUrl: './namelist.html',
 })
 export class Namelist {
+    selectedUserID = output<number>();
     dbService = inject(Supabase);
     userList: IUser[] | null = [];
 
@@ -46,4 +47,8 @@ export class Namelist {
         }
         return userMap;
     });
+
+    selectUser(id: number) {
+        this.dbService.selectedUserID.set(id);
+    }
 }

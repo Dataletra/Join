@@ -9,6 +9,7 @@ export class Supabase {
     supabase = createClient(this.supabaseUrl, this.supabaseKey);
 
     users = signal<IUser[]>([]);
+    selectedUserID = signal<number | null>(null);
 
     async getUsers() {
         let { data: user, error } = await this.supabase.from('user').select('*');

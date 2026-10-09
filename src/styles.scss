@@ -99,7 +99,9 @@ button {
         flex-direction: column;
     }
 }
-
+app-content-contacts {
+    display: flex;
+}
 app-content-contacts,
 app-content-board,
 app-content-summary,

@@ -9,7 +9,7 @@
             <h5 class="user-item-label">{{ entry[0] }}</h5>
             <hr />
             @for (user of entry[1]; track user.id) {
-                <div class="user-item" [attr.id]="'user-' + user.id">
+                <div class="user-item" [attr.id]="'user-' + user.id" (click)="selectUser(user.id)">
                     <app-ic-contact class="user-ic" [name]="user.name"></app-ic-contact>
                     <div class="flex-column">
                         <h5 class="username">
