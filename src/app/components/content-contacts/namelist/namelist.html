@@ -10,7 +10,7 @@
             <hr />
             @for (user of entry[1]; track user.id) {
                 <div class="user-item" [attr.id]="'user-' + user.id">
-                    <div class="circle-placeholder">AD</div>
+                    <app-ic-contact class="user-ic" [name]="user.name"></app-ic-contact>
                     <div class="flex-column">
                         <h5 class="username">
                             {{ user.name | titlecase }}
