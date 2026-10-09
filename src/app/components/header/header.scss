@@ -1,0 +1,46 @@
+@use '../../../../public/styles/abstract/variables.scss' as *;
+@use '../../../../public/styles/abstract/functions.scss' as *;
+
+:host {
+    width: 100%;
+    height: $height-header;
+    min-height: $height-header;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: clamp-px(16, 96);
+    padding-right: clamp-px(16, 40);
+}
+
+.header-user {
+    width: 56px;
+    height: 56px;
+}
+
+.header-nav {
+    display: flex;
+    gap: 16px;
+}
+
+.btn-help {
+    transition: all 100ms ease-in-out;
+    &:hover {
+        transform: scale(1.2);
+    }
+}
+
+.logo-mobile {
+    width: 32px;
+    height: 40px;
+    display: none;
+}
+
+@media screen and (max-width: $media-sm) {
+    .header-title {
+        display: none;
+    }
+
+    .logo-mobile {
+        display: block;
+    }
+}

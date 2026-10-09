@@ -37,4 +37,9 @@
         color: $color-high-1;
     }
     border: 3px solid $color-base;
+
+    &:hover {
+        background-color: #0c2e621f !important;
+        cursor: pointer;
+    }
 }

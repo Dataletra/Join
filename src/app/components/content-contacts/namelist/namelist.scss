@@ -4,7 +4,7 @@
 .wrapper {
     width: 400px;
     background-color: white;
-    height: calc(100svh - 96px);
+    height: calc(100svh - $height-header);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -19,7 +19,11 @@
     margin-bottom: 20px;
 }
 
-@media screen and (max-width: 680px) {
+@media screen and (max-width: $media-sm) {
+    .wrapper {
+        height: calc(100svh - $height-header - $height-footer);
+    }
+
     .btn-container {
         position: absolute;
         bottom: 0;
@@ -80,9 +84,9 @@
 }
 
 .user-ic {
-    width: 42px; 
-    height: 42px; 
-    min-width: 42px; 
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
 }
 
 hr {
