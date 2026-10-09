@@ -1,0 +1,9 @@
+<div
+    class="ic-contact"
+    [class.enable-shadow]="enableShadow()"
+    [class.is-header]="isHeader()"
+    [style.background-color]="isHeader() ? 'transparent' : isDummy() ? '#d1d1d1' : colorStr"
+>
+    <p [class.d-none]="isDummy()" class="ic-contact__p">{{ initials }}</p>
+    <img [class.d-none]="!isDummy()" src="./assets/icons/person-white.svg" alt="person symbol" />
+</div>

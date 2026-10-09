@@ -1,11 +1,12 @@
 import { Component, computed, inject } from '@angular/core';
 import { Supabase } from '../../../services/supabase';
-import { SlicePipe, TitleCasePipe } from '@angular/common';
+import { TitleCasePipe } from '@angular/common';
 import { IUser } from '../../../interfaces/iuser';
 import { ButtonPrimary } from '../../elements/button-primary/button-primary';
+import { IcContact } from '../../elements/ic-contact/ic-contact';
 
 @Component({
-    imports: [ButtonPrimary, SlicePipe, TitleCasePipe],
+    imports: [ButtonPrimary, TitleCasePipe, IcContact],
     selector: 'app-namelist',
     styleUrl: './namelist.scss',
     templateUrl: './namelist.html',

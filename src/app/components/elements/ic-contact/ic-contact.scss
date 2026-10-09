@@ -1,0 +1,40 @@
+@use '../../../../../public/styles/abstract/variables.scss' as *;
+@use '../../../../../public/styles/abstract/mixin.scss' as *;
+
+:host {
+    display: block;
+    container-type: size;
+}
+
+.ic-contact {
+    @include flex-center;
+    container-type: size;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+
+    border: clamp(1px, 5cqh, 3px) solid white;
+
+    &__p {
+        @include flex-center;
+
+        color: white;
+        font-size: max(42cqh, 16px);
+    }
+
+    > img {
+        width: 37cqh;
+        height: 37cqh;
+    }
+}
+
+.enable-shadow {
+    box-shadow: 0 0 4px 0 #00000066;
+}
+
+.is-header {
+    .ic-contact__p {
+        color: $color-high-1;
+    }
+    border: 3px solid $color-base;
+}

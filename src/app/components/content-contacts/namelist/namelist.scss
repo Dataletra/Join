@@ -49,7 +49,7 @@
     }
 
     &-label {
-        margin-left: 33px;
+        margin-left: 37px;
         margin-bottom: 20px;
         margin-top: 30px;
     }
@@ -76,6 +76,12 @@
         background-color: $color-base;
         transition: 0.2s ease;
     }
+}
+
+.user-ic {
+    width: 42px; 
+    height: 42px; 
+    min-width: 42px; 
 }
 
 hr {
