@@ -1,0 +1,24 @@
+<div class="wrapper">
+    <div class="btn-container">
+        <app-button-primary class="add-contact-btn" [typeStr]="'addContact'" [widthStr]="'100%'"
+            >Add new contact</app-button-primary
+        >
+    </div>
+    <div class="user-list">
+        @for (entry of groupedUsers(); track entry[0]) {
+            <h5 class="user-item-label">{{ entry[0] }}</h5>
+            <hr />
+            @for (user of entry[1]; track user.id) {
+                <div class="user-item" [attr.id]="'user-' + user.id">
+                    <div class="circle-placeholder">AD</div>
+                    <div class="flex-column">
+                        <h5 class="username">
+                            {{ user.name | titlecase }}
+                        </h5>
+                        <a class="email" [attr.href]="'mailto:' + user.email">{{ user.email }}</a>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
