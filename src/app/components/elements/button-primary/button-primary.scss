@@ -10,6 +10,9 @@
     background-color: $color-base;
     border-radius: 10px;
     border: 1px solid $color-base;
+    outline: 1px solid transparent;
+    box-shadow: 0 4px 4px 0 transparent;
+
     gap: 4px;
     transition: all 100ms ease-in-out;
 
@@ -45,10 +48,6 @@
 
     .btn-primary__img {
         display: none;
-    }
-
-    &:hover {
-        border: 2px solid $color-high-1;
     }
 }
 
@@ -105,8 +104,10 @@
     gap: 16px;
 }
 
+.btn-light:hover,
 .btn-cancel:hover {
-    border: 2px solid $color-high-1;
+    border: 1px solid $color-high-1;
+    outline: 1px solid $color-high-1;
 }
 
 .btn-dark,
