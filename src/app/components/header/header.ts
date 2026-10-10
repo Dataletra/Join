@@ -15,8 +15,16 @@ export class Header {
             navRef.classList.remove('move-out');
             navRef.classList.add('move-in');
         } else if (navRef) {
-          navRef.classList.add('move-out');
-          navRef.classList.remove('move-in');
+            navRef.classList.add('move-out');
+            navRef.classList.remove('move-in');
+        }
+    }
+
+    hideMenu() {
+        const navRef = document.getElementById('user-menu');
+        if (navRef?.classList.contains('move-in')) {
+            navRef.classList.add('move-out');
+            navRef.classList.remove('move-in');
         }
     }
 }
