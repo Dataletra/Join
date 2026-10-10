@@ -1,7 +1,9 @@
 @use '../../../../public/styles/abstract/variables.scss' as *;
 @use '../../../../public/styles/abstract/functions.scss' as *;
+@use '../../../../public/styles/abstract/keyframes.scss' as *;
 
 :host {
+    position: relative;
     width: 100%;
     height: $height-header;
     min-height: $height-header;
@@ -22,6 +24,10 @@
     gap: 16px;
 }
 
+.header-title {
+    font-size: clamp-px(16, 20);
+}
+
 .btn-help {
     transition: all 100ms ease-in-out;
     &:hover {
@@ -35,6 +41,60 @@
     display: none;
 }
 
+.user-menu-wrapper {
+    position: absolute;
+    width: 100%;
+    height: calc(3 * 46px + 20px);
+    bottom: 0;
+    left: 0;
+    transform: translateY(100%);
+    overflow: hidden;
+}
+
+.user-menu {
+    position: absolute;
+    list-style-type: none;
+    background-color: $color-base;
+    padding: 10px;
+    border-radius: 20px;
+    border-top-right-radius: 0;
+
+    top: 0;
+    right: 0;
+    transform: translateX(100%);
+    opacity: 0;
+
+    a {
+        color: $color-popup;
+    }
+
+    li {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        border-radius: 15px;
+        width: 130px;
+        height: 46px;
+        padding-left: 16px;
+
+        &:hover {
+            background-color: $color-nav-hover-bg;
+        }
+    }
+
+    .help-mobile {
+        display: none;
+    }
+}
+
+.move_in {
+    animation: moveInLeft 100ms ease-out forwards;
+}
+
+.move_out {
+    animation: moveOutRight 100ms ease-out forwards;
+}
+
 @media screen and (max-width: $media-sm) {
     .btn-help,
     .header-title {
@@ -43,5 +103,15 @@
 
     .logo-mobile {
         display: block;
+    }
+
+    .user-menu-wrapper {
+        height: calc(4 * 46px + 20px);
+    }
+
+    .user-menu {
+        .help-mobile {
+            display: flex;
+        }
     }
 }
