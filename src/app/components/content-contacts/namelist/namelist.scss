@@ -98,11 +98,12 @@ hr {
     overflow-y: auto;
     margin-right: -18px;
     padding-right: 8px;
+    
     &::-webkit-scrollbar {
         width: 6px;
     }
     &::-webkit-scrollbar-thumb {
-        background-color: #a8a8a8;
+        background-color: $color-scrollbar-thumb;
         border-radius: 4px;
     }
 }
