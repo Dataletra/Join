@@ -4,6 +4,7 @@ import { TitleCasePipe } from '@angular/common';
 import { IUser } from '../../../interfaces/iuser';
 import { ButtonPrimary } from '../../elements/button-primary/button-primary';
 import { IcContact } from '../../elements/ic-contact/ic-contact';
+import { ContactDialog } from '../../../services/contact-dialog';
 
 @Component({
     imports: [ButtonPrimary, TitleCasePipe, IcContact],
@@ -14,6 +15,7 @@ import { IcContact } from '../../elements/ic-contact/ic-contact';
 export class Namelist {
     dbService = inject(Supabase);
     userList: IUser[] | null = [];
+    dialogService = inject(ContactDialog);
 
     ngOnInit() {
         this.fetchUsers();
