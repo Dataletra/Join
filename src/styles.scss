@@ -1,6 +1,7 @@
 @use '../public/styles/abstract/variables.scss' as *;
 @use '../public/styles/abstract/fonts.scss' as *;
 @use '../public/styles/abstract/mixin.scss' as mixin;
+@use '../public/styles/abstract/functions.scss' as fn;
 
 * {
     margin: 0;
@@ -51,7 +52,7 @@ h2 {
 }
 
 h3 {
-    font-size: 61px;
+    font-size: fn.clamp-px(47, 61);
     font-weight: 700;
 }
 
@@ -90,17 +91,9 @@ button {
     }
 }
 
-app-content-contacts,
-app-content-board,
-app-content-summary,
-app-content-tasks {
-    background-color: gray;
-    width: 100%;
-    height: 100%;
-}
-
 @media screen and (max-width: $media-sm) {
     app-root {
         flex-direction: column;
+        justify-content: space-between;
     }
 }

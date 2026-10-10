@@ -1,0 +1,60 @@
+@use '../../../../public/styles/abstract/variables.scss' as *;
+@use '../../../../public/styles/abstract/functions.scss' as *;
+
+:host {
+    display: block;
+    height: 100%;
+    width: 100%;
+    padding-right: 8px;
+}
+
+article {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    gap: 24px;
+
+    padding: clamp-px(48, 116) clamp-px(16, 96);
+
+    &::-webkit-scrollbar {
+        width: clamp-px(4, 15);
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #a8a8a8;
+        border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: $color-light-gray;
+    }
+    overflow-y: auto;
+}
+
+.hl-1 {
+    color: $color-high-1;
+}
+
+h4,
+h5 {
+    font-weight: 700;
+}
+
+h4,
+li {
+    margin-bottom: 16px;
+}
+
+table {
+    margin-top: 16px;
+
+    td {
+        vertical-align: top;
+        padding-bottom: 16px;
+    }
+
+    td:first-child {
+        padding-right: 35px;
+    }
+}
