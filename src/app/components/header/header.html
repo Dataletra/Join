@@ -1,7 +1,9 @@
 <img class="logo-mobile show-mobile" src="./assets/icons/favicon-dark.svg" alt="join logo" />
 <h5 class="header-title">Kanban Project Management Tool</h5>
 <nav class="header-nav">
-    <button [routerLink]="['help']" class="btn-help"><img src="./assets/icons/help.svg" alt="help-icon" /></button>
+    <button [routerLink]="['help']" class="btn-help" (click)="hideMenu()">
+        <img src="./assets/icons/help.svg" alt="help-icon" />
+    </button>
     <app-ic-contact (click)="toggleMenu()" class="header-user" [name]="'TODO NAME'" [isHeader]="true"></app-ic-contact>
 </nav>
 <div class="user-menu-wrapper">
