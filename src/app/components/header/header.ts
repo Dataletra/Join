@@ -10,12 +10,12 @@ import { IcContact } from '../elements/ic-contact/ic-contact';
 export class Header {
     toggleMenu() {
         const navRef = document.getElementById('user-menu');
-        if (navRef?.classList.contains('move_out')) {
-            navRef.classList.remove('move_out');
-            navRef.classList.add('move_in');
+        if (navRef?.classList.contains('move-out')) {
+            navRef.classList.remove('move-out');
+            navRef.classList.add('move-in');
         } else if (navRef) {
-          navRef.classList.add('move_out');
-          navRef.classList.remove('move_in');
+          navRef.classList.add('move-out');
+          navRef.classList.remove('move-in');
         }
     }
 }

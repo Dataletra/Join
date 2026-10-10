@@ -1,0 +1,11 @@
+.d-none {
+    display: none !important;
+}
+
+.move-in {
+    animation: moveInLeft 100ms ease-out forwards;
+}
+
+.move-out {
+    animation: moveOutRight 100ms ease-out forwards;
+}

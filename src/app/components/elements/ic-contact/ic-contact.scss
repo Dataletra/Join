@@ -1,5 +1,6 @@
 @use '../../../../../public/styles/abstract/variables.scss' as *;
 @use '../../../../../public/styles/abstract/mixin.scss' as *;
+@use '../../../../../public/styles/abstract/helpers.scss' as *;
 
 :host {
     display: block;

@@ -1,6 +1,7 @@
 @use '../../../../public/styles/abstract/variables.scss' as *;
 @use '../../../../public/styles/abstract/functions.scss' as *;
 @use '../../../../public/styles/abstract/keyframes.scss' as *;
+@use '../../../../public/styles/abstract/helpers.scss' as *;
 
 :host {
     position: relative;
@@ -12,6 +13,8 @@
     align-items: center;
     padding-left: clamp-px(16, 96);
     padding-right: clamp-px(16, 40);
+    box-shadow: (0 4px 4px 0 rgba(0, 0, 0, 0.1));
+    z-index: 2;
 }
 
 .header-user {
@@ -60,7 +63,7 @@
     border-top-right-radius: 0;
 
     top: 0;
-    right: 0;
+    right: clamp-px(8, 20);
     transform: translateX(100%);
     opacity: 0;
 
@@ -85,14 +88,6 @@
     .help-mobile {
         display: none;
     }
-}
-
-.move_in {
-    animation: moveInLeft 100ms ease-out forwards;
-}
-
-.move_out {
-    animation: moveOutRight 100ms ease-out forwards;
 }
 
 @media screen and (max-width: $media-sm) {
