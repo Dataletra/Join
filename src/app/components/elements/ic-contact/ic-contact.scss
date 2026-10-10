@@ -1,5 +1,6 @@
 @use '../../../../../public/styles/abstract/variables.scss' as *;
 @use '../../../../../public/styles/abstract/mixin.scss' as *;
+@use '../../../../../public/styles/abstract/helpers.scss' as *;
 
 :host {
     display: block;
@@ -12,12 +13,10 @@
     width: 100%;
     height: 100%;
     border-radius: 50%;
-
     border: clamp(1px, 5cqh, 3px) solid white;
 
     &__p {
         @include flex-center;
-
         color: white;
         font-size: max(42cqh, 16px);
     }
@@ -35,6 +34,13 @@
 .is-header {
     .ic-contact__p {
         color: $color-high-1;
+        font-weight: 700;
+        line-height: 100%;
     }
     border: 3px solid $color-base;
+
+    &:hover {
+        background-color: #0c2e621f !important;
+        cursor: pointer;
+    }
 }

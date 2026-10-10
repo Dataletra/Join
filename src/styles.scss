@@ -1,6 +1,7 @@
 @use '../public/styles/abstract/variables.scss' as *;
 @use '../public/styles/abstract/fonts.scss' as *;
 @use '../public/styles/abstract/mixin.scss' as mixin;
+@use '../public/styles/abstract/functions.scss' as fn;
 
 * {
     margin: 0;
@@ -23,6 +24,13 @@ app-root {
     justify-content: flex-start;
     width: 100%;
     height: 100%;
+    min-height: calc($height-footer + $height-header);
+}
+
+@media screen and (max-width: $media-sm) {
+    app-root {
+        flex-direction: column;
+    }
 }
 
 h1,
@@ -51,7 +59,7 @@ h2 {
 }
 
 h3 {
-    font-size: 61px;
+    font-size: fn.clamp-px(47, 61);
     font-weight: 700;
 }
 
@@ -88,23 +96,4 @@ button {
         -webkit-user-drag: none;
         user-select: none;
     }
-}
-
-.d-none {
-    display: none !important;
-}
-
-@media screen and (max-width: 500px) {
-    app-root {
-        flex-direction: column;
-    }
-}
-
-app-content-contacts,
-app-content-board,
-app-content-summary,
-app-content-tasks {
-    background-color: gray;
-    width: 100%;
-    height: 100%;
 }
