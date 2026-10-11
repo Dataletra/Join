@@ -1,6 +1,32 @@
 <dialog #addContact class="add-contact" closedby="any" (close)="dialogService.close()">
     <div class="dialog-wrapper">
-        <section class="sec-title">dssasadsa</section>
-        <section class="sec-forms"></section>
+        <section class="sec-title">
+            <div class="title_wrapper">
+                <img src="./assets/icons/logo.svg" alt="Join" />
+                <h1>Add contact</h1>
+                <h2>Tasks are better with a team!</h2>
+                <hr />
+            </div>
+        </section>
+        <section class="sec-forms">
+            <app-ic-contact
+                class="avatar"
+                [name]="'Max Muster'"
+                [enableShadow]="true"
+                [isDummy]="true"
+            ></app-ic-contact>
+            <div class="forms-wrapper">
+                <button><img src="./assets/icons/close.svg" aria-hidden="true" /></button>
+                <div class="forms-input">
+                    <input type="text" />
+                    <input type="text" />
+                    <input type="text" />
+                </div>
+                <div class="forms-buttons">
+                    <button>cancel</button>
+                    <button>create contact</button>
+                </div>
+            </div>
+        </section>
     </div>
 </dialog>

@@ -1,6 +1,9 @@
+@use '../../../../../public/styles/abstract/variables.scss' as *;
+@use '../../../../../public/styles/abstract/mixin.scss';
+
 dialog {
-    width: 85%;
-    height: 70%;
+    width: 90%;
+    height: 58%;
     margin: auto;
     border-radius: 30px;
     border: none;
@@ -17,13 +20,66 @@ section {
 }
 
 .sec-title {
-    width: 38.5%;
+    width: 40%;
     height: 100%;
-    background-color: red;
+    background-color: $color-base;
+
+    .title_wrapper {
+        position: absolute;
+        top: 25%;
+    }
+
+    img {
+        width: 55px;
+        height: 66.5px;
+        margin-bottom: 12px;
+    }
+
+    h1 {
+        font-size: 61px;
+        color: $color-nav-high;
+        margin-bottom: 8px;
+    }
+
+    h2 {
+        font-size: 27px;
+        color: $color-nav-high;
+        margin-bottom: 16px;
+    }
+
+    hr {
+        width: 90px;
+        border: 1px solid $color-high-2;
+    }
 }
 
 .sec-forms {
-    width: 61.5%;
+    width: 60%;
     height: 100%;
-    background-color: blue;
+    display: flex;
+    justify-content: space-between;
+
+    .avatar {
+        width: 120px;
+        height: 120px;
+    }
+}
+
+.forms-wrapper {
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    background-color: red;
+
+    .forms-input {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+    }
+
+    .forms-buttons {
+        display: flex;
+    }
 }

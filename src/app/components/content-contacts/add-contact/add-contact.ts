@@ -1,8 +1,9 @@
 import { Component, inject, viewChild, ElementRef, effect } from '@angular/core';
 import { ContactDialog } from '../../../services/contact-dialog';
+import { IcContact } from '../../elements/ic-contact/ic-contact';
 
 @Component({
-    imports: [],
+    imports: [IcContact],
     selector: 'app-add-contact',
     styleUrl: './add-contact.scss',
     templateUrl: './add-contact.html',
