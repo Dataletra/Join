@@ -34,7 +34,7 @@ export class IcContact {
             .toUpperCase()
             .split(' ')
             .filter((word: string) => word !== '');
-        this.initials = words[0].charAt(0) + words[words.length - 1].charAt(0);
+        this.initials = words.length > 1 ? words[0].charAt(0) + words[words.length - 1].charAt(0) : words[0].charAt(0);
         this.colorStr = iconColors[this.getColorIndex(this.name())];
     }
 
