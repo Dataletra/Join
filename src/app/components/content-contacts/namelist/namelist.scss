@@ -83,6 +83,14 @@
     }
 }
 
+.selected {
+    .username {
+        color: white;
+    }
+    background-color: $color-high-1;
+    transition: 0.2s ease;
+}
+
 .user-ic {
     width: 42px;
     height: 42px;
@@ -98,7 +106,7 @@ hr {
     overflow-y: auto;
     margin-right: -18px;
     padding-right: 8px;
-    
+
     &::-webkit-scrollbar {
         width: 6px;
     }
