@@ -1,0 +1,55 @@
+@use '../../../../../public/styles/abstract/variables.scss' as *;
+.wrapper {
+    padding: 50px;
+}
+
+.title {
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    h2 {
+        color: $color-high-2;
+    }
+}
+
+.detailed-view {
+    height: 400px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 35px;
+}
+
+.user-ic {
+    height: 130px;
+    min-width: 130px;
+}
+
+.user-container {
+    display: flex;
+    align-items: center;
+    gap: 60px;
+}
+
+.name-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.button-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+.contact-container {
+    // margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
