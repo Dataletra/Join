@@ -13,6 +13,7 @@ import { IcContact } from '../../elements/ic-contact/ic-contact';
 })
 export class Namelist {
     selectedUserID = output<number>();
+    isUserSelected = output<boolean>();
     dbService = inject(Supabase);
     userList: IUser[] | null = [];
 
@@ -50,5 +51,6 @@ export class Namelist {
 
     selectUser(id: number) {
         this.dbService.selectedUserID.set(id);
+        this.isUserSelected.emit(true);
     }
 }

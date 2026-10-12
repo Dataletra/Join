@@ -27,8 +27,15 @@
 @media screen and (max-width: $media-m) {
     .wrapper {
         height: $height-content-mobile;
+        width: 100% !important;
     }
-
+    .user-list {
+        width: 100% !important;
+    }
+    .username,
+    .email {
+        max-width: clamp-px(170, 430, 560, 320) !important;
+    }
     .btn-container {
         position: absolute;
         bottom: 0;

@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, input } from '@angular/core';
+import { Component, computed, inject, input, signal, output } from '@angular/core';
 import { Supabase } from '../../../services/supabase';
 import { IUser } from '../../../interfaces/iuser';
 import { IcContact } from '../../elements/ic-contact/ic-contact';
@@ -11,12 +11,15 @@ import { TitleCasePipe } from '@angular/common';
     templateUrl: './main-view.html',
 })
 export class MainView {
+    readonly incomingSelectedViewStatus = input<boolean | null>();
+    hideMainViewSignal = output<boolean>();
     dbService = inject(Supabase);
 
     selectedUser = computed(() => {
         return this.dbService.users().find((u) => u.id === this.dbService.selectedUserID()) ?? null;
     });
-    NgOnInit() {
-        console.log('hi');
+
+    hideMainView() {
+        this.hideMainViewSignal.emit(true);
     }
 }

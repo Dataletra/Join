@@ -1,1 +1,8 @@
-<div class="display-flex"><app-namelist></app-namelist><app-main-view></app-main-view></div>
+<app-namelist (isUserSelected)="handleUserSelectedStatus($event)"></app-namelist>
+
+<app-main-view
+    [incomingSelectedViewStatus]="showMainView()"
+    (hideMainViewSignal)="showMainView.set(false)"
+    [class.d-none]="!showMainView()"
+>
+</app-main-view>
