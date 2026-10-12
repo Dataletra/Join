@@ -25,7 +25,6 @@ export class Header {
     hideMenu() {
         const navRef = document.getElementById('user-menu');
         if (navRef?.classList.contains('move-in')) {
-            document.getElementById('user-menu-wrapper')?.classList.add('d-none');
             navRef.classList.add('move-out');
             navRef.classList.remove('move-in');
             setTimeout(() => {
