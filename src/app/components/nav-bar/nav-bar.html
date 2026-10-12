@@ -27,7 +27,7 @@
                     </a>
                 </li>
                 <li>
-                    <a routerLink="" routerLinkActive="active">
+                    <a routerLink="contacts" routerLinkActive="active">
                         <img class="icon-default" src="./assets/icons/contact-calendar.svg" aria-hidden="true" />
                         <img class="icon-active" src="./assets/icons/contact-calendar-active.svg" aria-hidden="true" />
                         Contacts
@@ -38,7 +38,7 @@
     </div>
 
     <div class="legal-links">
-        <a href="">Privacy Policy</a>
-        <a href="">Legal notice</a>
+        <a [routerLink]="['privacy-policy']">Privacy Policy</a>
+        <a [routerLink]="['legal-notice']">Legal notice</a>
     </div>
 </div>
