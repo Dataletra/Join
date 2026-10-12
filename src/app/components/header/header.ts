@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { IcContact } from '../elements/ic-contact/ic-contact';
 import { RouterLink } from '@angular/router';
 
@@ -9,27 +9,25 @@ import { RouterLink } from '@angular/router';
     templateUrl: './header.html',
 })
 export class Header {
+    showMenu = signal<boolean>(false);
+    enableMenuWrapper = signal<boolean>(false);
+
     toggleMenu() {
-        const navRef = document.getElementById('user-menu');
-        if (navRef?.classList.contains('move-out')) {
-            document.getElementById('user-menu-wrapper')?.classList.remove('d-none');
-            navRef.classList.remove('move-out');
-            navRef.classList.add('move-in');
-        } else if (navRef) {
-            document.getElementById('user-menu-wrapper')?.classList.add('d-none');
-            navRef.classList.add('move-out');
-            navRef.classList.remove('move-in');
+        if (false === this.showMenu()) {
+            this.showMenu.set(true);
+            this.enableMenuWrapper.set(true);
+        } else {
+            this.showMenu.set(false);
+            setTimeout(() => {
+                this.enableMenuWrapper.set(false);
+            }, 100);
         }
     }
 
     hideMenu() {
-        const navRef = document.getElementById('user-menu');
-        if (navRef?.classList.contains('move-in')) {
-            navRef.classList.add('move-out');
-            navRef.classList.remove('move-in');
-            setTimeout(() => {
-                document.getElementById('user-menu-wrapper')?.classList.add('d-none');
-            }, 100);
-        }
+        this.showMenu.set(false);
+        setTimeout(() => {
+            this.enableMenuWrapper.set(false);
+        }, 100);
     }
 }
