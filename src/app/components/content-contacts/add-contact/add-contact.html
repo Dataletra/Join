@@ -21,28 +21,64 @@
             </div>
             <div class="forms-wrapper">
                 <button class="close-desk"><img src="./assets/icons/close.svg" aria-hidden="true" /></button>
-                <div class="forms-input">
-                    <input class="input-name" type="text" placeholder="Name" />
-                    <div class="check-wrapper">
-                        <p class="form-check">test test test</p>
-                    </div>
+                <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                    <div class="forms-input">
+                        <input class="input-name" type="text" placeholder="Name" formControlName="name" />
+                        <div class="check-wrapper">
+                            <p
+                                class="form-check"
+                                [class.is-visible]="
+                                    contactForm.controls.name.invalid &&
+                                    (contactForm.controls.name.touched || contactForm.controls.name.dirty)
+                                "
+                            >
+                                @if (contactForm.controls.name.hasError('required')) {
+                                    Please enter a name.
+                                } @else if (contactForm.controls.name.hasError('minlength')) {
+                                    Name must contain at least 3 characters.
+                                }
+                            </p>
+                        </div>
 
-                    <input class="input-email" type="email" placeholder="Email" />
-                    <div class="check-wrapper">
-                        <p class="form-check">test test test</p>
-                    </div>
+                        <input class="input-email" type="email" placeholder="Email" formControlName="email" />
+                        <div class="check-wrapper">
+                            <p
+                                class="form-check"
+                                [class.is-visible]="
+                                    contactForm.controls.email.invalid &&
+                                    (contactForm.controls.email.touched || contactForm.controls.email.dirty)
+                                "
+                            >
+                                test test test
+                            </p>
+                        </div>
 
-                    <input class="input-number" type="number" placeholder="Phone" />
-                    <div class="check-wrapper">
-                        <p class="form-check">test test test</p>
+                        <input class="input-number" type="number" placeholder="Phone" formControlName="phone" />
+                        <div class="check-wrapper">
+                            <p
+                                class="form-check"
+                                [class.is-visible]="
+                                    contactForm.controls.phone.invalid &&
+                                    (contactForm.controls.phone.touched || contactForm.controls.phone.dirty)
+                                "
+                            >
+                                test test test
+                            </p>
+                        </div>
                     </div>
-                </div>
+                </form>
                 <div class="forms-buttons">
                     <!-- TODO adjust button width -->
                     <app-button-primary class="cancel-btn" [typeStr]="'cancel'" /* [widthStr]="'126px'" */
                         >Cancel</app-button-primary
                     >
-                    <app-button-primary class="create-btn" [typeStr]="'createTask'" /* [widthStr]="'222px'" */
+                    <app-button-primary
+                        class="create-btn"
+                        [typeStr]="'createTask'"
+                        type="submit"
+                        /* TODO add disabled in button-primary */
+                        /* [disabled]="contactForm.invalid" */
+                        /* [widthStr]="'222px'" */
                         >Create contact</app-button-primary
                     >
                 </div>

@@ -91,6 +91,10 @@ section {
     flex-direction: column;
     align-items: end;
 
+    form {
+        width: 100%;
+    }
+
     .close-desk {
         width: 24px;
         height: 24px;
@@ -114,6 +118,10 @@ section {
             padding-left: 21px;
             font-size: 16px;
             color: $color-form-check;
+        }
+
+        .form-check.is-visible {
+            display: block;
         }
 
         input {
@@ -156,9 +164,9 @@ section {
             margin-right: 24px;
         }
 
-        .create-btn {
-            // width: clamp(186px, calc(54px + 12vw), 222px);s
-        }
+        // .create-btn {
+        //     // width: clamp(186px, calc(54px + 12vw), 222px);s
+        // }
     }
 }
 
