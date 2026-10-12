@@ -1,6 +1,13 @@
 @use '../../../../../public/styles/abstract/variables.scss' as *;
+@use '../../../../../public/styles/abstract/functions.scss' as *;
+
 .wrapper {
     padding: 50px;
+    padding-right: 5px;
+    background-color: #f6f7f8;
+    gap: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .title {
@@ -8,9 +15,14 @@
     text-align: center;
     align-items: center;
     justify-content: center;
+    width: fit-content;
     gap: 20px;
-    h2 {
-        color: $color-high-2;
+    hr {
+        height: 60px;
+        border: 2px solid $color-high-2;
+    }
+    h4 {
+        white-space: nowrap;
     }
 }
 
@@ -25,8 +37,8 @@
 }
 
 .user-ic {
-    height: 130px;
-    min-width: 130px;
+    height: clamp-px(80, 130);
+    min-width: clamp-px(80, 130);
 }
 
 .user-container {
@@ -38,18 +50,102 @@
 .name-container {
     display: flex;
     flex-direction: column;
+    gap: 5px;
+    h2 {
+        font-size: clamp-px(16, 61, 1440, 950);
+    }
+}
+
+.contact-container {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.email {
+    color: #007cee;
+}
+
+.bold {
+    font-weight: bold;
+}
+
+a {
+    text-decoration: none;
+    color: black;
 }
 
 .button-container {
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    gap: 20px;
+    gap: 40px;
 }
 
-.contact-container {
-    // margin-top: 15px;
+button {
     display: flex;
-    flex-direction: column;
+    justify-content: flex-start;
+    width: fit-content;
     gap: 15px;
+
+    &:hover {
+        .button-text {
+            display: flex;
+            width: 40px;
+            font-weight: bold;
+            color: #133364;
+        }
+    }
+}
+.button-text {
+    display: flex;
+    align-items: center;
+    width: 40px;
+    gap: 7px;
+}
+.subline-container {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+@media screen and (max-width: 1258px) {
+    .wrapper {
+        padding-left: 15px;
+    }
+
+    .title {
+        flex-direction: column;
+        position: relative;
+        align-items: flex-start;
+        justify-content: flex-start;
+        padding-bottom: 40px;
+        h4 {
+            padding-left: 3px;
+        }
+        gap: 5px;
+    }
+
+    .subline-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+        hr {
+            position: absolute;
+            transform: rotate(90deg);
+            width: 0px;
+            height: 120px;
+            bottom: -35px;
+            left: 65px;
+            border-radius: 5px;
+        }
+    }
+
+    .user-container {
+        gap: 15px;
+        flex-direction: column;
+    }
+
+    h2 {
+        width: 400px;
+    }
 }

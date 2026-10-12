@@ -1,8 +1,9 @@
 @use '../../elements/button-primary/button-primary.scss' as *;
 @use '../../../../../public/styles/abstract/variables.scss' as *;
+@use '../../../../../public/styles/abstract/functions.scss' as *;
 
 .wrapper {
-    width: 400px;
+    width: clamp-px(350, 400, 1070, 950);
     background-color: white;
     height: $height-content-desktop;
     display: flex;
@@ -34,7 +35,7 @@
 .user-item {
     display: flex;
     flex-direction: row;
-    gap: 30px;
+    gap: clamp-px(16, 38, 1070, 950);
     padding-inline: 24px;
     transition: 0.2s ease;
     border-radius: 10px;
@@ -129,4 +130,19 @@ hr {
     border-radius: 50%;
     text-align: center;
     min-width: 35px;
+}
+
+@media screen and (max-width: 1070px) {
+    // .wrapper {
+    //     width: 350px;
+    // }
+    .username {
+        max-width: 180px !important;
+    }
+    .email {
+        max-width: 180px !important;
+    }
+    // .user-item {
+    //     gap: 10px;
+    // }
 }
