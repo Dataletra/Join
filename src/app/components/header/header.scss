@@ -15,6 +15,7 @@
     padding-right: clamp-px(16, 40);
     box-shadow: (0 4px 4px 0 rgba(0, 0, 0, 0.1));
     z-index: 2;
+    background-color: white;
 }
 
 .header-user {
@@ -46,10 +47,10 @@
 
 .user-menu-wrapper {
     position: absolute;
-    width: 100%;
-    height: $height-content-desktop;
-    bottom: 0;
-    left: 0;
+    height: 100svh;
+    width: 100svw;
+    bottom: $height-header;
+    left: -$width-nav-desktop;
     transform: translateY(100%);
     overflow: hidden;
 }
@@ -61,7 +62,7 @@
     padding: 10px;
     border-radius: 20px;
     border-top-right-radius: 0;
-    top: 0;
+    top: $height-header;
     right: clamp-px(8, 20);
     transform: translateX(100%);
     opacity: 0;
@@ -101,9 +102,9 @@
     }
 
     .user-menu-wrapper {
-        height: $height-content-mobile;
+        left: 0;
     }
-
+    
     .user-menu {
         .help-mobile {
             display: flex;
