@@ -19,6 +19,15 @@ export class Supabase {
         })
         .subscribe();
 
+    channelUserUpdate = this.supabase
+        .channel('custom-update-channel')
+        .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'user' }, (payload) => {
+            this.users.update((list) =>
+                list.map((user) => (user.id === payload.new['id'] ? { ...user, ...payload.new } : user))
+            );
+        })
+        .subscribe();
+
     channelUserDelete = this.supabase
         .channel('custom-delete-channel')
         .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'user' }, (payload) => {
@@ -50,6 +59,7 @@ export class Supabase {
 
     ngOnDestroy() {
         this.supabase.removeChannel(this.channelUserInsert);
+        this.supabase.removeChannel(this.channelUserUpdate);
         this.supabase.removeChannel(this.channelUserDelete);
     }
 }
