@@ -17,7 +17,8 @@ dialog {
 }
 
 section {
-    padding: 52px 48px;
+    padding: 52px 0;
+    padding-inline: clamp(24px, calc(-120px + 12vw), 48px) clamp(16px, calc(-80px + 8vw), 32px);
 }
 
 .sec-title {
@@ -25,25 +26,29 @@ section {
     height: 100%;
     background-color: $color-base;
 
+    .close-mobi {
+        display: none;
+    }
+
     .title_wrapper {
         position: absolute;
         top: 25%;
     }
 
-    img {
+    .logo {
         width: 55px;
         height: 66.5px;
         margin-bottom: 12px;
     }
 
     h1 {
-        font-size: 61px;
+        font-size: clamp(40px, calc(-37px + 7vw), 61px);
         color: $color-nav-high;
         margin-bottom: 8px;
     }
 
     h2 {
-        font-size: 27px;
+        font-size: clamp(20px, calc(-24.333px + 3.667vw), 27px);
         color: $color-nav-high;
         margin-bottom: 16px;
     }
@@ -82,7 +87,7 @@ section {
     flex-direction: column;
     align-items: end;
 
-    .close {
+    .close-desk {
         width: 24px;
         height: 24px;
     }
@@ -128,6 +133,61 @@ section {
     .forms-buttons {
         width: 100%;
         display: flex;
-        gap: 24px;
+        // gap: 24px;
+
+        .cancel-btn {
+            width: 126px;
+            margin-right: 24px;
+        }
+
+        .create-btn {
+            // width: clamp(186px, calc(54px + 12vw), 222px);s
+        }
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    dialog {
+        width: 90%;
+        height: 80%;
+    }
+
+    .dialog-wrapper {
+        flex-direction: column;
+    }
+
+    .sec-title {
+        width: 100%;
+        height: 46%;
+
+        .title_wrapper {
+            top: 15%;
+        }
+
+        .close-mobi {
+            display: block;
+            position: absolute;
+            top: 28px;
+            right: 20px;
+        }
+
+        .logo {
+            display: none;
+        }
+    }
+
+    .sec-forms {
+        width: 100%;
+        height: 54%;
+    }
+
+    .forms-wrapper {
+        .close-desk {
+            display: none;
+        }
+    }
+
+    .avatar-wrapper {
+        position: absolute;
     }
 }

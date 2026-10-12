@@ -1,8 +1,9 @@
 <dialog #addContact class="add-contact" closedby="any" (close)="dialogService.close()">
     <div class="dialog-wrapper">
         <section class="sec-title">
+            <button class="close-mobi"><img src="./assets/icons/close-white.svg" aria-hidden="true" /></button>
             <div class="title_wrapper">
-                <img src="./assets/icons/logo.svg" alt="Join" />
+                <img class="logo" src="./assets/icons/logo.svg" alt="Join" />
                 <h1>Add contact</h1>
                 <h2>Tasks are better with a team!</h2>
                 <hr />
@@ -18,7 +19,7 @@
                 ></app-ic-contact>
             </div>
             <div class="forms-wrapper">
-                <button class="close"><img src="./assets/icons/close.svg" aria-hidden="true" /></button>
+                <button class="close-desk"><img src="./assets/icons/close.svg" aria-hidden="true" /></button>
                 <div class="forms-input">
                     <input class="input-name" type="text" placeholder="Name" />
                     <input class="input-email" type="email" placeholder="Email" />
@@ -26,10 +27,10 @@
                 </div>
                 <div class="forms-buttons">
                     <!-- TODO adjust button width -->
-                    <app-button-primary class="cancel-btn" [typeStr]="'cancel'" [widthStr]="'126px'"
+                    <app-button-primary class="cancel-btn" [typeStr]="'cancel'" /* [widthStr]="'126px'" */
                         >Cancel</app-button-primary
                     >
-                    <app-button-primary class="create-btn" [typeStr]="'createTask'" [widthStr]="'222px'"
+                    <app-button-primary class="create-btn" [typeStr]="'createTask'" /* [widthStr]="'222px'" */
                         >Create contact</app-button-primary
                     >
                 </div>
