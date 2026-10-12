@@ -150,6 +150,7 @@ section {
     dialog {
         width: 90%;
         height: 80%;
+        overflow: hidden;
     }
 
     .dialog-wrapper {
@@ -159,6 +160,10 @@ section {
     .sec-title {
         width: 100%;
         height: 46%;
+
+        h1 {
+            font-size: 47px;
+        }
 
         .title_wrapper {
             top: 15%;
@@ -179,11 +184,28 @@ section {
     .sec-forms {
         width: 100%;
         height: 54%;
+        display: flex;
+        justify-content: center;
     }
 
     .forms-wrapper {
+        width: 100%;
+
         .close-desk {
             display: none;
+        }
+
+        .forms-buttons {
+            display: flex;
+            justify-content: center;
+
+            .cancel-btn {
+                display: none;
+            }
+
+            .create-btn {
+                width: 222px;
+            }
         }
     }
 
