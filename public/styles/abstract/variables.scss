@@ -20,3 +20,5 @@ $height-footer: 80px;
 
 $height-content-desktop: calc(100svh - $height-header);
 $height-content-mobile: calc(100svh - $height-header - $height-footer);
+
+$width-nav-desktop: clamp-px(180, 232, 1440, 950);
