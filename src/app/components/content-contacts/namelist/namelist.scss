@@ -1,6 +1,6 @@
-@use '../../elements/button-primary/button-primary.scss' as *;
 @use '../../../../../public/styles/abstract/variables.scss' as *;
 @use '../../../../../public/styles/abstract/functions.scss' as *;
+@use '../../../../../public/styles/abstract/mixin.scss' as *;
 
 .wrapper {
     width: clamp-px(300, 400, 1070, 950);
@@ -113,13 +113,7 @@ hr {
     margin-right: -18px;
     padding-right: 8px;
     width: clamp-px(270, 370, 1070, 950);
-    &::-webkit-scrollbar {
-        width: 6px;
-    }
-    &::-webkit-scrollbar-thumb {
-        background-color: $color-scrollbar-thumb;
-        border-radius: 4px;
-    }
+    @include scrollbar-light(4, 8);
 }
 
 .flex-column {
