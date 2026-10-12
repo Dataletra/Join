@@ -54,7 +54,7 @@ h1 {
 }
 
 h2 {
-    font-size: 47px;
+    font-size: fn.clamp-px(36, 47);
     font-weight: 500;
 }
 
@@ -97,3 +97,6 @@ button {
         user-select: none;
     }
 }
+// app-content-contacts {
+//     display: flex;
+// }

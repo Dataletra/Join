@@ -3,3 +3,31 @@
     justify-content: center;
     align-items: center;
 }
+
+@mixin scrollbar-light($min: 4, $max: 15, $start: 1400, $end: 400) {
+    &::-webkit-scrollbar {
+        width: clamp(
+            $min * 1px,
+            calc((100svw - $end * 1px) * ($max - $min) / ($start - $end) + $min * 1px),
+            $max * 1px
+        );
+        height: clamp(
+            $min * 1px,
+            calc((100svw - $end * 1px) * ($max - $min) / ($start - $end) + $min * 1px),
+            $max * 1px
+        );
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #a8a8a8;
+        border-radius: clamp(
+            $min * 1px,
+            calc((100svw - $end * 1px) * ($max - $min) / ($start - $end) + $min * 1px),
+            $max * 1px
+        );
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: #d1d1d1;
+    }
+}
