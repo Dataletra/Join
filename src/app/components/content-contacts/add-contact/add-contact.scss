@@ -68,6 +68,10 @@ section {
     background-color: $color-nav-high;
 }
 
+.close-tabl {
+    display: none;
+}
+
 .avatar-wrapper {
     height: 100%;
     position: relative;
@@ -146,7 +150,39 @@ section {
     }
 }
 
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1200px) {
+    .sec-forms {
+        flex-direction: column;
+        justify-content: start;
+
+        .close-tabl {
+            position: absolute;
+            top: 28px;
+            right: 20px;
+        }
+
+        .avatar-wrapper {
+            height: auto;
+        }
+    }
+
+    .avatar-wrapper {
+        position: unset;
+
+        .avatar {
+            position: unset;
+        }
+    }
+
+    .forms-wrapper {
+        width: 100%;
+        .close-desk {
+            display: none;
+        }
+    }
+}
+
+@media screen and (max-width: 820px) {
     dialog {
         width: 90%;
         height: 80%;
@@ -186,14 +222,11 @@ section {
         height: 54%;
         display: flex;
         justify-content: center;
+        position: relative;
     }
 
     .forms-wrapper {
         width: 100%;
-
-        .close-desk {
-            display: none;
-        }
 
         .forms-buttons {
             display: flex;
@@ -211,5 +244,6 @@ section {
 
     .avatar-wrapper {
         position: absolute;
+        top: -60px;
     }
 }
