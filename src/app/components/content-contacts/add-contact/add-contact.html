@@ -9,22 +9,29 @@
             </div>
         </section>
         <section class="sec-forms">
-            <app-ic-contact
-                class="avatar"
-                [name]="'Max Muster'"
-                [enableShadow]="true"
-                [isDummy]="true"
-            ></app-ic-contact>
+            <div class="avatar-wrapper">
+                <app-ic-contact
+                    class="avatar"
+                    [name]="'Max Muster'"
+                    [enableShadow]="true"
+                    [isDummy]="true"
+                ></app-ic-contact>
+            </div>
             <div class="forms-wrapper">
-                <button><img src="./assets/icons/close.svg" aria-hidden="true" /></button>
+                <button class="close"><img src="./assets/icons/close.svg" aria-hidden="true" /></button>
                 <div class="forms-input">
-                    <input type="text" />
-                    <input type="text" />
-                    <input type="text" />
+                    <input class="input-name" type="text" placeholder="Name" />
+                    <input class="input-email" type="email" placeholder="Email" />
+                    <input class="input-number" type="number" placeholder="Phone" />
                 </div>
                 <div class="forms-buttons">
-                    <button>cancel</button>
-                    <button>create contact</button>
+                    <!-- TODO adjust button width -->
+                    <app-button-primary class="cancel-btn" [typeStr]="'cancel'" [widthStr]="'126px'"
+                        >Cancel</app-button-primary
+                    >
+                    <app-button-primary class="create-btn" [typeStr]="'createTask'" [widthStr]="'222px'"
+                        >Create contact</app-button-primary
+                    >
                 </div>
             </div>
         </section>

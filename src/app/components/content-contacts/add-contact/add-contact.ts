@@ -1,9 +1,10 @@
 import { Component, inject, viewChild, ElementRef, effect } from '@angular/core';
 import { ContactDialog } from '../../../services/contact-dialog';
 import { IcContact } from '../../elements/ic-contact/ic-contact';
+import { ButtonPrimary } from '../../elements/button-primary/button-primary';
 
 @Component({
-    imports: [IcContact],
+    imports: [IcContact, ButtonPrimary],
     selector: 'app-add-contact',
     styleUrl: './add-contact.scss',
     templateUrl: './add-contact.html',
