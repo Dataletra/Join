@@ -130,17 +130,12 @@
 
     .btn-addContact {
         border-radius: 50%;
-        width: 56px;
-        height: 56px;
+        width: 56px !important;
+        height: 56px !important;
     }
 
     .btn-addTask {
         width: 40px !important;
         height: 40px !important;
-    }
-
-    .btn-primary {
-        width: 56px !important;
-        height: 56px !important;
     }
 }
