@@ -19,8 +19,12 @@
     flex-shrink: 0;
     margin-bottom: 20px;
 }
-
-@media screen and (max-width: $media-sm) {
+@media screen and (max-width: $media-sm) and (min-width: $media-m) {
+    .wrapper {
+        max-height: calc($height-content-desktop - $height-footer);
+    }
+}
+@media screen and (max-width: $media-m) {
     .wrapper {
         height: $height-content-mobile;
     }
