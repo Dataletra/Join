@@ -1,0 +1,113 @@
+@use '../../../../public/styles/abstract/variables.scss' as *;
+@use '../../../../public/styles/abstract/functions.scss' as *;
+@use '../../../../public/styles/abstract/keyframes.scss' as *;
+@use '../../../../public/styles/abstract/helpers.scss' as *;
+
+:host {
+    position: relative;
+    width: 100%;
+    height: $height-header;
+    min-height: $height-header;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: clamp-px(16, 96);
+    padding-right: clamp-px(16, 40);
+    box-shadow: (0 4px 4px 0 rgba(0, 0, 0, 0.1));
+    z-index: 2;
+}
+
+.header-user {
+    width: clamp-px(40, 56);
+    height: clamp-px(40, 56);
+}
+
+.header-nav {
+    display: flex;
+    gap: 16px;
+}
+
+.header-title {
+    font-size: clamp-px(16, 20);
+}
+
+.btn-help {
+    transition: all 100ms ease-in-out;
+    &:hover {
+        transform: scale(1.2);
+    }
+}
+
+.logo-mobile {
+    width: 32px;
+    height: 40px;
+    display: none;
+}
+
+.user-menu-wrapper {
+    position: absolute;
+    width: 100%;
+    height: calc(3 * 46px + 20px);
+    bottom: 0;
+    left: 0;
+    transform: translateY(100%);
+    overflow: hidden;
+}
+
+.user-menu {
+    position: absolute;
+    list-style-type: none;
+    background-color: $color-base;
+    padding: 10px;
+    border-radius: 20px;
+    border-top-right-radius: 0;
+
+    top: 0;
+    right: clamp-px(8, 20);
+    transform: translateX(100%);
+    opacity: 0;
+
+    a {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+        color: $color-popup;
+        width: 100%;
+        height: 100%;
+    }
+
+    li {
+        border-radius: 15px;
+        width: 130px;
+        height: 46px;
+        padding-left: 16px;
+        &:hover {
+            background-color: $color-nav-hover-bg;
+        }
+    }
+
+    .help-mobile {
+        display: none;
+    }
+}
+
+@media screen and (max-width: $media-sm) {
+    .btn-help,
+    .header-title {
+        display: none;
+    }
+
+    .logo-mobile {
+        display: block;
+    }
+
+    .user-menu-wrapper {
+        height: calc(4 * 46px + 20px);
+    }
+
+    .user-menu {
+        .help-mobile {
+            display: flex;
+        }
+    }
+}
