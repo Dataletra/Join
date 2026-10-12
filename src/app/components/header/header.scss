@@ -50,10 +50,9 @@
     height: 100svh;
     width: 100svw;
     bottom: $height-header;
-    left: -$width-nav-desktop;
+    left: calc(-1 * $width-nav-desktop);
     transform: translateY(100%);
     overflow: hidden;
-    // pointer-events: none;
 }
 
 .user-menu {
