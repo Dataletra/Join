@@ -21,7 +21,7 @@
 }
 @media screen and (max-width: $media-sm) and (min-width: $media-m) {
     .wrapper {
-        max-height: calc($height-content-desktop - $height-footer);
+        max-height: $height-content-mobile;
     }
 }
 @media screen and (max-width: $media-m) {
