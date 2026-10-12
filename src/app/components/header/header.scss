@@ -47,7 +47,7 @@
 .user-menu-wrapper {
     position: absolute;
     width: 100%;
-    height: calc(3 * 46px + 20px);
+    height: $height-content-desktop;
     bottom: 0;
     left: 0;
     transform: translateY(100%);
@@ -62,7 +62,6 @@
     padding: 10px;
     border-radius: 20px;
     border-top-right-radius: 0;
-
     top: 0;
     right: clamp-px(8, 20);
     transform: translateX(100%);
@@ -103,7 +102,7 @@
     }
 
     .user-menu-wrapper {
-        height: calc(4 * 46px + 20px);
+        height: $height-content-mobile;
     }
 
     .user-menu {

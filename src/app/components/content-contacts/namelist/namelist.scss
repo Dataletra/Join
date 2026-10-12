@@ -4,7 +4,7 @@
 .wrapper {
     width: 400px;
     background-color: white;
-    height: calc(100svh - $height-header);
+    height: $height-content-desktop;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -21,7 +21,7 @@
 
 @media screen and (max-width: $media-sm) {
     .wrapper {
-        height: calc(100svh - $height-header - $height-footer);
+        height: $height-content-mobile;
     }
 
     .btn-container {
