@@ -100,9 +100,21 @@ section {
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 32px;
+        gap: 13px;
         margin-top: 61px;
-        margin-bottom: 48px;
+        margin-bottom: 29px;
+
+        .check-wrapper {
+            width: 100%;
+            height: 19px;
+        }
+
+        .form-check {
+            display: none;
+            padding-left: 21px;
+            font-size: 16px;
+            color: $color-form-check;
+        }
 
         input {
             width: 100%;
