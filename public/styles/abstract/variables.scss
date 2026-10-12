@@ -17,3 +17,6 @@ $media-sm: 680px; // TODO
 
 $height-header: 96px;
 $height-footer: 80px;
+
+$height-content-desktop: calc(100svh - $height-header);
+$height-content-mobile: calc(100svh - $height-header - $height-footer);
