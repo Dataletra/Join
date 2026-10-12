@@ -1,38 +1,34 @@
-<div class="wrapper">
-    <div class="title">
-        <h3>Contacts</h3>
-        <div class="subline-container">
-            <hr />
-            <h4>Better with a team</h4>
-        </div>
+<div class="title">
+    <h3>Contacts</h3>
+    <div class="subline-container">
+        <hr />
+        <h4>Better with a team</h4>
     </div>
-    <div class="detailed-view">
-        @if (selectedUser(); as user) {
-            @for (u of [user]; track u.id) {
-                <div class="user-container">
-                    <app-ic-contact [enableShadow]="true" class="user-ic" [name]="u.name"></app-ic-contact>
-                    <div class="name-container">
-                        <h2>{{ selectedUser()?.name | titlecase }}</h2>
-                        <div class="button-container">
-                            <button>
-                                <p class="button-text"><img src="./assets/icons/edit.svg" alt="Edit Icon" />Edit</p>
-                            </button>
-                            <button>
-                                <p class="button-text">
-                                    <img src="./assets/icons/delete.svg" alt="Delete Icon" />Delete
-                                </p>
-                            </button>
-                        </div>
+</div>
+<div class="detailed-view">
+    @if (selectedUser(); as user) {
+        @for (u of [user]; track u.id) {
+            <div class="user-container">
+                <app-ic-contact [enableShadow]="true" class="user-ic" [name]="u.name"></app-ic-contact>
+                <div class="name-container">
+                    <h2>{{ selectedUser()?.name | titlecase }}</h2>
+                    <div class="button-container">
+                        <button>
+                            <p class="button-text"><img src="./assets/icons/edit.svg" alt="Edit Icon" />Edit</p>
+                        </button>
+                        <button>
+                            <p class="button-text"><img src="./assets/icons/delete.svg" alt="Delete Icon" />Delete</p>
+                        </button>
                     </div>
                 </div>
-                <p>Contact Information</p>
-                <div class="contact-container">
-                    <p class="bold">Email</p>
-                    <a class="email" [attr.href]="'mailto:' + selectedUser()?.email">{{ selectedUser()?.email }}</a>
-                    <p class="bold">Phone</p>
-                    <a href="">{{ selectedUser()?.phone }}</a>
-                </div>
-            }
+            </div>
+            <p>Contact Information</p>
+            <div class="contact-container">
+                <p class="bold">Email</p>
+                <a class="email" [attr.href]="'mailto:' + selectedUser()?.email">{{ selectedUser()?.email }}</a>
+                <p class="bold">Phone</p>
+                <a href="">{{ selectedUser()?.phone }}</a>
+            </div>
         }
-    </div>
+    }
 </div>

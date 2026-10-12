@@ -3,7 +3,7 @@
 @use '../../../../../public/styles/abstract/functions.scss' as *;
 
 .wrapper {
-    width: clamp-px(350, 400, 1070, 950);
+    width: clamp-px(300, 400, 1070, 950);
     background-color: white;
     height: $height-content-desktop;
     display: flex;
@@ -43,6 +43,7 @@
     margin-left: 0px;
     align-items: center;
     height: 80px;
+    padding-left: clamp-px(5, 24, 1070, 950);
 
     .email {
         color: #007cee;
@@ -51,11 +52,11 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
-        max-width: 240px;
+        max-width: clamp-px(170, 230, 1070, 950);
     }
 
     &-label {
-        margin-left: 37px;
+        margin-left: clamp-px(15, 37, 1070, 950);
         margin-bottom: 20px;
         margin-top: 30px;
     }
@@ -65,7 +66,7 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
-        max-width: 240px;
+        max-width: clamp-px(170, 230, 1070, 950);
     }
 
     &:hover {
@@ -107,7 +108,7 @@ hr {
     overflow-y: auto;
     margin-right: -18px;
     padding-right: 8px;
-
+    width: clamp-px(270, 370, 1070, 950);
     &::-webkit-scrollbar {
         width: 6px;
     }
@@ -130,19 +131,4 @@ hr {
     border-radius: 50%;
     text-align: center;
     min-width: 35px;
-}
-
-@media screen and (max-width: 1070px) {
-    // .wrapper {
-    //     width: 350px;
-    // }
-    .username {
-        max-width: 180px !important;
-    }
-    .email {
-        max-width: 180px !important;
-    }
-    // .user-item {
-    //     gap: 10px;
-    // }
 }

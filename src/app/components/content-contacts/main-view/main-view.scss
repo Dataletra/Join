@@ -1,13 +1,18 @@
 @use '../../../../../public/styles/abstract/variables.scss' as *;
 @use '../../../../../public/styles/abstract/functions.scss' as *;
 
-.wrapper {
+:host {
     padding: 50px;
+    padding-left: clamp-px(15, 50, 1440, 850);
     padding-right: 5px;
     background-color: #f6f7f8;
     gap: 20px;
     display: flex;
     flex-direction: column;
+    max-height: 100%;
+    width: 100%;
+    padding-bottom: 0;
+    overflow-y: hidden;
 }
 
 .title {
@@ -27,8 +32,7 @@
 }
 
 .detailed-view {
-    height: 400px;
-    width: 500px;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -52,7 +56,7 @@
     flex-direction: column;
     gap: 5px;
     h2 {
-        font-size: clamp-px(16, 61, 1440, 950);
+        font-size: clamp-px(24, 61, 1440, 950);
     }
 }
 
@@ -109,10 +113,6 @@ button {
     gap: 15px;
 }
 @media screen and (max-width: 1258px) {
-    .wrapper {
-        padding-left: 15px;
-    }
-
     .title {
         flex-direction: column;
         position: relative;
@@ -143,9 +143,16 @@ button {
     .user-container {
         gap: 15px;
         flex-direction: column;
+        align-items: flex-start;
     }
 
     h2 {
-        width: 400px;
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: $media-sm) {
+    :host {
+        padding-top: 20px;
     }
 }
