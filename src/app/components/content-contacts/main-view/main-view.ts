@@ -1,6 +1,5 @@
 import { Component, computed, inject, input, signal, output } from '@angular/core';
 import { Supabase } from '../../../services/supabase';
-import { IUser } from '../../../interfaces/iuser';
 import { IcContact } from '../../elements/ic-contact/ic-contact';
 import { TitleCasePipe } from '@angular/common';
 

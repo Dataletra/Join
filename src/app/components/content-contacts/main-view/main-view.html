@@ -4,8 +4,10 @@
         <hr />
         <h4>Better with a team</h4>
     </div>
-    <button (click)="hideMainView()">HIDE</button>
 </div>
+<button class="back-btn" (click)="hideMainView()">
+    <img src="./assets/icons/arrow-left.svg" alt="Back button" />
+</button>
 <div class="detailed-view">
     @if (selectedUser(); as user) {
         @for (u of [user]; track u.id) {
