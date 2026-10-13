@@ -2,6 +2,7 @@
 <button
     [style.width]="widthStr()"
     class="btn-primary"
+    [disabled]="isDisabled()"
     [class.btn-dark]="typeStr() === 'dark'"
     [class.btn-light]="typeStr() === 'light'"
     [class.btn-createTask]="typeStr() === 'createTask'"

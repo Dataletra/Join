@@ -96,4 +96,9 @@ button {
         -webkit-user-drag: none;
         user-select: none;
     }
+
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.3;
+    }
 }
