@@ -108,7 +108,7 @@ li {
 }
 
 // adjust media with variable
-@media screen and (max-width: $media-sm) {
+@media screen and (max-width: $media-m) {
     .nav-wrapper {
         width: 100%;
         height: $height-footer;

@@ -27,7 +27,7 @@ app-root {
     min-height: calc($height-footer + $height-header);
 }
 
-@media screen and (max-width: $media-sm) {
+@media screen and (max-width: $media-m) {
     app-root {
         flex-direction: column;
     }
@@ -97,6 +97,3 @@ button {
         user-select: none;
     }
 }
-// app-content-contacts {
-//     display: flex;
-// }
