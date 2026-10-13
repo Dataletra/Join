@@ -202,7 +202,7 @@ section {
     }
 }
 
-@media screen and (max-width: 820px) {
+@media screen and (max-width: $media-sm) {
     dialog {
         width: 90%;
         height: 80%;
@@ -265,5 +265,24 @@ section {
     .avatar-wrapper {
         position: absolute;
         top: -60px;
+    }
+}
+
+@media screen and (max-height: 890px) {
+    dialog {
+        width: 90%;
+        height: 85%;
+        overflow-y: auto;
+    }
+
+    .dialog-wrapper {
+        height: auto;
+        min-height: 1005;
+    }
+
+    .sec-title,
+    .sec-forms {
+        height: auto;
+        min-height: 500px;
     }
 }
