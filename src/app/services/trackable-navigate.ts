@@ -6,7 +6,6 @@ export class TrackableNavigate {
     private router = inject(Router);
 
     goTo(path: string) {
-        console.log(this.router.url);
         this.router.navigate([path], { state: { originUrl: this.router.url } });
     }
 
