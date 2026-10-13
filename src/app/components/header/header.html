@@ -6,8 +6,8 @@
     </button>
     <app-ic-contact (click)="toggleMenu()" class="header-user" [name]="'TODO NAME'" [isHeader]="true"></app-ic-contact>
 </nav>
-<div id="user-menu-wrapper" class="user-menu-wrapper d-none" (click)="hideMenu()">
-    <menu class="user-menu move-out" id="user-menu">
+<div class="user-menu-wrapper" (click)="hideMenu()" [class.d-none]="!enableMenuWrapper()">
+    <menu class="user-menu" [class.move-out]="!showMenu()" [class.move-in]="showMenu()">
         <li class="help-mobile"><a [routerLink]="['help']">Help</a></li>
         <li><a [routerLink]="['legal-notice']">Legal Notice</a></li>
         <li><a [routerLink]="['privacy-policy']">Privacy Policy</a></li>

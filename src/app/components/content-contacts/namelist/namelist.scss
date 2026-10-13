@@ -19,12 +19,12 @@
     flex-shrink: 0;
     margin-bottom: 20px;
 }
-@media screen and (max-width: $media-sm) and (min-width: $media-m) {
+@media screen and (max-width: $media-m) and (min-width: $media-sm) {
     .wrapper {
         max-height: $height-content-mobile;
     }
 }
-@media screen and (max-width: $media-m) {
+@media screen and (max-width: $media-sm) {
     .wrapper {
         height: $height-content-mobile;
         width: 100% !important;
