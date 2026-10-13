@@ -2,7 +2,17 @@ import { Component, inject, viewChild, ElementRef, effect } from '@angular/core'
 import { ContactDialog } from '../../../services/contact-dialog';
 import { IcContact } from '../../elements/ic-contact/ic-contact';
 import { ButtonPrimary } from '../../elements/button-primary/button-primary';
-import { FormControl, ReactiveFormsModule, FormGroup, Validator, Validators } from '@angular/forms';
+import {
+    FormControl,
+    ReactiveFormsModule,
+    FormGroup,
+    Validator,
+    Validators,
+    ValidatorFn,
+    AbstractControl,
+    ValidationErrors,
+    FormSubmittedEvent,
+} from '@angular/forms';
 import { email } from '@angular/forms/signals';
 
 @Component({
@@ -39,19 +49,56 @@ export class AddContact {
     contactForm = new FormGroup({
         name: new FormControl('', {
             nonNullable: true,
-            validators: [Validators.required, Validators.minLength(3)],
+            validators: [Validators.required, this.customNameValidator()],
         }),
 
         email: new FormControl('', {
             nonNullable: true,
-            validators: [Validators.required, Validators.email],
+            validators: [Validators.required, Validators.email, this.customMailValidator()],
         }),
 
         phone: new FormControl('', {
             nonNullable: true,
-            validators: [Validators.required],
+            validators: [Validators.required, this.customPhoneValidator()],
         }),
     });
+
+    customNameValidator(): ValidatorFn {
+        return (control: AbstractControl): ValidationErrors | null => {
+            const value = control.value;
+            if (!value) {
+                return null;
+            }
+            const pattern = /^[\p{L}]{3,}(?:[ '-][\p{L}]{3,})+$/u;
+            return pattern.test(value) ? null : { namePattern: true };
+        };
+    }
+
+    customMailValidator(): ValidatorFn {
+        return (control: AbstractControl): ValidationErrors | null => {
+            const value = control.value;
+            if (!value) {
+                return null;
+            }
+            const pattern = /^[^\s@]{2,}@[^\s@]{2,}\.[^\s@]{2,}$/;
+            return pattern.test(value) ? null : { emailPattern: true };
+        };
+    }
+
+    customPhoneValidator(): ValidatorFn {
+        return (control: AbstractControl): ValidationErrors | null => {
+            const value = control.value;
+            if (!value) {
+                return null;
+            }
+            const pattern = /^\+?[0-9\s()/-]+$/;
+            const digitCount = value.replace(/\D/g, '').length;
+            if (!pattern.test(value) || digitCount < 6) {
+                return { phonePattern: true };
+            }
+            return null;
+        };
+    }
 
     onSubmit() {
         console.log('asd');

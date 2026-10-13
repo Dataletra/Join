@@ -28,14 +28,13 @@
                             <p
                                 class="form-check"
                                 [class.is-visible]="
-                                    contactForm.controls.name.invalid &&
-                                    (contactForm.controls.name.touched || contactForm.controls.name.dirty)
+                                    contactForm.controls.name.invalid && contactForm.controls.name.touched
                                 "
                             >
                                 @if (contactForm.controls.name.hasError('required')) {
                                     Please enter a name.
-                                } @else if (contactForm.controls.name.hasError('minlength')) {
-                                    Name must contain at least 3 characters.
+                                } @else if (contactForm.controls.name.hasError('namePattern')) {
+                                    Please enter your first and last name.
                                 }
                             </p>
                         </div>
@@ -45,24 +44,33 @@
                             <p
                                 class="form-check"
                                 [class.is-visible]="
-                                    contactForm.controls.email.invalid &&
-                                    (contactForm.controls.email.touched || contactForm.controls.email.dirty)
+                                    contactForm.controls.email.invalid && contactForm.controls.email.touched
                                 "
                             >
-                                test test test
+                                @if (contactForm.controls.email.hasError('required')) {
+                                    Please enter an email address.
+                                } @else if (
+                                    contactForm.controls.email.hasError('email') ||
+                                    contactForm.controls.email.hasError('emailPattern')
+                                ) {
+                                    Please enter a valid email address.
+                                }
                             </p>
                         </div>
 
-                        <input class="input-number" type="number" placeholder="Phone" formControlName="phone" />
+                        <input class="input-number" type="tel" placeholder="Phone" formControlName="phone" />
                         <div class="check-wrapper">
                             <p
                                 class="form-check"
                                 [class.is-visible]="
-                                    contactForm.controls.phone.invalid &&
-                                    (contactForm.controls.phone.touched || contactForm.controls.phone.dirty)
+                                    contactForm.controls.phone.invalid && contactForm.controls.phone.touched
                                 "
                             >
-                                test test test
+                                @if (contactForm.controls.phone.hasError('required')) {
+                                    Please enter a phone number.
+                                } @else if (contactForm.controls.phone.hasError('phonePattern')) {
+                                    Please enter a valid phone number.
+                                }
                             </p>
                         </div>
                     </div>
