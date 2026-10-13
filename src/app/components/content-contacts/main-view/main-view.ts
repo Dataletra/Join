@@ -1,6 +1,5 @@
 import { Component, computed, inject, input, signal, output } from '@angular/core';
 import { Supabase } from '../../../services/supabase';
-import { IUser } from '../../../interfaces/iuser';
 import { IcContact } from '../../elements/ic-contact/ic-contact';
 import { TitleCasePipe } from '@angular/common';
 
@@ -13,6 +12,8 @@ import { TitleCasePipe } from '@angular/common';
 export class MainView {
     readonly incomingSelectedViewStatus = input<boolean | null>();
     hideMainViewSignal = output<boolean>();
+    showMenu = signal<boolean>(false);
+    enableMenuWrapper = signal<boolean>(false);
     dbService = inject(Supabase);
 
     selectedUser = computed(() => {
@@ -21,5 +22,33 @@ export class MainView {
 
     hideMainView() {
         this.hideMainViewSignal.emit(true);
+    }
+
+    toggleMenu() {
+        if (false === this.showMenu()) {
+            this.showMenu.set(true);
+            this.enableMenuWrapper.set(true);
+        } else {
+            this.showMenu.set(false);
+            setTimeout(() => {
+                this.enableMenuWrapper.set(false);
+            }, 100);
+        }
+    }
+
+    hideMenu() {
+        this.showMenu.set(false);
+        setTimeout(() => {
+            this.enableMenuWrapper.set(false);
+        }, 100);
+    }
+
+    editUser() {
+        console.log('works');
+        this.toggleMenu();
+    }
+    deleteUser() {
+        console.log('works');
+        this.toggleMenu();
     }
 }
