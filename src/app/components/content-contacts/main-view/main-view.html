@@ -45,7 +45,7 @@
                 <p class="bold">Email</p>
                 <a class="email" [attr.href]="'mailto:' + selectedUser()?.email">{{ selectedUser()?.email }}</a>
                 <p class="bold">Phone</p>
-                <a href="">{{ selectedUser()?.phone }}</a>
+                <a [attr.href]="'tel:' + selectedUser()?.phone">{{ selectedUser()?.phone }}</a>
             </div>
         }
     }
