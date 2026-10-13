@@ -18,6 +18,8 @@ enum BtnType {
 export class ButtonPrimary {
     readonly widthStr = input<string>('auto');
     readonly typeStr = input<string>(BtnType.Dark);
+    readonly isDisabled = input<boolean>(false);
+
     btnSrc = new Map<string, string>([
         ['dark', ''],
         ['light', ''],

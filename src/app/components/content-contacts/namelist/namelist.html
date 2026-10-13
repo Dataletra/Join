@@ -1,6 +1,10 @@
 <div class="wrapper">
     <div class="btn-container">
-        <app-button-primary class="add-contact-btn" [typeStr]="'addContact'" [widthStr]="'100%'"
+        <app-button-primary
+            (click)="dialogService.open()"
+            class="add-contact-btn"
+            [typeStr]="'addContact'"
+            [widthStr]="'100%'"
             >Add new contact</app-button-primary
         >
     </div>
