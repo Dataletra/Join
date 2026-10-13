@@ -15,13 +15,7 @@ export class NavBar {
 
     constructor() {
         this.router.events.pipe(takeUntilDestroyed()).subscribe((event: Event) => {
-            // if (event instanceof NavigationStart) {
-            //     // Navigation starting
-            //     console.log('Navigation starting:', event.url);
-            // }
             if (event instanceof NavigationEnd) {
-                // Navigation completed
-                console.log('Navigation completed:', event.url);
                 this.activeUrl.set(event.url);
             }
         });

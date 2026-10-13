@@ -111,6 +111,14 @@ li {
 
         &:hover {
             color: $color-high-1;
+            cursor: pointer;
+        }
+
+        &.active {
+            background-color: $color-nav-active-bg;
+            color: $color-nav-high;
+            border-radius: 0;
+            cursor: default;
         }
 
         &.active {
@@ -122,7 +130,7 @@ li {
     }
 }
 
-@media screen and (max-width: $media-sm) {
+@media screen and (max-width: $media-m) {
     .nav-wrapper {
         width: 100%;
         height: $height-footer;

@@ -21,6 +21,12 @@ article {
     overflow-y: auto;
 }
 
+.help-headline {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .hl-1 {
     color: $color-high-1;
 }
