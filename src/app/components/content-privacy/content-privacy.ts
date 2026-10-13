@@ -1,16 +1,10 @@
-import { Component, inject } from '@angular/core';
-import { TrackableNavigate } from '../../services/trackable-navigate';
+import { Component } from '@angular/core';
+import { ButtonBack } from '../elements/button-back/button-back';
 
 @Component({
-    imports: [],
+    imports: [ButtonBack],
     selector: 'app-content-privacy',
     styleUrl: './content-privacy.scss',
     templateUrl: './content-privacy.html',
 })
-export class ContentPrivacy {
-    private navigateService = inject(TrackableNavigate);
-
-    goBack() {
-        this.navigateService.goBack();
-    }
-}
+export class ContentPrivacy {}

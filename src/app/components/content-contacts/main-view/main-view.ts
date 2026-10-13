@@ -2,9 +2,10 @@ import { Component, computed, inject, input, signal, output } from '@angular/cor
 import { Supabase } from '../../../services/supabase';
 import { IcContact } from '../../elements/ic-contact/ic-contact';
 import { TitleCasePipe } from '@angular/common';
+import { ButtonBack } from '../../elements/button-back/button-back';
 
 @Component({
-    imports: [IcContact, TitleCasePipe],
+    imports: [IcContact, TitleCasePipe, ButtonBack],
     selector: 'app-main-view',
     styleUrl: './main-view.scss',
     templateUrl: './main-view.html',
@@ -20,10 +21,10 @@ export class MainView {
         return this.dbService.users().find((u) => u.id === this.dbService.selectedUserID()) ?? null;
     });
 
-    hideMainView() {
+    hideMainView = () => {
         this.hideMainViewSignal.emit(true);
-    }
-
+    };
+    
     toggleMenu() {
         if (false === this.showMenu()) {
             this.showMenu.set(true);

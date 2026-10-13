@@ -21,12 +21,14 @@
 }
 
 .title {
+    position: relative;
     display: flex;
     text-align: center;
     align-items: center;
     justify-content: center;
-    width: fit-content;
+    width: 100%;
     gap: 20px;
+
     hr {
         height: 60px;
         border: 2px solid $color-high-2;
@@ -167,10 +169,13 @@ button {
 }
 
 //Hide on Desktop
-@media screen and (min-width: $media-m) {
+@media screen and (min-width: $media-sm) {
     .back-btn {
         display: none;
     }
+}
+
+@media screen and (min-width: $media-m) {
     .user-menu-wrapper {
         display: none;
     }
@@ -181,10 +186,8 @@ button {
 
 .back-btn {
     position: absolute;
-    top: 40px;
-    right: 40px;
-    width: 30px;
-    height: 30px;
+    top: 0;
+    right: 11px;
     transition: 0.2s ease;
     &:hover {
         transition: 0.2s ease;
@@ -192,15 +195,15 @@ button {
     }
 }
 
-@media screen and (max-width: $media-sm) {
+@media screen and (max-width: $media-m) {
     :host {
         max-height: $height-content-mobile;
     }
 }
 
 .mobile-menu-btn {
-    position: absolute;
-    bottom: 20px;
+    position: fixed;
+    bottom: calc($height-footer + 20px);
     right: 5%;
     display: flex;
     justify-content: center;
