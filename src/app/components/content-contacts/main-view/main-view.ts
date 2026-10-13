@@ -21,4 +21,7 @@ export class MainView {
     hideMainView() {
         this.hideMainViewSignal.emit(true);
     }
+
+    hideMobileMenu() {}
+    showMobileMenu() {}
 }
