@@ -1,0 +1,54 @@
+@use '../../../../../public/styles/abstract/variables.scss' as *;
+@use '../../../../../public/styles/abstract/fonts.scss';
+@use '../../../../../public/styles/abstract/mixin.scss';
+
+.toast-added {
+    width: 326px;
+    height: 74px;
+    background-color: $color-base;
+    position: fixed;
+    right: 30%;
+    bottom: 10%;
+    @include mixin.flex-center;
+    padding: 30px 25px;
+    border-radius: 20px;
+
+    transform: translateX(calc(100vw + 100%));
+    opacity: 0;
+
+    transition:
+        transform 450ms ease,
+        opacity 450ms ease;
+
+    p {
+        font-family: 'Inter';
+        font-weight: 400;
+        font-size: 20px;
+        color: white;
+    }
+}
+
+.toast-added.is-visible {
+    transform: translateX(0);
+    opacity: 1;
+}
+
+@media screen and (max-width: $media-sm) {
+    .toast-added {
+        width: 300px;
+        left: 50%;
+        bottom: 180px;
+        right: auto;
+        transform: translate(-50%, calc(100vh + 100%));
+        // transform: translate(-50%, calc(0));
+
+        p {
+            font-size: 18px;
+        }
+    }
+
+    .toast-added.is-visible {
+        transform: translate(-50%, 0);
+        opacity: 1;
+    }
+}

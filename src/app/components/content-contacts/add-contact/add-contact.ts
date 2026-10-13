@@ -6,16 +6,14 @@ import {
     FormControl,
     ReactiveFormsModule,
     FormGroup,
-    Validator,
     Validators,
     ValidatorFn,
     AbstractControl,
     ValidationErrors,
-    FormSubmittedEvent,
 } from '@angular/forms';
-import { email } from '@angular/forms/signals';
 import { User } from '../../models/user';
 import { Supabase } from '../../../services/supabase';
+import { Toast } from '../../../services/toast';
 
 @Component({
     imports: [IcContact, ButtonPrimary, ReactiveFormsModule],
@@ -27,6 +25,7 @@ export class AddContact {
     supabaseService = inject(Supabase);
     dialogService = inject(ContactDialog);
     dialog = viewChild<ElementRef<HTMLDialogElement>>('addContact');
+    toastService = inject(Toast);
 
     constructor() {
         effect(() => {
@@ -110,5 +109,6 @@ export class AddContact {
         const formData = new User(this.contactForm.value);
         await this.supabaseService.addUser(formData);
         this.dialogService.close();
+        this.toastService.showToast();
     }
 }
