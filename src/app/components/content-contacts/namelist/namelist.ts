@@ -1,4 +1,4 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, output } from '@angular/core';
 import { Supabase } from '../../../services/supabase';
 import { TitleCasePipe } from '@angular/common';
 import { IUser } from '../../../interfaces/iuser';
@@ -13,6 +13,8 @@ import { ContactDialog } from '../../../services/contact-dialog';
     templateUrl: './namelist.html',
 })
 export class Namelist {
+    selectedUserID = output<number>();
+    isUserSelected = output<boolean>();
     dbService = inject(Supabase);
     userList: IUser[] | null = [];
     dialogService = inject(ContactDialog);
@@ -48,4 +50,9 @@ export class Namelist {
         }
         return userMap;
     });
+
+    selectUser(id: number) {
+        this.dbService.selectedUserID.set(id);
+        this.isUserSelected.emit(true);
+    }
 }

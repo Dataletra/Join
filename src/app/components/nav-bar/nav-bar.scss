@@ -55,7 +55,7 @@ li {
         align-items: center;
         gap: 8px;
         color: $color-nav;
-        padding-left: 56px;
+        padding-left: clamp(32px, calc((100svw - 950px) * 24 / 450 + 32px), 56px);
 
         transition:
             background-color 0.15s ease,

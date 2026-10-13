@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 const iconColors = [
     '#ff7a00',
     '#9327ff',
@@ -26,17 +26,17 @@ export class IcContact {
     readonly isHeader = input<boolean>(false);
     readonly isDummy = input<boolean>(false);
 
-    initials: string = '';
-    colorStr: string = '';
-
-    ngOnInit() {
+    initials = computed(() => {
         const words: string[] = this.name()
             .toUpperCase()
             .split(' ')
             .filter((word: string) => word !== '');
-        this.initials = words.length > 1 ? words[0].charAt(0) + words[words.length - 1].charAt(0) : words[0].charAt(0);
-        this.colorStr = iconColors[this.getColorIndex(this.name())];
-    }
+        return words.length > 1 ? words[0].charAt(0) + words[words.length - 1].charAt(0) : words[0]?.charAt(0) ?? '';
+    });
+
+    colorStr = computed(()=>{
+        return iconColors[this.getColorIndex(this.name())];
+    });
 
     getColorIndex(fullname: string) {
         let hash = 0;

@@ -1,8 +1,9 @@
-@use '../../elements/button-primary/button-primary.scss' as *;
 @use '../../../../../public/styles/abstract/variables.scss' as *;
+@use '../../../../../public/styles/abstract/functions.scss' as *;
+@use '../../../../../public/styles/abstract/mixin.scss' as *;
 
 .wrapper {
-    width: 400px;
+    width: clamp-px(300, 400, 1070, 950);
     background-color: white;
     height: $height-content-desktop;
     display: flex;
@@ -18,12 +19,23 @@
     flex-shrink: 0;
     margin-bottom: 20px;
 }
-
-@media screen and (max-width: $media-sm) {
+@media screen and (max-width: $media-sm) and (min-width: $media-m) {
+    .wrapper {
+        max-height: $height-content-mobile;
+    }
+}
+@media screen and (max-width: $media-m) {
     .wrapper {
         height: $height-content-mobile;
+        width: 100% !important;
     }
-
+    .user-list {
+        width: 100% !important;
+    }
+    .username,
+    .email {
+        max-width: clamp-px(170, 430, 560, 320) !important;
+    }
     .btn-container {
         position: absolute;
         bottom: 0;
@@ -34,7 +46,7 @@
 .user-item {
     display: flex;
     flex-direction: row;
-    gap: 30px;
+    gap: clamp-px(16, 38, 1070, 950);
     padding-inline: 24px;
     transition: 0.2s ease;
     border-radius: 10px;
@@ -42,6 +54,7 @@
     margin-left: 0px;
     align-items: center;
     height: 80px;
+    padding-left: clamp-px(5, 24, 1070, 950);
 
     .email {
         color: #007cee;
@@ -50,11 +63,11 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
-        max-width: 240px;
+        max-width: clamp-px(170, 230, 1070, 950);
     }
 
     &-label {
-        margin-left: 37px;
+        margin-left: clamp-px(15, 37, 1070, 950);
         margin-bottom: 20px;
         margin-top: 30px;
     }
@@ -64,7 +77,7 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
-        max-width: 240px;
+        max-width: clamp-px(170, 230, 1070, 950);
     }
 
     &:hover {
@@ -83,6 +96,14 @@
     }
 }
 
+.selected {
+    .username {
+        color: white;
+    }
+    background-color: $color-high-1;
+    transition: 0.2s ease;
+}
+
 .user-ic {
     width: 42px;
     height: 42px;
@@ -98,14 +119,8 @@ hr {
     overflow-y: auto;
     margin-right: -18px;
     padding-right: 8px;
-    
-    &::-webkit-scrollbar {
-        width: 6px;
-    }
-    &::-webkit-scrollbar-thumb {
-        background-color: $color-scrollbar-thumb;
-        border-radius: 4px;
-    }
+    width: clamp-px(270, 370, 1070, 950);
+    @include scrollbar-light(4, 8);
 }
 
 .flex-column {

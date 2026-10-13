@@ -1,0 +1,26 @@
+@use '../../../../public/styles/abstract/variables.scss' as *;
+
+:host {
+    display: flex;
+    position: relative;
+}
+
+.d-none {
+    display: none;
+}
+
+@media screen and (min-width: $media-m) {
+    .d-none {
+        display: block;
+    }
+}
+
+@media screen and (max-width: $media-m) {
+    app-namelist {
+        width: 100% !important;
+    }
+    app-main-view {
+        position: absolute;
+        height: $height-content-mobile;
+    }
+}
