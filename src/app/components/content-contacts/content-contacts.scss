@@ -9,13 +9,13 @@
     display: none;
 }
 
-@media screen and (min-width: $media-m) {
+@media screen and (min-width: $media-sm) {
     .d-none {
         display: block;
     }
 }
 
-@media screen and (max-width: $media-m) {
+@media screen and (max-width: $media-sm) {
     app-namelist {
         width: 100% !important;
     }

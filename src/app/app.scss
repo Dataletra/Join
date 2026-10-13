@@ -19,7 +19,7 @@
     min-height: 0;
 }
 
-@media screen and (max-width: $media-sm) {
+@media screen and (max-width: $media-m) {
     .header-content-wrapper {
         order: -1;
     }
