@@ -12,6 +12,8 @@ import { TitleCasePipe } from '@angular/common';
 export class MainView {
     readonly incomingSelectedViewStatus = input<boolean | null>();
     hideMainViewSignal = output<boolean>();
+    showMenu = signal<boolean>(false);
+    enableMenuWrapper = signal<boolean>(false);
     dbService = inject(Supabase);
 
     selectedUser = computed(() => {
@@ -22,6 +24,31 @@ export class MainView {
         this.hideMainViewSignal.emit(true);
     }
 
-    hideMobileMenu() {}
-    showMobileMenu() {}
+    toggleMenu() {
+        if (false === this.showMenu()) {
+            this.showMenu.set(true);
+            this.enableMenuWrapper.set(true);
+        } else {
+            this.showMenu.set(false);
+            setTimeout(() => {
+                this.enableMenuWrapper.set(false);
+            }, 100);
+        }
+    }
+
+    hideMenu() {
+        this.showMenu.set(false);
+        setTimeout(() => {
+            this.enableMenuWrapper.set(false);
+        }, 100);
+    }
+
+    editUser() {
+        console.log('works');
+        this.toggleMenu();
+    }
+    deleteUser() {
+        console.log('works');
+        this.toggleMenu();
+    }
 }
