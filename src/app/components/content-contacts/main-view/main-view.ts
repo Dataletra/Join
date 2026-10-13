@@ -24,7 +24,7 @@ export class MainView {
     hideMainView = () => {
         this.hideMainViewSignal.emit(true);
     };
-    
+
     toggleMenu() {
         if (false === this.showMenu()) {
             this.showMenu.set(true);
@@ -45,11 +45,9 @@ export class MainView {
     }
 
     editUser() {
-        console.log('works');
         this.toggleMenu();
     }
     deleteUser() {
-        console.log('works');
         this.toggleMenu();
     }
 }
