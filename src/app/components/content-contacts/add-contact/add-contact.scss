@@ -159,16 +159,10 @@ section {
     .forms-buttons {
         width: 100%;
         display: flex;
-        // gap: 24px;
-
         .cancel-btn {
             width: 126px;
             margin-right: 24px;
         }
-
-        // .create-btn {
-        //     // width: clamp(186px, calc(54px + 12vw), 222px);s
-        // }
     }
 }
 
@@ -303,7 +297,6 @@ section {
 
     .dialog-wrapper {
         height: auto;
-        // min-height: 1005;
     }
 
     .sec-title,

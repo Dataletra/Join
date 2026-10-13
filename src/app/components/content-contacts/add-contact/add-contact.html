@@ -87,21 +87,17 @@
                         </div>
                     </div>
                     <div class="forms-buttons">
-                        <!-- TODO adjust button width -->
                         <app-button-primary
                             class="cancel-btn"
                             [typeStr]="'cancel'"
                             (click)="dialogService.close()"
-                            /* [widthStr]="'126px'" */
                             >Cancel</app-button-primary
                         >
                         <app-button-primary
                             class="create-btn"
                             [typeStr]="'createTask'"
                             type="submit"
-                            /* TODO add disabled in button-primary */
                             [isDisabled]="contactForm.invalid"
-                            /* [widthStr]="'222px'" */
                             >Create contact</app-button-primary
                         >
                     </div>
