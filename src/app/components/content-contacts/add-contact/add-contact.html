@@ -18,9 +18,9 @@
             <div class="avatar-wrapper">
                 <app-ic-contact
                     class="avatar"
-                    [name]="'Max Muster'"
+                    [name]="avatarName"
                     [enableShadow]="true"
-                    [isDummy]="true"
+                    [isDummy]="avatarName === ''"
                 ></app-ic-contact>
             </div>
             <div class="forms-wrapper">
@@ -29,7 +29,13 @@
                 </button>
                 <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
                     <div class="forms-input">
-                        <input class="input-name" type="text" placeholder="Name" formControlName="name" />
+                        <input
+                            class="input-name"
+                            type="text"
+                            placeholder="Name"
+                            formControlName="name"
+                            (blur)="updateAvatar()"
+                        />
                         <div class="check-wrapper">
                             <p
                                 class="form-check"
