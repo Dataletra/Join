@@ -1,9 +1,9 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { IcContact } from '../elements/ic-contact/ic-contact';
-import { RouterLink } from '@angular/router';
+import { TrackableNavigate } from '../../services/trackable-navigate';
 
 @Component({
-    imports: [IcContact, RouterLink],
+    imports: [IcContact],
     selector: 'app-header',
     styleUrl: './header.scss',
     templateUrl: './header.html',
@@ -11,6 +11,7 @@ import { RouterLink } from '@angular/router';
 export class Header {
     showMenu = signal<boolean>(false);
     enableMenuWrapper = signal<boolean>(false);
+    navigateService = inject(TrackableNavigate);
 
     toggleMenu() {
         if (false === this.showMenu()) {
@@ -29,5 +30,10 @@ export class Header {
         setTimeout(() => {
             this.enableMenuWrapper.set(false);
         }, 100);
+    }
+
+    goToPage(path: string) {
+        this.hideMenu();
+        this.navigateService.goTo(path);
     }
 }

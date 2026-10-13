@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TrackableNavigate } from '../../services/trackable-navigate';
 
 @Component({
     imports: [RouterLink],
@@ -7,4 +8,6 @@ import { RouterLink } from '@angular/router';
     styleUrl: './nav-bar.scss',
     templateUrl: './nav-bar.html',
 })
-export class NavBar {}
+export class NavBar {
+    navigateService = inject(TrackableNavigate);
+}
