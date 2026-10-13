@@ -39,7 +39,6 @@
 }
 
 .detailed-view {
-    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -185,8 +184,8 @@ button {
 }
 
 .back-btn {
-    position: absolute;
-    top: 0;
+    position: fixed;
+    top: calc($height-header + clamp-px(20, 50));
     right: 11px;
     transition: 0.2s ease;
     &:hover {
