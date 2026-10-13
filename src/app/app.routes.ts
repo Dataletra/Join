@@ -6,6 +6,18 @@ import { ContentLegal } from './components/content-legal/content-legal';
 
 export const routes: Routes = [
     {
+        path: 'summary',
+        component: ContentContacts, // TODO
+    },
+    {
+        path: 'add-task',
+        component: ContentContacts, // TODO
+    },
+    {
+        path: 'board',
+        component: ContentContacts, // TODO
+    },
+    {
         path: 'contacts',
         component: ContentContacts,
     },

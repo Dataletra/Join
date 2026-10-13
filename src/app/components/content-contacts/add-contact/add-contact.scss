@@ -66,6 +66,7 @@ section {
     justify-content: space-between;
     align-items: center;
     background-color: $color-nav-high;
+    border-radius: 0 0 30px 0;
 }
 
 .close-tabl {
@@ -171,11 +172,18 @@ section {
 }
 
 @media screen and (max-width: 1200px) {
+    .sec-title {
+        h2 {
+            font-size: 18px;
+        }
+    }
+
     .sec-forms {
         flex-direction: column;
         justify-content: start;
 
         .close-tabl {
+            display: block;
             position: absolute;
             top: 28px;
             right: 20px;
@@ -243,6 +251,10 @@ section {
         display: flex;
         justify-content: center;
         position: relative;
+
+        .close-tabl {
+            display: none;
+        }
     }
 
     .forms-wrapper {
@@ -268,7 +280,19 @@ section {
     }
 }
 
-@media screen and (max-height: 890px) {
+@media screen and (max-width: 360px) {
+    .sec-title {
+        h1 {
+            font-size: 40px;
+        }
+
+        h2 {
+            font-size: 16px;
+        }
+    }
+}
+
+@media screen and (max-height: 1100px) {
     dialog {
         width: 90%;
         height: 85%;
@@ -277,12 +301,25 @@ section {
 
     .dialog-wrapper {
         height: auto;
-        min-height: 1005;
+        // min-height: 1005;
     }
 
     .sec-title,
     .sec-forms {
         height: auto;
         min-height: 500px;
+    }
+}
+
+@media screen and (max-height: 1100px) and (max-width: $media-sm) {
+    dialog {
+        width: 90%;
+        height: 85%;
+        overflow-y: auto;
+    }
+
+    .sec-title {
+        height: 300px;
+        min-height: 300px;
     }
 }
