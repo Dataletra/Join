@@ -120,11 +120,17 @@ li {
             border-radius: 0;
             cursor: default;
         }
+
+        &.active {
+            background-color: $color-nav-active-bg;
+            color: $color-nav-high;
+            border-radius: 0;
+            cursor: default;
+        }
     }
 }
 
-// adjust media with variable
-@media screen and (max-width: $media-m) {
+@media screen and (max-width: $media-sm) {
     .nav-wrapper {
         width: 100%;
         height: $height-footer;
