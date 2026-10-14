@@ -8,13 +8,13 @@ export class User implements IUser {
     phone: string = '+49 1234 112233';
     password: string = '';
 
-    constructor(user: Partial<IUser> = {}) {
-        this.id = user.id ?? 0;
-        this.created_at = user.created_at ?? new Date().toISOString();
-        this.name = user.name ?? 'Erika Mustermann';
-        this.email = user.email ?? 'erika-mustermann@mail.com';
-        this.phone = user.phone ?? '+49 1234 112233';
-        this.password = user.password ?? '';
+    constructor(user: Partial<IUser> | null = {}) {
+        this.id = user?.id ?? 0;
+        this.created_at = user?.created_at ?? new Date().toISOString();
+        this.name = user?.name ?? 'Erika Mustermann';
+        this.email = user?.email ?? 'erika-mustermann@mail.com';
+        this.phone = user?.phone ?? '+49 1234 112233';
+        this.password = user?.password ?? '';
     }
 
     getCleanAddJson() {
