@@ -87,7 +87,11 @@
                         <app-button-primary class="cancel-btn" [typeStr]="'cancel'" (click)="dialogService.close()"
                             >Cancel</app-button-primary
                         >
-                        <app-button-primary class="create-btn" [typeStr]="'createTask'" type="submit"
+                        <app-button-primary
+                            class="create-btn"
+                            [buttonType]="'submit'"
+                            [typeStr]="'createTask'"
+                            type="submit"
                             >Save</app-button-primary
                         >
                     </div>
