@@ -37,15 +37,17 @@
     }
 }
 
-.btn-light,
-.btn-dark {
+.small {
     height: clamp-px(27, 48);
     border-radius: 8px;
 
     .btn-primary__p {
         font-size: 16px;
     }
+}
 
+.btn-light,
+.btn-dark {
     .btn-primary__img {
         display: none;
     }
