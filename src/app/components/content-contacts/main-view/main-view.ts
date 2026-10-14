@@ -46,10 +46,6 @@ export class MainView {
         }, 100);
     }
 
-    editUser() {
-        this.toggleMenu();
-    }
-
     deleteUser() {
         this.toggleMenu();
         this.dbService.deleteUser(this.dbService.selectedUserID());

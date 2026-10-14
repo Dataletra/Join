@@ -84,11 +84,22 @@
                         </div>
                     </div>
                     <div class="forms-buttons">
-                        <app-button-primary class="cancel-btn" [typeStr]="'cancel'" (click)="dialogService.close()"
-                            >Cancel</app-button-primary
+                        <app-button-primary
+                            class="delete-btn"
+                            [widthStr]="'113px'"
+                            [heightStr]="'56px'"
+                            [typeStr]="'light'"
+                            type="button"
+                            (click)="onDelete()"
+                            >Delete</app-button-primary
                         >
-                        <app-button-primary class="create-btn" [typeStr]="'createTask'" type="submit"
-                            >save</app-button-primary
+                        <app-button-primary
+                            class="create-btn"
+                            [heightStr]="'56px'"
+                            [buttonType]="'submit'"
+                            [typeStr]="'createTask'"
+                            type="submit"
+                            >Save</app-button-primary
                         >
                     </div>
                 </form>

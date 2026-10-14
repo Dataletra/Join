@@ -34,7 +34,17 @@ export class EditContact {
         });
 
         effect(() => {
+            const editMode = this.dialogService.isOpen() && this.dialogService.mode() === 'edit';
             const user = this.dialogService.selectedUser();
+            if (editMode && user) {
+                const name = user.name.toLowerCase().replace(/\b\p{L}/gu, (char) => char.toUpperCase());
+                this.contactForm.setValue({
+                    name: name,
+                    email: user.email,
+                    phone: user.phone,
+                });
+                this.avatarName = user.name;
+            }
         });
     }
 
@@ -111,10 +121,28 @@ export class EditContact {
         if (this.contactForm.invalid) {
             return;
         }
-        const formData = new User(this.contactForm.value);
-        await this.supabaseService.addUser(formData);
+        const selectedUser = this.dialogService.selectedUser();
+        const formData = new User({
+            id: selectedUser?.id,
+            created_at: selectedUser?.created_at,
+            name: this.contactForm.controls.name.value,
+            email: this.contactForm.controls.name.value,
+            phone: this.contactForm.controls.phone.value,
+            password: selectedUser?.password,
+        });
+        await this.supabaseService.editUser(formData);
         this.dialogService.close();
-        this.toastService.showToast();
+        this.toastService.showToast('Contact succesfully updated');
+    }
+
+    async onDelete() {
+        const selectedUser = this.dialogService.selectedUser();
+        if (!selectedUser) {
+            return;
+        }
+        await this.supabaseService.deleteUser(selectedUser.id);
+        this.dialogService.close();
+        this.toastService.showToast('Contact succesfully deleted');
     }
 
     updateAvatar() {
