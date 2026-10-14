@@ -2,7 +2,6 @@
 <button
     [type]="buttonType()"
     [style.width]="widthStr()"
-    [style.height]="heightStr()"
     class="btn-primary"
     [disabled]="isDisabled()"
     [class.btn-dark]="typeStr() === 'dark'"
@@ -11,6 +10,7 @@
     [class.btn-addTask]="typeStr() === 'addTask'"
     [class.btn-addContact]="typeStr() === 'addContact'"
     [class.btn-cancel]="typeStr() === 'cancel'"
+    [class.small]="small()"
 >
     <p class="btn-primary__p"><ng-content></ng-content></p>
     <img class="btn-primary__img" src="{{ btnSrc.get(typeStr()) }}" aria-hidden="true" />
