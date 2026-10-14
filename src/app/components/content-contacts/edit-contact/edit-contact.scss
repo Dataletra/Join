@@ -1,0 +1,305 @@
+@use '../../../../../public/styles/abstract/variables.scss' as *;
+@use '../../../../../public/styles/abstract/mixin.scss';
+
+dialog {
+    width: 84%;
+    max-width: 1212px;
+    height: 58%;
+    margin: auto;
+    border-radius: 30px;
+    border: none;
+    background: transparent;
+}
+
+.dialog-wrapper {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+section {
+    padding: 52px 0;
+    padding-inline: clamp(24px, calc(-120px + 12vw), 48px) clamp(16px, calc(-80px + 8vw), 32px);
+}
+
+.sec-title {
+    width: 40%;
+    height: 100%;
+    background-color: $color-base;
+    border-radius: 0 0 0 30px;
+
+    .close-mobi {
+        display: none;
+    }
+
+    .title_wrapper {
+        position: absolute;
+        top: 25%;
+    }
+
+    .logo {
+        width: 55px;
+        height: 66.5px;
+        margin-bottom: 12px;
+    }
+
+    h1 {
+        font-size: clamp(40px, calc(-37px + 7vw), 61px);
+        color: $color-nav-high;
+        margin-bottom: 8px;
+    }
+
+    hr {
+        width: 90px;
+        border: 1px solid $color-high-2;
+    }
+}
+
+.sec-forms {
+    width: 60%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: $color-nav-high;
+    border-radius: 0 0 30px 0;
+}
+
+.close-tabl {
+    display: none;
+}
+
+.avatar-wrapper {
+    height: 100%;
+    position: relative;
+
+    .avatar {
+        width: 120px;
+        height: 120px;
+        position: absolute;
+        top: 152px;
+    }
+}
+
+.forms-wrapper {
+    height: 100%;
+    width: 68%;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+
+    form {
+        width: 100%;
+    }
+
+    .close-desk {
+        width: 24px;
+        height: 24px;
+    }
+
+    .forms-input {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 13px;
+        margin-top: 61px;
+        margin-bottom: 29px;
+
+        .check-wrapper {
+            width: 100%;
+            height: 19px;
+        }
+
+        .form-check {
+            display: none;
+            padding-left: 21px;
+            font-size: 16px;
+            color: $color-form-check;
+        }
+
+        .form-check.is-visible {
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            height: 50px;
+            border: 1px solid $color-input-border;
+            border-radius: 10px;
+            padding: 13px 21px;
+            font-size: 20px;
+            font-family: 'Inter';
+            font-weight: 400;
+        }
+
+        .input-name {
+            background-image: url(../../../../../public/assets/icons/person.svg);
+            background-position: 96%;
+            background-repeat: no-repeat;
+        }
+
+        .input-email {
+            background-image: url(../../../../../public/assets/icons/mail.svg);
+            background-position: 96%;
+            background-repeat: no-repeat;
+        }
+
+        .input-number {
+            background-image: url(../../../../../public/assets/icons/phone.svg);
+            background-position: 96%;
+            background-repeat: no-repeat;
+        }
+    }
+
+    .forms-buttons {
+        width: 100%;
+        display: flex;
+        .cancel-btn {
+            width: 126px;
+            margin-right: 24px;
+        }
+    }
+}
+
+@media screen and (max-width: 1200px) {
+    .sec-forms {
+        flex-direction: column;
+        justify-content: start;
+
+        .close-tabl {
+            display: block;
+            position: absolute;
+            top: 28px;
+            right: 20px;
+        }
+
+        .avatar-wrapper {
+            height: auto;
+        }
+    }
+
+    .avatar-wrapper {
+        position: unset;
+
+        .avatar {
+            position: unset;
+        }
+    }
+
+    .forms-wrapper {
+        width: 100%;
+        .close-desk {
+            display: none;
+        }
+    }
+}
+
+@media screen and (max-width: $media-sm) {
+    dialog {
+        width: 90%;
+        height: 80%;
+        overflow: hidden;
+    }
+
+    .dialog-wrapper {
+        flex-direction: column;
+    }
+
+    .sec-title {
+        width: 100%;
+        height: 46%;
+        border-radius: 30px 30px 0 0;
+
+        h1 {
+            font-size: 47px;
+        }
+
+        .title_wrapper {
+            top: 15%;
+        }
+
+        .close-mobi {
+            display: block;
+            position: absolute;
+            top: 28px;
+            right: 20px;
+        }
+
+        .logo {
+            display: none;
+        }
+    }
+
+    .sec-forms {
+        width: 100%;
+        height: 54%;
+        display: flex;
+        justify-content: center;
+        position: relative;
+
+        .close-tabl {
+            display: none;
+        }
+    }
+
+    .forms-wrapper {
+        width: 100%;
+
+        .forms-buttons {
+            display: flex;
+            justify-content: center;
+
+            .cancel-btn {
+                display: none;
+            }
+
+            .create-btn {
+                width: 222px;
+            }
+        }
+    }
+
+    .avatar-wrapper {
+        position: absolute;
+        top: -60px;
+    }
+}
+
+@media screen and (max-width: 360px) {
+    .sec-title {
+        h1 {
+            font-size: 40px;
+        }
+    }
+}
+
+@media screen and (max-height: 1100px) {
+    dialog {
+        width: 90%;
+        height: 85%;
+        overflow-y: auto;
+    }
+
+    .dialog-wrapper {
+        height: auto;
+    }
+
+    .sec-title,
+    .sec-forms {
+        height: auto;
+        min-height: 500px;
+    }
+}
+
+@media screen and (max-height: 1100px) and (max-width: $media-sm) {
+    dialog {
+        width: 90%;
+        height: 85%;
+        overflow-y: auto;
+    }
+
+    .sec-title {
+        height: 300px;
+        min-height: 300px;
+    }
+}

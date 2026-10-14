@@ -35,7 +35,7 @@ export class AddContact {
     }
 
     openClose() {
-        const isOpen = this.dialogService.isOpen();
+        const isOpen = this.dialogService.isOpen() && this.dialogService.mode() === 'add';
         const dialogRef = this.dialog();
         if (!dialogRef) {
             return;

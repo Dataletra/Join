@@ -46,15 +46,13 @@ export class Supabase {
         const { data, error } = await this.supabase.from('user').insert([userData]).select();
     }
 
-    async deleteUser(id: number) {
+    async deleteUser(id: number | null) {
         const response = await this.supabase.from('user').delete().eq('id', id);
     }
 
-    editUser(id: number | null | undefined, userNew: IUser) {
-        let userId = this.users().findIndex((user) => id === user.id);
-        if (userId > 0 && id) {
-            this.users()[userId] = userNew;
-        }
+    async editUser(user: User) {
+        const userData = user.getCleanAddJson();
+        const { data, error } = await this.supabase.from('user').update([userData]).eq('id', user.id).select();
     }
 
     ngOnDestroy() {
