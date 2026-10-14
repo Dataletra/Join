@@ -9,6 +9,7 @@ import { TrackableNavigate } from '../../../services/trackable-navigate';
 })
 export class ButtonBack {
     private navigateService = inject(TrackableNavigate);
+    
     goBack = () => {
         this.navigateService.goBack();
     };

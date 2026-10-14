@@ -4,9 +4,10 @@ import { IcContact } from '../../elements/ic-contact/ic-contact';
 import { TitleCasePipe } from '@angular/common';
 import { ContactDialog } from '../../../services/contact-dialog';
 import { ButtonBack } from '../../elements/button-back/button-back';
+import { PopupConfirm } from '../../elements/popup-confirm/popup-confirm';
 
 @Component({
-    imports: [IcContact, TitleCasePipe, ButtonBack],
+    imports: [IcContact, TitleCasePipe, ButtonBack, PopupConfirm],
     selector: 'app-main-view',
     styleUrl: './main-view.scss',
     templateUrl: './main-view.html',
@@ -18,6 +19,7 @@ export class MainView {
     enableMenuWrapper = signal<boolean>(false);
     dbService = inject(Supabase);
     dialogService = inject(ContactDialog);
+    showConfirm = signal<boolean>(false);
 
     selectedUser = computed(() => {
         return this.dbService.users().find((u) => u.id === this.dbService.selectedUserID()) ?? null;
@@ -47,7 +49,6 @@ export class MainView {
     }
 
     deleteUser() {
-        this.toggleMenu();
         this.dbService.deleteUser(this.dbService.selectedUserID());
     }
 }
