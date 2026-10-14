@@ -6,10 +6,10 @@
         (click)="$event.stopPropagation()"
     >
         <li class="edit-item">
-            <p (click)="editUser()" class="button-mobile-text">Edit</p>
+            <p (click)="toggleMenu(); editUser()" class="button-mobile-text">Edit</p>
         </li>
         <li class="delete-item">
-            <p (click)="deleteUser()" class="button-mobile-text">Delete</p>
+            <p (click)="toggleMenu(); showConfirm.set(true)" class="button-mobile-text">Delete</p>
         </li>
     </menu>
 </div>
@@ -31,7 +31,7 @@
                     <button>
                         <p class="button-text"><img src="./assets/icons/edit.svg" alt="Edit Icon" />Edit</p>
                     </button>
-                    <button (click)="dbService.deleteUser(dbService.selectedUserID())">
+                    <button (click)="showConfirm.set(true)">
                         <p class="button-text"><img src="./assets/icons/delete.svg" alt="Delete Icon" />Delete</p>
                     </button>
                 </div>
@@ -49,3 +49,6 @@
         </button>
     </div>
 }
+<app-popup-confirm [show]="showConfirm()" (done)="showConfirm.set(false)" [callbackOkay]="deleteUser.bind(this)"
+    >Do you really want to delete?
+</app-popup-confirm>
