@@ -1,15 +1,19 @@
 @use '../../../../../public/styles/abstract/variables.scss' as *;
 @use '../../../../../public/styles/abstract/helpers.scss' as *;
 
+dialog {
+    margin: auto;
+    border-radius: 20px;
+    border: none;
+    background: transparent;
+}
+
 .popup-confirm {
     opacity: 0;
+    transform: scale(0);
     pointer-events: none;
     transition: all 125ms ease-out;
 
-    position: fixed;
-    left: 50svw;
-    top: 50svh;
-    transform: translate(-50%, -50%);
     background-color: white;
     border: 1px solid $color-base;
     padding: 16px;
@@ -41,4 +45,5 @@
 .show {
     opacity: 1;
     pointer-events: all;
+    transform: scale(1);
 }

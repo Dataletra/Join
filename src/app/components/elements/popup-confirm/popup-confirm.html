@@ -1,7 +1,9 @@
-<div class="popup-confirm" [class.show]="show()">
-    <p><ng-content></ng-content></p>
-    <div class="btn-wrapper">
-        <app-button-primary (click)="deny()" [typeStr]="'cancel'">Cancel</app-button-primary>
-        <app-button-primary (click)="okay()" [typeStr]="'createTask'">Confirm</app-button-primary>
+<dialog #popupConfirm closedby="any" >
+    <div class="popup-confirm" [class.show]="show()">
+        <p><ng-content></ng-content></p>
+        <div class="btn-wrapper">
+            <app-button-primary (click)="deny()" [typeStr]="'cancel'">Cancel</app-button-primary>
+            <app-button-primary (click)="okay()" [typeStr]="'createTask'">Confirm</app-button-primary>
+        </div>
     </div>
-</div>
+</dialog>
