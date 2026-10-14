@@ -48,5 +48,6 @@ export class MainView {
 
     deleteUser() {
         this.toggleMenu();
+        this.dbService.deleteUser(this.dbService.selectedUserID());
     }
 }

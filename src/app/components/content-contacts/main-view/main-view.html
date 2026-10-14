@@ -21,29 +21,31 @@
     </div>
     <app-button-back class="back-btn" [callback]="hideMainView"></app-button-back>
 </div>
-<div class="detailed-view">
-    <div class="user-container">
-        <app-ic-contact [enableShadow]="true" class="user-ic" [name]="selectedUser()?.name ?? ''"></app-ic-contact>
-        <div class="name-container">
-            <h2>{{ selectedUser()?.name | titlecase }}</h2>
-            <div class="button-container mobile-d-none">
-                <button (click)="dialogService.open('edit', selectedUser())">
-                    <p class="button-text"><img src="./assets/icons/edit.svg" alt="Edit Icon" />Edit</p>
-                </button>
-                <button>
-                    <p class="button-text"><img src="./assets/icons/delete.svg" alt="Delete Icon" />Delete</p>
-                </button>
+@if (selectedUser() != null) {
+    <div class="detailed-view">
+        <div class="user-container">
+            <app-ic-contact [enableShadow]="true" class="user-ic" [name]="selectedUser()?.name ?? ''"></app-ic-contact>
+            <div class="name-container">
+                <h2>{{ selectedUser()?.name | titlecase }}</h2>
+                <div class="button-container mobile-d-none">
+                    <button (click)="dialogService.open('edit', selectedUser())">
+                        <p class="button-text"><img src="./assets/icons/edit.svg" alt="Edit Icon" />Edit</p>
+                    </button>
+                    <button (click)="dbService.deleteUser(dbService.selectedUserID())">
+                        <p class="button-text"><img src="./assets/icons/delete.svg" alt="Delete Icon" />Delete</p>
+                    </button>
+                </div>
             </div>
         </div>
+        <p>Contact Information</p>
+        <div class="contact-container">
+            <p class="bold">Email</p>
+            <a class="email" [attr.href]="'mailto:' + selectedUser()?.email">{{ selectedUser()?.email }}</a>
+            <p class="bold">Phone</p>
+            <a [attr.href]="'tel:' + selectedUser()?.phone">{{ selectedUser()?.phone }}</a>
+        </div>
+        <button class="mobile-menu-btn" (click)="toggleMenu()">
+            <img src="./assets/icons/three-dot.svg" alt="Edit Icon" />
+        </button>
     </div>
-    <p>Contact Information</p>
-    <div class="contact-container">
-        <p class="bold">Email</p>
-        <a class="email" [attr.href]="'mailto:' + selectedUser()?.email">{{ selectedUser()?.email }}</a>
-        <p class="bold">Phone</p>
-        <a [attr.href]="'tel:' + selectedUser()?.phone">{{ selectedUser()?.phone }}</a>
-    </div>
-    <button class="mobile-menu-btn" (click)="toggleMenu()">
-        <img src="./assets/icons/three-dot.svg" alt="Edit Icon" />
-    </button>
-</div>
+}
