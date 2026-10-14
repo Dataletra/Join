@@ -32,6 +32,10 @@ export class EditContact {
         effect(() => {
             this.openClose();
         });
+
+        effect(() => {
+            const user = this.dialogService.selectedUser();
+        });
     }
 
     openClose() {
