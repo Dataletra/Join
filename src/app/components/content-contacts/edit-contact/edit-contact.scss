@@ -154,9 +154,10 @@ section {
     .forms-buttons {
         width: 100%;
         display: flex;
-        .cancel-btn {
-            width: 126px;
-            margin-right: 24px;
+
+        .delete-btn {
+            width: 113px;
+            margin-right: 55px;
         }
     }
 }
@@ -249,7 +250,7 @@ section {
             display: flex;
             justify-content: center;
 
-            .cancel-btn {
+            .delete-btn {
                 display: none;
             }
 

@@ -135,6 +135,16 @@ export class EditContact {
         this.toastService.showToast('Contact succesfully updated');
     }
 
+    async onDelete() {
+        const selectedUser = this.dialogService.selectedUser();
+        if (!selectedUser) {
+            return;
+        }
+        await this.supabaseService.deleteUser(selectedUser.id);
+        this.dialogService.close();
+        this.toastService.showToast('Contact succesfully deleted');
+    }
+
     updateAvatar() {
         const nameControl = this.contactForm.controls.name;
         if (nameControl.valid) {
