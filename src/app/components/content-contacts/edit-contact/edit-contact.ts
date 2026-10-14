@@ -1,4 +1,4 @@
-import { Component, inject, viewChild, ElementRef, effect } from '@angular/core';
+import { Component, inject, viewChild, ElementRef, effect, signal } from '@angular/core';
 import { ContactDialog } from '../../../services/contact-dialog';
 import { IcContact } from '../../elements/ic-contact/ic-contact';
 import { ButtonPrimary } from '../../elements/button-primary/button-primary';
@@ -13,9 +13,10 @@ import {
 } from '@angular/forms';
 import { User } from '../../models/user';
 import { Supabase } from '../../../services/supabase';
+import { PopupConfirm } from '../../elements/popup-confirm/popup-confirm';
 
 @Component({
-    imports: [IcContact, ButtonPrimary, ReactiveFormsModule],
+    imports: [IcContact, ButtonPrimary, ReactiveFormsModule, PopupConfirm],
     selector: 'app-edit-contact',
     styleUrl: './edit-contact.scss',
     templateUrl: './edit-contact.html',
@@ -25,6 +26,7 @@ export class EditContact {
     dialogService = inject(ContactDialog);
     dialog = viewChild<ElementRef<HTMLDialogElement>>('editContact');
     avatarName = '';
+    showConfirm = signal<boolean>(false);
 
     constructor() {
         effect(() => {

@@ -90,7 +90,7 @@
                             [heightStr]="'56px'"
                             [typeStr]="'light'"
                             type="button"
-                            (click)="onDelete()"
+                            (click)="showConfirm.set(true)"
                             >Delete</app-button-primary
                         >
                         <app-button-primary
@@ -107,3 +107,6 @@
         </section>
     </div>
 </dialog>
+<app-popup-confirm [show]="showConfirm()" (done)="showConfirm.set(false)" [callbackOkay]="onDelete.bind(this)"
+    >Do you really want to delete?
+</app-popup-confirm>
