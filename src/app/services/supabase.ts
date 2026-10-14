@@ -46,8 +46,10 @@ export class Supabase {
         const { data, error } = await this.supabase.from('user').insert([userData]).select();
     }
 
-    async deleteUser(id: number) {
-        const response = await this.supabase.from('user').delete().eq('id', id);
+    async deleteUser(id: number | null) {
+        if (id) {
+            const response = await this.supabase.from('user').delete().eq('id', id);
+        }
     }
 
     editUser(id: number | null | undefined, userNew: IUser) {

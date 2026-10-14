@@ -30,7 +30,7 @@
                 <button (click)="dialogService.open('edit')">
                     <p class="button-text"><img src="./assets/icons/edit.svg" alt="Edit Icon" />Edit</p>
                 </button>
-                <button>
+                <button (click)="dbService.deleteUser(dbService.selectedUserID())">
                     <p class="button-text"><img src="./assets/icons/delete.svg" alt="Delete Icon" />Delete</p>
                 </button>
             </div>
