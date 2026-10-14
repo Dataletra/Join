@@ -121,8 +121,16 @@ export class EditContact {
         if (this.contactForm.invalid) {
             return;
         }
-        const formData = new User(this.contactForm.value);
-        await this.supabaseService.addUser(formData);
+        const selectedUser = this.dialogService.selectedUser();
+        const formData = new User({
+            id: selectedUser?.id,
+            created_at: selectedUser?.created_at,
+            name: this.contactForm.controls.name.value,
+            email: this.contactForm.controls.name.value,
+            phone: this.contactForm.controls.phone.value,
+            password: selectedUser?.password,
+        });
+        await this.supabaseService.editUser(formData);
         this.dialogService.close();
         this.toastService.showToast('Contact succesfully updated');
     }
