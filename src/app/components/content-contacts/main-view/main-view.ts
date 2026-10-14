@@ -46,10 +46,6 @@ export class MainView {
         }, 100);
     }
 
-    editUser() {
-        this.toggleMenu();
-    }
-
     deleteUser() {
         this.toggleMenu();
     }

@@ -110,7 +110,7 @@ export class AddContact {
         const formData = new User(this.contactForm.value);
         await this.supabaseService.addUser(formData);
         this.dialogService.close();
-        this.toastService.showToast();
+        this.toastService.showToast('Contact succesfully created');
     }
 
     updateAvatar() {

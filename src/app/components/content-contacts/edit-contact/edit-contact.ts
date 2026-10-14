@@ -34,7 +34,17 @@ export class EditContact {
         });
 
         effect(() => {
+            const editMode = this.dialogService.isOpen() && this.dialogService.mode() === 'edit';
             const user = this.dialogService.selectedUser();
+            if (editMode && user) {
+                const name = user.name.toLowerCase().replace(/\b\p{L}/gu, (char) => char.toUpperCase());
+                this.contactForm.setValue({
+                    name: name,
+                    email: user.email,
+                    phone: user.phone,
+                });
+                this.avatarName = user.name;
+            }
         });
     }
 
@@ -114,7 +124,7 @@ export class EditContact {
         const formData = new User(this.contactForm.value);
         await this.supabaseService.addUser(formData);
         this.dialogService.close();
-        this.toastService.showToast();
+        this.toastService.showToast('Contact succesfully updated');
     }
 
     updateAvatar() {
