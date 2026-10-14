@@ -20,6 +20,7 @@ export class ButtonPrimary {
     readonly heightStr = input<string>();
     readonly typeStr = input<string>(BtnType.Dark);
     readonly isDisabled = input<boolean>(false);
+    readonly buttonType = input<'button' | 'submit'>('button');
 
     btnSrc = new Map<string, string>([
         ['dark', ''],

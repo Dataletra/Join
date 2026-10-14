@@ -6,7 +6,7 @@
         (click)="$event.stopPropagation()"
     >
         <li class="edit-item">
-            <p (click)="toggleMenu(); editUser()" class="button-mobile-text">Edit</p>
+            <p (click)="dialogService.open('edit', selectedUser()); hideMenu()" class="button-mobile-text">Edit</p>
         </li>
         <li class="delete-item">
             <p (click)="toggleMenu(); showConfirm.set(true)" class="button-mobile-text">Delete</p>
@@ -28,7 +28,7 @@
             <div class="name-container">
                 <h2>{{ selectedUser()?.name | titlecase }}</h2>
                 <div class="button-container mobile-d-none">
-                    <button>
+                    <button (click)="dialogService.open('edit', selectedUser())">
                         <p class="button-text"><img src="./assets/icons/edit.svg" alt="Edit Icon" />Edit</p>
                     </button>
                     <button (click)="showConfirm.set(true)">

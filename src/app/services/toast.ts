@@ -3,6 +3,7 @@ import { Service, signal } from '@angular/core';
 @Service()
 export class Toast {
     isVisible = signal(false);
+    message = signal('');
 
     show() {
         this.isVisible.set(true);
@@ -12,7 +13,8 @@ export class Toast {
         this.isVisible.set(false);
     }
 
-    showToast() {
+    showToast(message: string) {
+        this.message.set(message);
         this.show();
         setTimeout(() => {
             this.hide();
