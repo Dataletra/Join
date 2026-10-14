@@ -13,7 +13,6 @@ import { ContactDialog } from '../../../services/contact-dialog';
     templateUrl: './namelist.html',
 })
 export class Namelist {
-    selectedUserID = output<number>();
     isUserSelected = output<boolean>();
     dbService = inject(Supabase);
     userList: IUser[] | null = [];

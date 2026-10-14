@@ -1,4 +1,4 @@
-import { Component, inject, viewChild, ElementRef, effect } from '@angular/core';
+import { Component, inject, viewChild, ElementRef, effect, signal } from '@angular/core';
 import { ContactDialog } from '../../../services/contact-dialog';
 import { IcContact } from '../../elements/ic-contact/ic-contact';
 import { ButtonPrimary } from '../../elements/button-primary/button-primary';
@@ -13,10 +13,10 @@ import {
 } from '@angular/forms';
 import { User } from '../../models/user';
 import { Supabase } from '../../../services/supabase';
-import { Toast } from '../../../services/toast';
+import { PopupConfirm } from '../../elements/popup-confirm/popup-confirm';
 
 @Component({
-    imports: [IcContact, ButtonPrimary, ReactiveFormsModule],
+    imports: [IcContact, ButtonPrimary, ReactiveFormsModule, PopupConfirm],
     selector: 'app-edit-contact',
     styleUrl: './edit-contact.scss',
     templateUrl: './edit-contact.html',
@@ -25,8 +25,8 @@ export class EditContact {
     supabaseService = inject(Supabase);
     dialogService = inject(ContactDialog);
     dialog = viewChild<ElementRef<HTMLDialogElement>>('editContact');
-    toastService = inject(Toast);
     avatarName = '';
+    showConfirm = signal<boolean>(false);
 
     constructor() {
         effect(() => {
@@ -132,7 +132,6 @@ export class EditContact {
         });
         await this.supabaseService.editUser(formData);
         this.dialogService.close();
-        this.toastService.showToast('Contact succesfully updated');
     }
 
     async onDelete() {
@@ -142,7 +141,6 @@ export class EditContact {
         }
         await this.supabaseService.deleteUser(selectedUser.id);
         this.dialogService.close();
-        this.toastService.showToast('Contact succesfully deleted');
     }
 
     updateAvatar() {
