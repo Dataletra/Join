@@ -2,6 +2,7 @@ import { Component, computed, inject, input, signal, output } from '@angular/cor
 import { Supabase } from '../../../services/supabase';
 import { IcContact } from '../../elements/ic-contact/ic-contact';
 import { TitleCasePipe } from '@angular/common';
+import { ContactDialog } from '../../../services/contact-dialog';
 import { ButtonBack } from '../../elements/button-back/button-back';
 
 @Component({
@@ -16,6 +17,7 @@ export class MainView {
     showMenu = signal<boolean>(false);
     enableMenuWrapper = signal<boolean>(false);
     dbService = inject(Supabase);
+    dialogService = inject(ContactDialog);
 
     selectedUser = computed(() => {
         return this.dbService.users().find((u) => u.id === this.dbService.selectedUserID()) ?? null;
@@ -47,6 +49,7 @@ export class MainView {
     editUser() {
         this.toggleMenu();
     }
+
     deleteUser() {
         this.toggleMenu();
     }
