@@ -48,8 +48,6 @@ export class MainView {
         }, 100);
     }
 
-    editUser() {}
-
     deleteUser() {
         this.dbService.deleteUser(this.dbService.selectedUserID());
     }

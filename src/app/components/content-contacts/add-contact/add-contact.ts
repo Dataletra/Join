@@ -25,7 +25,6 @@ export class AddContact {
     supabaseService = inject(Supabase);
     dialogService = inject(ContactDialog);
     dialog = viewChild<ElementRef<HTMLDialogElement>>('addContact');
-    toastService = inject(Toast);
     avatarName = '';
 
     constructor() {
@@ -110,7 +109,6 @@ export class AddContact {
         const formData = new User(this.contactForm.value);
         await this.supabaseService.addUser(formData);
         this.dialogService.close();
-        this.toastService.showToast('Contact succesfully created');
     }
 
     updateAvatar() {

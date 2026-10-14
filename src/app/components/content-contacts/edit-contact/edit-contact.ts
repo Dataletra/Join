@@ -13,7 +13,6 @@ import {
 } from '@angular/forms';
 import { User } from '../../models/user';
 import { Supabase } from '../../../services/supabase';
-import { Toast } from '../../../services/toast';
 
 @Component({
     imports: [IcContact, ButtonPrimary, ReactiveFormsModule],
@@ -25,7 +24,6 @@ export class EditContact {
     supabaseService = inject(Supabase);
     dialogService = inject(ContactDialog);
     dialog = viewChild<ElementRef<HTMLDialogElement>>('editContact');
-    toastService = inject(Toast);
     avatarName = '';
 
     constructor() {
@@ -132,7 +130,6 @@ export class EditContact {
         });
         await this.supabaseService.editUser(formData);
         this.dialogService.close();
-        this.toastService.showToast('Contact succesfully updated');
     }
 
     async onDelete() {
@@ -142,7 +139,6 @@ export class EditContact {
         }
         await this.supabaseService.deleteUser(selectedUser.id);
         this.dialogService.close();
-        this.toastService.showToast('Contact succesfully deleted');
     }
 
     updateAvatar() {

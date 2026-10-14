@@ -9,7 +9,7 @@
             <p (click)="dialogService.open('edit', selectedUser()); hideMenu()" class="button-mobile-text">Edit</p>
         </li>
         <li class="delete-item">
-            <p (click)="toggleMenu(); showConfirm.set(true)" class="button-mobile-text">Delete</p>
+            <p (click)="hideMenu(); showConfirm.set(true)" class="button-mobile-text">Delete</p>
         </li>
     </menu>
 </div>
