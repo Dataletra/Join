@@ -1,0 +1,8 @@
+<app-namelist (isUserSelected)="handleUserSelectedStatus($event)"></app-namelist>
+
+<app-main-view
+    [incomingSelectedViewStatus]="showMainView()"
+    (hideMainViewSignal)="showMainView.set(false)"
+    [class.d-none]="!showMainView()"
+>
+</app-main-view>

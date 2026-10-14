@@ -1,0 +1,47 @@
+<div class="nav-wrapper">
+    <div class="logo-nav">
+        <img class="logo" src="./assets/icons/logo.svg" alt="logo" />
+
+        <nav>
+            <ul>
+                <li>
+                    <a routerLink="summary" routerLinkActive="active" [class.active]="activeUrl() === '/summary'">
+                        <img class="icon-default" src="./assets/icons/summary.svg" aria-hidden="true" />
+                        <img class="icon-active" src="./assets/icons/summary-active.svg" aria-hidden="true" />
+                        Summary
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="add-task" routerLinkActive="active" [class.active]="activeUrl() === '/add-task'">
+                        <img class="icon-default" src="./assets/icons/add-task.svg" aria-hidden="true" />
+                        <img class="icon-active" src="./assets/icons/add-task-active.svg" aria-hidden="true" />
+                        Add Task
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="board" routerLinkActive="active" [class.active]="activeUrl() === '/board'">
+                        <img class="icon-default" src="./assets/icons/board.svg" aria-hidden="true" />
+                        <img class="icon-active" src="./assets/icons/board-active.svg" aria-hidden="true" />
+                        Board
+                    </a>
+                </li>
+                <li>
+                    <a routerLink="contacts" routerLinkActive="active" [class.active]="activeUrl() === '/contacts'">
+                        <img class="icon-default" src="./assets/icons/contact-calendar.svg" aria-hidden="true" />
+                        <img class="icon-active" src="./assets/icons/contact-calendar-active.svg" aria-hidden="true" />
+                        Contacts
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="legal-links">
+        <a (click)="navigateService.goTo('privacy-policy')" [class.active]="activeUrl() === '/privacy-policy'"
+            >Privacy Policy</a
+        >
+        <a (click)="navigateService.goTo('legal-notice')" [class.active]="activeUrl() === '/legal-notice'"
+            >Legal notice</a
+        >
+    </div>
+</div>

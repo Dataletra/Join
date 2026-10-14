@@ -1,0 +1,16 @@
+<img class="logo-mobile show-mobile" src="./assets/icons/favicon-dark.svg" alt="join logo" />
+<h5 class="header-title">Kanban Project Management Tool</h5>
+<nav class="header-nav">
+    <button class="btn-help" (click)="goToPage('help')">
+        <img src="./assets/icons/help.svg" alt="help-icon" />
+    </button>
+    <app-ic-contact (click)="toggleMenu()" class="header-user" [name]="'TODO NAME'" [isHeader]="true"></app-ic-contact>
+</nav>
+<div class="user-menu-wrapper" (click)="hideMenu()" [class.d-none]="!enableMenuWrapper()">
+    <menu class="user-menu" [class.move-out]="!showMenu()" [class.move-in]="showMenu()">
+        <li (click)="goToPage('help')" class="help-mobile"><a>Help</a></li>
+        <li><a (click)="goToPage('legal-notice')">Legal Notice</a></li>
+        <li><a (click)="goToPage('privacy-policy')">Privacy Policy</a></li>
+        <li><a href="#TODO">Log out</a></li>
+    </menu>
+</div>

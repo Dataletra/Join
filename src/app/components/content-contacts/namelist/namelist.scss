@@ -1,0 +1,139 @@
+@use '../../../../../public/styles/abstract/variables.scss' as *;
+@use '../../../../../public/styles/abstract/functions.scss' as *;
+@use '../../../../../public/styles/abstract/mixin.scss' as *;
+
+.wrapper {
+    width: clamp-px(300, 400, 1070, 950);
+    background-color: white;
+    height: $height-content-desktop;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 20px;
+    padding-bottom: 0;
+    position: relative;
+}
+
+.btn-container {
+    color: red;
+    flex-shrink: 0;
+    margin-bottom: 20px;
+}
+@media screen and (max-width: $media-m) and (min-width: $media-sm) {
+    .wrapper {
+        max-height: $height-content-mobile;
+    }
+}
+@media screen and (max-width: $media-sm) {
+    .wrapper {
+        height: $height-content-mobile;
+        width: 100% !important;
+    }
+    .user-list {
+        width: 100% !important;
+    }
+    .username,
+    .email {
+        max-width: clamp-px(170, 430, 560, 320) !important;
+    }
+    .btn-container {
+        position: absolute;
+        bottom: 0;
+        right: 5%;
+    }
+}
+
+.user-item {
+    display: flex;
+    flex-direction: row;
+    gap: clamp-px(16, 38, 1070, 950);
+    padding-inline: 24px;
+    transition: 0.2s ease;
+    border-radius: 10px;
+    margin: 20px;
+    margin-left: 0px;
+    align-items: center;
+    height: 80px;
+    padding-left: clamp-px(5, 24, 1070, 950);
+
+    .email {
+        color: #007cee;
+        font-size: 15px;
+        margin-top: 3px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        max-width: clamp-px(170, 230, 1070, 950);
+    }
+
+    &-label {
+        margin-left: clamp-px(15, 37, 1070, 950);
+        margin-bottom: 20px;
+        margin-top: 30px;
+    }
+
+    .username {
+        transition: 0.2s ease;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        max-width: clamp-px(170, 230, 1070, 950);
+    }
+
+    &:hover {
+        background-color: $color-high-1;
+        cursor: pointer;
+        transition: 0.2s ease;
+        .username {
+            color: white;
+            transition: 0.2s ease;
+        }
+    }
+
+    &:active {
+        background-color: $color-base;
+        transition: 0.2s ease;
+    }
+}
+
+.selected {
+    .username {
+        color: white;
+    }
+    background-color: $color-high-1;
+    transition: 0.2s ease;
+}
+
+.user-ic {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+}
+
+hr {
+    width: 95%;
+}
+
+.user-list {
+    flex: 1;
+    overflow-y: auto;
+    margin-right: -18px;
+    padding-right: 8px;
+    width: clamp-px(270, 370, 1070, 950);
+    @include scrollbar-light(4, 8);
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.circle-placeholder {
+    width: 35px;
+    height: 35px;
+    background-color: orange;
+    border: 1px solid red;
+    border-radius: 50%;
+    text-align: center;
+    min-width: 35px;
+}

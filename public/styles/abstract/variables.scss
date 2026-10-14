@@ -1,0 +1,25 @@
+$color-base: #2a3647;
+$color-high-1: #124658;
+$color-high-2: #29abe2;
+$color-high-3: #091931;
+$color-bg-content: #f6f7f8;
+$color-nav: #e7e7e7;
+$color-nav-high: #ffffff;
+$color-nav-hover-bg: #2a3d59;
+$color-nav-active-bg: #091931;
+
+$color-input-border: #6b6b6bb6;
+$color-form-check: #e60026;
+
+$color-popup: #cdcdcd;
+
+$media-s: 320px;
+$media-sm: 560px;
+$media-m: 810px;
+
+$height-header: 96px;
+$height-footer: 80px;
+$height-content-desktop: calc(100svh - $height-header);
+$height-content-mobile: calc(100svh - $height-header - $height-footer);
+
+$width-nav-desktop: clamp(180px, calc((100svw - 950px) * 52 / 450 + 180px), 232px);
