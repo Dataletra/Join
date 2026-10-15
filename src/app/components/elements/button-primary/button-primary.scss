@@ -64,16 +64,6 @@
     .btn-primary__p {
         color: $color-base;
     }
-
-    &:not(:disabled):hover {
-        .btn-primary__p {
-            color: $color-high-1;
-        }
-    }
-
-    &:active {
-        border: 2px solid $color-high-3;
-    }
 }
 
 .btn-createTask {
@@ -83,43 +73,43 @@
     }
 }
 
-.btn-dark,
-.btn-createTask {
-    &:not(:disabled):hover {
-        background-color: $color-high-1;
-    }
-}
-
 .btn-addTask {
     height: clamp-px(56, 51);
-}
-
-.btn-addTask,
-.btn-addContact {
-    &:not(:disabled):hover {
-        background-color: $color-high-2;
-        border: 1px solid $color-high-2;
-    }
 }
 
 .btn-addContact {
     gap: 16px;
 }
 
-.btn-light:not(:disabled):hover,
-.btn-cancel:not(:disabled):hover {
+.btn-light:not(:disabled):not(:active):hover,
+.btn-cancel:not(:disabled):not(:active):hover {
     border: 1px solid $color-high-1;
     outline: 1px solid $color-high-1;
 }
 
-.btn-dark,
-.btn-createTask,
-.btn-addContact,
-.btn-addTask {
-    &:active {
-        border: 1px solid $color-high-3;
-        background-color: $color-high-3;
-    }
+.btn-addTask:not(:disabled):not(:active):hover,
+.btn-addContact:not(:disabled):not(:active):hover {
+    background-color: $color-high-2;
+    border: 1px solid $color-high-2;
+}
+
+.btn-dark:not(:disabled):not(:active):hover,
+.btn-createTask:not(:disabled):not(:active):hover {
+    background-color: $color-high-1;
+}
+
+.btn-light:not(:disabled):active,
+.btn-cancel:not(:disabled):active {
+    border: 1px solid $color-high-3;
+    outline: 1px solid transparent;
+}
+
+.btn-dark:not(disabled):active,
+.btn-createTask:not(disabled):active,
+.btn-addContact:not(disabled):active,
+.btn-addTask:not(disabled):active {
+    border: 1px solid $color-high-3;
+    background-color: $color-high-3 important;
 }
 
 @media screen and (max-width: $media-sm) {
