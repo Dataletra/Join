@@ -34,6 +34,7 @@ section {
 
     .title_wrapper {
         position: absolute;
+        width: 40%;
         top: 25%;
     }
 
@@ -47,6 +48,7 @@ section {
         font-size: clamp(40px, calc(-37px + 7vw), 61px);
         color: $color-nav-high;
         margin-bottom: 8px;
+        max-width: calc(100% - 24px);
     }
 
     hr {
@@ -127,9 +129,11 @@ section {
             border: 1px solid $color-input-border;
             border-radius: 10px;
             padding: 13px 21px;
+            padding-right: 30px;
             font-size: 20px;
             font-family: 'Inter';
             font-weight: 400;
+            text-overflow: ellipsis;
         }
 
         .input-name {
