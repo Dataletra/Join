@@ -129,6 +129,7 @@
     height: 24px !important;
     gap: 0;
     border: none;
+    border-radius: 0;
     box-shadow: none;
     transition: none;
     padding: 0;
@@ -159,6 +160,7 @@
         .btn-primary__img {
             display: none;
         }
+        border: none;
     }
 }
 
