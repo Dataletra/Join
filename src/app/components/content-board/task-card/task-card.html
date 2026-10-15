@@ -1,13 +1,11 @@
 <section class="task-card">
     <div class="lable-wrapper">
-        <button class="lable">User Story</button>
+        <button class="lable">{{ task().category }}</button>
     </div>
     <div class="task-body">
-        <p class="task-title">Contact Form & Imprint</p>
+        <p class="task-title">{{ task().title }}</p>
         <p class="task-description">
-            Lorem ipsum dolor sit amet consectetur adipisicing elitwqwdadsd. Enim ipsum expedita praesentium, sed
-            exercitationem et unde quaerat dolorem rem tenetur. Suscipit numquam rem est. Vitae labore aliquam cum
-            aperiam cupiditate.
+            {{ task().description }}
         </p>
     </div>
     <div class="subtasks">
@@ -16,27 +14,16 @@
     </div>
     <div class="task-footer">
         <div class="member">
-            <app-ic-contact
-                class="badge"
-                [name]="'Sven Primus'"
-                [enableShadow]="false"
-                [isDummy]="false"
-            ></app-ic-contact>
-
-            <app-ic-contact
-                class="badge"
-                [name]="'Ron Ellrich'"
-                [enableShadow]="false"
-                [isDummy]="false"
-            ></app-ic-contact>
-            <app-ic-contact
-                class="badge"
-                [name]="'Frank Preuß'"
-                [enableShadow]="false"
-                [isDummy]="false"
-            ></app-ic-contact>
+            @for (user of task().assignedTo; track $index) {
+                <app-ic-contact
+                    class="badge"
+                    [name]="user.name"
+                    [enableShadow]="false"
+                    [isDummy]="false"
+                ></app-ic-contact>
+            }
         </div>
 
-        <img class="prio" src="./assets/icons/urgent.svg" aria-hidden="true" />
+        <img class="prio" src="./assets/icons/{{ task().priority }}.svg" aria-hidden="true" />
     </div>
 </section>

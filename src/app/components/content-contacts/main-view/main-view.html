@@ -23,7 +23,23 @@
 </div>
 
 <!-- TODO delete  -->
-<app-task-card></app-task-card>
+<app-task-card
+    [task]="{
+        id: 1,
+        created_at: '15.10.2026',
+        title: 'Test Title',
+        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elitwqwdadsd. Enim .',
+        category: 'Technical Task',
+        priority: 'urgent',
+        status: 'To do',
+        assignedTo: [
+            { id: 1, name: 'Sven Primus' },
+            { id: 2, name: 'Ron Ellrich' },
+            { id: 3, name: 'Frank Preuß' },
+        ],
+        subtasks: [{ title: 'test task', completed: false }],
+    }"
+></app-task-card>
 
 @if (selectedUser() != null) {
     <div class="detailed-view">
