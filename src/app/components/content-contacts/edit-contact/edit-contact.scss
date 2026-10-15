@@ -1,5 +1,5 @@
 @use '../../../../../public/styles/abstract/variables.scss' as *;
-@use '../../../../../public/styles/abstract/mixin.scss';
+@use '../../../../../public/styles/abstract/mixin.scss' as *;
 
 dialog {
     width: 84%;
@@ -280,6 +280,7 @@ section {
         width: 90%;
         height: 85%;
         overflow-y: auto;
+        @include scrollbar-light;
     }
 
     .dialog-wrapper {
