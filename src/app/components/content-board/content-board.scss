@@ -136,7 +136,9 @@ main {
 .section-header {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
+    height: clamp-px(24, 32, 400, 1400);
     padding-right: 16px;
 }
 
