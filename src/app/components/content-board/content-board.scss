@@ -11,7 +11,7 @@
 .search-bar {
     display: flex;
     align-items: center;
-    width: clamp-px(200, 312);
+    width: clamp-px(220, 312, 1400, 810);
     height: 48px;
     grid-area: two;
     padding: 8px 16px;
@@ -70,7 +70,7 @@
     min-height: 73px;
     width: 100%;
     row-gap: 40px;
-    column-gap: 32px;
+    column-gap: clamp-px(16, 32, 1400, 850);
 
     .title {
         grid-area: one;
@@ -87,7 +87,7 @@ main {
     flex: 1;
 }
 
-@media screen and (max-width: $media-sm) {
+@media screen and (max-width: $media-m) {
     .board-header {
         grid-template-columns: 1fr auto;
         grid-template-areas:
