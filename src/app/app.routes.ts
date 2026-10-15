@@ -3,6 +3,7 @@ import { ContentContacts } from './components/content-contacts/content-contacts'
 import { ContentHelp } from './components/content-help/content-help';
 import { ContentPrivacy } from './components/content-privacy/content-privacy';
 import { ContentLegal } from './components/content-legal/content-legal';
+import { ContentBoard } from './components/content-board/content-board';
 
 export const routes: Routes = [
     {
@@ -15,7 +16,7 @@ export const routes: Routes = [
     },
     {
         path: 'board',
-        component: ContentContacts, // TODO
+        component: ContentBoard,
     },
     {
         path: 'contacts',

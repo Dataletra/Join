@@ -1,0 +1,63 @@
+@use '../../../../public/styles/abstract/variables.scss' as *;
+@use '../../../../public/styles/abstract/functions.scss' as *;
+
+:host {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+
+    .search-input {
+        width: 100%;
+    }
+}
+
+.header-wrapper {
+    width: 100%;
+    padding-inline: clamp-px(16, 64);
+    padding-top: clamp-px(48, 80);
+    padding-bottom: clamp-px(24, 48);
+}
+
+.board-header {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    grid-template-areas: 'one two thr';
+    align-items: center;
+    min-height: 73px;
+    width: 100%;
+
+    .title {
+        grid-area: one;
+    }
+
+    app-button-primary {
+        grid-area: thr;
+    }
+
+    .search-bar {
+        width: 100%;
+        grid-area: two;
+    }
+}
+
+main {
+    background-color: lightgray;
+    width: 100%;
+    flex: 1;
+}
+
+@media screen and (max-width: $media-sm) {
+    .board-header {
+        grid-template-columns: 1fr auto;
+        grid-template-areas:
+            'one thr'
+            'two two';
+    }
+}
