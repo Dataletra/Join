@@ -1,1 +1,13 @@
-<p>button-priority works!</p>
+<div class="priority-container">
+    <button
+        class="btn-priority"
+        [class.low-prio]="typeStr() === 'lowPrio'"
+        [class.med-prio]="typeStr() === 'medPrio'"
+        [class.hi-prio]="typeStr() === 'hiPrio'"
+        [class.active-state]="isActive()"
+        (click)="toggleActiveState()"
+    >
+        <p>{{ btnSrc.get(typeStr())?.[2] }}</p>
+        <img [src]="isActive() ? btnSrc.get(typeStr())?.[1] : btnSrc.get(typeStr())?.[0]" />
+    </button>
+</div>
