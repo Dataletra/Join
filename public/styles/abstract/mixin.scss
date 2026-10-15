@@ -26,6 +26,10 @@
             $max * 1px
         );
     }
+
+    &::-webkit-scrollbar-thumb:hover {
+        background: #686868;
+    }
 }
 
 @mixin scrollbar-none() {
