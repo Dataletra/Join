@@ -5,7 +5,7 @@
     display: flex;
     justify-content: center;
     width: auto;
-    height: clamp-px(56, 61, 400, 1400);
+    height: 56px;
     padding-inline: 16px;
     background-color: $color-base;
     border-radius: 10px;
@@ -23,6 +23,7 @@
         line-height: 120%;
         color: white;
         text-align: center;
+        text-wrap: nowrap;
     }
 
     &__img {
@@ -38,7 +39,7 @@
 }
 
 .small {
-    height: clamp-px(27, 48);
+    height: 48px;
     border-radius: 8px;
 
     .btn-primary__p {
@@ -71,10 +72,6 @@
         width: 32px;
         height: 32px;
     }
-}
-
-.btn-addTask {
-    height: clamp-px(56, 51);
 }
 
 .btn-addContact {
