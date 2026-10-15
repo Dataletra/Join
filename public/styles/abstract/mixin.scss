@@ -26,8 +26,21 @@
             $max * 1px
         );
     }
+}
+
+@mixin scrollbar-none() {
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        display: none;
+    }
 
     &::-webkit-scrollbar-thumb:hover {
-        background: #d1d1d1;
+        display: none;
     }
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }

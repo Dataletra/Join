@@ -1,5 +1,6 @@
 @use '../../../../public/styles/abstract/variables.scss' as *;
 @use '../../../../public/styles/abstract/functions.scss' as *;
+@use '../../../../public/styles/abstract/mixin.scss' as *;
 
 :host {
     width: 100%;
@@ -8,6 +9,7 @@
     flex-direction: column;
 }
 
+// #region board-header
 .search-bar {
     display: flex;
     align-items: center;
@@ -81,13 +83,7 @@
     }
 }
 
-main {
-    background-color: lightgray;
-    width: 100%;
-    flex: 1;
-}
-
-@media screen and (max-width: $media-m) {
+@media screen and (max-width: $media-sm) {
     .board-header {
         grid-template-columns: 1fr auto;
         grid-template-areas:
@@ -97,5 +93,108 @@ main {
 
     .search-bar {
         width: 100%;
+    }
+}
+// #endregion board-header
+
+// #region board-main
+h5 {
+    font-size: clamp-px(20, 27, 400, 1400);
+    font-weight: 700;
+    color: $color-menu;
+}
+
+main {
+    display: flex;
+    width: 100%;
+    max-width: 1208px;
+    height: 100%;
+    padding-bottom: 2px;
+    overflow-y: auto;
+
+    .scroll-wrapper {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        max-width: calc(100svw - $width-nav-desktop);
+        height: 100%;
+        padding-inline: clamp-px(16, 64);
+        padding-bottom: 24px;
+
+        gap: 26px;
+        overflow-x: auto;
+    }
+
+    .section-tasks {
+        min-width: 246px;
+        width: 246px;
+        padding-inline: 1px;
+    }
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-top: 16px;
+    overflow: auto;
+}
+
+main,
+.scroll-wrapper,
+.task-list {
+    @include scrollbar-light;
+}
+
+@media screen and (max-width: $media-m) {
+    h5 {
+        color: $color-base;
+    }
+    main {
+        width: 100%;
+        max-width: none;
+
+        .scroll-wrapper {
+            width: 100%;
+            max-width: none;
+            flex-direction: column;
+        }
+
+        .section-tasks {
+            min-width: 0;
+            width: 100%;
+        }
+    }
+
+    .task-list {
+        flex-direction: row;
+    }
+
+    main,
+    .scroll-wrapper,
+    .task-list {
+        @include scrollbar-none;
+    }
+}
+// #endregion board-main
+
+.no-task {
+    @include flex-center;
+    width: 100%;
+    min-width: 244px;
+    height: 48px;
+    background-color: $color-nav;
+    border: 1px dashed $color-icon2;
+    border-radius: 10px;
+    padding-inline: 16px;
+
+    p {
+        color: $color-icon2;
     }
 }
