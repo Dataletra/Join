@@ -1,13 +1,12 @@
-<div class="priority-container">
-    <button
-        class="btn-priority"
-        [class.low-prio]="typeStr() === 'lowPrio'"
-        [class.med-prio]="typeStr() === 'medPrio'"
-        [class.hi-prio]="typeStr() === 'hiPrio'"
-        [class.active-state]="isActive()"
-        (click)="toggleActiveState()"
-    >
-        <p>{{ btnSrc.get(typeStr())?.[2] }}</p>
-        <img [src]="isActive() ? btnSrc.get(typeStr())?.[1] : btnSrc.get(typeStr())?.[0]" />
-    </button>
-</div>
+<button class="btn-priority low-prio" [class.active-state]="lowIsActive()" (click)="toggleActiveState('lowPrio')">
+    <p>{{ btnSrc.get('lowPrio')?.[2] }}</p>
+    <img [src]="lowIsActive() ? btnSrc.get('lowPrio')?.[1] : btnSrc.get('lowPrio')?.[0]" />
+</button>
+<button class="btn-priority med-prio" [class.active-state]="medIsActive()" (click)="toggleActiveState('medPrio')">
+    <p>{{ btnSrc.get('medPrio')?.[2] }}</p>
+    <img [src]="medIsActive() ? btnSrc.get('medPrio')?.[1] : btnSrc.get('medPrio')?.[0]" />
+</button>
+<button class="btn-priority hi-prio" [class.active-state]="hiIsActive()" (click)="toggleActiveState('hiPrio')">
+    <p>{{ btnSrc.get('hiPrio')?.[2] }}</p>
+    <img [src]="hiIsActive() ? btnSrc.get('hiPrio')?.[1] : btnSrc.get('hiPrio')?.[0]" />
+</button>
