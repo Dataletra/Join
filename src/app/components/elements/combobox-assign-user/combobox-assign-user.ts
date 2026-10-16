@@ -3,7 +3,7 @@ import { Listbox, Option } from '@angular/aria/listbox';
 import { OverlayModule } from '@angular/cdk/overlay';
 import { afterRenderEffect, Component, computed, signal, viewChild, effect, inject } from '@angular/core';
 import { Namelist } from '../../content-contacts/namelist/namelist';
-import { Supabase } from '../../../services/supabase';
+import { ContactService } from '../../../services/contact-service';
 import { IcContact } from '../ic-contact/ic-contact';
 import { TitleCasePipe } from '@angular/common';
 
@@ -14,7 +14,7 @@ import { TitleCasePipe } from '@angular/common';
     templateUrl: './combobox-assign-user.html',
 })
 export class ComboboxAssignUser {
-    dbService = inject(Supabase);
+    dbService = inject(ContactService);
 
     // ngOnInit() {
     //     this.fetchUsers();
