@@ -1,0 +1,7 @@
+<div
+    class="task-lable"
+    [class.user-story]="category() === 'User Story'"
+    [class.tech-task]="category() === 'Technical Task'"
+>
+    <p>{{ category() }}</p>
+</div>

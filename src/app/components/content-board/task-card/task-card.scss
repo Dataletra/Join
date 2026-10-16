@@ -1,0 +1,81 @@
+@use '../../../../../public/styles/abstract/variables.scss' as *;
+
+.task-card {
+    width: 255px;
+    padding: 16px;
+    border-radius: 24px;
+    background-color: $color-nav-high;
+    box-shadow: 0 0 4px 0 #00000014;
+    cursor: pointer;
+}
+
+.lable-wrapper {
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.task-body {
+    width: 100%;
+    margin-bottom: 24px;
+
+    .task-title {
+        font-weight: bold;
+        margin-bottom: 8px;
+    }
+
+    .task-description {
+        width: 100%;
+        height: 38px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}
+
+.subtasks {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 21px;
+
+    .progress-bar {
+        width: 110px;
+        height: 8px;
+        background-color: $color-progress-empty;
+        border-radius: 16px;
+        overflow: hidden;
+
+        .progress {
+            height: 100%;
+            background-color: $color-progress-fill;
+            border-radius: 16px;
+        }
+    }
+}
+
+.task-footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .member {
+        display: flex;
+        align-items: end;
+        .badge {
+            width: 32px;
+            height: 32px;
+            margin-left: -8px;
+
+            &:first-child {
+                margin-left: 0;
+            }
+        }
+    }
+
+    .prio {
+        padding-right: 8px;
+    }
+}
