@@ -4,6 +4,7 @@
 .btn-primary {
     display: flex;
     justify-content: center;
+    align-items: center;
     width: auto;
     height: 56px;
     padding-inline: 16px;
@@ -112,8 +113,8 @@
 }
 
 .btn-addTaskSmall {
-    width: 24px !important;
-    height: 24px !important;
+    width: clamp-px(24, 30, 400, 1400) !important;
+    height: clamp-px(24, 30, 400, 1400) !important;
     gap: 0;
     border: none;
     border-radius: 0;
@@ -123,17 +124,18 @@
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    background-size: 24px 24px;
+    background-size: 100% 100%;
 
     .btn-primary__img {
-        // display: block;
-        width: 24px;
-        height: 24px;
+        width: 100%;
+        height: 100%;
     }
+    transition: all 100ms ease-out;
 
     &:not(:disabled):hover {
         background-image: url('../../../../../public/assets/icons/plus-btn-light.svg');
         box-shadow: none;
+        transform: scale(1.05);
 
         .btn-primary__img {
             display: none;
@@ -143,6 +145,7 @@
     &:not(:disabled):active {
         background-image: url('../../../../../public/assets/icons/plus-btn-dark.svg');
         box-shadow: none;
+        transform: scale(1);
 
         .btn-primary__img {
             display: none;
