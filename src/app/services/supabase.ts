@@ -1,21 +1,19 @@
 import { Service, signal, inject } from '@angular/core';
-import { createClient } from '@supabase/supabase-js';
 import { IUser } from '../interfaces/iuser';
 import { User } from '../components/models/user';
 import { Toast } from './toast';
+import { SupabaseService } from './supabase-service';
 
 @Service()
 export class Supabase {
-    supabaseUrl = 'https://svbomumezskcpinnsucj.supabase.co';
-    supabaseKey = 'sb_publishable_ND6SqwGZ7zK_2fLUPQz6PA_HtaQvgDb';
-    supabase = createClient(this.supabaseUrl, this.supabaseKey);
+    supabase = inject(SupabaseService).supabase;
     toastService = inject(Toast);
 
     users = signal<IUser[]>([]);
     selectedUserID = signal<number | null>(null);
 
     channelUserInsert = this.supabase
-        .channel('custom-insert-channel')
+        .channel('use-insert-channel')
         .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'user' }, (payload) => {
             this.users.update((list) => [...list, new User(payload.new)]);
             this.toastService.showToast('Contact succesfully created');
@@ -23,7 +21,7 @@ export class Supabase {
         .subscribe();
 
     channelUserUpdate = this.supabase
-        .channel('custom-update-channel')
+        .channel('user-update-channel')
         .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'user' }, (payload) => {
             this.users.update((list) =>
                 list.map((user) => (user.id === payload.new['id'] ? { ...user, ...payload.new } : user))
@@ -33,7 +31,7 @@ export class Supabase {
         .subscribe();
 
     channelUserDelete = this.supabase
-        .channel('custom-delete-channel')
+        .channel('user-delete-channel')
         .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'user' }, (payload) => {
             this.users.update((list) => list.filter((user) => user.id != payload.old['id']));
             this.toastService.showToast('Contact succesfully deleted');
