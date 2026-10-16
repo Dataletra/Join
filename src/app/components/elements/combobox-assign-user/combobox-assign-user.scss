@@ -1,0 +1,240 @@
+@use '../../../../../public/styles/abstract/variables.scss' as *;
+@use '../../../../../public/styles/abstract/functions.scss' as *;
+@import url('https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined');
+
+:host {
+    display: flex;
+    justify-content: center;
+    font-family: var(--inter-font);
+    --primary: var(--hot-pink);
+    --on-primary: var(--page-background);
+}
+
+.docs-light-mode {
+    --on-primary: #fff;
+}
+
+.select {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    height: 2.5rem;
+    padding: 0 2rem;
+    background: #fff;
+    border: 1px solid #e2e2e2;
+    border-radius: 8px;
+    cursor: pointer;
+
+    &[aria-expanded='true'] {
+        box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.28);
+        border: 1px solid black;
+        .example-arrow {
+            transform: rotate(180deg);
+        }
+    }
+    &:hover {
+        // box-shadow: 0px 0px 5px rgba(171, 46, 46, 0.28);
+    }
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.28);
+}
+
+.select span {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.select:hover {
+    background-color: color-mix(in srgb, var(--primary) 90%, transparent);
+}
+
+.select[aria-disabled='true'] {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.selected-label-icon {
+    font-size: 1.25rem;
+}
+
+.select:focus,
+.select:focus-within {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+}
+
+.combobox-label {
+    gap: 1rem;
+    left: 1rem;
+    display: flex;
+    position: absolute;
+    align-items: center;
+    pointer-events: none;
+}
+
+.example-arrow {
+    right: 1rem;
+    position: absolute;
+    pointer-events: none;
+    transition: transform 150ms ease-in-out;
+}
+
+.select[aria-expanded='true'] .example-arrow {
+    transform: rotate(180deg);
+}
+
+.example-popup-container {
+    width: 100%;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 0 0 8px 8px;
+    position: absolute;
+    top: -0px;
+    border-top: none;
+
+    margin-top: 0;
+    max-height: 12rem;
+    overflow-y: auto;
+    box-shadow: 0px 6px 5px rgba(0, 0, 0, 0.28);
+}
+
+@keyframes smoothPopupOpen {
+    0% {
+        max-height: 0;
+        opacity: 0;
+    }
+    16.7% {
+        opacity: 1;
+    }
+    100% {
+        max-height: 13rem;
+        opacity: 1;
+    }
+}
+
+.example-popup-container.closing {
+    animation: smoothPopupClose 150ms ease-in forwards;
+}
+
+@keyframes smoothPopupClose {
+    0% {
+        max-height: 13rem;
+        opacity: 1;
+    }
+    100% {
+        max-height: 0;
+        opacity: 0;
+    }
+}
+
+[ngListbox] {
+    gap: 2px;
+    padding: 2px;
+    height: 100%;
+    display: flex;
+    overflow: auto;
+    flex-direction: column;
+    outline: none;
+}
+
+[ngOption] {
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    padding: 0 1rem;
+    min-height: 3rem;
+    border-radius: 3rem;
+    outline: none;
+}
+
+[ngOption]:hover,
+[ngOption][data-active='true'] {
+    background-color: color-mix(in srgb, var(--primary-contrast) 5%, transparent);
+}
+
+[ngOption][data-active='true'] {
+    outline-offset: -2px;
+    outline: 2px solid var(--primary);
+}
+
+[ngOption][aria-selected='true'] {
+    color: var(--primary);
+    background-color: color-mix(in srgb, var(--primary) 10%, transparent);
+}
+
+.example-option-icon {
+    font-size: 1.25rem;
+    padding-right: 1rem;
+}
+
+[ngOption]:not([aria-selected='true']) .example-option-check {
+    display: none;
+}
+
+.example-option-icon,
+.example-option-check {
+    font-size: 0.9rem;
+}
+
+.example-option-text {
+    flex: 1;
+}
+
+.user-item {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding-inline: 5px;
+    justify-content: flex-start;
+    transition: 0.2s ease;
+    border-radius: 10px;
+    margin: 0px;
+    margin-left: 0px;
+    align-items: center;
+    height: 80px;
+    padding-left: clamp-px(5, 24, 1070, 950);
+
+    .email {
+        color: #007cee;
+        font-size: 15px;
+        margin-top: 3px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        max-width: clamp-px(170, 230, 1070, 950);
+    }
+
+    &-label {
+        margin-left: clamp-px(15, 37, 1070, 950);
+        margin-bottom: 20px;
+        margin-top: 30px;
+    }
+
+    .username {
+        transition: 0.2s ease;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        max-width: clamp-px(170, 230, 1070, 950);
+    }
+
+    &:hover {
+        background-color: $color-high-1;
+        cursor: pointer;
+        transition: 0.2s ease;
+        .username {
+            color: white;
+            transition: 0.2s ease;
+        }
+    }
+
+    &:active {
+        background-color: $color-base;
+        transition: 0.2s ease;
+    }
+}
+.user-ic {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+}

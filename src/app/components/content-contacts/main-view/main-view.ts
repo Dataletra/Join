@@ -1,5 +1,5 @@
 import { Component, computed, inject, input, signal, output } from '@angular/core';
-import { Supabase } from '../../../services/supabase';
+import { ContactService } from '../../../services/contact-service';
 import { IcContact } from '../../elements/ic-contact/ic-contact';
 import { TitleCasePipe } from '@angular/common';
 import { ContactDialog } from '../../../services/contact-dialog';
@@ -17,7 +17,7 @@ export class MainView {
     hideMainViewSignal = output<boolean>();
     showMenu = signal<boolean>(false);
     enableMenuWrapper = signal<boolean>(false);
-    dbService = inject(Supabase);
+    dbService = inject(ContactService);
     dialogService = inject(ContactDialog);
     showConfirm = signal<boolean>(false);
 

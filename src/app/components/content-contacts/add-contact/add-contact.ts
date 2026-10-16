@@ -12,7 +12,7 @@ import {
     ValidationErrors,
 } from '@angular/forms';
 import { User } from '../../models/user';
-import { Supabase } from '../../../services/supabase';
+import { ContactService } from '../../../services/contact-service';
 import { Toast } from '../../../services/toast';
 
 @Component({
@@ -22,7 +22,7 @@ import { Toast } from '../../../services/toast';
     templateUrl: './add-contact.html',
 })
 export class AddContact {
-    supabaseService = inject(Supabase);
+    supabaseService = inject(ContactService);
     dialogService = inject(ContactDialog);
     dialog = viewChild<ElementRef<HTMLDialogElement>>('addContact');
     avatarName = '';
