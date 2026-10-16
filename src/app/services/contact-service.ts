@@ -8,6 +8,7 @@ import { SupabaseService } from './supabase-service';
 export class Supabase {
     supabase = inject(SupabaseService).supabase;
     toastService = inject(Toast);
+    userList: IUser[] = [];
 
     users = signal<IUser[]>([]);
     selectedUserID = signal<number | null>(null);
@@ -16,9 +17,16 @@ export class Supabase {
         this.getUsers();
     }
 
+    sortUsers() {
+        if (!this.userList) {
+            return;
+        }
+        this.userList.sort((a, b) => a.name.localeCompare(b.name));
+    }
+
     readonly groupedUsers = computed(() => {
         const userMap = new Map<string, IUser[]>();
-        for (const user of this.users()) {
+        for (const user of this.userList) {
             const firstLetter = user.name.charAt(0).toUpperCase();
             if (!userMap.has(firstLetter)) {
                 userMap.set(firstLetter, []);
@@ -58,6 +66,8 @@ export class Supabase {
         let { data: user, error } = await this.supabase.from('user').select('*');
         if (!user) return;
         this.users.set(user);
+        this.userList = this.users();
+        this.sortUsers();
     }
 
     async addUser(user: User) {
