@@ -2,6 +2,7 @@ import { Service, signal, inject } from '@angular/core';
 import { ITaskList } from '../interfaces/itasklist';
 import { TaskList } from '../components/models/tasklist';
 import { SupabaseService } from './supabase';
+import { Status } from '../interfaces/status';
 
 @Service()
 export class TaskListService {
@@ -25,9 +26,25 @@ export class TaskListService {
         this.taskLists.set(taskList);
     }
 
-    async editUser(taskList: TaskList) {
-        const userData = taskList.getCleanAddJson();
-        const { data, error } = await this.supabase.from('user').update([userData]).eq('id', taskList.id).select();
+    async editTaskList(taskList: ITaskList | TaskList | null) {
+        if (taskList) {
+            const taskListData =
+                taskList instanceof TaskList ? taskList.getCleanAddJson() : new TaskList(taskList).getCleanAddJson();
+            console.log('Converted to', taskListData, typeof taskList);
+
+            const { data, error } = await this.supabase
+                .from('taskList')
+                .update([taskListData])
+                .eq('id', taskList?.id)
+                .select();
+        }
+    }
+
+    getStatusList(status: Status): ITaskList | null {
+        const index = this.taskLists().findIndex((row: ITaskList) => {
+            return status === row.status;
+        });
+        return index >= 0 ? this.taskLists()[index] : null;
     }
 
     ngOnDestroy() {

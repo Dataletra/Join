@@ -1,6 +1,6 @@
 export enum Status {
-    todo,
-    progress,
-    await,
-    done
+    todo = "todo",
+    progress = "progress",
+    await = "await",
+    done = "done",
 }
