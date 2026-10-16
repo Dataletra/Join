@@ -1,7 +1,7 @@
 import { Service, signal, inject } from '@angular/core';
 import { ITaskList } from '../interfaces/itasklist';
 import { TaskList } from '../components/models/tasklist';
-import { SupabaseService } from './supabase-service';
+import { SupabaseService } from './supabase';
 
 @Service()
 export class TaskListService {

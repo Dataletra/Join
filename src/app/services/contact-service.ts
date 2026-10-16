@@ -2,10 +2,10 @@ import { Service, signal, inject, computed  } from '@angular/core';
 import { IUser } from '../interfaces/iuser';
 import { User } from '../components/models/user';
 import { Toast } from './toast';
-import { SupabaseService } from './supabase-service';
+import { SupabaseService } from './supabase';
 
 @Service()
-export class Supabase {
+export class ContactService {
     supabase = inject(SupabaseService).supabase;
     toastService = inject(Toast);
     userList: IUser[] = [];
