@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { ButtonPrimary } from '../elements/button-primary/button-primary';
 import { TaskListService } from '../../services/tasklist-service';
 import { TaskList } from '../models/tasklist';
@@ -12,10 +12,18 @@ import { Status } from '../../interfaces/status';
 })
 export class ContentBoard {
     taskListService = inject(TaskListService);
+    private readonly Status = Status;
+
+    statusOrder = computed(() => {
+        const lists = new Map<Status, number[]>();
+        for (let statusRow of this.taskListService.taskLists()) {
+            lists.set(statusRow.status, statusRow.order);
+        }
+        return lists;
+    });
 
     ngOnInit() {
         this.fetchTaskLists();
-
     }
 
     async fetchTaskLists() {

@@ -19,16 +19,15 @@
             </header>
             <div class="task-list-scroll-wrapper">
                 <div class="task-list">
-                    <!-- TODO: placeholder -->
-                    <div class="no-task"><p>No tasks to do</p></div>
-                    <div class="no-task"><p>No tasks to do</p></div>
-                    <div class="no-task"><p>No tasks to do</p></div>
-                    <div class="no-task"><p>No tasks to do</p></div>
-                    <div class="no-task"><p>No tasks to do</p></div>
-                    <div class="no-task"><p>No tasks to do</p></div>
-                    <div class="no-task"><p>No tasks to do</p></div>
-                    <div class="no-task"><p>No tasks to do</p></div>
-                    <!-- TODO: placholder end -->
+                    @if (statusOrder().get(Status.todo)?.length === 0) {
+                        <div class="no-task"><p>No tasks to do</p></div>
+                    } @else {
+                        @for (id of statusOrder().get(Status.todo); track id) {
+                            <div class="no-task">
+                                <p>Rons Task {{ id }}</p>
+                            </div>
+                        }
+                    }
                 </div>
             </div>
         </section>
@@ -39,12 +38,15 @@
             </header>
             <div class="task-list-scroll-wrapper">
                 <div class="task-list">
-                    <!-- TODO: placeholder -->
-                    <div class="no-task"><p>No tasks to do</p></div>
-                    <div class="no-task"><p>No tasks to do</p></div>
-                    <div class="no-task"><p>No tasks to do</p></div>
-                    <div class="no-task"><p>No tasks to do</p></div>
-                    <!-- TODO: placholder end -->
+                    @if (statusOrder().get(Status.progress)?.length === 0) {
+                        <div class="no-task"><p>No tasks to do</p></div>
+                    } @else {
+                        @for (id of statusOrder().get(Status.progress); track id) {
+                            <div class="no-task">
+                                <p>Rons Task {{ id }}</p>
+                            </div>
+                        }
+                    }
                 </div>
             </div>
         </section>
@@ -55,12 +57,15 @@
             </header>
             <div class="task-list-scroll-wrapper">
                 <div class="task-list">
-                    <!-- TODO: placeholder -->
-                    <div class="no-task"><p>No tasks to do</p></div>
-                    <div class="no-task"><p>No tasks to do</p></div>
-                    <div class="no-task"><p>No tasks to do</p></div>
-                    <div class="no-task"><p>No tasks to do</p></div>
-                    <!-- TODO: placholder end -->
+                    @if (statusOrder().get(Status.await)?.length === 0) {
+                        <div class="no-task"><p>No tasks to do</p></div>
+                    } @else {
+                        @for (id of statusOrder().get(Status.await); track id) {
+                            <div class="no-task">
+                                <p>Rons Task {{ id }}</p>
+                            </div>
+                        }
+                    }
                 </div>
             </div>
         </section>
@@ -70,12 +75,15 @@
             </header>
             <div class="task-list-scroll-wrapper">
                 <div class="task-list">
-                    <!-- TODO: placeholder -->
-                    <div class="no-task"><p>No tasks to do</p></div>
-                    <div class="no-task"><p>No tasks to do</p></div>
-                    <div class="no-task"><p>No tasks to do</p></div>
-                    <div class="no-task"><p>No tasks to do</p></div>
-                    <!-- TODO: placholder end -->
+                    @if (statusOrder().get(Status.done)?.length === 0) {
+                        <div class="no-task"><p>No tasks to do</p></div>
+                    } @else {
+                        @for (id of statusOrder().get(Status.done); track id) {
+                            <div class="no-task">
+                                <p>Rons Task {{ id }}</p>
+                            </div>
+                        }
+                    }
                 </div>
             </div>
         </section>
