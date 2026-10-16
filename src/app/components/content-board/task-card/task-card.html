@@ -1,6 +1,6 @@
 <section class="task-card">
     <div class="lable-wrapper">
-        <button class="lable">{{ task().category }}</button>
+        <app-task-lable [category]="task().category"></app-task-lable>
     </div>
     <div class="task-body">
         <p class="task-title">{{ task().title }}</p>

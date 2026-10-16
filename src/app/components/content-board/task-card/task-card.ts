@@ -1,9 +1,10 @@
 import { Component, input } from '@angular/core';
 import { IcContact } from '../../elements/ic-contact/ic-contact';
 import { ITask } from '../../../interfaces/itask';
+import { TaskLable } from '../../elements/task-lable/task-lable';
 
 @Component({
-    imports: [IcContact],
+    imports: [IcContact, TaskLable],
     selector: 'app-task-card',
     styleUrl: './task-card.scss',
     templateUrl: './task-card.html',
