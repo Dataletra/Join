@@ -1,0 +1,38 @@
+:host {
+    display: flex;
+    gap: 13px;
+}
+
+.btn-priority {
+    width: 120px;
+    height: 50px;
+    border-radius: 13px;
+    display: flex;
+    gap: 5px;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.617);
+    &:hover {
+        box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.617);
+    }
+    &:active {
+        box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.27);
+    }
+}
+
+.active-state {
+    box-shadow: none;
+    &:hover {
+        box-shadow: none;
+    }
+    &:active {
+        box-shadow: none;
+    }
+    &.low-prio {
+        background-color: #83e10b;
+    }
+    &.med-prio {
+        background-color: #f8a900;
+    }
+    &.hi-prio {
+        background-color: #f54319;
+    }
+}
