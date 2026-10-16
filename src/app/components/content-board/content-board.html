@@ -1,1 +1,83 @@
-<p>content-board works!</p>
+<div class="header-wrapper">
+    <header class="board-header">
+        <h3 class="title">Board</h3>
+        <app-button-primary [typeStr]="'addTask'" [small]="true">Add task</app-button-primary>
+
+        <nav class="search-bar">
+            <input class="search-input" type="text" placeholder="Find Task" />
+            <button class="search-btn"><img src="./assets/icons/search.svg" alt="search icon" /></button>
+        </nav>
+    </header>
+</div>
+
+<main>
+    <div class="scroll-wrapper">
+        <section class="section-tasks">
+            <header class="section-header">
+                <h5>To do</h5>
+                <app-button-primary [typeStr]="'addTaskSmall'"></app-button-primary>
+            </header>
+            <div class="task-list-scroll-wrapper">
+                <div class="task-list">
+                    <!-- TODO: placeholder -->
+                    <div class="no-task"><p>No tasks to do</p></div>
+                    <div class="no-task"><p>No tasks to do</p></div>
+                    <div class="no-task"><p>No tasks to do</p></div>
+                    <div class="no-task"><p>No tasks to do</p></div>
+                    <div class="no-task"><p>No tasks to do</p></div>
+                    <div class="no-task"><p>No tasks to do</p></div>
+                    <div class="no-task"><p>No tasks to do</p></div>
+                    <div class="no-task"><p>No tasks to do</p></div>
+                    <!-- TODO: placholder end -->
+                </div>
+            </div>
+        </section>
+        <section class="section-tasks">
+            <header class="section-header">
+                <h5>In progress</h5>
+                <app-button-primary [typeStr]="'addTaskSmall'"></app-button-primary>
+            </header>
+            <div class="task-list-scroll-wrapper">
+                <div class="task-list">
+                    <!-- TODO: placeholder -->
+                    <div class="no-task"><p>No tasks to do</p></div>
+                    <div class="no-task"><p>No tasks to do</p></div>
+                    <div class="no-task"><p>No tasks to do</p></div>
+                    <div class="no-task"><p>No tasks to do</p></div>
+                    <!-- TODO: placholder end -->
+                </div>
+            </div>
+        </section>
+        <section class="section-tasks">
+            <header class="section-header">
+                <h5>Await feedback</h5>
+                <app-button-primary [typeStr]="'addTaskSmall'"></app-button-primary>
+            </header>
+            <div class="task-list-scroll-wrapper">
+                <div class="task-list">
+                    <!-- TODO: placeholder -->
+                    <div class="no-task"><p>No tasks to do</p></div>
+                    <div class="no-task"><p>No tasks to do</p></div>
+                    <div class="no-task"><p>No tasks to do</p></div>
+                    <div class="no-task"><p>No tasks to do</p></div>
+                    <!-- TODO: placholder end -->
+                </div>
+            </div>
+        </section>
+        <section class="section-tasks">
+            <header class="section-header">
+                <h5>Done</h5>
+            </header>
+            <div class="task-list-scroll-wrapper">
+                <div class="task-list">
+                    <!-- TODO: placeholder -->
+                    <div class="no-task"><p>No tasks to do</p></div>
+                    <div class="no-task"><p>No tasks to do</p></div>
+                    <div class="no-task"><p>No tasks to do</p></div>
+                    <div class="no-task"><p>No tasks to do</p></div>
+                    <!-- TODO: placholder end -->
+                </div>
+            </div>
+        </section>
+    </div>
+</main>

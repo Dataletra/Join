@@ -1,5 +1,5 @@
 @use '../../../../../public/styles/abstract/variables.scss' as *;
-@use '../../../../../public/styles/abstract/mixin.scss';
+@use '../../../../../public/styles/abstract/mixin.scss' as *;
 
 dialog {
     width: 84%;
@@ -34,6 +34,7 @@ section {
 
     .title_wrapper {
         position: absolute;
+        width: 40%;
         top: 25%;
     }
 
@@ -47,12 +48,14 @@ section {
         font-size: clamp(40px, calc(-37px + 7vw), 61px);
         color: $color-nav-high;
         margin-bottom: 8px;
+        max-width: calc(100% - 24px);
     }
 
     h2 {
         font-size: clamp(20px, calc(-24.333px + 3.667vw), 27px);
         color: $color-nav-high;
         margin-bottom: 16px;
+        max-width: calc(100% - 24px);
     }
 
     hr {
@@ -160,6 +163,8 @@ section {
     .forms-buttons {
         width: 100%;
         display: flex;
+        flex-wrap: wrap;
+        row-gap: 16px;
         .cancel-btn {
             width: 126px;
             margin-right: 24px;
@@ -224,9 +229,15 @@ section {
 
         h1 {
             font-size: 47px;
+            width: 100%;
+        }
+
+        h2 {
+            width: 100%;
         }
 
         .title_wrapper {
+            width: 100%;
             top: 15%;
         }
 
@@ -294,6 +305,7 @@ section {
         width: 90%;
         height: 85%;
         overflow-y: auto;
+        @include scrollbar-light;
     }
 
     .dialog-wrapper {
