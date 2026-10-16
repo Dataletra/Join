@@ -12,7 +12,7 @@ import {
     ValidationErrors,
 } from '@angular/forms';
 import { User } from '../../models/user';
-import { Supabase } from '../../../services/supabase';
+import { ContactService } from '../../../services/contact-service';
 import { PopupConfirm } from '../../elements/popup-confirm/popup-confirm';
 
 @Component({
@@ -22,7 +22,7 @@ import { PopupConfirm } from '../../elements/popup-confirm/popup-confirm';
     templateUrl: './edit-contact.html',
 })
 export class EditContact {
-    supabaseService = inject(Supabase);
+    supabaseService = inject(ContactService);
     dialogService = inject(ContactDialog);
     dialog = viewChild<ElementRef<HTMLDialogElement>>('editContact');
     avatarName = '';

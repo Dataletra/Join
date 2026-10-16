@@ -1,5 +1,5 @@
 import { Component, computed, inject, output } from '@angular/core';
-import { Supabase } from '../../../services/supabase';
+import { ContactService } from '../../../services/contact-service';
 import { TitleCasePipe } from '@angular/common';
 import { IUser } from '../../../interfaces/iuser';
 import { ButtonPrimary } from '../../elements/button-primary/button-primary';
@@ -14,7 +14,7 @@ import { ContactDialog } from '../../../services/contact-dialog';
 })
 export class Namelist {
     isUserSelected = output<boolean>();
-    dbService = inject(Supabase);
+    dbService = inject(ContactService);
     userList: IUser[] | null = [];
     dialogService = inject(ContactDialog);
 

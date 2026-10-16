@@ -1,0 +1,54 @@
+<input
+    #combobox="ngCombobox"
+    ngCombobox
+    [(expanded)]="popupExpanded"
+    [(value)]="searchQuery"
+    type="text"
+    class="combobox-search-input"
+    placeholder="Search users..."
+    autocomplete="off"
+    (click)="popupExpanded.set(true)"
+/>
+<ng-template
+    [cdkConnectedOverlay]="{ origin: combobox.element, usePopover: 'inline', matchWidth: true }"
+    [cdkConnectedOverlayOpen]="popupExpanded()"
+>
+    <ng-template ngComboboxPopup [combobox]="combobox">
+        <div class="example-popup-container">
+            <div
+                #listbox="ngListbox"
+                ngListbox
+                [multi]="true"
+                ngComboboxWidget
+                focusMode="activedescendant"
+                [tabindex]="-1"
+                selectionMode="explicit"
+                [(value)]="selectedValues"
+                [activeDescendant]="listbox.activeDescendant()"
+            >
+                <div class="user-list">
+                    @for (entry of filteredGroupedUsers(); track entry[0]) {
+                        @for (user of entry[1]; track user.id) {
+                            <div
+                                ngOption
+                                [value]="user.name"
+                                [label]="user.name"
+                                [class.selected]="dbService.selectedUserID() === user.id"
+                                class="user-item"
+                                [attr.id]="'user-' + user.id"
+                            >
+                                <app-ic-contact class="user-ic" [name]="user.name"></app-ic-contact>
+                                <p class="username">
+                                    {{ user.name | titlecase }}
+                                </p>
+                                <span class="checkbox" translate="no" aria-hidden="true"></span>
+                            </div>
+                        }
+                    } @empty {
+                        <div class="no-results">No users found</div>
+                    }
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</ng-template>

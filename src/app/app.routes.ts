@@ -4,6 +4,7 @@ import { ContentHelp } from './components/content-help/content-help';
 import { ContentPrivacy } from './components/content-privacy/content-privacy';
 import { ContentLegal } from './components/content-legal/content-legal';
 import { ContentBoard } from './components/content-board/content-board';
+import { ContentAddTask } from './components/content-add-task/content-add-task';
 
 export const routes: Routes = [
     {
@@ -12,7 +13,7 @@ export const routes: Routes = [
     },
     {
         path: 'add-task',
-        component: ContentContacts, // TODO
+        component: ContentAddTask, // TODO
     },
     {
         path: 'board',
