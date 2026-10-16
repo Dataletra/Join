@@ -10,6 +10,7 @@ export class ContactService {
     supabaseKey = 'sb_publishable_ND6SqwGZ7zK_2fLUPQz6PA_HtaQvgDb';
     supabase = createClient(this.supabaseUrl, this.supabaseKey);
     toastService = inject(Toast);
+    userList: IUser[] = [];
 
     users = signal<IUser[]>([]);
     selectedUserID = signal<number | null>(null);
@@ -18,9 +19,16 @@ export class ContactService {
         this.getUsers();
     }
 
+    sortUsers() {
+        if (!this.userList) {
+            return;
+        }
+        this.userList.sort((a, b) => a.name.localeCompare(b.name));
+    }
+
     readonly groupedUsers = computed(() => {
         const userMap = new Map<string, IUser[]>();
-        for (const user of this.users()) {
+        for (const user of this.userList) {
             const firstLetter = user.name.charAt(0).toUpperCase();
             if (!userMap.has(firstLetter)) {
                 userMap.set(firstLetter, []);
@@ -60,6 +68,8 @@ export class ContactService {
         let { data: user, error } = await this.supabase.from('user').select('*');
         if (!user) return;
         this.users.set(user);
+        this.userList = this.users();
+        this.sortUsers();
     }
 
     async addUser(user: User) {

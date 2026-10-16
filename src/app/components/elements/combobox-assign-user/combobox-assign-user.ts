@@ -6,7 +6,7 @@ import { Namelist } from '../../content-contacts/namelist/namelist';
 import { ContactService } from '../../../services/contact-service';
 import { IcContact } from '../ic-contact/ic-contact';
 import { TitleCasePipe } from '@angular/common';
-
+import { IUser } from '../../../interfaces/iuser';
 @Component({
     imports: [Combobox, ComboboxPopup, ComboboxWidget, Listbox, Option, OverlayModule, IcContact, TitleCasePipe],
     selector: 'app-combobox-assign-user',
@@ -15,6 +15,30 @@ import { TitleCasePipe } from '@angular/common';
 })
 export class ComboboxAssignUser {
     dbService = inject(ContactService);
+    searchQuery = signal('');
+
+    readonly filteredGroupedUsers = computed(() => {
+        const query = this.searchQuery().toLowerCase().trim();
+        const originalMap = this.dbService.groupedUsers();
+
+        if (!query) {
+            return Array.from(originalMap.entries());
+        }
+
+        const filteredMap = new Map<string, IUser[]>();
+
+        for (const [letter, users] of originalMap.entries()) {
+            const matchingUsers = users.filter(
+                (user) => user.name.toLowerCase().includes(query) || user.email?.toLowerCase().includes(query)
+            );
+
+            if (matchingUsers.length > 0) {
+                filteredMap.set(letter, matchingUsers);
+            }
+        }
+
+        return Array.from(filteredMap.entries());
+    });
 
     // ngOnInit() {
     //     this.fetchUsers();
