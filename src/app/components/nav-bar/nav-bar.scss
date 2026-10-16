@@ -8,7 +8,7 @@
     flex-direction: column;
     align-items: center;
     padding-top: 64px;
-    padding-bottom: 72px;
+    padding-bottom: clamp(20px, calc((100svh - 550px) * 52 / 50 + 20px), 72px);
     font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
@@ -22,7 +22,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    gap: 114px;
+    gap: clamp(20px, calc((100svh - 600px) * 94 / 480 + 20px), 114px);
 }
 
 .logo {
