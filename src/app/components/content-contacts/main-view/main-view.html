@@ -21,36 +21,6 @@
     </div>
     <app-button-back class="back-btn" [callback]="hideMainView"></app-button-back>
 </div>
-
-<!-- TODO delete  -->
-<app-task-card
-    [task]="{
-        id: 1,
-        created_at: '15.10.2026',
-        title: 'Test Title',
-        description: 'Lorem ipsum dolor sit amet consectetur adipisicing elitwqwdadsd. Enim .',
-        category: 'Technical Task',
-        priority: 'urgent',
-        status: 'To do',
-        assignedTo: [
-            { id: 1, name: 'Sven Primus' },
-            { id: 2, name: 'Ron Ellrich' },
-            { id: 3, name: 'Frank Preuß' },
-            { id: 1, name: 'Sven Primus' },
-            { id: 2, name: 'Ron Ellrich' },
-            { id: 3, name: 'Frank Preuß' },
-        ],
-        subtasks: [
-            { title: 'test task', completed: false },
-            { title: 'test task', completed: false },
-            { title: 'test task', completed: true },
-            { title: 'test task', completed: true },
-            { title: 'test task', completed: false },
-            { title: 'test task', completed: false },
-        ],
-    }"
-></app-task-card>
-
 <div class="detailed-view" [class.move-in]="selectedUser()" [class.move-out]="!selectedUser()">
     <div class="user-container">
         <app-ic-contact [enableShadow]="true" class="user-ic" [name]="selectedUser()?.name ?? ''"></app-ic-contact>

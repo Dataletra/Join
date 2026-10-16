@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { IcContact } from '../../elements/ic-contact/ic-contact';
 import { ITask } from '../../../interfaces/itask';
 import { TaskLable } from '../../elements/task-lable/task-lable';
@@ -11,6 +11,11 @@ import { TaskLable } from '../../elements/task-lable/task-lable';
 })
 export class TaskCard {
     readonly task = input.required<ITask>();
+    readonly taskClicked = output<ITask>();
+
+    onTaskClick() {
+        this.taskClicked.emit(this.task());
+    }
 
     get completedSubtasks(): number {
         return this.task().subtasks.filter((subtask) => subtask.completed).length;

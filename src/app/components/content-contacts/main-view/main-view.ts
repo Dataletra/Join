@@ -6,11 +6,8 @@ import { ContactDialog } from '../../../services/contact-dialog';
 import { ButtonBack } from '../../elements/button-back/button-back';
 import { PopupConfirm } from '../../elements/popup-confirm/popup-confirm';
 
-// TODO delete me
-import { TaskCard } from '../../content-board/task-card/task-card';
-
 @Component({
-    imports: [IcContact, TitleCasePipe, ButtonBack, PopupConfirm, TaskCard],
+    imports: [IcContact, TitleCasePipe, ButtonBack, PopupConfirm],
     selector: 'app-main-view',
     styleUrl: './main-view.scss',
     templateUrl: './main-view.html',
