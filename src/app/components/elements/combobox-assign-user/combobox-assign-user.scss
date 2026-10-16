@@ -1,3 +1,5 @@
+@use '../../../../../public/styles/abstract/variables.scss' as *;
+@use '../../../../../public/styles/abstract/functions.scss' as *;
 @import url('https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined');
 
 :host {
@@ -14,21 +16,27 @@
 
 .select {
     display: flex;
-    position: relative;
     align-items: center;
-    border-radius: 3rem;
-    color: var(--on-primary);
-    background-color: var(--primary);
-    border: 1px solid color-mix(in srgb, var(--primary) 80%, transparent);
-    /* Modernized additions for div-trigger Select: */
-    height: 3rem;
-    padding: 0 3.5rem;
+    position: relative;
+    width: 100%;
+    height: 2.5rem;
+    padding: 0 2rem;
+    background: #fff;
+    border: 1px solid #e2e2e2;
+    border-radius: 8px;
     cursor: pointer;
-    box-sizing: border-box;
-    width: 16rem;
-    user-select: none;
-    -webkit-user-select: none;
-    outline: none;
+
+    &[aria-expanded='true'] {
+        box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.28);
+        border: 1px solid black;
+        .example-arrow {
+            transform: rotate(180deg);
+        }
+    }
+    &:hover {
+        // box-shadow: 0px 0px 5px rgba(171, 46, 46, 0.28);
+    }
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.28);
 }
 
 .select span {
@@ -77,16 +85,17 @@
 
 .example-popup-container {
     width: 100%;
-    padding: 0.5rem;
-    margin-top: 8px;
-    border-radius: 2rem;
-    background-color: var(--septenary-contrast);
-    font-size: 0.9rem;
-    max-height: 13rem;
-    box-sizing: border-box;
-    overflow: hidden;
-    animation: smoothPopupOpen 150ms ease-out forwards;
-    transform-origin: top;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 0 0 8px 8px;
+    position: absolute;
+    top: -0px;
+    border-top: none;
+
+    margin-top: 0;
+    max-height: 12rem;
+    overflow-y: auto;
+    box-shadow: 0px 6px 5px rgba(0, 0, 0, 0.28);
 }
 
 @keyframes smoothPopupOpen {
@@ -169,4 +178,63 @@
 
 .example-option-text {
     flex: 1;
+}
+
+.user-item {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    padding-inline: 5px;
+    justify-content: flex-start;
+    transition: 0.2s ease;
+    border-radius: 10px;
+    margin: 0px;
+    margin-left: 0px;
+    align-items: center;
+    height: 80px;
+    padding-left: clamp-px(5, 24, 1070, 950);
+
+    .email {
+        color: #007cee;
+        font-size: 15px;
+        margin-top: 3px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        max-width: clamp-px(170, 230, 1070, 950);
+    }
+
+    &-label {
+        margin-left: clamp-px(15, 37, 1070, 950);
+        margin-bottom: 20px;
+        margin-top: 30px;
+    }
+
+    .username {
+        transition: 0.2s ease;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        max-width: clamp-px(170, 230, 1070, 950);
+    }
+
+    &:hover {
+        background-color: $color-high-1;
+        cursor: pointer;
+        transition: 0.2s ease;
+        .username {
+            color: white;
+            transition: 0.2s ease;
+        }
+    }
+
+    &:active {
+        background-color: $color-base;
+        transition: 0.2s ease;
+    }
+}
+.user-ic {
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
 }

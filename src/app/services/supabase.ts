@@ -1,4 +1,4 @@
-import { Service, signal, inject } from '@angular/core';
+import { Service, signal, inject, computed } from '@angular/core';
 import { createClient } from '@supabase/supabase-js';
 import { IUser } from '../interfaces/iuser';
 import { User } from '../components/models/user';
@@ -13,6 +13,22 @@ export class Supabase {
 
     users = signal<IUser[]>([]);
     selectedUserID = signal<number | null>(null);
+
+    constructor() {
+        this.getUsers();
+    }
+
+    readonly groupedUsers = computed(() => {
+        const userMap = new Map<string, IUser[]>();
+        for (const user of this.users()) {
+            const firstLetter = user.name.charAt(0).toUpperCase();
+            if (!userMap.has(firstLetter)) {
+                userMap.set(firstLetter, []);
+            }
+            userMap.get(firstLetter)?.push(user);
+        }
+        return userMap;
+    });
 
     channelUserInsert = this.supabase
         .channel('custom-insert-channel')

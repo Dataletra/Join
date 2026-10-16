@@ -25,17 +25,32 @@
                 [(value)]="selectedValues"
                 [activeDescendant]="listbox.activeDescendant()"
             >
-                @for (label of labels; track label.value) {
-                    <div ngOption [value]="label.value" [label]="label.value">
-                        <span class="example-option-icon material-symbols-outlined" translate="no" aria-hidden="true">{{
-                            label.icon
-                        }}</span>
-                        <span class="example-option-text">{{ label.value }}</span>
-                        <span class="example-option-check material-symbols-outlined" translate="no" aria-hidden="true"
-                            >check</span
-                        >
-                    </div>
-                }
+                <div class="user-list">
+                    @for (entry of dbService.groupedUsers().entries(); track entry[0]) {
+                        @for (user of entry[1]; track user.id) {
+                            <div
+                                ngOption
+                                [value]="user.name"
+                                [label]="user.name"
+                                [class.selected]="dbService.selectedUserID() === user.id"
+                                class="user-item"
+                                [attr.id]="'user-' + user.id"
+                            >
+                                <app-ic-contact class="user-ic" [name]="user.name"></app-ic-contact>
+                                <h5 class="username">
+                                    {{ user.name | titlecase }}
+                                </h5>
+                                <span
+                                    class="example-option-check material-symbols-outlined"
+                                    translate="no"
+                                    aria-hidden="true"
+                                    >check</span
+                                >
+                            </div>
+                        }
+                    }
+                </div>
+                <!-- } -->
             </div>
         </div>
     </ng-template>
