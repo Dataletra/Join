@@ -1,4 +1,4 @@
-export interface Itask {
+export interface ITask {
     id: number;
     created_at: string;
     title: string;

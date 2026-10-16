@@ -5,6 +5,7 @@
     padding: 16px;
     border-radius: 24px;
     background-color: $color-nav-high;
+    box-shadow: 0 0 4px 0 #00000014;
 }
 
 .lable-wrapper {
@@ -49,11 +50,18 @@
     gap: 12px;
     margin-bottom: 21px;
 
-    .progress-placeholder {
+    .progress-bar {
         width: 110px;
         height: 8px;
-        background-color: #4589ff;
+        background-color: #f4f4f4;
         border-radius: 16px;
+        overflow: hidden;
+
+        .progress {
+            height: 100%;
+            background-color: #4589ff;
+            border-radius: 16px;
+        }
     }
 }
 
@@ -64,9 +72,15 @@
 
     .member {
         display: flex;
+        align-items: end;
         .badge {
             width: 32px;
             height: 32px;
+            margin-left: -8px;
+
+            &:first-child {
+                margin-left: 0;
+            }
         }
     }
 
