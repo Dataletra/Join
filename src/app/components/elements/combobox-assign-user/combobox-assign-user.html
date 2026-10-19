@@ -24,6 +24,7 @@
                 [tabindex]="-1"
                 selectionMode="explicit"
                 [(value)]="selectedValues"
+                (valueChange)="triggerOutput()"
                 [activeDescendant]="listbox.activeDescendant()"
             >
                 <div class="user-list">
@@ -31,7 +32,7 @@
                         @for (user of entry[1]; track user.id) {
                             <div
                                 ngOption
-                                [value]="user.name"
+                                [value]="user.id"
                                 [label]="user.name"
                                 [class.selected]="dbService.selectedUserID() === user.id"
                                 class="user-item"
