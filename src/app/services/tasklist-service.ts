@@ -16,7 +16,6 @@ export class TaskListService {
                 updatedMap.set(payload.new['status'], payload.new['order']);
                 return updatedMap;
             });
-            console.log('update received');
         })
         .subscribe();
 

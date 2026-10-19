@@ -21,26 +21,26 @@ export class ContentBoard {
     async fetchTaskLists() {
         await this.taskListService.getTaskLists();
         this.createSomeTasks();
+
+        // TODO: testcode
         console.log(this.tasks);
-        // TODO: remove me - example how to update taskLists
-        // this.taskListService.editTaskList({ status: Status.await, order: [] });
         this.syncTasksWithTaskMap();
     }
 
     syncTasksWithTaskMap() {
         const insertQueue: number[] = [];
         const deleteMap = new Map<Status, number[]>();
-
+        const allTasks: number[] = [];
         for (const task of this.tasks) {
             const found = this.findDirtyTasks(task, deleteMap);
-
             if (false === found) {
                 insertQueue.push(task.id);
             }
+            allTasks.push(task.id);
         }
+        this.findDeprecatedTasks(allTasks, deleteMap);
         const updatedMap = this.createCleanTaskMap(insertQueue, deleteMap);
         this.taskListService.editTaskMap(updatedMap);
-        // TODO: now clean up tasks that are in map but do not exist anymore
     }
 
     findDirtyTasks(task: ITask, deleteMap: Map<Status, number[]>) {
@@ -58,12 +58,24 @@ export class ContentBoard {
         return found;
     }
 
+    findDeprecatedTasks(allTasks: number[], deleteMap: Map<Status, number[]>) {
+        for (const [status, taskList] of this.taskListService.taskMap()) {
+            const deprecated = taskList.filter((id) => false === allTasks.includes(id));
+
+            deprecated.forEach((id) => {
+                const ids = deleteMap.get(status) ?? [];
+                deleteMap.set(status, [...ids, id]);
+            });
+        }
+    }
+
     createCleanTaskMap(insertQueue: number[], deleteMap: Map<Status, number[]>) {
         const updatedMap = new Map(this.taskListService.taskMap());
         for (const [status, taskList] of deleteMap) {
+            const ids = updatedMap.get(status) ?? [];
             updatedMap.set(
                 status,
-                taskList.filter((id) => !deleteMap.get(status)?.includes(id))
+                ids.filter((id) => false === taskList.includes(id))
             );
         }
         for (const newId of insertQueue) {
