@@ -24,18 +24,20 @@
                 [tabindex]="-1"
                 selectionMode="explicit"
                 [(value)]="selectedValues"
+                (valueChange)="triggerOutput()"
                 [activeDescendant]="listbox.activeDescendant()"
             >
                 <div class="user-list">
-                    @for (entry of filteredGroupedUsers(); track entry[0]) {
+                    @for (entry of dbService.groupedUsers().entries(); track entry[0]) {
                         @for (user of entry[1]; track user.id) {
                             <div
                                 ngOption
-                                [value]="user.name"
+                                [value]="user.id"
                                 [label]="user.name"
                                 [class.selected]="dbService.selectedUserID() === user.id"
                                 class="user-item"
                                 [attr.id]="'user-' + user.id"
+                                [style.display]="isUserVisible(user) ? 'flex' : 'none'"
                             >
                                 <app-ic-contact class="user-ic" [name]="user.name"></app-ic-contact>
                                 <p class="username">
@@ -44,8 +46,6 @@
                                 <span class="checkbox" translate="no" aria-hidden="true"></span>
                             </div>
                         }
-                    } @empty {
-                        <div class="no-results">No users found</div>
                     }
                 </div>
             </div>
