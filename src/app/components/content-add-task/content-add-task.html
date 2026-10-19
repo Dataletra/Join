@@ -34,9 +34,13 @@
 
     <div class="input-container">
         <p>Assigned to</p>
-        <app-combobox-assign-user></app-combobox-assign-user>
+        <app-combobox-assign-user (selectedUser)="assignedUsers($event)"></app-combobox-assign-user>
     </div>
-
+    <div class="userIconContainer">
+        @for (user of comboboxUserIDs(); track user) {
+            <app-ic-contact class="user-ic" [name]="user.name"></app-ic-contact>
+        }
+    </div>
     <div class="input-container">
         <p>Category<span class="mandatory-color">*</span></p>
         <app-combobox-category></app-combobox-category>
@@ -44,5 +48,6 @@
 
     <div class="input-container">
         <p>Subtasks</p>
+        <app-subtask></app-subtask>
     </div>
 </div>
