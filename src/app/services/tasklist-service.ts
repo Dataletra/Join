@@ -1,50 +1,48 @@
 import { Service, signal, inject } from '@angular/core';
 import { ITaskList } from '../interfaces/itasklist';
-import { TaskList } from '../components/models/tasklist';
 import { SupabaseService } from './supabase';
 import { Status } from '../interfaces/status';
 
 @Service()
 export class TaskListService {
     supabase = inject(SupabaseService).supabase;
-    taskLists = signal<ITaskList[]>([]);
+    taskMap = signal<Map<Status, number[]>>(new Map<Status, number[]>());
 
     channeTaskListUpdate = this.supabase
         .channel('tasklist-update-channel')
         .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'taskList' }, (payload) => {
-            this.taskLists.update((list) =>
-                list.map((statusRow) =>
-                    statusRow.id === payload.new['id'] ? { ...statusRow, ...payload.new } : statusRow
-                )
+            this.taskMap.update(
+                (taskMap) => {
+                    const updatedMap = new Map(taskMap);
+                    updatedMap.set(payload.new['status'], payload.new['order']);
+                    return updatedMap;
+                }
             );
         })
         .subscribe();
 
     async getTaskLists() {
         let { data: taskList, error } = await this.supabase.from('taskList').select('*');
-        if (!taskList) return;
-        this.taskLists.set(taskList);
-    }
-
-    async editTaskList(taskList: ITaskList | TaskList | null) {
-        if (taskList) {
-            const taskListData =
-                taskList instanceof TaskList ? taskList.getCleanAddJson() : new TaskList(taskList).getCleanAddJson();
-            console.log('Converted to', taskListData, typeof taskList);
-
-            const { data, error } = await this.supabase
-                .from('taskList')
-                .update([taskListData])
-                .eq('id', taskList?.id)
-                .select();
+        if (!taskList) {
+            return;
         }
+        const taskMap = new Map<Status, number[]>();
+        for (let statusRow of taskList) {
+            taskMap.set(statusRow.status, statusRow.order);
+        }
+        this.taskMap.set(taskMap);
     }
 
-    getStatusList(status: Status): ITaskList | null {
-        const index = this.taskLists().findIndex((row: ITaskList) => {
-            return status === row.status;
-        });
-        return index >= 0 ? this.taskLists()[index] : null;
+    async editTaskList(taskMap: ITaskList) {
+        const { data, error } = await this.supabase
+            .from('taskList')
+            .update([taskMap])
+            .eq('status', taskMap.status)
+            .select();
+    }
+
+    getStatusList(status: Status): number[] | null {
+        return this.taskMap().get(status) ?? null;
     }
 
     ngOnDestroy() {

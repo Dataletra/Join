@@ -1,3 +1,5 @@
+import { Status } from "./status";
+
 export interface ITask {
     id: number;
     created_at: string;
@@ -5,7 +7,7 @@ export interface ITask {
     description: string;
     category: 'User Story' | 'Technical Task';
     priority: 'low' | 'medium' | 'urgent';
-    status: 'To do' | 'In progress' | 'Await feedback' | 'Done';
+    status: Status;
     assignedTo: ITaskUser[];
     subtasks: ISubtask[];
 }
