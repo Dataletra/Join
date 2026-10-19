@@ -11,13 +11,12 @@ export class TaskListService {
     channeTaskListUpdate = this.supabase
         .channel('tasklist-update-channel')
         .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'taskList' }, (payload) => {
-            this.taskMap.update(
-                (taskMap) => {
-                    const updatedMap = new Map(taskMap);
-                    updatedMap.set(payload.new['status'], payload.new['order']);
-                    return updatedMap;
-                }
-            );
+            this.taskMap.update((taskMap) => {
+                const updatedMap = new Map(taskMap);
+                updatedMap.set(payload.new['status'], payload.new['order']);
+                return updatedMap;
+            });
+            console.log('update received');
         })
         .subscribe();
 
@@ -27,18 +26,24 @@ export class TaskListService {
             return;
         }
         const taskMap = new Map<Status, number[]>();
-        for (let statusRow of taskList) {
+        for (const statusRow of taskList) {
             taskMap.set(statusRow.status, statusRow.order);
         }
         this.taskMap.set(taskMap);
     }
 
-    async editTaskList(taskMap: ITaskList) {
+    async editTaskList(taskList: ITaskList) {
         const { data, error } = await this.supabase
             .from('taskList')
-            .update([taskMap])
-            .eq('status', taskMap.status)
+            .update([taskList])
+            .eq('status', taskList.status)
             .select();
+    }
+
+    async editTaskMap(taskMap: Map<Status, number[]>) {
+        for (const [status, tasks] of taskMap) {
+            await this.editTaskList({ status: status, order: tasks });
+        }
     }
 
     getStatusList(status: Status): number[] | null {

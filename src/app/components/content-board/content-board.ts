@@ -16,16 +16,63 @@ export class ContentBoard {
 
     ngOnInit() {
         this.fetchTaskLists();
-
-        this.createSomeTasks();
-        console.log(this.tasks);
     }
 
     async fetchTaskLists() {
         await this.taskListService.getTaskLists();
-
+        this.createSomeTasks();
+        console.log(this.tasks);
         // TODO: remove me - example how to update taskLists
         // this.taskListService.editTaskList({ status: Status.await, order: [] });
+        this.syncTasksWithTaskMap();
+    }
+
+    syncTasksWithTaskMap() {
+        const insertQueue: number[] = [];
+        const deleteMap = new Map<Status, number[]>();
+
+        for (const task of this.tasks) {
+            const found = this.findDirtyTasks(task, deleteMap);
+
+            if (false === found) {
+                insertQueue.push(task.id);
+            }
+        }
+        const updatedMap = this.createCleanTaskMap(insertQueue, deleteMap);
+        this.taskListService.editTaskMap(updatedMap);
+        // TODO: now clean up tasks that are in map but do not exist anymore
+    }
+
+    findDirtyTasks(task: ITask, deleteMap: Map<Status, number[]>) {
+        let found = false;
+        for (const [status, taskList] of this.taskListService.taskMap()) {
+            const index = taskList.indexOf(task.id);
+            if (index >= 0 && status !== task.status) {
+                const ids = deleteMap.get(task.status) ?? [];
+                deleteMap.set(status, [...ids, task.id]);
+                found = true;
+            } else if (index >= 0) {
+                found = true;
+            }
+        }
+        return found;
+    }
+
+    createCleanTaskMap(insertQueue: number[], deleteMap: Map<Status, number[]>) {
+        const updatedMap = new Map(this.taskListService.taskMap());
+        for (const [status, taskList] of deleteMap) {
+            updatedMap.set(
+                status,
+                taskList.filter((id) => !deleteMap.get(status)?.includes(id))
+            );
+        }
+        for (const newId of insertQueue) {
+            const newTask = this.tasks.find((element) => element.id === newId);
+            if (newTask) {
+                updatedMap.get(newTask.status)?.push(newTask.id);
+            }
+        }
+        return updatedMap;
     }
 
     // TODO: testing section
@@ -38,7 +85,7 @@ export class ContentBoard {
                     someStatus = Status.todo;
                     break;
                 case i < 6:
-                    someStatus = Status.progress;
+                    someStatus = i == 5 ? Status.todo : Status.progress;
                     break;
                 case i < 9:
                     someStatus = Status.await;
