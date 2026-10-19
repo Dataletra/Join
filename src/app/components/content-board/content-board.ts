@@ -18,7 +18,7 @@ export class ContentBoard {
         this.fetchTaskLists();
 
         this.createSomeTasks();
-        console.log(this.tasks);
+        // console.log(this.tasks);
     }
 
     async fetchTaskLists() {
@@ -55,8 +55,10 @@ export class ContentBoard {
                 category: 'User Story',
                 priority: 'low',
                 status: someStatus,
-                assignedTo: [],
+                user_ids: [],
                 subtasks: [],
+                //TODO Date
+                due_date: '19.10.2016',
             });
         }
     }
