@@ -5,9 +5,10 @@ import { ComboboxAssignUser } from '../elements/combobox-assign-user/combobox-as
 import { ContactService } from '../../services/contact-service';
 import { IUser } from '../../interfaces/iuser';
 import { IcContact } from '../elements/ic-contact/ic-contact';
+import { Subtask } from '../elements/subtask/subtask';
 
 @Component({
-    imports: [ButtonPriority, ComboboxCategory, ComboboxAssignUser, IcContact],
+    imports: [ButtonPriority, ComboboxCategory, ComboboxAssignUser, IcContact, Subtask],
     selector: 'app-content-add-task',
     styleUrl: './content-add-task.scss',
     templateUrl: './content-add-task.html',
