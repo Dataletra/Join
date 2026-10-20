@@ -23,7 +23,7 @@ export class Task implements ITask {
         this.status = task?.status ?? Status.todo;
         this.user_ids = task?.user_ids ?? [];
         this.subtasks = task?.subtasks ?? [];
-        this.due_date = task?.due_date ?? new Date().toISOString();
+        this.due_date = task?.due_date ?? '';
     }
 
     getCleanAddJson() {

@@ -3,6 +3,8 @@ import { ButtonPrimary } from '../elements/button-primary/button-primary';
 import { TaskListService } from '../../services/tasklist-service';
 import { Status } from '../../interfaces/status';
 import { ITask } from '../../interfaces/itask';
+import { TasksService } from '../../services/tasks-service';
+import { Task } from '../models/task';
 
 @Component({
     imports: [ButtonPrimary],
@@ -12,13 +14,36 @@ import { ITask } from '../../interfaces/itask';
 })
 export class ContentBoard {
     taskListService = inject(TaskListService);
+    tasksService = inject(TasksService);
     private readonly Status = Status; // Make Status enum usable in HTML
 
-    ngOnInit() {
+    async ngOnInit() {
         this.fetchTaskLists();
 
         this.createSomeTasks();
-        // console.log(this.tasks);
+
+        await this.tasksService.getTasks();
+
+        //TODO Delete me
+        // await this.testAddTask();
+        // console.log('task per id', this.tasksService.getTaskPerId(2));
+        console.log('all tasks', this.tasksService.tasklist());
+        // console.log('task model', this.tasksService.tasklist()[0]);
+    }
+
+    // TODO Delete me
+    async testAddTask() {
+        const testtask = new Task({
+            title: 'Trello aktualisieren',
+            description: '',
+            category: 'Technical Task',
+            priority: 'low',
+            status: Status.todo,
+            user_ids: [],
+            subtasks: [],
+            due_date: '2026-10-25',
+        });
+        await this.tasksService.addTask(testtask);
     }
 
     async fetchTaskLists() {
