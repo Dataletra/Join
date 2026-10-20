@@ -32,7 +32,13 @@ input {
     gap: 5px;
     display: flex;
     margin-left: auto;
-    background-color: blue;
+    background-color: rgb(133, 133, 229);
+}
+.btn-entry-edit-container {
+    gap: 5px;
+    display: flex;
+    margin-left: auto;
+    background-color: rgb(133, 229, 157);
 }
 
 .subtask-item {

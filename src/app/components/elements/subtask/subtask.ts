@@ -13,9 +13,11 @@ export class Subtask {
     subtaskEntry = new FormControl('', {
         validators: [Validators.minLength(5)],
     });
+
     cancel() {
         this.subtaskEntry.reset();
     }
+
     confirm() {
         const newSubtask: ISubtask = {
             title: this.subtaskEntry.value!,
@@ -25,13 +27,18 @@ export class Subtask {
         this.subtaskEntry.reset();
     }
 
-    openEdit(container: HTMLElement) {
-        container.classList.toggle('d-none');
+    openEdit(editCont: HTMLElement, saveCont: HTMLElement, input: HTMLInputElement) {
+        editCont.classList.add('d-none');
+        saveCont.classList.remove('d-none');
+        input.disabled = false;
+        input.focus();
     }
 
-    saveEdit(index: number, newTitle: string, container: HTMLElement) {
+    saveEdit(index: number, newTitle: string, editCont: HTMLElement, saveCont: HTMLElement, input: HTMLInputElement) {
         this.subtaskItems[index].title = newTitle;
-        container.classList.toggle('d-none');
+        saveCont.classList.add('d-none');
+        editCont.classList.remove('d-none');
+        input.disabled = true;
     }
 
     delete(index: number) {
