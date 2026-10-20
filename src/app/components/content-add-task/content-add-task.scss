@@ -33,3 +33,16 @@
         padding: 10px;
     }
 }
+
+.userIconContainer {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    padding-left: 15px;
+}
+
+.user-ic {
+    width: 35px;
+    height: 35px;
+    min-width: 35px;
+}

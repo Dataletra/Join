@@ -1,4 +1,4 @@
-import { Service, signal, inject, computed  } from '@angular/core';
+import { Service, signal, inject, computed } from '@angular/core';
 import { IUser } from '../interfaces/iuser';
 import { User } from '../components/models/user';
 import { Toast } from './toast';
