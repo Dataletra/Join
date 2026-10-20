@@ -81,6 +81,8 @@
         width: 130px;
         height: 46px;
         padding-left: 16px;
+        cursor: pointer;
+
         &:hover {
             background-color: $color-nav-hover-bg;
         }
