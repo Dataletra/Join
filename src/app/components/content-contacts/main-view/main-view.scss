@@ -6,7 +6,7 @@
 
 //#region Main SCSS
 :host {
-    padding-block: clamp-px(20, 50);
+    padding-top: 10px;
     padding-left: clamp-px(15, 50, 1440, 850);
     padding-right: 5px;
     margin-right: 5px;
@@ -43,8 +43,9 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    justify-content: flex-start;
     gap: 35px;
+    height: 100%;
+    padding-bottom: 35px;
 }
 
 .user-ic {
@@ -55,15 +56,22 @@
 .user-container {
     display: flex;
     align-items: center;
-    gap: 60px;
+    gap: 30px;
 }
 
 .name-container {
     display: flex;
     flex-direction: column;
+    padding-top: 10px;
     gap: 5px;
+    max-width: 100%;
+    min-height: 110px;
     h2 {
-        font-size: clamp-px(24, 58, 1440, 1050);
+        overflow-wrap: anywhere;
+        word-break: break-all;
+        min-height: 65px;
+        // font-size: 38px;
+        font-size: clamp(20px, calc(48px - (var(--char-count, 10) * 0.8px)), 48px);
     }
 }
 
@@ -75,8 +83,12 @@
 
 .email {
     color: #007cee;
+    overflow-wrap: anywhere;
+    word-break: break-all;
 }
-
+.contact-information-title {
+    margin-top: 10px;
+}
 .bold {
     font-weight: bold;
 }
@@ -228,6 +240,9 @@ button {
 //#region Mobile Media Queries
 
 @media screen and (max-width: 1258px) {
+    .name-container {
+        padding-top: 0;
+    }
     .title {
         flex-direction: column;
         align-items: flex-start;
@@ -265,6 +280,24 @@ button {
     h2 {
         width: 100%;
     }
+
+    .detailed-view {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+        // gap: 35px;
+        height: 100%;
+        padding-bottom: 35px;
+    }
+}
+
+@media screen and (max-width: 690px) {
+    .name-container {
+        h2 {
+            font-size: clamp(20px, calc(43px - (var(--char-count, 10) * 0.8px)), 48px);
+        }
+    }
 }
 
 @media screen and (max-width: $media-m) {
@@ -274,6 +307,19 @@ button {
 
     .mobile-d-none {
         display: none;
+    }
+    .name-container {
+        padding-top: 10px;
+        gap: 5px;
+        max-width: 100%;
+        min-height: 120px;
+        h2 {
+            overflow-wrap: anywhere;
+            word-break: break-all;
+            min-height: 120px;
+            vertical-align: baseline;
+            font-size: clamp(20px, calc(48px - (var(--char-count, 10) * 0.8px)), 48px);
+        }
     }
 }
 
