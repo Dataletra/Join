@@ -25,7 +25,7 @@
     <div class="user-container">
         <app-ic-contact [enableShadow]="true" class="user-ic" [name]="selectedUser()?.name ?? ''"></app-ic-contact>
         <div class="name-container">
-            <h2>{{ selectedUser()?.name | titlecase }}</h2>
+            <h2 [style.--char-count]="selectedUser()?.name.length">{{ selectedUser()?.name | titlecase }}</h2>
             <div class="button-container mobile-d-none">
                 <button (click)="dialogService.open('edit', selectedUser())">
                     <p class="button-text"><img src="./assets/icons/edit.svg" alt="Edit Icon" />Edit</p>
@@ -36,17 +36,17 @@
             </div>
         </div>
     </div>
-    <p>Contact Information</p>
     <div class="contact-container">
+        <p class="contact-information-title">Contact Information</p>
         <p class="bold">Email</p>
-        <a class="email" [attr.href]="'mailto:' + selectedUser()?.email">{{ selectedUser()?.email }}</a>
+        <p class="email">{{ selectedUser()?.email }}</p>
         <p class="bold">Phone</p>
-        <a [attr.href]="'tel:' + selectedUser()?.phone">{{ selectedUser()?.phone }}</a>
+        <p>{{ selectedUser()?.phone }}</p>
     </div>
-    <button class="mobile-menu-btn" (click)="toggleMenu()">
-        <img src="./assets/icons/three-dot.svg" alt="Edit Icon" />
-    </button>
 </div>
+<button class="mobile-menu-btn" (click)="toggleMenu()">
+    <img src="./assets/icons/three-dot.svg" alt="Edit Icon" />
+</button>
 <app-popup-confirm [show]="showConfirm()" (done)="showConfirm.set(false)" [callbackOkay]="deleteUser.bind(this)"
     >Do you really want to delete?
 </app-popup-confirm>
