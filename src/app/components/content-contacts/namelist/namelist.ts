@@ -54,4 +54,15 @@ export class Namelist {
         this.dbService.selectedUserID.set(id);
         this.isUserSelected.emit(true);
     }
+
+    scrollToSelectedUser() {
+        const selectedUserID = this.dbService.selectedUserID();
+        if (selectedUserID === null) {
+            return;
+        }
+        document.getElementById(`user-${selectedUserID}`)?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+        });
+    }
 }

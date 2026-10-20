@@ -107,8 +107,11 @@ export class AddContact {
             return;
         }
         const formData = new User(this.contactForm.value);
-        await this.supabaseService.addUser(formData);
+        const newUser = await this.supabaseService.addUser(formData);
+        this.contactForm.reset();
+        this.avatarName = '';
         this.dialogService.close();
+        this.supabaseService.selectedUserID.set(newUser.id);
     }
 
     updateAvatar() {
