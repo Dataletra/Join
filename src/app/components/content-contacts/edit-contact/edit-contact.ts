@@ -25,7 +25,7 @@ export class EditContact {
     supabaseService = inject(ContactService);
     dialogService = inject(ContactDialog);
     dialog = viewChild<ElementRef<HTMLDialogElement>>('editContact');
-    avatarName = '';
+    avatarName = signal('');
     showConfirm = signal<boolean>(false);
 
     constructor() {
@@ -43,7 +43,7 @@ export class EditContact {
                     email: user.email,
                     phone: user.phone,
                 });
-                this.avatarName = user.name;
+                this.avatarName.set(user.name);
             }
         });
     }
@@ -146,9 +146,9 @@ export class EditContact {
     updateAvatar() {
         const nameControl = this.contactForm.controls.name;
         if (nameControl.valid) {
-            this.avatarName = nameControl.value;
+            this.avatarName.set(nameControl.value);
         } else {
-            this.avatarName = '';
+            this.avatarName.set('');
         }
     }
 }
