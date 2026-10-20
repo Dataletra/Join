@@ -3,13 +3,13 @@
 @use '../../../../../public/styles/abstract/mixin.scss' as *;
 
 .wrapper {
-    width: clamp-px(300, 400, 1070, 950);
+    width: clamp-px(295, 395, 1070, 950);
     background-color: white;
     height: $height-content-desktop;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    padding: 20px;
+    padding: 15px;
     padding-bottom: 0;
     position: relative;
 }
