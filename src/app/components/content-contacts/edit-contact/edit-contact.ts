@@ -86,7 +86,7 @@ export class EditContact {
             if (!value) {
                 return null;
             }
-            const pattern = /^[\p{L}]{2,}(?:[ '-][\p{L}]{2,})+$/u;
+            const pattern = /^[\p{L},'-]{2,}(?:[ ][\p{L},'-]{2,})+$/u;
             return pattern.test(value) ? null : { namePattern: true };
         };
     }
