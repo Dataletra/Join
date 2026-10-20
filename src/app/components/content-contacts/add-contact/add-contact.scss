@@ -440,5 +440,14 @@ section {
         .forms-buttons {
             padding-top: 16px;
         }
+
+        .forms-buttons {
+            .create-btn {
+                ::ng-deep button {
+                    height: 40px;
+                    font-size: 14px;
+                }
+            }
+        }
     }
 }
