@@ -45,18 +45,8 @@
     display: none;
 }
 
-.user-menu-wrapper {
-    position: absolute;
-    height: 100svh;
-    width: 100svw;
-    bottom: $height-header;
-    left: calc(-1 * $width-nav-desktop);
-    transform: translateY(100%);
-    overflow: hidden;
-}
-
 .user-menu {
-    position: absolute;
+    position: fixed;
     list-style-type: none;
     background-color: $color-base;
     padding: 10px;
@@ -102,10 +92,6 @@
 
     .logo-mobile {
         display: block;
-    }
-
-    .user-menu-wrapper {
-        left: 0;
     }
 
     .user-menu {
