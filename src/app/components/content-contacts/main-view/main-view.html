@@ -39,9 +39,9 @@
     <p>Contact Information</p>
     <div class="contact-container">
         <p class="bold">Email</p>
-        <a class="email" [attr.href]="'mailto:' + selectedUser()?.email">{{ selectedUser()?.email }}</a>
+        <p class="email">{{ selectedUser()?.email }}</p>
         <p class="bold">Phone</p>
-        <a [attr.href]="'tel:' + selectedUser()?.phone">{{ selectedUser()?.phone }}</a>
+        <p>{{ selectedUser()?.phone }}</p>
     </div>
 </div>
 <button class="mobile-menu-btn" (click)="toggleMenu()">
