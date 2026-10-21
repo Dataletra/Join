@@ -12,8 +12,8 @@
         ngMenu
         #userMenu="ngMenu"
         class="user-menu"
-        [class.move-out]="!showMenu()"
-        [class.move-in]="showMenu()"
+        [class.move-out-slow]="!showMenu()"
+        [class.move-in-slow]="showMenu()"
         (click)="$event.stopPropagation()"
     >
         <li ngMenuItem value="edit-item" class="edit-item">
