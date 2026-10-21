@@ -164,15 +164,6 @@ button {
     }
 }
 
-.user-menu-wrapper {
-    position: absolute;
-    height: $height-content-mobile;
-    width: 100svw;
-    top: 0;
-    right: 0;
-    overflow: hidden;
-}
-
 .user-menu {
     z-index: 999;
     position: absolute;
@@ -181,8 +172,8 @@ button {
     padding: 10px;
     border-radius: 20px;
     border-bottom-right-radius: 0;
-    bottom: 15px;
-    right: 15px;
+    bottom: -5px;
+    right: -5px;
     opacity: 0;
     box-shadow: 0 4px 4px 0 #00000040;
 

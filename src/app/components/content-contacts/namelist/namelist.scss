@@ -67,9 +67,11 @@
     }
 
     &-label {
-        margin-left: clamp-px(18, 37, 1070, 950);
+        margin-left: clamp-px(5, 24, 1070, 950);
         margin-bottom: 5px;
         margin-top: 30px;
+        width: $width-user-list-icon;
+        text-align: center;
     }
 
     .username {
@@ -105,9 +107,9 @@
 }
 
 .user-ic {
-    width: 42px;
-    height: 42px;
-    min-width: 42px;
+    width: $width-user-list-icon;
+    height: $width-user-list-icon;
+    min-width: $width-user-list-icon;
 }
 
 hr {
