@@ -13,8 +13,8 @@
     align-items: center;
     padding-left: clamp-px(16, 96);
     padding-right: clamp-px(16, 40);
-    box-shadow: (0 4px 4px 0 rgba(0, 0, 0, 0.1));
-    z-index: 2;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.1);
+    z-index: 3;
     background-color: white;
 }
 
@@ -45,18 +45,8 @@
     display: none;
 }
 
-.user-menu-wrapper {
-    position: absolute;
-    height: 100svh;
-    width: 100svw;
-    bottom: $height-header;
-    left: calc(-1 * $width-nav-desktop);
-    transform: translateY(100%);
-    overflow: hidden;
-}
-
 .user-menu {
-    position: absolute;
+    position: fixed;
     list-style-type: none;
     background-color: $color-base;
     padding: 10px;
@@ -81,6 +71,8 @@
         width: 130px;
         height: 46px;
         padding-left: 16px;
+        cursor: pointer;
+
         &:hover {
             background-color: $color-nav-hover-bg;
         }
@@ -100,10 +92,6 @@
 
     .logo-mobile {
         display: block;
-    }
-
-    .user-menu-wrapper {
-        left: 0;
     }
 
     .user-menu {

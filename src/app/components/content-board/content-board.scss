@@ -189,9 +189,8 @@ main,
         flex-direction: row;
     }
 
-    .scroll-wrapper,
     .task-list-scroll-wrapper {
-        @include scrollbar-none;
+        height: auto;
     }
 }
 // #endregion board-main
@@ -200,6 +199,7 @@ main,
     @include flex-center;
     width: 100%;
     min-width: 244px;
+    max-width: 244px;
     height: 48px;
     background-color: $color-nav;
     border: 1px dashed $color-icon2;

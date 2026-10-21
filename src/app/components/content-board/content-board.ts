@@ -19,38 +19,75 @@ export class ContentBoard {
 
     async ngOnInit() {
         this.fetchTaskLists();
-
-        this.createSomeTasks();
-
-        await this.tasksService.getTasks();
-
-        //TODO Delete me
-        // await this.testAddTask();
-        // console.log('task per id', this.tasksService.getTaskPerId(2));
-        console.log('all tasks', this.tasksService.tasklist());
-        // console.log('task model', this.tasksService.tasklist()[0]);
-    }
-
-    // TODO Delete me
-    async testAddTask() {
-        const testtask = new Task({
-            title: 'Trello aktualisieren',
-            description: '',
-            category: 'Technical Task',
-            priority: 'low',
-            status: Status.todo,
-            user_ids: [],
-            subtasks: [],
-            due_date: '2026-10-25',
-        });
-        await this.tasksService.addTask(testtask);
     }
 
     async fetchTaskLists() {
         await this.taskListService.getTaskLists();
+        this.createSomeTasks();
 
-        // TODO: remove me - example how to update taskLists
-        // this.taskListService.editTaskList({ status: Status.await, order: [] });
+        // TODO: testcode
+        console.log(this.tasks);
+        this.syncTasksWithTaskMap();
+    }
+
+    syncTasksWithTaskMap() {
+        const insertQueue: number[] = [];
+        const deleteMap = new Map<Status, number[]>();
+        const allTasks: number[] = [];
+        for (const task of this.tasks) {
+            const found = this.findDirtyTasks(task, deleteMap);
+            if (false === found) {
+                insertQueue.push(task.id);
+            }
+            allTasks.push(task.id);
+        }
+        this.findDeprecatedTasks(allTasks, deleteMap);
+        const updatedMap = this.createCleanTaskMap(insertQueue, deleteMap);
+        this.taskListService.editTaskMap(updatedMap);
+    }
+
+    findDirtyTasks(task: ITask, deleteMap: Map<Status, number[]>) {
+        let found = false;
+        for (const [status, taskList] of this.taskListService.taskMap()) {
+            const index = taskList.indexOf(task.id);
+            if (index >= 0 && status !== task.status) {
+                const ids = deleteMap.get(task.status) ?? [];
+                deleteMap.set(status, [...ids, task.id]);
+                found = true;
+            } else if (index >= 0) {
+                found = true;
+            }
+        }
+        return found;
+    }
+
+    findDeprecatedTasks(allTasks: number[], deleteMap: Map<Status, number[]>) {
+        for (const [status, taskList] of this.taskListService.taskMap()) {
+            const deprecated = taskList.filter((id) => false === allTasks.includes(id));
+
+            deprecated.forEach((id) => {
+                const ids = deleteMap.get(status) ?? [];
+                deleteMap.set(status, [...ids, id]);
+            });
+        }
+    }
+
+    createCleanTaskMap(insertQueue: number[], deleteMap: Map<Status, number[]>) {
+        const updatedMap = new Map(this.taskListService.taskMap());
+        for (const [status, taskList] of deleteMap) {
+            const ids = updatedMap.get(status) ?? [];
+            updatedMap.set(
+                status,
+                ids.filter((id) => false === taskList.includes(id))
+            );
+        }
+        for (const newId of insertQueue) {
+            const newTask = this.tasks.find((element) => element.id === newId);
+            if (newTask) {
+                updatedMap.get(newTask.status)?.push(newTask.id);
+            }
+        }
+        return updatedMap;
     }
 
     // TODO: testing section
@@ -63,7 +100,7 @@ export class ContentBoard {
                     someStatus = Status.todo;
                     break;
                 case i < 6:
-                    someStatus = Status.progress;
+                    someStatus = i == 5 ? Status.todo : Status.progress;
                     break;
                 case i < 9:
                     someStatus = Status.await;
