@@ -3,8 +3,6 @@ import { ButtonPrimary } from '../elements/button-primary/button-primary';
 import { TaskListService } from '../../services/tasklist-service';
 import { Status } from '../../interfaces/status';
 import { ITask } from '../../interfaces/itask';
-import { TasksService } from '../../services/tasks-service';
-import { Task } from '../models/task';
 
 @Component({
     imports: [ButtonPrimary],
@@ -14,7 +12,6 @@ import { Task } from '../models/task';
 })
 export class ContentBoard {
     taskListService = inject(TaskListService);
-    tasksService = inject(TasksService);
     private readonly Status = Status; // Make Status enum usable in HTML
 
     async ngOnInit() {
