@@ -3,9 +3,10 @@ import { ButtonPrimary } from '../elements/button-primary/button-primary';
 import { TaskListService } from '../../services/tasklist-service';
 import { Status } from '../../interfaces/status';
 import { ITask } from '../../interfaces/itask';
+import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
-    imports: [ButtonPrimary],
+    imports: [ButtonPrimary, CdkDrag, CdkDropList],
     selector: 'app-content-board',
     styleUrl: './content-board.scss',
     templateUrl: './content-board.html',
@@ -85,6 +86,16 @@ export class ContentBoard {
             }
         }
         return updatedMap;
+    }
+
+    drop(event: CdkDragDrop<string[]>, status: Status) {
+        if (this.taskListService.taskMap().has(status) && event.previousIndex !== event.currentIndex) {
+            const taskListRef = this.taskListService.taskMap().get(status) ?? [];
+            moveItemInArray( taskListRef, event.previousIndex, event.currentIndex);
+            console.log('Dragged from', event.previousIndex, 'to', event.currentIndex);
+            console.log(this.taskListService.taskMap().get(status));
+            this.taskListService.editTaskList({status: status, order: taskListRef});
+        }
     }
 
     // TODO: testing section
