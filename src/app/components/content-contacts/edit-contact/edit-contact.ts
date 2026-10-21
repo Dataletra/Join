@@ -126,7 +126,7 @@ export class EditContact {
             id: selectedUser?.id,
             created_at: selectedUser?.created_at,
             name: this.contactForm.controls.name.value,
-            email: this.contactForm.controls.name.value,
+            email: this.contactForm.controls.email.value,
             phone: this.contactForm.controls.phone.value,
             password: selectedUser?.password,
         });
