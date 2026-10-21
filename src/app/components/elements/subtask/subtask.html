@@ -14,7 +14,6 @@
             <input class="subtask-item-input" type="text" [value]="entry.title" #inputRef disabled />
 
             <div class="btn-entry-container" #btnEditContainer>
-                <!-- Pass both containers into openEdit -->
                 <button (click)="openEdit(btnEditContainer, btnEntryEditContainer, inputRef)">edit</button>
                 <hr />
                 <button (click)="delete($index)">Delete</button>
