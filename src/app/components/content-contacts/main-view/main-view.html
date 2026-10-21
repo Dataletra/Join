@@ -1,18 +1,29 @@
-<div class="user-menu-wrapper" (click)="hideMenu()" [class.d-none]="!enableMenuWrapper()">
+<ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="origin"
+    [cdkConnectedOverlayOpen]="overlayListen()"
+    (overlayOutsideClick)="hideMenu()"
+    (detach)="hideMenu()"
+    [cdkConnectedOverlayPositions]="[
+        { originX: 'end', originY: 'bottom', overlayX: 'end', overlayY: 'top'},
+    ]"
+>
     <menu
+        ngMenu
+        #userMenu="ngMenu"
         class="user-menu"
         [class.move-out]="!showMenu()"
         [class.move-in]="showMenu()"
         (click)="$event.stopPropagation()"
     >
-        <li class="edit-item">
+        <li ngMenuItem value="edit-item" class="edit-item">
             <p (click)="dialogService.open('edit', selectedUser()); hideMenu()" class="button-mobile-text">Edit</p>
         </li>
-        <li class="delete-item">
+        <li ngMenuItem value="delete-item" class="delete-item">
             <p (click)="hideMenu(); showConfirm.set(true)" class="button-mobile-text">Delete</p>
         </li>
     </menu>
-</div>
+</ng-template>
 <div class="title">
     <h3>Contacts</h3>
     <div class="subline-container">
@@ -44,7 +55,13 @@
         <p>{{ selectedUser()?.phone }}</p>
     </div>
 </div>
-<button class="mobile-menu-btn" (click)="toggleMenu()">
+<button
+    cdkOverlayOrigin
+    #origin="cdkOverlayOrigin"
+    class="mobile-menu-btn"
+    (click)="toggleMenu()"
+    (keydown.escape)="hideMenu()"
+>
     <img src="./assets/icons/three-dot.svg" alt="Edit Icon" />
 </button>
 <app-popup-confirm [show]="showConfirm()" (done)="showConfirm.set(false)" [callbackOkay]="deleteUser.bind(this)"
