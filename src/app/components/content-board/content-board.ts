@@ -1,11 +1,12 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, effect, inject } from '@angular/core';
 import { ButtonPrimary } from '../elements/button-primary/button-primary';
 import { TaskListService } from '../../services/tasklist-service';
 import { Status } from '../../interfaces/status';
 import { ITask } from '../../interfaces/itask';
+import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
-    imports: [ButtonPrimary],
+    imports: [ButtonPrimary, CdkDrag, CdkDropList],
     selector: 'app-content-board',
     styleUrl: './content-board.scss',
     templateUrl: './content-board.html',
@@ -20,10 +21,11 @@ export class ContentBoard {
 
     async fetchTaskLists() {
         await this.taskListService.getTaskLists();
-        this.createSomeTasks();
 
         // TODO: testcode
         console.log(this.tasks);
+        this.createSomeTasks();
+
         this.syncTasksWithTaskMap();
     }
 
@@ -85,6 +87,24 @@ export class ContentBoard {
             }
         }
         return updatedMap;
+    }
+
+    drop(event: CdkDragDrop<Status>) {
+        const statusPre = event.previousContainer.data;
+        const statusNow = event.container.data;
+        const dataRefNow = this.taskListService.taskMap().get(statusNow) ?? [];
+
+        if (event.previousContainer === event.container) {
+            if (this.taskListService.taskMap().has(statusNow) && event.previousIndex !== event.currentIndex) {
+                moveItemInArray(dataRefNow, event.previousIndex, event.currentIndex);
+                this.taskListService.editTaskList({ status: statusNow, order: dataRefNow });
+            }
+        } else if (this.taskListService.taskMap().has(statusPre) && this.taskListService.taskMap().has(statusNow)) {
+            const dataRefPre = this.taskListService.taskMap().get(statusPre) ?? [];
+            transferArrayItem(dataRefPre, dataRefNow, event.previousIndex, event.currentIndex);
+            this.taskListService.editTaskList({ status: statusPre, order: dataRefPre });
+            this.taskListService.editTaskList({ status: statusNow, order: dataRefNow });
+        }
     }
 
     // TODO: testing section
