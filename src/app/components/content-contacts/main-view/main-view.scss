@@ -67,7 +67,7 @@
     min-height: 110px;
     h2 {
         overflow-wrap: anywhere;
-        word-break: break-all;
+        word-break: normal;
         min-height: 65px;
         font-size: clamp(20px, calc(48px - (var(--char-count, 10) * 0.8px)), 48px);
     }
@@ -302,7 +302,7 @@ button {
         min-height: 120px;
         h2 {
             overflow-wrap: anywhere;
-            word-break: break-all;
+            word-break: normal;
             min-height: 120px;
             vertical-align: baseline;
             font-size: clamp(20px, calc(48px - (var(--char-count, 10) * 0.8px)), 48px);
