@@ -51,7 +51,10 @@ export class Namelist {
     });
 
     selectUser(id: number) {
-        this.dbService.selectedUserID.set(id);
-        this.isUserSelected.emit(true);
+        this.dbService.selectedUserID.set(null);
+        setTimeout(() => {
+            this.dbService.selectedUserID.set(id);
+            this.isUserSelected.emit(true);
+        }), 100;
     }
 }

@@ -9,7 +9,7 @@
         cdkOverlayOrigin
         #origin="cdkOverlayOrigin"
         (click)="toggleMenu()"
-        (keydown.escape)="hideMenu()"
+        (keyup.escape)="hideMenu()"
         class="header-user"
         [name]="'TODO NAME'"
         [isHeader]="true"
