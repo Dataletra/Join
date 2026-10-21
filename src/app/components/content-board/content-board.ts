@@ -3,7 +3,14 @@ import { ButtonPrimary } from '../elements/button-primary/button-primary';
 import { TaskListService } from '../../services/tasklist-service';
 import { Status } from '../../interfaces/status';
 import { ITask } from '../../interfaces/itask';
-import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem, CdkDragPlaceholder } from '@angular/cdk/drag-drop';
+import {
+    CdkDrag,
+    CdkDragDrop,
+    CdkDropList,
+    moveItemInArray,
+    transferArrayItem,
+    CdkDragPlaceholder,
+} from '@angular/cdk/drag-drop';
 
 @Component({
     imports: [ButtonPrimary, CdkDrag, CdkDropList, CdkDragPlaceholder],
@@ -14,6 +21,7 @@ import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem, 
 export class ContentBoard {
     taskListService = inject(TaskListService);
     private readonly Status = Status; // Make Status enum usable in HTML
+    delayDrag: number = window.matchMedia('(hover: hover)').matches ? 0 : 200;
 
     ngOnInit() {
         this.fetchTaskLists();

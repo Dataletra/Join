@@ -27,10 +27,10 @@
                     (cdkDropListDropped)="drop($event)"
                 >
                     @if (taskListService.taskMap().get(Status.todo)?.length === 0) {
-                        <div class="no-task" cdkDrag><p>No tasks to do</p></div>
+                        <div class="no-task"><p>No tasks to do</p></div>
                     } @else {
                         @for (id of taskListService.taskMap().get(Status.todo); track id) {
-                            <div class="no-task" cdkDrag>
+                            <div class="task-placeholder" cdkDrag [cdkDragStartDelay]="delayDrag">
                                 <div class="drag-placeholder" *cdkDragPlaceholder></div>
                                 <p>Rons Task {{ id }}</p>
                             </div>
@@ -54,10 +54,10 @@
                     (cdkDropListDropped)="drop($event)"
                 >
                     @if (taskListService.taskMap().get(Status.progress)?.length === 0) {
-                        <div class="no-task" cdkDrag><p>No tasks in progress</p></div>
+                        <div class="no-task"><p>No tasks in progress</p></div>
                     } @else {
                         @for (id of taskListService.taskMap().get(Status.progress); track id) {
-                            <div class="no-task" cdkDrag>
+                            <div class="task-placeholder" cdkDrag [cdkDragStartDelay]="delayDrag">
                                 <div class="drag-placeholder" *cdkDragPlaceholder></div>
                                 <p>Rons Task {{ id }}</p>
                             </div>
@@ -81,10 +81,10 @@
                     (cdkDropListDropped)="drop($event)"
                 >
                     @if (taskListService.taskMap().get(Status.await)?.length === 0) {
-                        <div class="no-task" cdkDrag><p>No tasks awaiting feedback</p></div>
+                        <div class="no-task"><p>No tasks awaiting feedback</p></div>
                     } @else {
                         @for (id of taskListService.taskMap().get(Status.await); track id) {
-                            <div class="no-task" cdkDrag>
+                            <div class="task-placeholder" cdkDrag [cdkDragStartDelay]="delayDrag">
                                 <div class="drag-placeholder" *cdkDragPlaceholder></div>
                                 <p>Rons Task {{ id }}</p>
                             </div>
@@ -107,10 +107,10 @@
                     (cdkDropListDropped)="drop($event)"
                 >
                     @if (taskListService.taskMap().get(Status.done)?.length === 0) {
-                        <div class="no-task" cdkDrag><p>No tasks done</p></div>
+                        <div class="no-task"><p>No tasks done</p></div>
                     } @else {
                         @for (id of taskListService.taskMap().get(Status.done); track id) {
-                            <div class="no-task" cdkDrag>
+                            <div class="task-placeholder" cdkDrag [cdkDragStartDelay]="delayDrag">
                                 <div class="drag-placeholder" *cdkDragPlaceholder></div>
                                 <p>Rons Task {{ id }}</p>
                             </div>
