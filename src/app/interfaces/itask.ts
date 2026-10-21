@@ -1,4 +1,4 @@
-import { Status } from "./status";
+import { Status } from './status';
 
 export interface ITask {
     id: number;
@@ -8,8 +8,9 @@ export interface ITask {
     category: 'User Story' | 'Technical Task';
     priority: 'low' | 'medium' | 'urgent';
     status: Status;
-    assignedTo: ITaskUser[];
+    user_ids: number[];
     subtasks: ISubtask[];
+    due_date: string;
 }
 
 export interface ITaskUser {
