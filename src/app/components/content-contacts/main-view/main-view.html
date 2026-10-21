@@ -32,7 +32,7 @@
     </div>
     <app-button-back class="back-btn" [callback]="hideMainView"></app-button-back>
 </div>
-<div class="detailed-view" [class.move-in]="selectedUser()" [class.move-out]="!selectedUser()">
+<div class="detailed-view" [class.move-in]="selectedUser()" [class.d-none]="!selectedUser()">
     <div class="user-container">
         <app-ic-contact [enableShadow]="true" class="user-ic" [name]="selectedUser()?.name ?? ''"></app-ic-contact>
         <div class="name-container">
