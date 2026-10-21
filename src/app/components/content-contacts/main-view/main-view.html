@@ -1,18 +1,29 @@
-<div class="user-menu-wrapper" (click)="hideMenu()" [class.d-none]="!enableMenuWrapper()">
+<ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="origin"
+    [cdkConnectedOverlayOpen]="overlayListen()"
+    (overlayOutsideClick)="hideMenu()"
+    (detach)="hideMenu()"
+    [cdkConnectedOverlayPositions]="[
+        { originX: 'end', originY: 'bottom', overlayX: 'end', overlayY: 'top'},
+    ]"
+>
     <menu
+        ngMenu
+        #userMenu="ngMenu"
         class="user-menu"
         [class.move-out]="!showMenu()"
         [class.move-in]="showMenu()"
         (click)="$event.stopPropagation()"
     >
-        <li class="edit-item">
+        <li ngMenuItem value="edit-item" class="edit-item">
             <p (click)="dialogService.open('edit', selectedUser()); hideMenu()" class="button-mobile-text">Edit</p>
         </li>
-        <li class="delete-item">
+        <li ngMenuItem value="delete-item" class="delete-item">
             <p (click)="hideMenu(); showConfirm.set(true)" class="button-mobile-text">Delete</p>
         </li>
     </menu>
-</div>
+</ng-template>
 <div class="title">
     <h3>Contacts</h3>
     <div class="subline-container">
@@ -21,34 +32,38 @@
     </div>
     <app-button-back class="back-btn" [callback]="hideMainView"></app-button-back>
 </div>
-@if (selectedUser() != null) {
-    <div class="detailed-view">
-        <div class="user-container">
-            <app-ic-contact [enableShadow]="true" class="user-ic" [name]="selectedUser()?.name ?? ''"></app-ic-contact>
-            <div class="name-container">
-                <h2>{{ selectedUser()?.name | titlecase }}</h2>
-                <div class="button-container mobile-d-none">
-                    <button (click)="dialogService.open('edit', selectedUser())">
-                        <p class="button-text"><img src="./assets/icons/edit.svg" alt="Edit Icon" />Edit</p>
-                    </button>
-                    <button (click)="showConfirm.set(true)">
-                        <p class="button-text"><img src="./assets/icons/delete.svg" alt="Delete Icon" />Delete</p>
-                    </button>
-                </div>
+<div class="detailed-view" [class.move-in]="selectedUser()" [class.move-out]="!selectedUser()">
+    <div class="user-container">
+        <app-ic-contact [enableShadow]="true" class="user-ic" [name]="selectedUser()?.name ?? ''"></app-ic-contact>
+        <div class="name-container">
+            <h2 [style.--char-count]="selectedUser()?.name.length">{{ selectedUser()?.name | titlecase }}</h2>
+            <div class="button-container mobile-d-none">
+                <button (click)="dialogService.open('edit', selectedUser())">
+                    <p class="button-text"><img src="./assets/icons/edit.svg" alt="Edit Icon" />Edit</p>
+                </button>
+                <button (click)="showConfirm.set(true)">
+                    <p class="button-text"><img src="./assets/icons/delete.svg" alt="Delete Icon" />Delete</p>
+                </button>
             </div>
         </div>
-        <p>Contact Information</p>
-        <div class="contact-container">
-            <p class="bold">Email</p>
-            <a class="email" [attr.href]="'mailto:' + selectedUser()?.email">{{ selectedUser()?.email }}</a>
-            <p class="bold">Phone</p>
-            <a [attr.href]="'tel:' + selectedUser()?.phone">{{ selectedUser()?.phone }}</a>
-        </div>
-        <button class="mobile-menu-btn" (click)="toggleMenu()">
-            <img src="./assets/icons/three-dot.svg" alt="Edit Icon" />
-        </button>
     </div>
-}
+    <div class="contact-container">
+        <p class="contact-information-title">Contact Information</p>
+        <p class="bold">Email</p>
+        <p class="email">{{ selectedUser()?.email }}</p>
+        <p class="bold">Phone</p>
+        <p>{{ selectedUser()?.phone }}</p>
+    </div>
+</div>
+<button
+    cdkOverlayOrigin
+    #origin="cdkOverlayOrigin"
+    class="mobile-menu-btn"
+    (click)="toggleMenu()"
+    (keydown.escape)="hideMenu()"
+>
+    <img src="./assets/icons/three-dot.svg" alt="Edit Icon" />
+</button>
 <app-popup-confirm [show]="showConfirm()" (done)="showConfirm.set(false)" [callbackOkay]="deleteUser.bind(this)"
     >Do you really want to delete?
 </app-popup-confirm>

@@ -1,5 +1,5 @@
 @use '../../../../../public/styles/abstract/variables.scss' as *;
-@use '../../../../../public/styles/abstract/mixin.scss';
+@use '../../../../../public/styles/abstract/mixin.scss' as *;
 
 dialog {
     width: 84%;
@@ -34,6 +34,7 @@ section {
 
     .title_wrapper {
         position: absolute;
+        width: 40%;
         top: 25%;
     }
 
@@ -47,6 +48,7 @@ section {
         font-size: clamp(40px, calc(-37px + 7vw), 61px);
         color: $color-nav-high;
         margin-bottom: 8px;
+        max-width: calc(100% - 24px);
     }
 
     hr {
@@ -127,9 +129,11 @@ section {
             border: 1px solid $color-input-border;
             border-radius: 10px;
             padding: 13px 21px;
+            padding-right: 30px;
             font-size: 20px;
             font-family: 'Inter';
             font-weight: 400;
+            text-overflow: ellipsis;
         }
 
         .input-name {
@@ -217,7 +221,8 @@ section {
         }
 
         .title_wrapper {
-            top: 15%;
+            width: 100%;
+            top: 10%;
         }
 
         .close-mobi {
@@ -251,8 +256,8 @@ section {
             display: flex;
             justify-content: center;
 
-            .create-btn {
-                width: 222px;
+            .delete-btn {
+                margin-right: 16px;
             }
         }
     }
@@ -276,6 +281,7 @@ section {
         width: 90%;
         height: 85%;
         overflow-y: auto;
+        @include scrollbar-light;
     }
 
     .dialog-wrapper {
@@ -292,12 +298,124 @@ section {
 @media screen and (max-height: 1100px) and (max-width: $media-sm) {
     dialog {
         width: 90%;
-        height: 85%;
+        height: 600px;
         overflow-y: auto;
     }
 
+    section {
+        padding: 20px 16px;
+    }
+
     .sec-title {
-        height: 300px;
-        min-height: 300px;
+        min-height: 210px;
+
+        h1 {
+            font-size: 34px;
+        }
+    }
+
+    .avatar-wrapper {
+        top: -45px;
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+        }
+    }
+
+    .sec-forms {
+        border-radius: 0 0 30px 30px;
+        justify-content: unset;
+        min-height: unset;
+    }
+
+    .forms-wrapper {
+        .forms-input {
+            margin-top: 45px;
+            margin-bottom: 12px;
+            gap: 10px;
+
+            input {
+                height: 40px;
+                font-size: 16px;
+                padding: 10px 16px;
+                padding-right: 30px;
+            }
+
+            .check-wrapper {
+                height: 16px;
+            }
+
+            .form-check {
+                font-size: 12px;
+                padding-left: 16px;
+            }
+        }
+    }
+}
+
+@media screen and (max-height: 800px) and (max-width: $media-sm) {
+    dialog {
+        width: 90%;
+        height: 500px;
+        overflow-y: auto;
+    }
+
+    section {
+        padding: 16px;
+    }
+
+    .sec-title {
+        min-height: 190px;
+
+        h1 {
+            font-size: 30px;
+        }
+    }
+
+    .avatar-wrapper {
+        top: -45px;
+
+        .avatar {
+            width: 90px;
+            height: 90px;
+        }
+    }
+
+    .sec-forms {
+        border-radius: 0 0 30px 30px;
+        justify-content: unset;
+        min-height: unset;
+    }
+
+    .forms-wrapper {
+        .forms-input {
+            margin-top: 40px;
+            margin-bottom: 0;
+
+            input {
+                height: 30px;
+            }
+
+            .check-wrapper {
+                height: 10px;
+            }
+
+            .form-check {
+                font-size: 14px;
+            }
+        }
+
+        .forms-buttons {
+            padding-top: 16px;
+
+            .delete-btn,
+            .create-btn {
+                ::ng-deep button {
+                    height: 40px;
+                    font-size: 14px;
+                }
+            }
+        }
     }
 }

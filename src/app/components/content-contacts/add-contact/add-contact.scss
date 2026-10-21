@@ -1,5 +1,5 @@
 @use '../../../../../public/styles/abstract/variables.scss' as *;
-@use '../../../../../public/styles/abstract/mixin.scss';
+@use '../../../../../public/styles/abstract/mixin.scss' as *;
 
 dialog {
     width: 84%;
@@ -34,6 +34,7 @@ section {
 
     .title_wrapper {
         position: absolute;
+        width: 40%;
         top: 25%;
     }
 
@@ -47,12 +48,14 @@ section {
         font-size: clamp(40px, calc(-37px + 7vw), 61px);
         color: $color-nav-high;
         margin-bottom: 8px;
+        max-width: calc(100% - 24px);
     }
 
     h2 {
         font-size: clamp(20px, calc(-24.333px + 3.667vw), 27px);
         color: $color-nav-high;
         margin-bottom: 16px;
+        max-width: calc(100% - 24px);
     }
 
     hr {
@@ -160,6 +163,8 @@ section {
     .forms-buttons {
         width: 100%;
         display: flex;
+        flex-wrap: wrap;
+        row-gap: 16px;
         .cancel-btn {
             width: 126px;
             margin-right: 24px;
@@ -224,10 +229,16 @@ section {
 
         h1 {
             font-size: 47px;
+            width: 100%;
+        }
+
+        h2 {
+            width: 100%;
         }
 
         .title_wrapper {
-            top: 15%;
+            width: 100%;
+            top: 10%;
         }
 
         .close-mobi {
@@ -294,6 +305,7 @@ section {
         width: 90%;
         height: 85%;
         overflow-y: auto;
+        @include scrollbar-light;
     }
 
     .dialog-wrapper {
@@ -310,12 +322,132 @@ section {
 @media screen and (max-height: 1100px) and (max-width: $media-sm) {
     dialog {
         width: 90%;
-        height: 85%;
+        height: 600px;
         overflow-y: auto;
     }
 
+    section {
+        padding: 20px 16px;
+    }
+
     .sec-title {
-        height: 300px;
-        min-height: 300px;
+        min-height: 210px;
+
+        h1 {
+            font-size: 34px;
+        }
+
+        h2 {
+            font-size: 17px;
+        }
+    }
+
+    .avatar-wrapper {
+        top: -45px;
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+        }
+    }
+
+    .sec-forms {
+        border-radius: 0 0 30px 30px;
+        justify-content: unset;
+        min-height: unset;
+    }
+
+    .forms-wrapper {
+        .forms-input {
+            margin-top: 45px;
+            margin-bottom: 12px;
+            gap: 10px;
+
+            input {
+                height: 40px;
+                font-size: 16px;
+                padding: 10px 16px;
+            }
+
+            .check-wrapper {
+                height: 16px;
+            }
+
+            .form-check {
+                font-size: 12px;
+                padding-left: 16px;
+            }
+        }
+    }
+}
+
+@media screen and (max-height: 800px) and (max-width: $media-sm) {
+    dialog {
+        width: 90%;
+        height: 500px;
+        overflow-y: auto;
+    }
+
+    section {
+        padding: 16px;
+    }
+
+    .sec-title {
+        min-height: 190px;
+
+        h1 {
+            font-size: 30px;
+        }
+
+        h2 {
+            font-size: 16px;
+        }
+    }
+
+    .avatar-wrapper {
+        top: -45px;
+
+        .avatar {
+            width: 90px;
+            height: 90px;
+        }
+    }
+
+    .sec-forms {
+        border-radius: 0 0 30px 30px;
+        justify-content: unset;
+        min-height: unset;
+    }
+
+    .forms-wrapper {
+        .forms-input {
+            margin-top: 40px;
+            margin-bottom: 0;
+
+            input {
+                height: 30px;
+            }
+
+            .check-wrapper {
+                height: 10px;
+            }
+
+            .form-check {
+                font-size: 14px;
+            }
+        }
+
+        .forms-buttons {
+            padding-top: 16px;
+        }
+
+        .forms-buttons {
+            .create-btn {
+                ::ng-deep button {
+                    height: 40px;
+                    font-size: 14px;
+                }
+            }
+        }
     }
 }

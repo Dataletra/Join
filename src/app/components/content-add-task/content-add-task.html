@@ -1,0 +1,53 @@
+<div class="left-wrapper">
+    <div class="input-container">
+        <p>Title<span class="mandatory-color">*</span></p>
+        <input type="text" placeholder="Enter a title" formControlName="title" />
+        <div class="check-wrapper">
+            <p class="form-check">Please enter a valid title.</p>
+        </div>
+    </div>
+
+    <div class="input-container">
+        <p>Description<span class="mandatory-color">*</span></p>
+        <input type="text" placeholder="Enter a description" formControlName="description" />
+        <div class="check-wrapper">
+            <p class="form-check">Please enter a valid description.</p>
+        </div>
+    </div>
+
+    <div class="input-container">
+        <p>Date<span class="mandatory-color">*</span></p>
+        <input type="date" placeholder="Enter a date" formControlName="date" />
+        <div class="check-wrapper">
+            <p class="form-check">Please enter a valid date.</p>
+        </div>
+    </div>
+</div>
+
+<hr class="breakline" />
+
+<div class="right-wrapper">
+    <div class="input-container">
+        <p>Priority</p>
+        <app-button-priority />
+    </div>
+
+    <div class="input-container">
+        <p>Assigned to</p>
+        <app-combobox-assign-user (selectedUser)="assignedUsers($event)"></app-combobox-assign-user>
+    </div>
+    <div class="userIconContainer">
+        @for (user of comboboxUserIDs(); track user) {
+            <app-ic-contact class="user-ic" [name]="user.name"></app-ic-contact>
+        }
+    </div>
+    <div class="input-container">
+        <p>Category<span class="mandatory-color">*</span></p>
+        <app-combobox-category></app-combobox-category>
+    </div>
+
+    <div class="input-container">
+        <p>Subtasks</p>
+        <app-subtask></app-subtask>
+    </div>
+</div>

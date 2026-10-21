@@ -17,9 +17,9 @@
             <div class="avatar-wrapper">
                 <app-ic-contact
                     class="avatar"
-                    [name]="avatarName"
+                    [name]="avatarName()"
                     [enableShadow]="true"
-                    [isDummy]="avatarName === ''"
+                    [isDummy]="avatarName() === ''"
                 ></app-ic-contact>
             </div>
             <div class="forms-wrapper">

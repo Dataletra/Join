@@ -1,0 +1,213 @@
+@use '../../../../public/styles/abstract/variables.scss' as *;
+@use '../../../../public/styles/abstract/functions.scss' as *;
+@use '../../../../public/styles/abstract/mixin.scss' as *;
+
+:host {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+// #region board-header
+.search-bar {
+    display: flex;
+    align-items: center;
+    width: clamp-px(220, 312, 1400, 810);
+    height: 48px;
+    grid-area: two;
+    padding: 8px 16px;
+    border: 1px solid $color-gray;
+    border-radius: 10px;
+    background-color: white;
+
+    .search-input {
+        width: 100%;
+        height: 100%;
+        border: none;
+
+        font-family: 'Inter';
+        font-size: 20px;
+        outline: none;
+    }
+
+    .search-btn {
+        display: flex;
+        justify-content: flex-end;
+        width: 48px;
+        height: 32px;
+        border-left: 1px solid $color-gray;
+
+        > img {
+            transition: background-color 125ms ease-in-out;
+            border-radius: 50%;
+        }
+
+        &:hover > img {
+            background-color: #d9d9d9;
+        }
+    }
+}
+
+.search-bar:has(.search-input:focus) {
+    border: 1px solid $color-high-1;
+}
+
+.search-bar:hover {
+    border: 1px solid $color-nav;
+}
+
+.header-wrapper {
+    width: 100%;
+    padding-inline: clamp-px(16, 64);
+    padding-top: clamp-px(48, 80);
+    padding-bottom: clamp-px(24, 48);
+}
+
+.board-header {
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    grid-template-areas: 'one two thr';
+    align-items: center;
+    min-height: 73px;
+    width: 100%;
+    row-gap: 40px;
+    column-gap: clamp-px(16, 32, 1400, 850);
+
+    .title {
+        grid-area: one;
+    }
+
+    app-button-primary {
+        grid-area: thr;
+    }
+}
+
+@media screen and (max-width: $media-sm) {
+    .board-header {
+        grid-template-columns: 1fr auto;
+        grid-template-areas:
+            'one thr'
+            'two two';
+    }
+
+    .search-bar {
+        width: 100%;
+    }
+}
+// #endregion board-header
+
+// #region board-main
+h5 {
+    font-size: clamp-px(20, 27, 400, 1400);
+    font-weight: 700;
+    color: $color-menu;
+}
+
+main {
+    display: flex;
+    width: 100%;
+    max-width: 1208px;
+    height: 100%;
+    padding-bottom: 2px;
+    overflow-y: auto;
+
+    .scroll-wrapper {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        max-width: calc(100svw - $width-nav-desktop);
+        height: 100%;
+        padding-inline: clamp-px(16, 64);
+        padding-bottom: 24px;
+
+        gap: 10px;
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+
+    .section-tasks {
+        min-width: 246px + 16px;
+        width: 246px;
+        padding-inline: 1px;
+    }
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: clamp-px(24, 32, 400, 1400);
+    padding-right: 16px;
+    overflow: visible;
+}
+
+.task-list-scroll-wrapper {
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+}
+
+.task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding-block: 16px;
+    padding-right: 16px;
+}
+
+main,
+.scroll-wrapper,
+.task-list-scroll-wrapper {
+    @include scrollbar-light(4, 10);
+}
+
+@media screen and (max-width: $media-m) {
+    h5 {
+        color: $color-base;
+    }
+    main {
+        width: 100%;
+        max-width: none;
+
+        .scroll-wrapper {
+            width: 100%;
+            max-width: none;
+            flex-direction: column;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .section-tasks {
+            min-width: 0;
+            width: 100%;
+        }
+    }
+
+    .task-list {
+        flex-direction: row;
+    }
+
+    .task-list-scroll-wrapper {
+        height: auto;
+    }
+}
+// #endregion board-main
+
+.no-task {
+    @include flex-center;
+    width: 100%;
+    min-width: 244px;
+    max-width: 244px;
+    height: 48px;
+    background-color: $color-nav;
+    border: 1px dashed $color-icon2;
+    border-radius: 10px;
+    padding-inline: 16px;
+    box-shadow: 0 0 4px 0 #00000029;
+
+    p {
+        color: $color-icon2;
+    }
+}

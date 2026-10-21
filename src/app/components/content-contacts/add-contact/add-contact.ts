@@ -12,8 +12,7 @@ import {
     ValidationErrors,
 } from '@angular/forms';
 import { User } from '../../models/user';
-import { Supabase } from '../../../services/supabase';
-import { Toast } from '../../../services/toast';
+import { ContactService } from '../../../services/contact-service';
 
 @Component({
     imports: [IcContact, ButtonPrimary, ReactiveFormsModule],
@@ -22,7 +21,7 @@ import { Toast } from '../../../services/toast';
     templateUrl: './add-contact.html',
 })
 export class AddContact {
-    supabaseService = inject(Supabase);
+    supabaseService = inject(ContactService);
     dialogService = inject(ContactDialog);
     dialog = viewChild<ElementRef<HTMLDialogElement>>('addContact');
     avatarName = '';
@@ -71,7 +70,7 @@ export class AddContact {
             if (!value) {
                 return null;
             }
-            const pattern = /^[\p{L}]{2,}(?:[ '-][\p{L}]{2,})+$/u;
+            const pattern = /^[\p{L},'-]{2,}(?:[ ][\p{L},'-]{2,})+$/u;
             return pattern.test(value) ? null : { namePattern: true };
         };
     }
@@ -107,8 +106,11 @@ export class AddContact {
             return;
         }
         const formData = new User(this.contactForm.value);
-        await this.supabaseService.addUser(formData);
+        const newUser = await this.supabaseService.addUser(formData);
+        this.contactForm.reset();
+        this.avatarName = '';
         this.dialogService.close();
+        this.supabaseService.selectedUserID.set(newUser.id);
     }
 
     updateAvatar() {

@@ -12,7 +12,7 @@ import {
     ValidationErrors,
 } from '@angular/forms';
 import { User } from '../../models/user';
-import { Supabase } from '../../../services/supabase';
+import { ContactService } from '../../../services/contact-service';
 import { PopupConfirm } from '../../elements/popup-confirm/popup-confirm';
 
 @Component({
@@ -22,10 +22,10 @@ import { PopupConfirm } from '../../elements/popup-confirm/popup-confirm';
     templateUrl: './edit-contact.html',
 })
 export class EditContact {
-    supabaseService = inject(Supabase);
+    supabaseService = inject(ContactService);
     dialogService = inject(ContactDialog);
     dialog = viewChild<ElementRef<HTMLDialogElement>>('editContact');
-    avatarName = '';
+    avatarName = signal('');
     showConfirm = signal<boolean>(false);
 
     constructor() {
@@ -43,7 +43,7 @@ export class EditContact {
                     email: user.email,
                     phone: user.phone,
                 });
-                this.avatarName = user.name;
+                this.avatarName.set(user.name);
             }
         });
     }
@@ -86,7 +86,7 @@ export class EditContact {
             if (!value) {
                 return null;
             }
-            const pattern = /^[\p{L}]{2,}(?:[ '-][\p{L}]{2,})+$/u;
+            const pattern = /^[\p{L},'-]{2,}(?:[ ][\p{L},'-]{2,})+$/u;
             return pattern.test(value) ? null : { namePattern: true };
         };
     }
@@ -126,7 +126,7 @@ export class EditContact {
             id: selectedUser?.id,
             created_at: selectedUser?.created_at,
             name: this.contactForm.controls.name.value,
-            email: this.contactForm.controls.name.value,
+            email: this.contactForm.controls.email.value,
             phone: this.contactForm.controls.phone.value,
             password: selectedUser?.password,
         });
@@ -146,9 +146,9 @@ export class EditContact {
     updateAvatar() {
         const nameControl = this.contactForm.controls.name;
         if (nameControl.valid) {
-            this.avatarName = nameControl.value;
+            this.avatarName.set(nameControl.value);
         } else {
-            this.avatarName = '';
+            this.avatarName.set('');
         }
     }
 }

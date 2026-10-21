@@ -28,6 +28,23 @@
     }
 
     &::-webkit-scrollbar-thumb:hover {
-        background: #d1d1d1;
+        background: #686868;
     }
+}
+
+@mixin scrollbar-none() {
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        display: none;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+        display: none;
+    }
+
+    scrollbar-width: none;
+    -ms-overflow-style: none;
 }

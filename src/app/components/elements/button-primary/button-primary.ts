@@ -27,6 +27,7 @@ export class ButtonPrimary {
         ['light', ''],
         ['createTask', './assets/icons/check.svg'],
         ['addTask', './assets/icons/add-task-plus.svg'],
+        ['addTaskSmall', './assets/icons/plus-btn-default.svg'],
         ['addContact', './assets/icons/add-contact.svg'],
         ['cancel', './assets/icons/close.svg'],
     ]);
