@@ -10,6 +10,10 @@ app-namelist {
     z-index: 2;
 }
 
+app-main-view {
+    z-index: 1;
+}
+
 .d-none {
     display: none;
 }
@@ -23,9 +27,11 @@ app-namelist {
 @media screen and (max-width: $media-sm) {
     app-namelist {
         width: 100% !important;
+        z-index: 1;
     }
     app-main-view {
         position: absolute;
         height: $height-content-mobile;
+        z-index: 2;
     }
 }

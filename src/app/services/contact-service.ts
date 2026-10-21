@@ -74,6 +74,7 @@ export class ContactService {
         this.toastService.setTypeMatch(ToastType.insert);
         const userData = user.getCleanAddJson();
         const { data, error } = await this.supabase.from('user').insert([userData]).select();
+        return data?.[0];
     }
 
     async deleteUser(id: number | null) {
