@@ -13,7 +13,6 @@ import {
 } from '@angular/forms';
 import { User } from '../../models/user';
 import { ContactService } from '../../../services/contact-service';
-import { Toast } from '../../../services/toast';
 
 @Component({
     imports: [IcContact, ButtonPrimary, ReactiveFormsModule],

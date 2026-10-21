@@ -1,7 +1,7 @@
 import { Service, signal, inject, computed } from '@angular/core';
 import { IUser } from '../interfaces/iuser';
 import { User } from '../components/models/user';
-import { Toast } from './toast';
+import { Toast, ToastType } from './toast';
 import { SupabaseService } from './supabase';
 
 @Service()
@@ -40,7 +40,7 @@ export class ContactService {
         .channel('use-insert-channel')
         .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'user' }, (payload) => {
             this.users.update((list) => [...list, new User(payload.new)]);
-            this.toastService.showToast('Contact succesfully created');
+            this.toastService.showToast('Contact succesfully created', ToastType.insert);
         })
         .subscribe();
 
@@ -50,7 +50,7 @@ export class ContactService {
             this.users.update((list) =>
                 list.map((user) => (user.id === payload.new['id'] ? { ...user, ...payload.new } : user))
             );
-            this.toastService.showToast('Contact succesfully updated');
+            this.toastService.showToast('Contact succesfully updated', ToastType.update);
         })
         .subscribe();
 
@@ -58,7 +58,7 @@ export class ContactService {
         .channel('user-delete-channel')
         .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'user' }, (payload) => {
             this.users.update((list) => list.filter((user) => user.id != payload.old['id']));
-            this.toastService.showToast('Contact succesfully deleted');
+            this.toastService.showToast('Contact succesfully deleted', ToastType.delete);
         })
         .subscribe();
 
@@ -71,16 +71,19 @@ export class ContactService {
     }
 
     async addUser(user: User) {
+        this.toastService.setTypeMatch(ToastType.insert);
         const userData = user.getCleanAddJson();
         const { data, error } = await this.supabase.from('user').insert([userData]).select();
         return data?.[0];
     }
 
     async deleteUser(id: number | null) {
+        this.toastService.setTypeMatch(ToastType.delete);
         const response = await this.supabase.from('user').delete().eq('id', id);
     }
 
     async editUser(user: User) {
+        this.toastService.setTypeMatch(ToastType.update);
         const userData = user.getCleanAddJson();
         const { data, error } = await this.supabase.from('user').update([userData]).eq('id', user.id).select();
     }

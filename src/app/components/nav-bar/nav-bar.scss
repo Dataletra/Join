@@ -47,6 +47,9 @@ nav {
 li {
     width: 100%;
     list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 
     a {
         height: 46px;

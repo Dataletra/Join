@@ -3,13 +3,13 @@
 @use '../../../../../public/styles/abstract/mixin.scss' as *;
 
 .wrapper {
-    width: clamp-px(300, 400, 1070, 950);
+    width: clamp-px(295, 395, 1070, 950);
     background-color: white;
     height: $height-content-desktop;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    padding: 20px;
+    padding: 15px;
     padding-bottom: 0;
     position: relative;
 }
@@ -67,9 +67,11 @@
     }
 
     &-label {
-        margin-left: clamp-px(15, 37, 1070, 950);
-        margin-bottom: 20px;
+        margin-left: clamp-px(5, 24, 1070, 950);
+        margin-bottom: 5px;
         margin-top: 30px;
+        width: $width-user-list-icon;
+        text-align: center;
     }
 
     .username {
@@ -105,9 +107,9 @@
 }
 
 .user-ic {
-    width: 42px;
-    height: 42px;
-    min-width: 42px;
+    width: $width-user-list-icon;
+    height: $width-user-list-icon;
+    min-width: $width-user-list-icon;
 }
 
 hr {
