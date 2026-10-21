@@ -19,6 +19,9 @@ export class Subtask {
     }
 
     confirm() {
+        if (!this.subtaskEntry.value) {
+            return;
+        }
         const newSubtask: ISubtask = {
             title: this.subtaskEntry.value!,
             completed: false,
@@ -32,6 +35,7 @@ export class Subtask {
         saveCont.classList.remove('d-none');
         input.disabled = false;
         input.focus();
+        input.closest('li')?.classList.add('editing');
     }
 
     saveEdit(index: number, newTitle: string, editCont: HTMLElement, saveCont: HTMLElement, input: HTMLInputElement) {
@@ -39,6 +43,7 @@ export class Subtask {
         saveCont.classList.add('d-none');
         editCont.classList.remove('d-none');
         input.disabled = true;
+        input.closest('li')?.classList.remove('editing');
     }
 
     delete(index: number) {
