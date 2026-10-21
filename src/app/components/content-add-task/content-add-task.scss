@@ -36,7 +36,7 @@
 
 .userIconContainer {
     width: 100%;
-    height: fit-content;
+    min-height: 35px;
     display: flex;
     padding-left: 15px;
 }

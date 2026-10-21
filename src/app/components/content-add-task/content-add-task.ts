@@ -1,4 +1,4 @@
-import { Component, inject, input, signal } from '@angular/core';
+import { Component, computed, inject, input, signal } from '@angular/core';
 import { ButtonPriority } from '../elements/button-priority/button-priority';
 import { ComboboxCategory } from '../elements/combobox-category/combobox-category';
 import { ComboboxAssignUser } from '../elements/combobox-assign-user/combobox-assign-user';
@@ -17,7 +17,14 @@ export class ContentAddTask {
     dbService = inject(ContactService);
     comboboxUserIDs = signal<IUser[]>([]);
 
+    trimmedUserIc = computed(() => {
+        return '+ ' + (this.comboboxUserIDs().length - 3);
+    });
+
     assignedUsers(selectedIds: number[]) {
         this.comboboxUserIDs.set(this.dbService.userList.filter((userObj) => selectedIds.includes(userObj.id)));
+    }
+    test() {
+        console.log(this.comboboxUserIDs().length);
     }
 }
