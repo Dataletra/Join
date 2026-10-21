@@ -1,12 +1,12 @@
-import { Component, computed, effect, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ButtonPrimary } from '../elements/button-primary/button-primary';
 import { TaskListService } from '../../services/tasklist-service';
 import { Status } from '../../interfaces/status';
 import { ITask } from '../../interfaces/itask';
-import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem, CdkDragPlaceholder } from '@angular/cdk/drag-drop';
 
 @Component({
-    imports: [ButtonPrimary, CdkDrag, CdkDropList],
+    imports: [ButtonPrimary, CdkDrag, CdkDropList, CdkDragPlaceholder],
     selector: 'app-content-board',
     styleUrl: './content-board.scss',
     templateUrl: './content-board.html',
@@ -104,6 +104,7 @@ export class ContentBoard {
             transferArrayItem(dataRefPre, dataRefNow, event.previousIndex, event.currentIndex);
             this.taskListService.editTaskList({ status: statusPre, order: dataRefPre });
             this.taskListService.editTaskList({ status: statusNow, order: dataRefNow });
+            // TODO: update actual task status itself
         }
     }
 
