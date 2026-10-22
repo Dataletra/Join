@@ -127,7 +127,7 @@ main {
     }
 
     .section-tasks {
-        min-width: 246px + 16px;
+        min-width: 246px + 2 * 16px;
         width: 246px;
         padding-inline: 1px;
     }
@@ -139,7 +139,7 @@ main {
     align-items: center;
     width: 100%;
     height: clamp-px(24, 32, 400, 1400);
-    padding-right: 16px;
+    padding-inline: 16px;
     overflow: visible;
 }
 
@@ -154,7 +154,7 @@ main {
     flex-direction: column;
     gap: 16px;
     padding-block: 16px;
-    padding-right: 16px;
+    padding-inline: 16px;
     min-height: 100%;
 }
 
