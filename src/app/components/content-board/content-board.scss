@@ -197,13 +197,6 @@ main,
 // #endregion board-main
 
 // #section drag-drop
-.cdk-drag-animating {
-    transition: transform 250ms ease-in-out;
-}
-
-.cdk-drop-list-dragging :not(.cdk-drag-placeholder) {
-    transition: transform 125ms ease-in;
-}
 
 .drag-placeholder {
     background-color: transparent;
@@ -237,3 +230,12 @@ main,
 .task-placeholder {
     cursor: pointer;
 }
+
+.cdk-drag-animating {
+    transition: none;
+}
+
+.cdk-drop-list-dragging :not(.cdk-drag-placeholder) {
+    transition: transform 125ms ease-in;
+}
+// #endsection drag-drop

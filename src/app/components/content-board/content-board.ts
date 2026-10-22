@@ -10,15 +10,22 @@ import {
     moveItemInArray,
     transferArrayItem,
     CdkDragPlaceholder,
+    CdkDragPreview,
+    CdkDragMove,
 } from '@angular/cdk/drag-drop';
 
 @Component({
-    imports: [ButtonPrimary, CdkDrag, CdkDropList, CdkDragPlaceholder],
+    imports: [ButtonPrimary, CdkDrag, CdkDropList, CdkDragPlaceholder, CdkDragPreview],
     selector: 'app-content-board',
     styleUrl: './content-board.scss',
     templateUrl: './content-board.html',
 })
 export class ContentBoard {
+    lastX: number = 0;
+    transX: number = 0;
+    transY: number = 0;
+    turn: number = 0;
+
     taskListService = inject(TaskListService);
     private readonly Status = Status; // Make Status enum usable in HTML
     delayDrag: number = window.matchMedia('(hover: hover)').matches ? 0 : 200;
@@ -114,6 +121,20 @@ export class ContentBoard {
             this.taskListService.editTaskList({ status: statusNow, order: dataRefNow });
             // TODO: update actual task status itself
         }
+    }
+
+    setRelativeMousePosition(event: MouseEvent): void {
+        const element = event.currentTarget as HTMLElement;
+        const rect = element.getBoundingClientRect();
+        this.lastX = 0;
+        this.transX = event.clientX - rect.left;
+        this.transY = event.clientY - rect.top;
+    }
+
+    rotateByMovement(event: CdkDragMove): void {
+        const pointer = event.pointerPosition;
+        this.lastX = this.lastX == 0 ? pointer.x : this.lastX;
+        this.turn = Math.min(5, Math.max(-5, (-1 * (this.lastX - pointer.x)) / 10));
     }
 
     // TODO: testing section
