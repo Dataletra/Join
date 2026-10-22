@@ -35,14 +35,9 @@ export class ContentAddTask {
 
     importCategory(category: string) {
         this.IncomingCategory.set(category);
-        console.log(this.IncomingPriority());
     }
 
     importPriority(priority: string) {
         this.IncomingPriority.set(priority);
     }
-    // test() {
-    //     // console.log(this.comboboxUserIDs().length);
-    //     console.warn(this.IncomingSubtasks());
-    // }
 }
