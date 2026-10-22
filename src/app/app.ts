@@ -5,9 +5,10 @@ import { Header } from './components/header/header';
 import { AddContact } from './components/content-contacts/add-contact/add-contact';
 import { ToastAdded } from './components/elements/toast-added/toast-added';
 import { EditContact } from './components/content-contacts/edit-contact/edit-contact';
+import { DetailView } from './components/content-board/detail-view/detail-view';
 
 @Component({
-    imports: [RouterOutlet, NavBar, Header, AddContact, ToastAdded, EditContact],
+    imports: [RouterOutlet, NavBar, Header, AddContact, ToastAdded, EditContact, DetailView],
     selector: 'app-root',
     styleUrl: './app.scss',
     templateUrl: './app.html',

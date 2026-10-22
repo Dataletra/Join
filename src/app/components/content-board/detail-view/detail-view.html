@@ -1,1 +1,24 @@
-<p>detail-view works!</p>
+<dialog #taskdetail class="detail-view" closedby="any" (close)="dialogService.close()">
+    <div class="dialog_wrapper">
+        <div class="category">
+            <app-task-lable [category]="'User Story'"></app-task-lable>
+            <button class="close" (click)="dialogService.close()">
+                <img src="./assets/icons/close.svg" aria-hidden="true" />
+            </button>
+        </div>
+        <h2 class="title">{{ task().title }}</h2>
+        <p class="description">{{ task().description }}</p>
+        <div class="date-prio">
+            <table>
+                <tr>
+                    <th>Due date:</th>
+                    <td>{{ task().due_date }}</td>
+                </tr>
+                <tr>
+                    <th>Priority:</th>
+                    <td>{{ task().priority }}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</dialog>

@@ -16,6 +16,12 @@ export class ContactDialog {
         this.isOpen.set(true);
     }
 
+    openTask(mode: 'task', task: ITask | null = null) {
+        this.mode.set(mode);
+        this.selectedTask.set(task);
+        this.isOpen.set(true);
+    }
+
     close() {
         this.isOpen.set(false);
         this.mode.set(null);
