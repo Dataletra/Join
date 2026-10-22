@@ -29,7 +29,7 @@
             @if (task().user_ids.length > 3) {
                 <app-ic-contact
                     class="badge"
-                    [name]="'+' + (assignedUsers.length - 3)"
+                    [name]="'+ ' + (task().user_ids.length - 3)"
                     [enableShadow]="false"
                     [isDummy]="false"
                 ></app-ic-contact>
