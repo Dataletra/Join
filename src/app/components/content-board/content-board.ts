@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ButtonPrimary } from '../elements/button-primary/button-primary';
 import { TaskListService } from '../../services/tasklist-service';
 import { TasksService } from '../../services/tasks-service';
@@ -34,9 +34,20 @@ export class ContentBoard {
     private readonly Status = Status; // Make Status enum usable in HTML
 
     delayDrag: number = window.matchMedia('(hover: hover)').matches ? 0 : 200;
+    isMobile = signal<boolean>(window.matchMedia('(width <= 810px)').matches);
+    mediaEvent = window.matchMedia('(width <= 810px)');
+
+    onMediaChange = (event: MediaQueryListEvent): void => {
+        this.isMobile.set(event.matches);
+    };
 
     async ngOnInit() {
         this.fetchTaskLists();
+        this.mediaEvent.addEventListener('change', this.onMediaChange);
+    }
+
+    ngOnDestroy() {
+        this.mediaEvent.removeEventListener('change', this.onMediaChange);
     }
 
     async fetchTaskLists() {

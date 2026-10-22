@@ -20,6 +20,7 @@
             <div class="task-list-scroll-wrapper">
                 <div
                     cdkDropList
+                    [cdkDropListOrientation]="isMobile() ? 'horizontal' : 'vertical'"
                     #listTodo="cdkDropList"
                     [cdkDropListConnectedTo]="[listProgress, listAwait, listDone]"
                     class="task-list"
@@ -70,6 +71,7 @@
             <div class="task-list-scroll-wrapper">
                 <div
                     cdkDropList
+                    [cdkDropListOrientation]="isMobile() ? 'horizontal' : 'vertical'"
                     #listProgress="cdkDropList"
                     [cdkDropListConnectedTo]="[listTodo, listAwait, listDone]"
                     class="task-list"
@@ -120,6 +122,7 @@
             <div class="task-list-scroll-wrapper">
                 <div
                     cdkDropList
+                    [cdkDropListOrientation]="isMobile() ? 'horizontal' : 'vertical'"
                     #listAwait="cdkDropList"
                     [cdkDropListConnectedTo]="[listProgress, listTodo, listDone]"
                     class="task-list"
@@ -169,6 +172,7 @@
             <div class="task-list-scroll-wrapper">
                 <div
                     cdkDropList
+                    [cdkDropListOrientation]="isMobile() ? 'horizontal' : 'vertical'"
                     #listDone="cdkDropList"
                     [cdkDropListConnectedTo]="[listProgress, listAwait, listTodo]"
                     class="task-list"
