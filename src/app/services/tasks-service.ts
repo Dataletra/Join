@@ -38,7 +38,7 @@ export class TasksService {
     }
 
     getTaskPerId(id: number) {
-        return this.tasklist().find((task) => task.id === id);
+        return this.tasklist().find((task) => task.id === id) ?? new Task();
     }
 
     async addTask(task: Task) {

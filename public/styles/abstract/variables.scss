@@ -30,3 +30,4 @@ $height-content-mobile: calc(100svh - $height-header - $height-footer);
 
 $width-nav-desktop: clamp(180px, calc((100svw - 950px) * 52 / 450 + 180px), 232px);
 $width-user-list-icon: 42px;
+$width-task-card: 244px;

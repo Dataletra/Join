@@ -201,8 +201,8 @@ main,
 .drag-placeholder {
     background-color: transparent;
     width: 100%;
-    min-width: 244px;
-    max-width: 244px;
+    min-width: $width-task-card;
+    max-width: $width-task-card;
     min-height: 177px;
     border: 1px dashed $color-icon;
     border-radius: 24px;
@@ -212,8 +212,8 @@ main,
 .no-task {
     @include flex-center;
     width: 100%;
-    min-width: 244px;
-    max-width: 244px;
+    min-width: $width-task-card;
+    max-width: $width-task-card;
     height: 48px;
     background-color: $color-nav;
     border: 1px dashed $color-icon;

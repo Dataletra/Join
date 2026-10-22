@@ -1,11 +1,16 @@
 @use '../../../../../public/styles/abstract/variables.scss' as *;
 
+:host {
+    display: block;
+    border-radius: 24px;
+}
+
 .task-card {
-    width: 255px;
+    width: $width-task-card;
     padding: 16px;
     border-radius: 24px;
     background-color: $color-nav-high;
-    box-shadow: 0 0 4px 0 #00000014;
+    box-shadow: 0 0 10px 3px #00000014;
     cursor: pointer;
 }
 
