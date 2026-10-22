@@ -29,7 +29,7 @@
 <div class="right-wrapper">
     <div class="input-container">
         <p>Priority</p>
-        <app-button-priority />
+        <app-button-priority (priorityOutput)="importPriority($event)" />
     </div>
 
     <div class="input-container">
@@ -46,11 +46,14 @@
     </div>
     <div class="input-container">
         <p>Category<span class="mandatory-color">*</span></p>
-        <app-combobox-category></app-combobox-category>
+        <app-combobox-category (categoryOutput)="importCategory($event)"></app-combobox-category>
+        @if (IncomingCategory() == '') {
+            <p>please select category</p>
+        }
     </div>
 
     <div class="input-container">
         <p>Subtasks</p>
-        <app-subtask></app-subtask>
+        <app-subtask (subtaskOutput)="importSubtasks($event)"></app-subtask>
     </div>
 </div>

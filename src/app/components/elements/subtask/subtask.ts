@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, output } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ISubtask } from '../../../interfaces/isubtask';
 @Component({
@@ -9,6 +9,7 @@ import { ISubtask } from '../../../interfaces/isubtask';
 })
 export class Subtask {
     subtaskItems: ISubtask[] = [];
+    subtaskOutput = output<ISubtask[]>();
 
     subtaskEntry = new FormControl('', {
         validators: [Validators.minLength(5)],
@@ -17,6 +18,11 @@ export class Subtask {
     cancel() {
         this.subtaskEntry.reset();
     }
+
+    // log() {
+    //     console.log(this.subtaskItems);
+    //     this.subtaskOutput.emit(this.subtaskItems);
+    // }
 
     confirm() {
         if (!this.subtaskEntry.value) {
@@ -28,6 +34,7 @@ export class Subtask {
         };
         this.subtaskItems.push(newSubtask);
         this.subtaskEntry.reset();
+        this.subtaskOutput.emit(this.subtaskItems);
     }
 
     openEdit(editCont: HTMLElement, saveCont: HTMLElement, input: HTMLInputElement) {
@@ -44,9 +51,11 @@ export class Subtask {
         editCont.classList.remove('d-none');
         input.disabled = true;
         input.closest('li')?.classList.remove('editing');
+        this.subtaskOutput.emit(this.subtaskItems);
     }
 
     delete(index: number) {
         this.subtaskItems.splice(index, 1);
+        this.subtaskOutput.emit(this.subtaskItems);
     }
 }

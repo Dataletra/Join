@@ -1,4 +1,4 @@
-import { Component, afterRenderEffect, computed, signal, viewChild } from '@angular/core';
+import { Component, afterRenderEffect, computed, output, signal, viewChild } from '@angular/core';
 import { Combobox, ComboboxPopup, ComboboxWidget } from '@angular/aria/combobox';
 import { Listbox, Option } from '@angular/aria/listbox';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -12,15 +12,10 @@ import { OverlayModule } from '@angular/cdk/overlay';
 export class ComboboxCategory {
     readonly listbox = viewChild(Listbox);
     readonly selectedValues = signal<string[]>([]);
+    categoryOutput = output<string>();
     readonly popupExpanded = signal(false);
 
-    readonly displayIcon = computed(() => {
-        const val = this.selectedValues()[0];
-        const label = this.labels.find((label) => label.value === val);
-        return label;
-    });
-
-    readonly displayValue = computed(() => this.selectedValues()[0] || 'Select a label');
+    readonly displayValue = computed(() => this.selectedValues()[0] || 'Select a Category');
 
     readonly labels = [{ value: 'Technical Task' }, { value: 'User Story' }];
 
@@ -32,5 +27,6 @@ export class ComboboxCategory {
 
     onCommit() {
         this.popupExpanded.set(false);
+        this.categoryOutput.emit(this.selectedValues()[0]);
     }
 }

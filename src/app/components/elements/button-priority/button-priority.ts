@@ -13,7 +13,7 @@ export class ButtonPriority {
     prioSignals = [this.lowIsActive, this.medIsActive, this.hiIsActive];
     readonly typeStr = input<string>('medPrio');
     readonly existingPriority = input<string | null>();
-    currentPriority = output<string>();
+    priorityOutput = output<string>();
 
     btnSrc = new Map<string, string[]>([
         ['lowPrio', ['./assets/icons/low.svg', './assets/icons/low-white.svg', 'Low']],
@@ -47,6 +47,6 @@ export class ButtonPriority {
             default:
                 console.error('PRIORITY BUTTON ERROR:' + prio);
         }
-        this.currentPriority.emit(prio);
+        this.priorityOutput.emit(prio);
     }
 }
