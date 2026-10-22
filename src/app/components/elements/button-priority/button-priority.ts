@@ -11,7 +11,6 @@ export class ButtonPriority {
     medIsActive = signal<boolean>(true);
     hiIsActive = signal<boolean>(false);
     prioSignals = [this.lowIsActive, this.medIsActive, this.hiIsActive];
-    readonly typeStr = input<string>('medPrio');
     readonly existingPriority = input<string | null>();
     priorityOutput = output<string>();
 
