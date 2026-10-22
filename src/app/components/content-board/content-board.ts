@@ -3,10 +3,11 @@ import { ButtonPrimary } from '../elements/button-primary/button-primary';
 import { TaskListService } from '../../services/tasklist-service';
 import { Status } from '../../interfaces/status';
 import { ITask } from '../../interfaces/itask';
+import { DetailView } from './detail-view/detail-view';
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 @Component({
-    imports: [ButtonPrimary, CdkDrag, CdkDropList],
+    imports: [ButtonPrimary, CdkDrag, CdkDropList, DetailView],
     selector: 'app-content-board',
     styleUrl: './content-board.scss',
     templateUrl: './content-board.html',
