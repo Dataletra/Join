@@ -2,7 +2,7 @@
 @use '../../../../public/styles/abstract/mixin.scss' as *;
 @import url('https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined');
 
-form {
+.wrapper {
     display: flex;
     gap: 40px;
     width: 100%;

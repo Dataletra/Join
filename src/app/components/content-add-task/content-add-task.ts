@@ -10,6 +10,8 @@ import { ISubtask } from '../../interfaces/isubtask';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonPrimary } from '../elements/button-primary/button-primary';
 import { CustomValidators } from '../../services/custom-validators';
+import { Task } from '../models/task';
+import { Status } from '../../interfaces/status';
 
 @Component({
     imports: [
@@ -32,6 +34,7 @@ export class ContentAddTask {
     IncomingSubtasks = signal<ISubtask[]>([]);
     IncomingCategory = signal<string>('');
     IncomingPriority = signal<string>('');
+    isCategoryTouched = signal<boolean>(false);
 
     addTaskForm = new FormGroup({
         title: new FormControl('', { validators: [Validators.required] }),
@@ -53,7 +56,6 @@ export class ContentAddTask {
 
     importCategory(category: string) {
         this.IncomingCategory.set(category);
-        console.log(this.addTaskForm.value);
     }
 
     importPriority(priority: string) {
@@ -66,5 +68,22 @@ export class ContentAddTask {
         } else {
             return false;
         }
+    }
+
+    submitForm() {
+        const formValues = this.addTaskForm.value;
+
+        const newTask = new Task({
+            title: formValues.title ?? '',
+            description: formValues.description ?? '',
+            category: this.IncomingCategory() as 'Technical Task' | 'User Story',
+            dueDate: formValues.date ?? '',
+            priority: this.IncomingPriority() as 'lowPrio' | 'medPrio' | 'hiPrio',
+            status: Status.todo,
+            assignedTo: this.comboboxUserIDs(),
+            subtasks: this.IncomingSubtasks(),
+        });
+
+        console.log('Task Payload:', newTask.getCleanAddJson());
     }
 }
