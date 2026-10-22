@@ -2,6 +2,7 @@ import { inject, Service, signal } from '@angular/core';
 import { SupabaseService } from './supabase';
 import { ITask } from '../interfaces/itask';
 import { Task } from '../components/models/task';
+import { Status } from '../interfaces/status';
 
 @Service()
 export class TasksService {
@@ -37,8 +38,8 @@ export class TasksService {
         this.tasklist.set(data.map((task) => new Task(task)));
     }
 
-    getTaskPerId(id: number) {
-        return this.tasklist().find((task) => task.id === id) ?? new Task();
+    getTaskPerId(id: number | undefined): ITask | undefined {
+        return id ? this.tasklist().find((task) => task.id === id) : undefined;
     }
 
     async addTask(task: Task) {
@@ -49,6 +50,12 @@ export class TasksService {
     async editTask(task: Task) {
         const taskData = task.getCleanAddJson();
         const { data, error } = await this.supabase.from('tasks').update(taskData).eq('id', task.id).select();
+    }
+
+    async editStatus(id: number | undefined, status: Status) {
+        if (this.getTaskPerId(id)) {
+            const { data, error } = await this.supabase.from('tasks').update({ status: status }).eq('id', id).select();
+        }
     }
 
     async deleteTask(id: number) {
