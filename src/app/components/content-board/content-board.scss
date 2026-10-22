@@ -128,7 +128,7 @@ main {
 
     .section-tasks {
         min-width: 246px + 2 * 16px;
-        width: 246px;
+        width: 246px + 2 * 16px;
         padding-inline: 1px;
     }
 }
