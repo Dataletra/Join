@@ -2,7 +2,7 @@
 @use '../../../../public/styles/abstract/mixin.scss' as *;
 @import url('https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined');
 
-:host {
+form {
     display: flex;
     gap: 40px;
     width: 100%;
@@ -45,4 +45,14 @@
     width: 35px;
     height: 35px;
     min-width: 35px;
+}
+
+.finalize-btn-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.check-wrapper {
+    min-height: 20px;
 }
