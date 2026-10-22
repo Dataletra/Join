@@ -1,7 +1,8 @@
-import { Component, input, output } from '@angular/core';
+import { Component, computed, inject, input, output } from '@angular/core';
 import { IcContact } from '../../elements/ic-contact/ic-contact';
 import { ITask } from '../../../interfaces/itask';
 import { TaskLable } from '../../elements/task-lable/task-lable';
+import { ContactService } from '../../../services/contact-service';
 
 @Component({
     imports: [IcContact, TaskLable],
@@ -12,6 +13,14 @@ import { TaskLable } from '../../elements/task-lable/task-lable';
 export class TaskCard {
     readonly task = input.required<ITask>();
     readonly taskClicked = output<ITask>();
+
+    contactService = inject(ContactService);
+
+    assignedUsers = computed(() => {
+        const userIds = this.task().user_ids;
+        const users = this.contactService.users();
+        return userIds.map((id) => users.find((user) => user.id === id)).filter((user) => user !== undefined);
+    });
 
     onTaskClick() {
         this.taskClicked.emit(this.task());
