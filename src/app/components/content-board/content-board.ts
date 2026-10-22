@@ -30,7 +30,7 @@ export class ContentBoard {
     private readonly Status = Status; // Make Status enum usable in HTML
     delayDrag: number = window.matchMedia('(hover: hover)').matches ? 0 : 200;
 
-    ngOnInit() {
+    async ngOnInit() {
         this.fetchTaskLists();
     }
 
@@ -164,8 +164,10 @@ export class ContentBoard {
                 category: 'User Story',
                 priority: 'low',
                 status: someStatus,
-                assignedTo: [],
+                user_ids: [],
                 subtasks: [],
+                //TODO Date
+                due_date: '19.10.2016',
             });
         }
     }
