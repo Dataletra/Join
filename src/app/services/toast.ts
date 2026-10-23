@@ -40,7 +40,7 @@ export class Toast {
             setTimeout(() => {
                 this.hide();
             }, 2000);
-            this.typeMatch.set(type, false);
+            this.typeMatch.set(type, type === ToastType.none);
         }
     }
 }
