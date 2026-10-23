@@ -16,9 +16,40 @@
                 </tr>
                 <tr>
                     <th>Priority:</th>
-                    <td>{{ task().priority }}</td>
+                    <td>
+                        {{ task().priority }}
+                        @if (task().priority === 'low') {
+                            <img src="./assets/icons/low.svg" />
+                        } @else if (task().priority === 'medium') {
+                            <img src="./assets/icons/medium.svg" />
+                        } @else if (task().priority === 'urgent') {
+                            <img src="./assets/icons/urgent.svg" />
+                        }
+                    </td>
                 </tr>
             </table>
+        </div>
+        <div class="assigned-to">
+            <p>Assinged To:</p>
+            <div class="user-list">
+                @for (user of assignedUsers(); track user.id) {
+                    <div class="user">
+                        <div class="icon-wrapper">
+                            <app-ic-contact
+                                class="user-icon"
+                                [name]="user.name"
+                                [enableShadow]="false"
+                                [isDummy]="false"
+                            >
+                            </app-ic-contact>
+                        </div>
+                        <p>{{ user.name }}</p>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="subtasks">
+            <p>Subtasks</p>
         </div>
     </div>
 </dialog>

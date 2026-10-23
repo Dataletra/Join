@@ -1,3 +1,6 @@
+@use '../../../../../public/styles/abstract/variables.scss' as *;
+@use '../../../../../public/styles/abstract/mixin.scss' as *;
+
 dialog {
     width: 525px;
     height: 931px;
@@ -22,12 +25,80 @@ dialog {
 .title {
     font-size: 61px;
     font-weight: 700;
+    margin-bottom: 24px;
 }
 
 .description {
+    margin-bottom: 24px;
+    font-size: 20px;
 }
 
 .date-prio {
+    margin-bottom: 28px;
+
     table {
+        padding: 0;
+        font-family: 'Inter';
+        font-size: 20px;
+
+        border-spacing: 0 24px;
+
+        th {
+            width: 100px;
+            font-weight: 400;
+            color: $color-base;
+            text-align: start;
+        }
+
+        td {
+            display: flex;
+            gap: 10px;
+        }
+    }
+}
+
+.assigned-to {
+    width: 100%;
+    margin-bottom: 24px;
+
+    p {
+        font-size: 20px;
+        color: $color-base;
+    }
+}
+
+.user-list {
+    height: 200px;
+    padding: 16px;
+    overflow-y: scroll;
+    @include scrollbar-light;
+
+    .user {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 7px 0 7px 0;
+
+        .icon-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .user-icon {
+                width: 42px;
+                height: 42px;
+            }
+        }
+
+        p {
+            font-size: 19px;
+        }
+    }
+}
+
+.subtasks {
+    p {
+        font-size: 20px;
+        color: $color-base;
     }
 }
