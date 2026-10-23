@@ -1,4 +1,4 @@
-import { Status } from './enums';
+import { Status, Priority } from './enums';
 
 export interface ITask {
     id: number;
@@ -7,7 +7,7 @@ export interface ITask {
     description: string;
     category: 'User Story' | 'Technical Task';
     due_date: string;
-    priority: 'lowPrio' | 'medPrio' | 'hiPrio';
+    priority: Priority;
     status: Status;
     user_ids: number[];
     subtasks: ISubtask[];

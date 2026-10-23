@@ -1,5 +1,5 @@
 import { ISubtask, ITask, ITaskUser } from '../../interfaces/itask';
-import { Status } from '../../interfaces/enums';
+import { Status, Priority } from '../../interfaces/enums';
 
 export class Task implements ITask {
     id: number = 0;
@@ -8,7 +8,7 @@ export class Task implements ITask {
     description: string = 'Description';
     category: 'Technical Task' | 'User Story' = 'Technical Task';
     due_date: string = '';
-    priority: 'lowPrio' | 'medPrio' | 'hiPrio' = 'medPrio';
+    priority: Priority = Priority.medium;
     status: Status = Status.todo;
     user_ids: number[] = [];
     subtasks: ISubtask[] = [];
@@ -20,7 +20,7 @@ export class Task implements ITask {
         this.description = task?.description ?? '';
         this.category = task?.category ?? 'Technical Task';
         this.due_date = task?.due_date ?? '';
-        this.priority = task?.priority ?? 'medPrio';
+        this.priority = task?.priority ?? Priority.medium;
         this.status = task?.status ?? Status.todo;
         this.user_ids = task?.user_ids ?? [];
         this.subtasks = task?.subtasks ?? [];
@@ -31,7 +31,7 @@ export class Task implements ITask {
             title: this.title,
             description: this.description,
             category: this.category,
-            dueDate: this.due_date,
+            due_date: this.due_date,
             priority: this.priority,
             status: this.status,
             user_ids: this.user_ids,

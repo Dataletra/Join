@@ -15,9 +15,9 @@ export class ButtonPriority {
     priorityOutput = output<string>();
 
     btnSrc = new Map<string, string[]>([
-        ['lowPrio', ['./assets/icons/low.svg', './assets/icons/low-white.svg', 'Low']],
-        ['medPrio', ['./assets/icons/medium.svg', './assets/icons/medium-white.svg', 'Medium']],
-        ['hiPrio', ['./assets/icons/urgent.svg', './assets/icons/urgent-white.svg', 'Urgent']],
+        ['low', ['./assets/icons/low.svg', './assets/icons/low-white.svg', 'Low']],
+        ['medium', ['./assets/icons/medium.svg', './assets/icons/medium-white.svg', 'Medium']],
+        ['urgent', ['./assets/icons/urgent.svg', './assets/icons/urgent-white.svg', 'Urgent']],
     ]);
 
     ngOnInit() {
@@ -25,7 +25,7 @@ export class ButtonPriority {
         if (prio != null) {
             this.toggleActiveState(prio!);
         } else {
-            this.toggleActiveState('medPrio');
+            this.toggleActiveState('medium');
         }
     }
 
@@ -34,13 +34,13 @@ export class ButtonPriority {
             btn.set(false);
         });
         switch (prio) {
-            case 'lowPrio':
+            case 'low':
                 this.prioSignals[0].set(true);
                 break;
-            case 'medPrio':
+            case 'medium':
                 this.prioSignals[1].set(true);
                 break;
-            case 'hiPrio':
+            case 'urgent':
                 this.prioSignals[2].set(true);
                 break;
             default:

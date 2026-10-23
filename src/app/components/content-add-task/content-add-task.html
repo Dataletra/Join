@@ -57,10 +57,10 @@
                 <app-combobox-assign-user (selectedUser)="assignedUsers($event)"></app-combobox-assign-user>
             </div>
             <div class="userIconContainer">
-                @for (user of comboboxUserIDs().slice(0, 3); track $index) {
+                @for (user of comboboxUsers().slice(0, 3); track $index) {
                     <app-ic-contact class="user-ic" [name]="user.name"></app-ic-contact>
                 }
-                @if (comboboxUserIDs().length > 3) {
+                @if (comboboxUsers().length > 3) {
                     <app-ic-contact class="user-ic" [name]="trimmedUserIc()"></app-ic-contact>
                 }
             </div>

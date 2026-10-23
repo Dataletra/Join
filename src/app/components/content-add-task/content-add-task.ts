@@ -11,7 +11,8 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ButtonPrimary } from '../elements/button-primary/button-primary';
 import { CustomValidators } from '../../services/custom-validators';
 import { Task } from '../models/task';
-import { Status } from '../../interfaces/enums';
+import { Priority, Status } from '../../interfaces/enums';
+import { TasksService } from '../../services/tasks-service';
 
 @Component({
     imports: [
@@ -28,9 +29,11 @@ import { Status } from '../../interfaces/enums';
     templateUrl: './content-add-task.html',
 })
 export class ContentAddTask {
-    dbService = inject(ContactService);
+    contactService = inject(ContactService);
+    tasksService = inject(TasksService);
     customValidator = inject(CustomValidators);
-    comboboxUserIDs = signal<IUser[]>([]); //TODO: Change so that only ID's are moved
+    comboboxUsers = signal<IUser[]>([]);
+    selectedUserIds = signal<number[]>([]);
     IncomingSubtasks = signal<ISubtask[]>([]);
     IncomingCategory = signal<string>('');
     IncomingPriority = signal<string>('');
@@ -43,11 +46,12 @@ export class ContentAddTask {
     });
 
     trimmedUserIc = computed(() => {
-        return '+ ' + (this.comboboxUserIDs().length - 3);
+        return '+ ' + (this.comboboxUsers().length - 3);
     });
 
     assignedUsers(selectedIds: number[]) {
-        this.comboboxUserIDs.set(this.dbService.userList.filter((userObj) => selectedIds.includes(userObj.id)));
+        this.comboboxUsers.set(this.contactService.userList.filter((userObj) => selectedIds.includes(userObj.id)));
+        this.selectedUserIds.set(selectedIds);
     }
 
     importSubtasks(taskArray: ISubtask[]) {
@@ -70,7 +74,7 @@ export class ContentAddTask {
         }
     }
 
-    submitForm() {
+    async submitForm() {
         const formValues = this.addTaskForm.value;
 
         const newTask = new Task({
@@ -78,11 +82,12 @@ export class ContentAddTask {
             description: formValues.description ?? '',
             category: this.IncomingCategory() as 'Technical Task' | 'User Story',
             due_date: formValues.date ?? '',
-            priority: this.IncomingPriority() as 'lowPrio' | 'medPrio' | 'hiPrio',
+            priority: this.IncomingPriority() as Priority,
             status: Status.todo,
-            user_ids: [1],
+            user_ids: this.selectedUserIds(),
             subtasks: this.IncomingSubtasks(),
         });
+        await this.tasksService.addTask(newTask);
 
         console.log('Task Payload:', newTask.getCleanAddJson());
     }
