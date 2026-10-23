@@ -4,8 +4,20 @@
         <app-button-primary [typeStr]="'addTask'" [small]="true">Add task</app-button-primary>
 
         <nav class="search-bar">
-            <input class="search-input" type="text" placeholder="Find Task" />
-            <button class="search-btn"><img src="./assets/icons/search.svg" alt="search icon" /></button>
+            <input
+                #searchInput
+                class="search-input"
+                type="text"
+                placeholder="Find Task"
+                (keydown.enter)="applyFilter(searchInput.value, true)"
+                (blur)="applyFilter(searchInput.value)"
+                (keydown)="resetColor($event)"
+                (pointerdown)="resetColor()"
+                [class.color-red]="notFound()"
+            />
+            <button class="search-btn">
+                <img src="./assets/icons/search.svg" alt="search icon" (click)="applyFilter(searchInput.value)" />
+            </button>
         </nav>
     </header>
 </div>
@@ -27,10 +39,10 @@
                     [cdkDropListData]="Status.todo"
                     (cdkDropListDropped)="drop($event)"
                 >
-                    @if (sortingService.taskMap().get(Status.todo)?.length === 0) {
+                    @if (tasksToRender().get(Status.todo)?.length === 0) {
                         <div class="no-task"><p>No tasks to do</p></div>
                     } @else {
-                        @for (id of sortingService.taskMap().get(Status.todo); track id) {
+                        @for (id of tasksToRender().get(Status.todo); track id) {
                             @if (taskService.getTaskPerId(id); as task) {
                                 <app-task-card
                                     [task]="task"
@@ -78,10 +90,10 @@
                     [cdkDropListData]="Status.progress"
                     (cdkDropListDropped)="drop($event)"
                 >
-                    @if (sortingService.taskMap().get(Status.progress)?.length === 0) {
+                    @if (tasksToRender().get(Status.progress)?.length === 0) {
                         <div class="no-task"><p>No tasks in progress</p></div>
                     } @else {
-                        @for (id of sortingService.taskMap().get(Status.progress); track id) {
+                        @for (id of tasksToRender().get(Status.progress); track id) {
                             @if (taskService.getTaskPerId(id); as task) {
                                 <app-task-card
                                     [task]="task"
@@ -129,10 +141,10 @@
                     [cdkDropListData]="Status.await"
                     (cdkDropListDropped)="drop($event)"
                 >
-                    @if (sortingService.taskMap().get(Status.await)?.length === 0) {
+                    @if (tasksToRender().get(Status.await)?.length === 0) {
                         <div class="no-task"><p>No tasks awaiting feedback</p></div>
                     } @else {
-                        @for (id of sortingService.taskMap().get(Status.await); track id) {
+                        @for (id of tasksToRender().get(Status.await); track id) {
                             @if (taskService.getTaskPerId(id); as task) {
                                 <app-task-card
                                     [task]="task"
@@ -179,10 +191,10 @@
                     [cdkDropListData]="Status.done"
                     (cdkDropListDropped)="drop($event)"
                 >
-                    @if (sortingService.taskMap().get(Status.done)?.length === 0) {
+                    @if (tasksToRender().get(Status.done)?.length === 0) {
                         <div class="no-task"><p>No tasks done</p></div>
                     } @else {
-                        @for (id of sortingService.taskMap().get(Status.done); track id) {
+                        @for (id of tasksToRender().get(Status.done); track id) {
                             @if (taskService.getTaskPerId(id); as task) {
                                 <app-task-card
                                     [task]="task"
