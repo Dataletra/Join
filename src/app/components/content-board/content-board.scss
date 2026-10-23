@@ -107,7 +107,7 @@ h5 {
 main {
     display: flex;
     width: 100%;
-    max-width: 1208px;
+    max-width: 1238px;
     height: 100%;
     padding-bottom: 2px;
     overflow-y: auto;
@@ -118,7 +118,7 @@ main {
         width: 100%;
         max-width: calc(100svw - $width-nav-desktop);
         height: 100%;
-        padding-inline: clamp-px(16, 64);
+        padding-inline: clamp-px(16, 48);
         padding-bottom: 24px;
 
         gap: 10px;
