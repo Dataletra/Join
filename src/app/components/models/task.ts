@@ -1,5 +1,5 @@
 import { ISubtask, ITask, ITaskUser } from '../../interfaces/itask';
-import { Status } from '../../interfaces/status';
+import { Status } from '../../interfaces/enums';
 
 export class Task implements ITask {
     id: number = 0;
@@ -7,10 +7,10 @@ export class Task implements ITask {
     title: string = 'Title';
     description: string = 'Description';
     category: 'Technical Task' | 'User Story' = 'Technical Task';
-    dueDate: string = '';
+    due_date: string = '';
     priority: 'lowPrio' | 'medPrio' | 'hiPrio' = 'medPrio';
     status: Status = Status.todo;
-    assignedTo: ITaskUser[] = [];
+    user_ids: number[] = [];
     subtasks: ISubtask[] = [];
 
     constructor(task: Partial<ITask> | null = {}) {
@@ -19,10 +19,10 @@ export class Task implements ITask {
         this.title = task?.title ?? '';
         this.description = task?.description ?? '';
         this.category = task?.category ?? 'Technical Task';
-        this.dueDate = task?.dueDate ?? '';
+        this.due_date = task?.due_date ?? '';
         this.priority = task?.priority ?? 'medPrio';
         this.status = task?.status ?? Status.todo;
-        this.assignedTo = task?.assignedTo ?? [];
+        this.user_ids = task?.user_ids ?? [];
         this.subtasks = task?.subtasks ?? [];
     }
 
@@ -31,11 +31,17 @@ export class Task implements ITask {
             title: this.title,
             description: this.description,
             category: this.category,
-            dueDate: this.dueDate,
+            dueDate: this.due_date,
             priority: this.priority,
             status: this.status,
-            assignedTo: this.assignedTo,
+            user_ids: this.user_ids,
             subtasks: this.subtasks,
         };
     }
 }
+
+//TODO ENUM priority
+//TODO ENUM category (maybe?)
+//TODO FIX task.ts -> make work with interface
+//TODO content-add-task.ts -> comboboxUserID's has to actually return the ID's and not USERS
+//TODO adjust content-add-task.ts to work with task class

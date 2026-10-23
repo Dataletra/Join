@@ -11,7 +11,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ButtonPrimary } from '../elements/button-primary/button-primary';
 import { CustomValidators } from '../../services/custom-validators';
 import { Task } from '../models/task';
-import { Status } from '../../interfaces/status';
+import { Status } from '../../interfaces/enums';
 
 @Component({
     imports: [
@@ -77,10 +77,10 @@ export class ContentAddTask {
             title: formValues.title ?? '',
             description: formValues.description ?? '',
             category: this.IncomingCategory() as 'Technical Task' | 'User Story',
-            dueDate: formValues.date ?? '',
+            due_date: formValues.date ?? '',
             priority: this.IncomingPriority() as 'lowPrio' | 'medPrio' | 'hiPrio',
             status: Status.todo,
-            assignedTo: this.comboboxUserIDs(),
+            user_ids: [1],
             subtasks: this.IncomingSubtasks(),
         });
 

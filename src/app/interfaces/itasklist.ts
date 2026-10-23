@@ -1,6 +1,6 @@
-import { Status } from "./status";
+import { Status } from './enums';
 
-export interface ITaskList{
-    status: Status,
+export interface ITaskList {
+    status: Status;
     order: number[];
 }
