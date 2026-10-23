@@ -2,6 +2,10 @@
 @use '../../../../../public/styles/abstract/fonts.scss';
 @use '../../../../../public/styles/abstract/mixin.scss';
 
+:host {
+    z-index: 999;
+}
+
 .toast-added {
     width: 326px;
     height: 74px;
