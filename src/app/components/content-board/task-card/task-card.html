@@ -18,7 +18,7 @@
     }
     <div class="task-footer">
         <div class="member">
-            @for (user of task().assignedTo.slice(0, 3); track $index) {
+            @for (user of assignedUsers().slice(0, 3); track user.id) {
                 <app-ic-contact
                     class="badge"
                     [name]="user.name"
@@ -26,10 +26,10 @@
                     [isDummy]="false"
                 ></app-ic-contact>
             }
-            @if (task().assignedTo.length > 3) {
+            @if (task().user_ids.length > 3) {
                 <app-ic-contact
                     class="badge"
-                    [name]="'+' + '(task().assignedTo.length - 3)'"
+                    [name]="'+ ' + (task().user_ids.length - 3)"
                     [enableShadow]="false"
                     [isDummy]="false"
                 ></app-ic-contact>

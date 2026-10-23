@@ -9,8 +9,9 @@ export interface ITask {
     dueDate: string;
     priority: 'lowPrio' | 'medPrio' | 'hiPrio';
     status: Status;
-    assignedTo: ITaskUser[];
+    user_ids: number[];
     subtasks: ISubtask[];
+    due_date: string;
 }
 
 export interface ITaskUser {

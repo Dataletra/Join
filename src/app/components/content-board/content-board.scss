@@ -17,7 +17,7 @@
     height: 48px;
     grid-area: two;
     padding: 8px 16px;
-    border: 1px solid $color-gray;
+    border: 1px solid $color-icon;
     border-radius: 10px;
     background-color: white;
 
@@ -36,7 +36,7 @@
         justify-content: flex-end;
         width: 48px;
         height: 32px;
-        border-left: 1px solid $color-gray;
+        border-left: 1px solid $color-icon;
 
         > img {
             transition: background-color 125ms ease-in-out;
@@ -127,8 +127,8 @@ main {
     }
 
     .section-tasks {
-        min-width: 246px + 16px;
-        width: 246px;
+        min-width: 246px + 2 * 16px;
+        width: 246px + 2 * 16px;
         padding-inline: 1px;
     }
 }
@@ -139,7 +139,7 @@ main {
     align-items: center;
     width: 100%;
     height: clamp-px(24, 32, 400, 1400);
-    padding-right: 16px;
+    padding-inline: 16px;
     overflow: visible;
 }
 
@@ -154,7 +154,8 @@ main {
     flex-direction: column;
     gap: 16px;
     padding-block: 16px;
-    padding-right: 16px;
+    padding-inline: 16px;
+    min-height: 100%;
 }
 
 main,
@@ -195,19 +196,46 @@ main,
 }
 // #endregion board-main
 
+// #section drag-drop
+
+.drag-placeholder {
+    background-color: transparent;
+    width: 100%;
+    min-width: $width-task-card;
+    max-width: $width-task-card;
+    min-height: 177px;
+    border: 1px dashed $color-icon;
+    border-radius: 24px;
+}
+
+.task-placeholder,
 .no-task {
     @include flex-center;
     width: 100%;
-    min-width: 244px;
-    max-width: 244px;
+    min-width: $width-task-card;
+    max-width: $width-task-card;
     height: 48px;
     background-color: $color-nav;
-    border: 1px dashed $color-icon2;
+    border: 1px dashed $color-icon;
     border-radius: 10px;
     padding-inline: 16px;
     box-shadow: 0 0 4px 0 #00000029;
+    cursor: default;
 
     p {
-        color: $color-icon2;
+        color: $color-icon;
     }
 }
+
+.task-placeholder {
+    cursor: pointer;
+}
+
+.cdk-drag-animating {
+    transition: none;
+}
+
+.cdk-drop-list-dragging :not(.cdk-drag-placeholder) {
+    transition: transform 125ms ease-in;
+}
+// #endsection drag-drop
