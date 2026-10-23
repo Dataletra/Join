@@ -3,6 +3,7 @@ import { IcContact } from '../../elements/ic-contact/ic-contact';
 import { ITask } from '../../../interfaces/itask';
 import { TaskLable } from '../../elements/task-lable/task-lable';
 import { ContactService } from '../../../services/contact-service';
+import { ContactDialog } from '../../../services/contact-dialog';
 
 @Component({
     imports: [IcContact, TaskLable],
@@ -15,6 +16,7 @@ export class TaskCard {
     readonly taskClicked = output<ITask>();
 
     contactService = inject(ContactService);
+    dialogService = inject(ContactDialog);
 
     assignedUsers = computed(() => {
         const userIds = this.task().user_ids;
@@ -23,7 +25,7 @@ export class TaskCard {
     });
 
     onTaskClick() {
-        this.taskClicked.emit(this.task());
+        this.dialogService.openTask('task', this.task());
     }
 
     get completedSubtasks(): number {

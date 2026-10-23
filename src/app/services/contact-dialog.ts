@@ -6,7 +6,6 @@ import { ITask } from '../interfaces/itask';
 export class ContactDialog {
     isOpen = signal(false);
     mode = signal<'add' | 'edit' | 'task' | null>(null);
-
     selectedUser = signal<IUser | null>(null);
     selectedTask = signal<ITask | null>(null);
 
@@ -26,6 +25,7 @@ export class ContactDialog {
         this.isOpen.set(false);
         this.mode.set(null);
         this.selectedUser.set(null);
+        this.selectedTask.set(null);
     }
 }
 

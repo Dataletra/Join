@@ -5,7 +5,6 @@ import { TasksService } from '../../services/tasks-service';
 import { TaskCard } from './task-card/task-card';
 import { Status } from '../../interfaces/status';
 import { ITask } from '../../interfaces/itask';
-import { DetailView } from './detail-view/detail-view';
 import {
     CdkDrag,
     CdkDragDrop,
@@ -18,7 +17,7 @@ import {
 } from '@angular/cdk/drag-drop';
 
 @Component({
-    imports: [ButtonPrimary, CdkDrag, CdkDropList, CdkDragPlaceholder, CdkDragPreview, TaskCard, DetailView],
+    imports: [ButtonPrimary, CdkDrag, CdkDropList, CdkDragPlaceholder, CdkDragPreview, TaskCard],
     selector: 'app-content-board',
     styleUrl: './content-board.scss',
     templateUrl: './content-board.html',

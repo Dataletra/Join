@@ -97,8 +97,16 @@ dialog {
 }
 
 .subtasks {
-    p {
+    .sub-title {
         font-size: 20px;
         color: $color-base;
+        margin-bottom: 8px;
+    }
+
+    .subtask-row {
+        width: 100%;
+        display: flex;
+        gap: 16px;
+        margin-bottom: 12px;
     }
 }

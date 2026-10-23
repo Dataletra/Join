@@ -17,30 +17,33 @@ export class DetailView {
     dialogService = inject(ContactDialog);
     dialog = viewChild<ElementRef<HTMLDialogElement>>('taskdetail');
 
-    // readonly task = input.required<ITask>();
+    readonly task = computed(() => this.dialogService.selectedTask());
 
     //TODO just for tests
-    readonly task = input<ITask>({
-        id: 1,
-        created_at: '2026-10-15',
-        title: 'das ist ein sehr, sehr langer Titel',
-        description: 'Lorem ipsum dolor sit amet.',
-        category: 'Technical Task',
-        priority: 'urgent',
-        status: Status.todo,
-        user_ids: [15, 23, 31, 43, 50],
-        subtasks: [
-            { title: 'Test Subtask 1', completed: false },
-            { title: 'Test Subtask 2', completed: true },
-        ],
-        due_date: '2026-10-30',
-    });
+    // readonly task = input<ITask>({
+    //     id: 1,
+    //     created_at: '2026-10-15',
+    //     title: 'das ist ein sehr, sehr langer Titel',
+    //     description: 'Lorem ipsum dolor sit amet.',
+    //     category: 'Technical Task',
+    //     priority: 'urgent',
+    //     status: Status.todo,
+    //     user_ids: [15, 23, 31, 43, 50],
+    //     subtasks: [
+    //         { title: 'Test Subtask 1', completed: false },
+    //         { title: 'Test Subtask 2', completed: true },
+    //     ],
+    //     due_date: '2026-10-30',
+    // });
 
     //TODO  Delete and get data from task-card
     assignedUsers = computed(() => {
-        const userIds = this.task().user_ids;
+        const task = this.task();
+        if (!task) {
+            return [];
+        }
         const users = this.contactService.users();
-        return userIds.map((id) => users.find((user) => user.id === id)).filter((user) => user !== undefined);
+        return task.user_ids.map((id) => users.find((user) => user.id === id)).filter((user) => user !== undefined);
     });
 
     constructor() {
