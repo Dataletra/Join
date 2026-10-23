@@ -20,21 +20,44 @@
             <div class="task-list-scroll-wrapper">
                 <div
                     cdkDropList
+                    [cdkDropListOrientation]="isMobile() ? 'horizontal' : 'vertical'"
                     #listTodo="cdkDropList"
                     [cdkDropListConnectedTo]="[listProgress, listAwait, listDone]"
                     class="task-list"
-                    /* [cdkDropListData]="this.taskListService.taskMap().get(Status.todo) ?? []" */
                     [cdkDropListData]="Status.todo"
-                    /* (cdkDropListDropped)="drop($event, Status.todo)" */
                     (cdkDropListDropped)="drop($event)"
                 >
-                    @if (taskListService.taskMap().get(Status.todo)?.length === 0) {
-                        <div class="no-task" cdkDrag><p>No tasks to do</p></div>
+                    @if (sortingService.taskMap().get(Status.todo)?.length === 0) {
+                        <div class="no-task"><p>No tasks to do</p></div>
                     } @else {
-                        @for (id of taskListService.taskMap().get(Status.todo); track id) {
-                            <div class="no-task" cdkDrag>
-                                <p>Rons Task {{ id }}</p>
-                            </div>
+                        @for (id of sortingService.taskMap().get(Status.todo); track id) {
+                            @if (taskService.getTaskPerId(id); as task) {
+                                <app-task-card
+                                    [task]="task"
+                                    cdkDrag
+                                    [cdkDragStartDelay]="delayDrag"
+                                    (pointerdown)="setRelativeMousePosition($event)"
+                                    (cdkDragMoved)="rotateByMovement($event)"
+                                >
+                                    <div class="drag-placeholder" *cdkDragPlaceholder></div>
+                                    <div *cdkDragPreview>
+                                        <app-task-card
+                                            [task]="task"
+                                            [style.box-shadow]="-2 * turn + 'px 8px 10px 0 #00000014'"
+                                            [style.transform]="
+                                                'translateX(-' +
+                                                transX +
+                                                'px) translateY(-' +
+                                                transY +
+                                                'px) rotate(' +
+                                                turn +
+                                                'deg)'
+                                            "
+                                        >
+                                        </app-task-card>
+                                    </div>
+                                </app-task-card>
+                            }
                         }
                     }
                 </div>
@@ -48,21 +71,44 @@
             <div class="task-list-scroll-wrapper">
                 <div
                     cdkDropList
+                    [cdkDropListOrientation]="isMobile() ? 'horizontal' : 'vertical'"
                     #listProgress="cdkDropList"
                     [cdkDropListConnectedTo]="[listTodo, listAwait, listDone]"
                     class="task-list"
-                    /* [cdkDropListData]="this.taskListService.taskMap().get(Status.progress) ?? []" */
                     [cdkDropListData]="Status.progress"
-                    /* (cdkDropListDropped)="drop($event, Status.progress)" */
                     (cdkDropListDropped)="drop($event)"
                 >
-                    @if (taskListService.taskMap().get(Status.progress)?.length === 0) {
-                        <div class="no-task" cdkDrag><p>No tasks to do</p></div>
+                    @if (sortingService.taskMap().get(Status.progress)?.length === 0) {
+                        <div class="no-task"><p>No tasks in progress</p></div>
                     } @else {
-                        @for (id of taskListService.taskMap().get(Status.progress); track id) {
-                            <div class="no-task" cdkDrag>
-                                <p>Rons Task {{ id }}</p>
-                            </div>
+                        @for (id of sortingService.taskMap().get(Status.progress); track id) {
+                            @if (taskService.getTaskPerId(id); as task) {
+                                <app-task-card
+                                    [task]="task"
+                                    cdkDrag
+                                    [cdkDragStartDelay]="delayDrag"
+                                    (pointerdown)="setRelativeMousePosition($event)"
+                                    (cdkDragMoved)="rotateByMovement($event)"
+                                >
+                                    <div class="drag-placeholder" *cdkDragPlaceholder></div>
+                                    <div *cdkDragPreview>
+                                        <app-task-card
+                                            [task]="task"
+                                            [style.box-shadow]="-2 * turn + 'px 8px 10px 0 #00000014'"
+                                            [style.transform]="
+                                                'translateX(-' +
+                                                transX +
+                                                'px) translateY(-' +
+                                                transY +
+                                                'px) rotate(' +
+                                                turn +
+                                                'deg)'
+                                            "
+                                        >
+                                        </app-task-card>
+                                    </div>
+                                </app-task-card>
+                            }
                         }
                     }
                 </div>
@@ -76,21 +122,44 @@
             <div class="task-list-scroll-wrapper">
                 <div
                     cdkDropList
+                    [cdkDropListOrientation]="isMobile() ? 'horizontal' : 'vertical'"
                     #listAwait="cdkDropList"
                     [cdkDropListConnectedTo]="[listProgress, listTodo, listDone]"
                     class="task-list"
-                    /* [cdkDropListData]="this.taskListService.taskMap().get(Status.await) ?? []" */
                     [cdkDropListData]="Status.await"
-                    /* (cdkDropListDropped)="drop($event, Status.await)" */
                     (cdkDropListDropped)="drop($event)"
                 >
-                    @if (taskListService.taskMap().get(Status.await)?.length === 0) {
-                        <div class="no-task" cdkDrag><p>No tasks to do</p></div>
+                    @if (sortingService.taskMap().get(Status.await)?.length === 0) {
+                        <div class="no-task"><p>No tasks awaiting feedback</p></div>
                     } @else {
-                        @for (id of taskListService.taskMap().get(Status.await); track id) {
-                            <div class="no-task" cdkDrag>
-                                <p>Rons Task {{ id }}</p>
-                            </div>
+                        @for (id of sortingService.taskMap().get(Status.await); track id) {
+                            @if (taskService.getTaskPerId(id); as task) {
+                                <app-task-card
+                                    [task]="task"
+                                    cdkDrag
+                                    [cdkDragStartDelay]="delayDrag"
+                                    (pointerdown)="setRelativeMousePosition($event)"
+                                    (cdkDragMoved)="rotateByMovement($event)"
+                                >
+                                    <div class="drag-placeholder" *cdkDragPlaceholder></div>
+                                    <div *cdkDragPreview>
+                                        <app-task-card
+                                            [task]="task"
+                                            [style.box-shadow]="-2 * turn + 'px 8px 10px 0 #00000014'"
+                                            [style.transform]="
+                                                'translateX(-' +
+                                                transX +
+                                                'px) translateY(-' +
+                                                transY +
+                                                'px) rotate(' +
+                                                turn +
+                                                'deg)'
+                                            "
+                                        >
+                                        </app-task-card>
+                                    </div>
+                                </app-task-card>
+                            }
                         }
                     }
                 </div>
@@ -103,21 +172,44 @@
             <div class="task-list-scroll-wrapper">
                 <div
                     cdkDropList
+                    [cdkDropListOrientation]="isMobile() ? 'horizontal' : 'vertical'"
                     #listDone="cdkDropList"
                     [cdkDropListConnectedTo]="[listProgress, listAwait, listTodo]"
                     class="task-list"
-                    /* [cdkDropListData]="this.taskListService.taskMap().get(Status.done) ?? []" */
                     [cdkDropListData]="Status.done"
-                    /* (cdkDropListDropped)="drop($event, Status.done)" */
                     (cdkDropListDropped)="drop($event)"
                 >
-                    @if (taskListService.taskMap().get(Status.done)?.length === 0) {
-                        <div class="no-task" cdkDrag><p>No tasks to do</p></div>
+                    @if (sortingService.taskMap().get(Status.done)?.length === 0) {
+                        <div class="no-task"><p>No tasks done</p></div>
                     } @else {
-                        @for (id of taskListService.taskMap().get(Status.done); track id) {
-                            <div class="no-task" cdkDrag>
-                                <p>Rons Task {{ id }}</p>
-                            </div>
+                        @for (id of sortingService.taskMap().get(Status.done); track id) {
+                            @if (taskService.getTaskPerId(id); as task) {
+                                <app-task-card
+                                    [task]="task"
+                                    cdkDrag
+                                    [cdkDragStartDelay]="delayDrag"
+                                    (pointerdown)="setRelativeMousePosition($event)"
+                                    (cdkDragMoved)="rotateByMovement($event)"
+                                >
+                                    <div class="drag-placeholder" *cdkDragPlaceholder></div>
+                                    <div *cdkDragPreview>
+                                        <app-task-card
+                                            [task]="task"
+                                            [style.box-shadow]="-2 * turn + 'px 8px 10px 0 #00000014'"
+                                            [style.transform]="
+                                                'translateX(-' +
+                                                transX +
+                                                'px) translateY(-' +
+                                                transY +
+                                                'px) rotate(' +
+                                                turn +
+                                                'deg)'
+                                            "
+                                        >
+                                        </app-task-card>
+                                    </div>
+                                </app-task-card>
+                            }
                         }
                     }
                 </div>
