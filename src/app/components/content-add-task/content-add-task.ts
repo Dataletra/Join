@@ -30,7 +30,7 @@ import { Status } from '../../interfaces/status';
 export class ContentAddTask {
     dbService = inject(ContactService);
     customValidator = inject(CustomValidators);
-    comboboxUserIDs = signal<IUser[]>([]);
+    comboboxUserIDs = signal<IUser[]>([]); //TODO: Change so that only ID's are moved
     IncomingSubtasks = signal<ISubtask[]>([]);
     IncomingCategory = signal<string>('');
     IncomingPriority = signal<string>('');
