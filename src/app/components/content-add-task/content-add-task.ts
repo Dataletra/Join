@@ -37,6 +37,7 @@ export class ContentAddTask {
     IncomingSubtasks = signal<ISubtask[]>([]);
     IncomingCategory = signal<string>('');
     IncomingPriority = signal<string>('');
+    IncomingStatus = signal<string>(Status.todo);
     isCategoryTouched = signal<boolean>(false);
 
     addTaskForm = new FormGroup({
@@ -66,6 +67,10 @@ export class ContentAddTask {
         this.IncomingPriority.set(priority);
     }
 
+    importStatus(status: string) {
+        this.IncomingStatus.set(status);
+    }
+
     isTaskValid() {
         if (this.addTaskForm.valid && this.IncomingCategory() != '') {
             return true;
@@ -83,7 +88,7 @@ export class ContentAddTask {
             category: this.IncomingCategory() as 'Technical Task' | 'User Story',
             due_date: formValues.date ?? '',
             priority: this.IncomingPriority() as Priority,
-            status: Status.todo,
+            status: this.IncomingStatus() as Status,
             user_ids: this.selectedUserIds(),
             subtasks: this.IncomingSubtasks(),
         });
