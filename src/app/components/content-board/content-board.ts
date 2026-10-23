@@ -149,12 +149,13 @@ export class ContentBoard {
         this.turn = Math.min(5, Math.max(-5, (-1 * (this.lastX - pointer.x)) / 10));
     }
 
-    applyFilter(searchkey: string) {
+    applyFilter(searchkey: string, showToast: boolean = false) {
         this.searchResults.set(searchkey ? this.taskService.findString(searchkey) : null);
-        this.notFound.set(0 === this.searchResults()?.length);
-        if (this.notFound()) {
+        if (0 === this.searchResults()?.length && showToast) {
             this.toastService.showToast('No results found.');
             this.notFound.set(true);
+        } else {
+            this.notFound.set(false);
         }
     }
 

@@ -9,7 +9,7 @@
                 class="search-input"
                 type="text"
                 placeholder="Find Task"
-                (keydown.enter)="applyFilter(searchInput.value)"
+                (keydown.enter)="applyFilter(searchInput.value, true)"
                 (blur)="applyFilter(searchInput.value)"
                 (keydown)="resetColor($event)"
                 (pointerdown)="resetColor()"
