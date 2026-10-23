@@ -198,7 +198,6 @@ main,
 // #endregion board-main
 
 // #section drag-drop
-
 .drag-placeholder {
     background-color: transparent;
     width: 100%;
@@ -240,3 +239,7 @@ main,
     transition: transform 125ms ease-in;
 }
 // #endsection drag-drop
+
+.color-red {
+    color: red;
+}

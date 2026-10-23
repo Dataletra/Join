@@ -33,6 +33,7 @@ export class ContentBoard {
     taskService = inject(TasksService);
     toastService = inject(Toast);
 
+    notFound = signal<boolean>(false);
     searchResults = signal<number[] | null>(null);
     tasksToRender = computed(() => {
         const toFilter = this.searchResults();
@@ -150,9 +151,16 @@ export class ContentBoard {
 
     applyFilter(searchkey: string) {
         this.searchResults.set(searchkey ? this.taskService.findString(searchkey) : null);
-        if (0 === this.searchResults()?.length) {
+        this.notFound.set(0 === this.searchResults()?.length);
+        if (this.notFound()) {
             this.toastService.showToast('No results found.');
-        } else {
+            this.notFound.set(true);
+        }
+    }
+
+    resetColor(event: KeyboardEvent | null = null) {
+        if (null === event || event.key !== 'Enter') {
+            this.notFound.set(false);
         }
     }
 }

@@ -11,6 +11,9 @@
                 placeholder="Find Task"
                 (keydown.enter)="applyFilter(searchInput.value)"
                 (blur)="applyFilter(searchInput.value)"
+                (keydown)="resetColor($event)"
+                (pointerdown)="resetColor()"
+                [class.color-red]="notFound()"
             />
             <button class="search-btn">
                 <img src="./assets/icons/search.svg" alt="search icon" (click)="applyFilter(searchInput.value)" />
