@@ -9,9 +9,9 @@
                 class="search-input"
                 type="text"
                 placeholder="Find Task"
+                (keydown)="resetColor($event)"
                 (keydown.enter)="applyFilter(searchInput.value, true)"
                 (blur)="applyFilter(searchInput.value)"
-                (keydown)="resetColor($event)"
                 (pointerdown)="resetColor()"
                 [class.color-red]="notFound()"
             />
