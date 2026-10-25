@@ -1,0 +1,10 @@
+<dialog #addTaskDialog class="add-task-dialog" closedby="any" (close)="dialogService.close()">
+    <div class="dialog-wrapper" [class.move-in]="dialogService.isOpen()" [class.move-out]="!dialogService.isOpen()">
+        <header class="add-task-dialog-header">
+            <h3>Add Task</h3>
+            <button class="btn-close" (click)="dialogService.close()">
+                <img src="./assets/icons/close.svg" aria-hidden="true" />
+            </button>
+        </header>
+    </div>
+</dialog>

@@ -4,10 +4,10 @@ import { IUser } from '../interfaces/iuser';
 @Service()
 export class ContactDialog {
     isOpen = signal(false);
-    mode = signal<'add' | 'edit' | null>(null);
+    mode = signal<'add' | 'edit' | 'add-task' | null>(null);
     selectedUser = signal<IUser | null>(null);
 
-    open(mode: 'add' | 'edit', user: IUser | null = null) {
+    open(mode: 'add' | 'edit' | 'add-task', user: IUser | null = null) {
         this.mode.set(mode);
         this.selectedUser.set(user);
         this.isOpen.set(true);

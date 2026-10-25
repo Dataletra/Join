@@ -1,7 +1,7 @@
 <dialog #addContact class="add-contact" closedby="any" (close)="dialogService.close()">
     <div class="dialog-wrapper" [class.move-in]="dialogService.isOpen()" [class.move-out]="!dialogService.isOpen()">
         <section class="sec-title">
-            <button class="close-mobi" (click)="dialogService.close()">
+            <button class="close-mobi btn-close" (click)="dialogService.close()">
                 <img src="./assets/icons/close-white.svg" aria-hidden="true" />
             </button>
             <div class="title_wrapper">
@@ -12,7 +12,7 @@
             </div>
         </section>
         <section class="sec-forms">
-            <button class="close-tabl" (click)="dialogService.close()">
+            <button class="close-tabl btn-close" (click)="dialogService.close()">
                 <img src="./assets/icons/close.svg" aria-hidden="true" />
             </button>
             <div class="avatar-wrapper">
@@ -24,7 +24,7 @@
                 ></app-ic-contact>
             </div>
             <div class="forms-wrapper">
-                <button class="close-desk" (click)="dialogService.close()">
+                <button class="close-desk btn-close" (click)="dialogService.close()">
                     <img src="./assets/icons/close.svg" aria-hidden="true" />
                 </button>
                 <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">

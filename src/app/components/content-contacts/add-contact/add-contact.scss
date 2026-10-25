@@ -24,6 +24,11 @@ section {
     padding-inline: clamp(24px, calc(-120px + 12vw), 48px) clamp(16px, calc(-80px + 8vw), 32px);
 }
 
+.btn-close:hover {
+    border-radius: 50%;
+    background-color: $color-btn-hover;
+}
+
 .sec-title {
     width: 40%;
     height: 100%;
