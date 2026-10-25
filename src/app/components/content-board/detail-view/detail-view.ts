@@ -52,6 +52,13 @@ export class DetailView {
         }
     }
 
+    onDialogClose() {
+        if (this.dialogService.mode() === 'edit-task') {
+            return;
+        }
+        this.dialogService.close();
+    }
+
     async deleteTask(id: number) {
         await this.taskService.deleteTask(id);
         this.dialogService.close();

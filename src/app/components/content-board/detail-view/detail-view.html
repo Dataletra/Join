@@ -1,4 +1,4 @@
-<dialog #taskdetail class="detail-view" closedby="any" (close)="dialogService.close()">
+<dialog #taskdetail class="detail-view" closedby="any" (close)="onDialogClose()">
     @if (task(); as currentTask) {
         <div class="dialog_wrapper">
             <div class="dialog-header">
@@ -77,7 +77,7 @@
                     Delete
                 </button>
                 <hr />
-                <button>
+                <button (click)="dialogService.switchToEditTask()">
                     <img src="./assets/icons/edit.svg" aria-hidden="true" />
                     Edit
                 </button>
