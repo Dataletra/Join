@@ -51,12 +51,26 @@
             </div>
             <div class="subtasks">
                 <p class="sub-title">Subtasks</p>
-                @for (subtask of currentTask.subtasks; track $index) {
-                    <label class="subtask-row">
-                        <input type="checkbox" [checked]="subtask.completed" />
-                        <p>{{ subtask.title }}</p>
-                    </label>
-                }
+                <div class="sub-body">
+                    @for (subtask of currentTask.subtasks; track $index) {
+                        <label class="subtask-row">
+                            <input type="checkbox" [checked]="subtask.completed" [class.checked]="subtask.completed" />
+                            <p>{{ subtask.title }}</p>
+                        </label>
+                    }
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button>
+                    <img src="./assets/icons/delete.svg" aria-hidden="true" />
+                    Delete
+                </button>
+                <hr />
+                <button>
+                    <img src="./assets/icons/edit.svg" aria-hidden="true" />
+                    Edit
+                </button>
             </div>
         </div>
     }
