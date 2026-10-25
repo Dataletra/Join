@@ -3,6 +3,7 @@
     class="add-contact"
     closedby="any"
     (close)="dialogService.close()"
+    (click)="dialogService.close()"
     [class.move-in]="dialogService.isOpen()"
     [class.move-out]="!dialogService.isOpen()"
 >
