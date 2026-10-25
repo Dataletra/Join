@@ -1,17 +1,6 @@
-<dialog
-    #addContact
-    class="add-contact"
-    closedby="any"
-    (close)="dialogService.close()"
-    (click)="dialogService.close()"
-    [class.move-in]="dialogService.isOpen()"
-    [class.move-out]="!dialogService.isOpen()"
->
-    <div class="dialog-wrapper">
+<dialog #addContact class="add-contact" closedby="any" (close)="dialogService.close()">
+    <div class="dialog-wrapper" [class.move-in]="dialogService.isOpen()" [class.move-out]="!dialogService.isOpen()">
         <section class="sec-title">
-            <button class="close-mobi btn-close" (click)="dialogService.close()">
-                <img src="./assets/icons/close-white.svg" aria-hidden="true" />
-            </button>
             <div class="title_wrapper">
                 <img class="logo" src="./assets/icons/logo.svg" alt="Join" />
                 <h1>Add contact</h1>
@@ -20,21 +9,17 @@
             </div>
         </section>
         <section class="sec-forms">
-            <button class="close-tabl btn-close" (click)="dialogService.close()">
+            <button class="btn-close" (click)="dialogService.close()">
                 <img src="./assets/icons/close.svg" aria-hidden="true" />
+                <img src="./assets/icons/close-white.svg" aria-hidden="true" />
             </button>
-            <div class="avatar-wrapper">
-                <app-ic-contact
-                    class="avatar"
-                    [name]="avatarName"
-                    [enableShadow]="true"
-                    [isDummy]="avatarName === ''"
-                ></app-ic-contact>
-            </div>
+            <app-ic-contact
+                class="avatar"
+                [name]="avatarName"
+                [enableShadow]="true"
+                [isDummy]="avatarName === ''"
+            ></app-ic-contact>
             <div class="forms-wrapper">
-                <button class="close-desk btn-close" (click)="dialogService.close()">
-                    <img src="./assets/icons/close.svg" aria-hidden="true" />
-                </button>
                 <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
                     <div class="forms-input">
                         <input
