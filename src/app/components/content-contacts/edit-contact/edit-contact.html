@@ -1,5 +1,12 @@
-<dialog #editContact class="add-contact" closedby="any" (close)="dialogService.close()">
-    <div class="dialog-wrapper" [class.move-in]="dialogService.isOpen()" [class.move-out]="!dialogService.isOpen()">
+<dialog
+    #editContact
+    class="add-contact"
+    closedby="any"
+    (close)="dialogService.close()"
+    [class.move-in]="dialogService.isOpen()"
+    [class.move-out]="!dialogService.isOpen()"
+>
+    <div class="dialog-wrapper">
         <section class="sec-title">
             <button class="close-mobi btn-close" (click)="dialogService.close()">
                 <img src="./assets/icons/close-white.svg" aria-hidden="true" />
