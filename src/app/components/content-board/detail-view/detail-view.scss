@@ -3,25 +3,32 @@
 
 dialog {
     width: 525px;
-    max-height: 931px;
-    // height: 931px;
     margin: auto;
     border-radius: 30px;
     border: none;
-    // background: transparent;
-    @include scrollbar-light;
 }
 
 .dialog_wrapper {
     width: 100%;
     height: 100%;
-    padding: 48px 40px;
+}
+
+.dialog-header {
+    padding: 48px 40px 0 40px;
 }
 
 .category {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.dialog-content {
+    max-height: 900px;
+    padding-inline: 40px;
+    overflow-y: auto;
+    @include scrollbar-light;
 }
 
 .title {
@@ -142,6 +149,7 @@ dialog {
     display: flex;
     justify-content: end;
     gap: 8px;
+    padding: 24px 40px 48px 40px;
 
     button {
         font-size: 16px;
@@ -150,5 +158,77 @@ dialog {
             width: 24px;
             height: 24px;
         }
+    }
+}
+
+@media screen and (max-width: $media-sm) {
+    .dialog_wrapper {
+        width: 100%;
+    }
+
+    .dialog-header {
+        padding: 32px 24px 0 24px;
+    }
+
+    .category {
+        margin-bottom: 16px;
+    }
+
+    .dialog-content {
+        max-height: 70dvh;
+        padding-inline: 24px;
+    }
+
+    .title {
+        font-size: 36px;
+        font-weight: 700;
+        margin-bottom: 16px;
+    }
+
+    .description {
+        margin-bottom: 16px;
+        font-size: 16px;
+    }
+
+    .date-prio {
+        margin-bottom: 16px;
+
+        table {
+            font-size: 16px;
+            border-spacing: 0 16px;
+        }
+    }
+
+    .assigned-to {
+        margin-bottom: 16px;
+
+        p {
+            font-size: 16px;
+        }
+    }
+
+    .user-list {
+        max-height: 180px;
+        padding: 16px;
+
+        .user {
+            gap: 16px;
+            padding: 7px 0 7px 0;
+
+            .icon-wrapper {
+                .user-icon {
+                    width: 36px;
+                    height: 36px;
+                }
+            }
+
+            p {
+                font-size: 16px;
+            }
+        }
+    }
+
+    .buttons {
+        padding: 16px 24px 32px 24px;
     }
 }

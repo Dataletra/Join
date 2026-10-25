@@ -5,6 +5,8 @@ import { ITask } from '../../../interfaces/itask';
 import { Status } from '../../../interfaces/status';
 import { IcContact } from '../../elements/ic-contact/ic-contact';
 import { ContactService } from '../../../services/contact-service';
+import { TasksService } from '../../../services/tasks-service';
+import { Task } from '../../models/task';
 
 @Component({
     imports: [TaskLable, IcContact],
@@ -14,29 +16,12 @@ import { ContactService } from '../../../services/contact-service';
 })
 export class DetailView {
     contactService = inject(ContactService);
+    taskService = inject(TasksService);
     dialogService = inject(ContactDialog);
     dialog = viewChild<ElementRef<HTMLDialogElement>>('taskdetail');
-
+    subtaskUpdateQueue: Promise<void> = Promise.resolve();
     readonly task = computed(() => this.dialogService.selectedTask());
 
-    //TODO just for tests
-    // readonly task = input<ITask>({
-    //     id: 1,
-    //     created_at: '2026-10-15',
-    //     title: 'das ist ein sehr, sehr langer Titel',
-    //     description: 'Lorem ipsum dolor sit amet.',
-    //     category: 'Technical Task',
-    //     priority: 'urgent',
-    //     status: Status.todo,
-    //     user_ids: [15, 23, 31, 43, 50],
-    //     subtasks: [
-    //         { title: 'Test Subtask 1', completed: false },
-    //         { title: 'Test Subtask 2', completed: true },
-    //     ],
-    //     due_date: '2026-10-30',
-    // });
-
-    //TODO  Delete and get data from task-card
     assignedUsers = computed(() => {
         const task = this.task();
         if (!task) {
@@ -65,5 +50,24 @@ export class DetailView {
         if (!isOpen && element.open) {
             element.close();
         }
+    }
+
+    async deleteTask(id: number) {
+        await this.taskService.deleteTask(id);
+        this.dialogService.close();
+    }
+
+    async toggleSubtask(task: ITask, index: number, event: Event) {
+        const checkbox = event.target as HTMLInputElement;
+        const updatedSubtasks = task.subtasks.map((subtask, i) =>
+            i === index ? { ...subtask, completed: checkbox.checked } : subtask
+        );
+        const updatedTask = {
+            ...task,
+            subtasks: updatedSubtasks,
+        };
+        this.dialogService.selectedTask.set(updatedTask);
+        this.subtaskUpdateQueue = this.subtaskUpdateQueue.then(() => this.taskService.editTask(new Task(updatedTask)));
+        await this.subtaskUpdateQueue;
     }
 }
