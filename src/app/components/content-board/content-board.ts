@@ -3,7 +3,7 @@ import { ButtonPrimary } from '../elements/button-primary/button-primary';
 import { TaskListService } from '../../services/tasklist-service';
 import { TasksService } from '../../services/tasks-service';
 import { TaskCard } from './task-card/task-card';
-import { Status } from '../../interfaces/status';
+import { Status } from '../../interfaces/enums';
 import { ITask } from '../../interfaces/itask';
 import {
     CdkDrag,

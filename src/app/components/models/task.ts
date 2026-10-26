@@ -1,42 +1,47 @@
-import { ITask, ISubtask } from '../../interfaces/itask';
-import { Status } from '../../interfaces/status';
+import { ISubtask, ITask, ITaskUser } from '../../interfaces/itask';
+import { Status, Priority } from '../../interfaces/enums';
 
 export class Task implements ITask {
     id: number = 0;
-    created_at: string = '';
-    title: string = '';
-    description: string = '';
-    category: 'User Story' | 'Technical Task' = 'User Story';
-    priority: 'low' | 'medium' | 'urgent' = 'medium';
+    created_at: string = '0000-00-00T00:00:00.000Z';
+    title: string = 'Title';
+    description: string = 'Description';
+    category: 'Technical Task' | 'User Story' = 'Technical Task';
+    due_date: string = '';
+    priority: Priority = Priority.medium;
     status: Status = Status.todo;
     user_ids: number[] = [];
     subtasks: ISubtask[] = [];
-    due_date: string = '';
 
     constructor(task: Partial<ITask> | null = {}) {
         this.id = task?.id ?? 0;
-        this.created_at = task?.created_at ?? new Date().toISOString();
+        this.created_at = task?.created_at ?? '0000-00-00T00:00:00.000Z';
         this.title = task?.title ?? '';
         this.description = task?.description ?? '';
-        this.category = task?.category ?? 'User Story';
-        this.priority = task?.priority ?? 'medium';
+        this.category = task?.category ?? 'Technical Task';
+        this.due_date = task?.due_date ?? '';
+        this.priority = task?.priority ?? Priority.medium;
         this.status = task?.status ?? Status.todo;
         this.user_ids = task?.user_ids ?? [];
         this.subtasks = task?.subtasks ?? [];
-        this.due_date = task?.due_date ?? '';
     }
 
     getCleanAddJson() {
         return {
-            created_at: this.created_at,
             title: this.title,
             description: this.description,
             category: this.category,
+            due_date: this.due_date,
             priority: this.priority,
             status: this.status,
             user_ids: this.user_ids,
             subtasks: this.subtasks,
-            due_date: this.due_date,
         };
     }
 }
+
+//TODO ENUM priority
+//TODO ENUM category (maybe?)
+//TODO FIX task.ts -> make work with interface
+//TODO content-add-task.ts -> comboboxUserID's has to actually return the ID's and not USERS
+//TODO adjust content-add-task.ts to work with task class

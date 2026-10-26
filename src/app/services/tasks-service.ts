@@ -2,7 +2,7 @@ import { inject, Service, signal } from '@angular/core';
 import { SupabaseService } from './supabase';
 import { ITask } from '../interfaces/itask';
 import { Task } from '../components/models/task';
-import { Status } from '../interfaces/status';
+import { Status } from '../interfaces/enums';
 
 @Service()
 export class TasksService {

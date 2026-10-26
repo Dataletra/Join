@@ -1,42 +1,94 @@
 @use '../../../../public/styles/abstract/variables.scss' as *;
 @use '../../../../public/styles/abstract/mixin.scss' as *;
+@use '../../../../public/styles/abstract/functions.scss' as *;
+
 @import url('https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined');
 
-:host {
+.wrapper {
     display: flex;
-    gap: 40px;
+    gap: 20px;
     width: 100%;
-    justify-content: center;
+    justify-content: flex-start;
     font-family: inter;
-
-    .mandatory-color {
-        color: red;
-    }
-
-    input {
+    position: relative;
+    input,
+    textarea {
         width: 100%;
-        height: 50px;
+        height: 40px;
         border: 1px solid $color-input-border;
         border-radius: 10px;
-        padding: 13px 21px;
-        font-size: 20px;
+        padding: 10px 10px;
+        font-size: 16px;
+        overflow-y: hidden;
+        font-family: inter;
     }
+    textarea {
+        min-width: 100%;
+        min-height: 100px;
+        max-width: 410px;
+    }
+}
+
+.component-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    padding-top: 80px;
+    padding-left: clamp-px(15, 80, 1440, 950);
+    padding-right: clamp-px(15, 80, 1440, 950);
+
+    gap: 20px;
+}
+
+.mandatory-color {
+    color: red;
+}
+
+.add-task-footer {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 880px;
+    align-items: center;
+    margin-top: 15px;
+    // margin-top: auto;
+    // margin-bottom: 15px;
+}
+
+.input-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 .left-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0px;
     .input-container {
-        padding: 15px;
+        padding: 0px;
     }
+    width: 50%;
+    max-width: 420px;
 }
+
 .right-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 15px;
     .input-container {
-        padding: 10px;
+        padding-bottom: 0px;
     }
+    width: 50%;
+    max-width: 420px;
 }
 
 .userIconContainer {
     width: 100%;
-    height: fit-content;
+    min-height: 35px;
     display: flex;
     padding-left: 15px;
 }
@@ -45,4 +97,74 @@
     width: 35px;
     height: 35px;
     min-width: 35px;
+}
+
+.finalize-btn-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-left: auto;
+}
+
+.check-wrapper {
+    min-height: 20px;
+}
+
+@media screen and (min-width: 1440px) {
+    .component-container {
+        max-width: 1440px;
+    }
+}
+
+@media screen and (max-width: $media-m) {
+    .component-container {
+        padding-top: 20px;
+    }
+    .left-wrapper {
+        width: 40%;
+    }
+    .right-wrapper {
+        width: 60%;
+    }
+}
+@media screen and (max-width: $media-sm) {
+    h1 {
+        font-size: 42px;
+    }
+    .wrapper {
+        min-height: 100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 0;
+    }
+    :host {
+        max-height: $height-content-mobile;
+    }
+    .component-container {
+        padding-top: 20px;
+    }
+    form {
+        overflow-y: scroll;
+        scrollbar-width: none;
+    }
+    .left-wrapper {
+        width: 100%;
+    }
+    .right-wrapper {
+        width: 100%;
+    }
+    .add-task-footer {
+        margin-bottom: 15px;
+        margin-left: auto;
+    }
+    .finalize-btn-container {
+        gap: 30px;
+        justify-content: flex-end;
+        align-items: flex-end;
+    }
+
+    .mobile-d-none {
+        display: none;
+    }
 }
