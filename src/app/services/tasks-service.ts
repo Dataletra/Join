@@ -9,6 +9,12 @@ export class TasksService {
     supabase = inject(SupabaseService).supabase;
     tasklist = signal<ITask[]>([]);
 
+    ngOnDestroy() {
+        this.supabase.removeChannel(this.channelTaskInsert);
+        this.supabase.removeChannel(this.channelTaskUpdate);
+        this.supabase.removeChannel(this.channelTaskDelete);
+    }
+
     channelTaskInsert = this.supabase
         .channel('task-insert-channel')
         .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'tasks' }, (payload) => {
@@ -38,10 +44,6 @@ export class TasksService {
         this.tasklist.set(data.map((task) => new Task(task)));
     }
 
-    getTaskPerId(id: number | undefined): ITask | undefined {
-        return id ? this.tasklist().find((task) => task.id === id) : undefined;
-    }
-
     async addTask(task: Task) {
         const taskData = task.getCleanAddJson();
         const { data, error } = await this.supabase.from('tasks').insert([taskData]).select();
@@ -62,9 +64,20 @@ export class TasksService {
         const { error } = await this.supabase.from('tasks').delete().eq('id', id);
     }
 
-    ngOnDestroy() {
-        this.supabase.removeChannel(this.channelTaskInsert);
-        this.supabase.removeChannel(this.channelTaskUpdate);
-        this.supabase.removeChannel(this.channelTaskDelete);
+    getTaskPerId(id: number | undefined): ITask | undefined {
+        return id ? this.tasklist().find((task) => task.id === id) : undefined;
+    }
+
+    findString(searchkey: string): number[] {
+        const results: number[] = [];
+        for (const task of this.tasklist()) {
+            if (
+                task.title.toLowerCase().includes(searchkey.toLowerCase()) ||
+                task.description.toLowerCase().includes(searchkey.toLowerCase())
+            ) {
+                results.push(task.id);
+            }
+        }
+        return results;
     }
 }

@@ -34,14 +34,13 @@ export class Toast {
     }
 
     showToast(message: string, type: ToastType = ToastType.none) {
-        console.log(type, this.typeMatch.get(type));
         if (this.typeMatch.get(type)) {
             this.message.set(message);
             this.show();
             setTimeout(() => {
                 this.hide();
             }, 2000);
-            this.typeMatch.set(type, false);
+            this.typeMatch.set(type, type === ToastType.none);
         }
     }
 }
