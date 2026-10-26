@@ -1,7 +1,14 @@
 <div class="header-wrapper">
     <header class="board-header">
         <h3 class="title">Board</h3>
-        <app-button-primary [typeStr]="'addTask'" [small]="true">Add task</app-button-primary>
+        <app-button-primary
+            [typeStr]="'addTask'"
+            [small]="true"
+            routerLink="/add-task"
+            routerLinkActive="active"
+            [class.active]="activeUrl() === '/add-task'"
+            >Add task</app-button-primary
+        >
 
         <nav class="search-bar">
             <input

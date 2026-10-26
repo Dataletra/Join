@@ -16,14 +16,28 @@ import {
     CdkDragMove,
 } from '@angular/cdk/drag-drop';
 import { Toast } from '../../services/toast';
+import { Event, NavigationEnd, Router, RouterLink } from '@angular/router';
+import { TrackableNavigate } from '../../services/trackable-navigate';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
-    imports: [ButtonPrimary, CdkDrag, CdkDropList, CdkDragPlaceholder, CdkDragPreview, TaskCard],
+    imports: [ButtonPrimary, CdkDrag, CdkDropList, CdkDragPlaceholder, CdkDragPreview, TaskCard, RouterLink],
     selector: 'app-content-board',
     styleUrl: './content-board.scss',
     templateUrl: './content-board.html',
 })
 export class ContentBoard {
+    navigateService = inject(TrackableNavigate);
+    private readonly router = inject(Router);
+    private readonly activeUrl = signal<string>('');
+
+    constructor() {
+        this.router.events.pipe(takeUntilDestroyed()).subscribe((event: Event) => {
+            if (event instanceof NavigationEnd) {
+                this.activeUrl.set(event.url);
+            }
+        });
+    }
     lastX: number = 0;
     transX: number = 0;
     transY: number = 0;
