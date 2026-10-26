@@ -96,4 +96,11 @@ export class ContentAddTask {
 
         console.log('Task Payload:', newTask.getCleanAddJson());
     }
+
+    //TODO: Textarea on description
+    //TODO: CSS content add task
+    //TODO: Board: link IncomingStatus() board buttons
+    //TODO: Board: render AddTask over dialog in board
+    //TODO: Assign user: if user selected, background dark blue
+    //TODO: Description isn't mandatory
 }
