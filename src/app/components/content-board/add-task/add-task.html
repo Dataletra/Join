@@ -1,0 +1,23 @@
+<dialog
+    #addTaskDialog
+    closedby="any"
+    (close)="dialogService.close()"
+    (click)="dialogService.close()"
+    [class.d-none]="dialogService.mode() !== 'add-task'"
+>
+    <div
+        class="animation-wrapper"
+        (click)="dialogService.stopPropagation($event)"
+        [class.move-in-visible]="dialogService.isOpen()"
+        [class.move-out-visible]="!dialogService.isOpen()"
+    >
+        <div class="dialog-wrapper">
+            <header class="add-task-dialog-header">
+                <h3>Add Task</h3>
+                <button class="btn-close" (click)="dialogService.close()">
+                    <img src="./assets/icons/close.svg" aria-hidden="true" />
+                </button>
+            </header>
+        </div>
+    </div>
+</dialog>

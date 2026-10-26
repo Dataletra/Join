@@ -1,103 +1,109 @@
-<dialog #addContact class="add-contact" closedby="any" (close)="dialogService.close()">
-    <div class="dialog-wrapper">
-        <section class="sec-title">
-            <button class="close-mobi" (click)="dialogService.close()">
-                <img src="./assets/icons/close-white.svg" aria-hidden="true" />
-            </button>
-            <div class="title_wrapper">
-                <img class="logo" src="./assets/icons/logo.svg" alt="Join" />
-                <h1>Add contact</h1>
-                <h2>Tasks are better with a team!</h2>
-                <hr />
-            </div>
-        </section>
-        <section class="sec-forms">
-            <button class="close-tabl" (click)="dialogService.close()">
-                <img src="./assets/icons/close.svg" aria-hidden="true" />
-            </button>
-            <div class="avatar-wrapper">
+<dialog
+    #addContact
+    closedby="any"
+    (close)="dialogService.close()"
+    (click)="dialogService.close()"
+    [class.d-none]="dialogService.mode() !== 'add'"
+>
+    <div
+        class="animation-wrapper"
+        (click)="dialogService.stopPropagation($event)"
+        [class.move-in-visible]="dialogService.isOpen()"
+        [class.move-out-visible]="!dialogService.isOpen()"
+    >
+        <div class="dialog-wrapper">
+            <section class="sec-title">
+                <div class="title_wrapper">
+                    <img class="logo" src="./assets/icons/logo.svg" alt="Join" />
+                    <h1>Add contact</h1>
+                    <h2>Tasks are better with a team!</h2>
+                    <hr />
+                </div>
+            </section>
+            <section class="sec-forms">
+                <button class="btn-close" (click)="dialogService.close()">
+                    <img src="./assets/icons/close.svg" aria-hidden="true" />
+                    <img src="./assets/icons/close-white.svg" aria-hidden="true" />
+                </button>
                 <app-ic-contact
                     class="avatar"
                     [name]="avatarName"
                     [enableShadow]="true"
                     [isDummy]="avatarName === ''"
                 ></app-ic-contact>
-            </div>
-            <div class="forms-wrapper">
-                <button class="close-desk" (click)="dialogService.close()">
-                    <img src="./assets/icons/close.svg" aria-hidden="true" />
-                </button>
-                <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
-                    <div class="forms-input">
-                        <input
-                            class="input-name"
-                            type="text"
-                            placeholder="Name"
-                            formControlName="name"
-                            (blur)="updateAvatar()"
-                        />
-                        <div class="check-wrapper">
-                            <p
-                                class="form-check"
-                                [class.is-visible]="
-                                    contactForm.controls.name.invalid && contactForm.controls.name.touched
-                                "
-                            >
-                                @if (contactForm.controls.name.hasError('required')) {
-                                    Please enter a name.
-                                } @else if (contactForm.controls.name.hasError('namePattern')) {
-                                    Please enter your first and last name.
-                                }
-                            </p>
+                <div class="forms-wrapper">
+                    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                        <div class="forms-input">
+                            <input
+                                class="input-name"
+                                type="text"
+                                placeholder="Name"
+                                formControlName="name"
+                                (blur)="updateAvatar()"
+                            />
+                            <div class="check-wrapper">
+                                <p
+                                    class="form-check"
+                                    [class.is-visible]="
+                                        contactForm.controls.name.invalid && contactForm.controls.name.touched
+                                    "
+                                >
+                                    @if (contactForm.controls.name.hasError('required')) {
+                                        Please enter a name.
+                                    } @else if (contactForm.controls.name.hasError('namePattern')) {
+                                        Please enter your first and last name.
+                                    }
+                                </p>
+                            </div>
+                            <input class="input-email" type="email" placeholder="Email" formControlName="email" />
+                            <div class="check-wrapper">
+                                <p
+                                    class="form-check"
+                                    [class.is-visible]="
+                                        contactForm.controls.email.invalid && contactForm.controls.email.touched
+                                    "
+                                >
+                                    @if (contactForm.controls.email.hasError('required')) {
+                                        Please enter an email address.
+                                    } @else if (
+                                        contactForm.controls.email.hasError('email') ||
+                                        contactForm.controls.email.hasError('emailPattern')
+                                    ) {
+                                        Please enter a valid email address.
+                                    }
+                                </p>
+                            </div>
+                            <input class="input-number" type="tel" placeholder="Phone" formControlName="phone" />
+                            <div class="check-wrapper">
+                                <p
+                                    class="form-check"
+                                    [class.is-visible]="
+                                        contactForm.controls.phone.invalid && contactForm.controls.phone.touched
+                                    "
+                                >
+                                    @if (contactForm.controls.phone.hasError('required')) {
+                                        Please enter a phone number.
+                                    } @else if (contactForm.controls.phone.hasError('phonePattern')) {
+                                        Please enter a valid phone number.
+                                    }
+                                </p>
+                            </div>
                         </div>
-                        <input class="input-email" type="email" placeholder="Email" formControlName="email" />
-                        <div class="check-wrapper">
-                            <p
-                                class="form-check"
-                                [class.is-visible]="
-                                    contactForm.controls.email.invalid && contactForm.controls.email.touched
-                                "
+                        <div class="forms-buttons">
+                            <app-button-primary class="cancel-btn" [typeStr]="'cancel'" (click)="dialogService.close()"
+                                >Cancel</app-button-primary
                             >
-                                @if (contactForm.controls.email.hasError('required')) {
-                                    Please enter an email address.
-                                } @else if (
-                                    contactForm.controls.email.hasError('email') ||
-                                    contactForm.controls.email.hasError('emailPattern')
-                                ) {
-                                    Please enter a valid email address.
-                                }
-                            </p>
-                        </div>
-                        <input class="input-number" type="tel" placeholder="Phone" formControlName="phone" />
-                        <div class="check-wrapper">
-                            <p
-                                class="form-check"
-                                [class.is-visible]="
-                                    contactForm.controls.phone.invalid && contactForm.controls.phone.touched
-                                "
+                            <app-button-primary
+                                class="create-btn"
+                                [buttonType]="'submit'"
+                                [typeStr]="'createTask'"
+                                [isDisabled]="contactForm.invalid"
+                                >Create contact</app-button-primary
                             >
-                                @if (contactForm.controls.phone.hasError('required')) {
-                                    Please enter a phone number.
-                                } @else if (contactForm.controls.phone.hasError('phonePattern')) {
-                                    Please enter a valid phone number.
-                                }
-                            </p>
                         </div>
-                    </div>
-                    <div class="forms-buttons">
-                        <app-button-primary class="cancel-btn" [typeStr]="'cancel'" (click)="dialogService.close()"
-                            >Cancel</app-button-primary
-                        >
-                        <app-button-primary
-                            class="create-btn"
-                            [buttonType]="'submit'"
-                            [typeStr]="'createTask'"
-                            [isDisabled]="contactForm.invalid"
-                            >Create contact</app-button-primary
-                        >
-                    </div>
-                </form>
-            </div>
-        </section>
+                    </form>
+                </div>
+            </section>
+        </div>
     </div>
 </dialog>

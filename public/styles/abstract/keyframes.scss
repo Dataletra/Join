@@ -19,3 +19,23 @@
         transform: translateX(100%);
     }
 }
+
+@keyframes moveInLeftVisible {
+    0% {
+        transform: translateX(100svw);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes moveOutRightVisible {
+    0% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(100svw);
+    }
+}

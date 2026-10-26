@@ -16,6 +16,7 @@ import {
     CdkDragMove,
 } from '@angular/cdk/drag-drop';
 import { Toast } from '../../services/toast';
+import { ContactDialog } from '../../services/contact-dialog';
 
 @Component({
     imports: [ButtonPrimary, CdkDrag, CdkDropList, CdkDragPlaceholder, CdkDragPreview, TaskCard],
@@ -29,6 +30,7 @@ export class ContentBoard {
     transY: number = 0;
     turn: number = 0;
 
+    dialogService = inject(ContactDialog);
     sortingService = inject(TaskListService);
     taskService = inject(TasksService);
     toastService = inject(Toast);
