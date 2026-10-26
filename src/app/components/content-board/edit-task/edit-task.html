@@ -1,4 +1,31 @@
 <dialog #edittask class="edit-task" closedby="any">
-    <p>edit-task works!</p>
-    <h2>test</h2>
+    <div class="dialog-wrapper">
+        <div class="dialog-header">
+            <button class="close" (click)="dialogService.close()">
+                <img src="./assets/icons/close.svg" aria-hidden="true" />
+            </button>
+        </div>
+
+        <div class="dialog-content">
+            <div class="input-container">
+                <p>Title</p>
+                <input type="text" placeholder="Enter a title" formControlName="title" />
+                <div class="check-wrapper">
+                    <p class="form-check">Please enter a valid title.</p>
+                </div>
+            </div>
+
+            <div class="input-container">
+                <p>Description</p>
+
+                <textarea name="" id=""></textarea>
+                <input type="text" placeholder="Enter a description" formControlName="description" />
+                <div class="check-wrapper">
+                    <p class="form-check">Please enter a valid description.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="buttons"></div>
+    </div>
 </dialog>
