@@ -25,6 +25,8 @@ dialog {
     background: transparent;
     display: flex;
     align-items: center;
+    border-radius: 30px;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.4);
 }
 
 .dialog-wrapper {
