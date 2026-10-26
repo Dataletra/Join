@@ -177,3 +177,26 @@
         display: block;
     }
 }
+:host(.in-dialog) {
+    .component-container {
+        padding: 0px;
+    }
+    h1 {
+        font-size: 42px;
+    }
+    .right-wrapper {
+        gap: 5px;
+    }
+    .wrapper {
+        justify-content: center;
+    }
+    // textarea {
+    //     max-height: 150px !important;
+    // }
+    // :host {
+    //     min-height: $height-content-mobile;
+    // }
+    // form {
+    //     overflow-y: scroll;
+    // }
+}

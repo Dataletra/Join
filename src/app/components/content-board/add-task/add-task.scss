@@ -39,10 +39,9 @@ dialog {
     padding: clamp-px(32, 64);
 }
 
-.add-task-dialog-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+.btn-close {
+    position: absolute;
+    right: 70px;
 }
 
 .btn-close {

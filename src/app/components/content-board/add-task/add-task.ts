@@ -1,8 +1,9 @@
 import { Component, effect, ElementRef, inject, viewChild } from '@angular/core';
 import { ContactDialog } from '../../../services/contact-dialog';
+import { ContentAddTask } from '../../content-add-task/content-add-task';
 
 @Component({
-    imports: [],
+    imports: [ContentAddTask],
     selector: 'app-add-task',
     styleUrl: './add-task.scss',
     templateUrl: './add-task.html',
