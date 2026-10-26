@@ -17,7 +17,7 @@ dialog {
 }
 
 .animation-wrapper {
-    width: 84%;
+    width: 95%;
     height: clamp(400px, calc((100svh - 400px) + 400px), 600px);
     max-width: 1212px;
     margin: auto;
@@ -200,6 +200,7 @@ section {
     .forms-wrapper {
         .forms-input {
             margin-top: 20px;
+            margin-bottom: 20px;
         }
     }
 
@@ -211,8 +212,8 @@ section {
 @media screen and (max-width: $media-m) {
     .animation-wrapper {
         width: calc(100% - 32px);
-        height: calc(100svh - $height-footer - $height-header - 6px);
-        margin-top: $height-header + 3px;
+        height: calc(100svh - $height-footer - 6px);
+        margin-top: 3px;
     }
 }
 
