@@ -107,7 +107,7 @@ h5 {
 main {
     display: flex;
     width: 100%;
-    max-width: 1208px;
+    max-width: 1238px;
     height: 100%;
     padding-bottom: 2px;
     overflow-y: auto;
@@ -118,7 +118,7 @@ main {
         width: 100%;
         max-width: calc(100svw - $width-nav-desktop);
         height: 100%;
-        padding-inline: clamp-px(16, 64);
+        padding-inline: clamp-px(16, 48);
         padding-bottom: 24px;
 
         gap: 10px;
@@ -144,6 +144,7 @@ main {
 }
 
 .task-list-scroll-wrapper {
+    margin-top: 5px;
     height: 100%;
     width: 100%;
     overflow: auto;
@@ -197,7 +198,6 @@ main,
 // #endregion board-main
 
 // #section drag-drop
-
 .drag-placeholder {
     background-color: transparent;
     width: 100%;
@@ -239,3 +239,7 @@ main,
     transition: transform 125ms ease-in;
 }
 // #endsection drag-drop
+
+.color-red {
+    color: red;
+}
