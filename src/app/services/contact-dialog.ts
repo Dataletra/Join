@@ -5,14 +5,16 @@ import { ITask } from '../interfaces/itask';
 @Service()
 export class ContactDialog {
     isOpen = signal(false);
-    mode = signal<'add' | 'edit' | 'task' | 'edit-task' | null>(null);
+    mode = signal<'add' | 'edit' | 'add-task' | 'task' | 'edit-task' | null>(null);
     selectedUser = signal<IUser | null>(null);
     selectedTask = signal<ITask | null>(null);
 
-    openContact(mode: 'add' | 'edit', user: IUser | null = null) {
-        this.mode.set(mode);
-        this.selectedUser.set(user);
-        this.isOpen.set(true);
+    open(mode: 'add' | 'edit' | 'add-task', user: IUser | null = null) {
+        if (null === this.mode()) {
+            this.mode.set(mode);
+            this.selectedUser.set(user);
+            this.isOpen.set(true);
+        }
     }
 
     openTask(mode: 'task', task: ITask | null = null) {
@@ -31,10 +33,19 @@ export class ContactDialog {
     }
 
     close() {
-        this.isOpen.set(false);
-        this.mode.set(null);
-        this.selectedUser.set(null);
-        this.selectedTask.set(null);
+        if (this.isOpen()) {
+            this.isOpen.set(false);
+
+            setTimeout(() => {
+                this.mode.set(null);
+                this.selectedUser.set(null);
+                this.selectedTask.set(null);
+            }, 300);
+        }
+    }
+
+    stopPropagation(event: Event) {
+        event.stopPropagation();
     }
 }
 

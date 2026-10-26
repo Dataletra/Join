@@ -1,42 +1,69 @@
 @use '../../../../../public/styles/abstract/variables.scss' as *;
 @use '../../../../../public/styles/abstract/mixin.scss' as *;
+@use '../../../../../public/styles/abstract/keyframes.scss' as *;
+@use '../../../../../public/styles/abstract/helpers.scss' as *;
+@use '../../../../../public/styles/abstract/functions.scss' as *;
 
 dialog {
-    width: 84%;
-    max-width: 1212px;
-    height: 58%;
+    width: 100dvw;
+    height: 100dvh;
+    max-height: 100dvh;
+    max-width: 100dvw;
     margin: auto;
-    border-radius: 30px;
     border: none;
     background: transparent;
+    @include flex-center;
+    overflow: hidden;
+}
+
+.animation-wrapper {
+    width: 95%;
+    height: clamp(400px, calc((100svh - 400px) + 400px), 600px);
+    max-width: 1212px;
+    margin: auto;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
 }
 
 .dialog-wrapper {
     width: 100%;
     height: 100%;
+    border-radius: 30px;
     display: flex;
+    position: relative;
 }
 
 section {
     padding: 52px 0;
-    padding-inline: clamp(24px, calc(-120px + 12vw), 48px) clamp(16px, calc(-80px + 8vw), 32px);
+    padding-inline: clamp-px(20, 48);
+}
+
+.btn-close {
+    position: absolute;
+    right: clamp-px(20, 48);
+    top: clamp-px(28, 48);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+
+    &:hover {
+        background-color: $color-btn-hover;
+    }
+
+    img:last-child {
+        display: none;
+    }
 }
 
 .sec-title {
-    width: 40%;
+    display: flex;
+    align-items: center;
+    width: clamp-px(150, 450);
     height: 100%;
     background-color: $color-base;
-    border-radius: 0 0 0 30px;
-
-    .close-mobi {
-        display: none;
-    }
-
-    .title_wrapper {
-        position: absolute;
-        width: 40%;
-        top: 25%;
-    }
+    border-radius: 30px 0 0 30px;
 
     .logo {
         width: 55px;
@@ -44,11 +71,20 @@ section {
         margin-bottom: 12px;
     }
 
+    .title_wrapper {
+        width: 100%;
+    }
+
     h1 {
         font-size: clamp(40px, calc(-37px + 7vw), 61px);
         color: $color-nav-high;
         margin-bottom: 8px;
-        max-width: calc(100% - 24px);
+    }
+
+    h2 {
+        font-size: clamp(20px, calc(-24.333px + 3.667vw), 27px);
+        color: $color-nav-high;
+        margin-bottom: 16px;
     }
 
     hr {
@@ -64,48 +100,38 @@ section {
     justify-content: space-between;
     align-items: center;
     background-color: $color-nav-high;
-    border-radius: 0 0 30px 0;
+    overflow-y: auto;
+    border-radius: 0 30px 30px 0;
+    @include scrollbar-light;
+    gap: clamp-px(32, 72, 1400, 1200);
+    flex: 1;
 }
 
-.close-tabl {
-    display: none;
-}
-
-.avatar-wrapper {
-    height: 100%;
-    position: relative;
-
-    .avatar {
-        width: 120px;
-        height: 120px;
-        position: absolute;
-        top: 152px;
-    }
+.avatar {
+    width: 120px;
+    height: 120px;
+    min-width: 120px;
+    min-height: 120px;
+    transform: translateY(-50%);
 }
 
 .forms-wrapper {
     height: 100%;
-    width: 68%;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: end;
 
     form {
         width: 100%;
-    }
-
-    .close-desk {
-        width: 24px;
-        height: 24px;
     }
 
     .forms-input {
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 13px;
-        margin-top: 61px;
-        margin-bottom: 29px;
+        gap: clamp-px(5, 15);
+        margin-top: clamp-px(24, 61);
+        margin-bottom: clamp-px(24, 61);
 
         .check-wrapper {
             width: 100%;
@@ -125,15 +151,14 @@ section {
 
         input {
             width: 100%;
-            height: 50px;
+            height: clamp-px(40, 50, 1400, 700);
             border: 1px solid $color-input-border;
             border-radius: 10px;
             padding: 13px 21px;
-            padding-right: 30px;
+            padding-right: 40px;
             font-size: 20px;
             font-family: 'Inter';
             font-weight: 400;
-            text-overflow: ellipsis;
         }
 
         .input-name {
@@ -158,264 +183,87 @@ section {
     .forms-buttons {
         width: 100%;
         display: flex;
-        justify-content: start;
-
-        .delete-btn {
-            width: 113px;
-            margin-right: 25px;
-        }
+        flex-wrap: wrap;
+        row-gap: 16px;
+        gap: 25px;
     }
 }
 
 @media screen and (max-width: 1200px) {
     .sec-forms {
         flex-direction: column;
-        justify-content: start;
-
-        .close-tabl {
-            display: block;
-            position: absolute;
-            top: 28px;
-            right: 20px;
-        }
-
-        .avatar-wrapper {
-            height: auto;
-        }
-    }
-
-    .avatar-wrapper {
-        position: unset;
-
-        .avatar {
-            position: unset;
-        }
+        gap: 0;
     }
 
     .forms-wrapper {
-        width: 100%;
-        .close-desk {
-            display: none;
+        .forms-input {
+            margin-top: 20px;
+            margin-bottom: 20px;
         }
+    }
+
+    .avatar {
+        transform: translateY(0);
+    }
+}
+
+@media screen and (max-width: $media-m) {
+    .animation-wrapper {
+        width: calc(100% - 32px);
+        height: calc(100svh - $height-footer - 6px);
+        margin-top: 3px;
     }
 }
 
 @media screen and (max-width: $media-sm) {
-    dialog {
-        width: 90%;
-        height: 80%;
-        overflow: hidden;
-    }
-
     .dialog-wrapper {
         flex-direction: column;
     }
 
-    .sec-title {
-        width: 100%;
-        height: 46%;
-        border-radius: 30px 30px 0 0;
-
-        h1 {
-            font-size: 47px;
-        }
-
-        .title_wrapper {
-            width: 100%;
-            top: 10%;
-        }
-
-        .close-mobi {
-            display: block;
-            position: absolute;
-            top: 28px;
-            right: 20px;
-        }
-
-        .logo {
-            display: none;
-        }
-    }
-
-    .sec-forms {
-        width: 100%;
-        height: 54%;
-        display: flex;
+    .forms-buttons {
+        padding-bottom: 62px;
         justify-content: center;
-        position: relative;
+    }
 
-        .close-tabl {
+    .sec-forms,
+    .sec-title {
+        width: 100%;
+        height: 50%;
+    }
+
+    .sec-title {
+        border-radius: 30px 30px 0 0;
+    }
+
+    .sec-forms {
+        border-radius: 0 0 30px 30px;
+    }
+
+    .logo {
+        display: none;
+    }
+
+    .title_wrapper {
+        width: 100%;
+    }
+
+    .btn-close {
+        img:first-child {
             display: none;
         }
-    }
+        img:last-child {
+            display: block;
+        }
 
-    .forms-wrapper {
-        width: 100%;
-
-        .forms-buttons {
-            display: flex;
-            justify-content: center;
-
-            .delete-btn {
-                margin-right: 16px;
-            }
+        &:hover {
+            background-color: $color-high-2;
         }
     }
 
-    .avatar-wrapper {
+    .avatar {
         position: absolute;
-        top: -60px;
-    }
-}
-
-@media screen and (max-width: 360px) {
-    .sec-title {
-        h1 {
-            font-size: 40px;
-        }
-    }
-}
-
-@media screen and (max-height: 1100px) {
-    dialog {
-        width: 90%;
-        height: 85%;
-        overflow-y: auto;
-        @include scrollbar-light;
-    }
-
-    .dialog-wrapper {
-        height: auto;
-    }
-
-    .sec-title,
-    .sec-forms {
-        height: auto;
-        min-height: 500px;
-    }
-}
-
-@media screen and (max-height: 1100px) and (max-width: $media-sm) {
-    dialog {
-        width: 90%;
-        height: 600px;
-        overflow-y: auto;
-    }
-
-    section {
-        padding: 20px 16px;
-    }
-
-    .sec-title {
-        min-height: 210px;
-
-        h1 {
-            font-size: 34px;
-        }
-    }
-
-    .avatar-wrapper {
-        top: -45px;
-
-        .avatar {
-            width: 100px;
-            height: 100px;
-        }
-    }
-
-    .sec-forms {
-        border-radius: 0 0 30px 30px;
-        justify-content: unset;
-        min-height: unset;
-    }
-
-    .forms-wrapper {
-        .forms-input {
-            margin-top: 45px;
-            margin-bottom: 12px;
-            gap: 10px;
-
-            input {
-                height: 40px;
-                font-size: 16px;
-                padding: 10px 16px;
-                padding-right: 30px;
-            }
-
-            .check-wrapper {
-                height: 16px;
-            }
-
-            .form-check {
-                font-size: 12px;
-                padding-left: 16px;
-            }
-        }
-    }
-}
-
-@media screen and (max-height: 800px) and (max-width: $media-sm) {
-    dialog {
-        width: 90%;
-        height: 500px;
-        overflow-y: auto;
-    }
-
-    section {
-        padding: 16px;
-    }
-
-    .sec-title {
-        min-height: 190px;
-
-        h1 {
-            font-size: 30px;
-        }
-    }
-
-    .avatar-wrapper {
-        top: -45px;
-
-        .avatar {
-            width: 90px;
-            height: 90px;
-        }
-    }
-
-    .sec-forms {
-        border-radius: 0 0 30px 30px;
-        justify-content: unset;
-        min-height: unset;
-    }
-
-    .forms-wrapper {
-        .forms-input {
-            margin-top: 40px;
-            margin-bottom: 0;
-
-            input {
-                height: 30px;
-            }
-
-            .check-wrapper {
-                height: 10px;
-            }
-
-            .form-check {
-                font-size: 14px;
-            }
-        }
-
-        .forms-buttons {
-            padding-top: 16px;
-
-            .delete-btn,
-            .create-btn {
-                ::ng-deep button {
-                    height: 40px;
-                    font-size: 14px;
-                }
-            }
-        }
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
     }
 }

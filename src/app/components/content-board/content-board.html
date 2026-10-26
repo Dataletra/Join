@@ -1,7 +1,9 @@
 <div class="header-wrapper">
     <header class="board-header">
         <h3 class="title">Board</h3>
-        <app-button-primary [typeStr]="'addTask'" [small]="true">Add task</app-button-primary>
+        <app-button-primary [typeStr]="'addTask'" [small]="true" (click)="dialogService.open('add-task')"
+            >Add task</app-button-primary
+        >
 
         <nav class="search-bar">
             <input
@@ -9,9 +11,9 @@
                 class="search-input"
                 type="text"
                 placeholder="Find Task"
+                (keydown)="resetColor($event)"
                 (keydown.enter)="applyFilter(searchInput.value, true)"
                 (blur)="applyFilter(searchInput.value)"
-                (keydown)="resetColor($event)"
                 (pointerdown)="resetColor()"
                 [class.color-red]="notFound()"
             />
