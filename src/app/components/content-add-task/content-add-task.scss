@@ -186,8 +186,12 @@
     }
     .right-wrapper {
         gap: 5px;
+        padding-right: 5px;
     }
 
+    textarea {
+        max-width: 100%;
+    }
     @media screen and (max-width: 680px) {
         h1 {
             font-size: 42px;
@@ -242,7 +246,8 @@
     // :host {
     //     min-height: $height-content-mobile;
     // }
-    // form {
-    //     overflow-y: scroll;
-    // }
+    form {
+        overflow-y: scroll;
+        @include scrollbar-light(4, 8);
+    }
 }

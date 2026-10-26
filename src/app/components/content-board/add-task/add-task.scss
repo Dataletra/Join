@@ -8,8 +8,7 @@ dialog {
     width: 100dvw;
     height: 100dvh;
     max-height: 100dvh;
-    // max-width: 100dvw;
-    max-width: 1184px;
+    max-width: 100dvw;
     margin: auto;
     border: none;
     background: transparent;
@@ -20,8 +19,9 @@ dialog {
 .animation-wrapper {
     width: 84%;
     height: 58%;
-    max-width: 1212px;
-    height: 600px;
+    // max-width: 1212px;
+    max-width: 991px;
+    height: 650px;
     margin: auto;
     border-radius: 30px;
     border: none;
