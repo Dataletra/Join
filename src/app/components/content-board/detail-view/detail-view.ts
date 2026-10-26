@@ -2,7 +2,7 @@ import { Component, computed, effect, ElementRef, inject, input, viewChild } fro
 import { ContactDialog } from '../../../services/contact-dialog';
 import { TaskLable } from '../../elements/task-lable/task-lable';
 import { ITask } from '../../../interfaces/itask';
-import { Status } from '../../../interfaces/status';
+import { Status } from '../../../interfaces/enums';
 import { IcContact } from '../../elements/ic-contact/ic-contact';
 import { ContactService } from '../../../services/contact-service';
 import { TasksService } from '../../../services/tasks-service';

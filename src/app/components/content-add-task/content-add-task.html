@@ -16,7 +16,7 @@
 
             <div class="input-container">
                 <p>Description<span class="mandatory-color">*</span></p>
-                <input type="text" placeholder="Enter a description" formControlName="description" />
+                <textarea type="text" placeholder="Enter a description" formControlName="description"></textarea>
                 <div class="check-wrapper">
                     @if (
                         addTaskForm.controls.description.hasError('required') &&
