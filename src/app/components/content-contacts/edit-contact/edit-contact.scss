@@ -4,16 +4,28 @@
 @use '../../../../../public/styles/abstract/helpers.scss' as *;
 
 dialog {
+    width: 100dvw;
+    height: 100dvh;
+    max-height: 100dvh;
+    max-width: 100dvw;
+    margin: auto;
+    border: none;
+    background: transparent;
+    @include flex-center;
+    overflow: hidden;
+}
+
+.animation-wrapper {
     width: 84%;
-    max-width: 1212px;
     height: 58%;
+    max-width: 1212px;
+    height: 600px;
     margin: auto;
     border-radius: 30px;
     border: none;
     background: transparent;
     display: flex;
     align-items: center;
-    overflow: hidden;
 }
 
 .dialog-wrapper {
@@ -213,9 +225,9 @@ section {
 
 @media screen and (max-width: $media-sm) {
     dialog {
-        width: 90%;
-        height: 80%;
-        overflow: hidden;
+        // width: 90%;
+        // height: 80%;
+        // overflow: hidden;
     }
 
     .dialog-wrapper {
@@ -288,12 +300,12 @@ section {
 }
 
 @media screen and (max-height: 1100px) {
-    dialog {
-        width: 90%;
-        height: 85%;
-        overflow-y: auto;
-        @include scrollbar-light;
-    }
+    // dialog {
+    //     width: 90%;
+    //     height: 85%;
+    //     overflow-y: auto;
+    //     @include scrollbar-light;
+    // }
 
     .dialog-wrapper {
         height: auto;
@@ -307,11 +319,11 @@ section {
 }
 
 @media screen and (max-height: 1100px) and (max-width: $media-sm) {
-    dialog {
-        width: 90%;
-        height: 600px;
-        overflow-y: auto;
-    }
+    // dialog {
+    //     width: 90%;
+    //     height: 600px;
+    //     overflow-y: auto;
+    // }
 
     section {
         padding: 20px 16px;

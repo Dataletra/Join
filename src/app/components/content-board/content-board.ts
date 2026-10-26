@@ -17,10 +17,9 @@ import {
 } from '@angular/cdk/drag-drop';
 import { Toast } from '../../services/toast';
 import { ContactDialog } from '../../services/contact-dialog';
-import { AddTask } from './add-task/add-task';
 
 @Component({
-    imports: [ButtonPrimary, CdkDrag, CdkDropList, CdkDragPlaceholder, CdkDragPreview, TaskCard, AddTask],
+    imports: [ButtonPrimary, CdkDrag, CdkDropList, CdkDragPlaceholder, CdkDragPreview, TaskCard],
     selector: 'app-content-board',
     styleUrl: './content-board.scss',
     templateUrl: './content-board.html',

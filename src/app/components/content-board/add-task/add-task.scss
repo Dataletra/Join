@@ -2,17 +2,32 @@
 @use '../../../../../public/styles/abstract/functions.scss' as *;
 @use '../../../../../public/styles/abstract/keyframes.scss' as *;
 @use '../../../../../public/styles/abstract/helpers.scss' as *;
+@use '../../../../../public/styles/abstract/mixin.scss' as *;
 
 dialog {
+    width: 100dvw;
+    height: 100dvh;
+    max-height: 100dvh;
+    max-width: 100dvw;
+    margin: auto;
+    border: none;
+    background: transparent;
+    @include flex-center;
+    overflow: hidden;
+}
+
+.animation-wrapper {
     width: 84%;
     height: 58%;
     max-width: 1212px;
+    height: 600px;
     margin: auto;
     border-radius: 30px;
     border: none;
     background: transparent;
+    display: flex;
+    align-items: center;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.4);
-    overflow: hidden;
 }
 
 .dialog-wrapper {

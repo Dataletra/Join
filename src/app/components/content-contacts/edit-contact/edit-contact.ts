@@ -61,7 +61,7 @@ export class EditContact {
         if (!isOpen && element.open) {
             setTimeout(() => {
                 element.close();
-            }, 125);
+            }, 300);
         }
     }
 

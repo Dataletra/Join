@@ -8,14 +8,25 @@ export class ContactDialog {
     selectedUser = signal<IUser | null>(null);
 
     open(mode: 'add' | 'edit' | 'add-task', user: IUser | null = null) {
-        this.mode.set(mode);
-        this.selectedUser.set(user);
-        this.isOpen.set(true);
+        if (null === this.mode()) {
+            this.mode.set(mode);
+            this.selectedUser.set(user);
+            this.isOpen.set(true);
+        }
     }
 
     close() {
-        this.isOpen.set(false);
-        this.mode.set(null);
-        this.selectedUser.set(null);
+        if (this.isOpen()) {
+            this.isOpen.set(false);
+
+            setTimeout(() => {
+                this.mode.set(null);
+                this.selectedUser.set(null);
+            }, 300);
+        }
+    }
+
+    stopPropagation(event: Event) {
+        event.stopPropagation();
     }
 }

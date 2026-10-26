@@ -45,7 +45,7 @@ export class AddContact {
         if (!isOpen && element.open) {
             setTimeout(() => {
                 element.close();
-            }, 125);
+            }, 300);
         }
     }
 
