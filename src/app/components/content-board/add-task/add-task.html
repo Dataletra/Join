@@ -15,7 +15,10 @@
             <button class="btn-close" (click)="dialogService.close()">
                 <img src="./assets/icons/close.svg" aria-hidden="true" />
             </button>
-            <app-content-add-task class="in-dialog"></app-content-add-task>
+            <app-content-add-task
+                class="in-dialog"
+                [requestedStatus]="dialogService.progressType()"
+            ></app-content-add-task>
         </div>
     </div>
 </dialog>
