@@ -29,7 +29,10 @@
         <section class="section-tasks">
             <header class="section-header">
                 <h5>To do</h5>
-                <app-button-primary [typeStr]="'addTaskSmall'"></app-button-primary>
+                <app-button-primary
+                    (click)="dialogService.open('add-task'); dialogService.setProgressType('todo')"
+                    [typeStr]="'addTaskSmall'"
+                ></app-button-primary>
             </header>
             <div class="task-list-scroll-wrapper">
                 <div
@@ -80,7 +83,10 @@
         <section class="section-tasks">
             <header class="section-header">
                 <h5>In progress</h5>
-                <app-button-primary [typeStr]="'addTaskSmall'"></app-button-primary>
+                <app-button-primary
+                    (click)="dialogService.open('add-task'); dialogService.setProgressType('progress')"
+                    [typeStr]="'addTaskSmall'"
+                ></app-button-primary>
             </header>
             <div class="task-list-scroll-wrapper">
                 <div
@@ -131,7 +137,10 @@
         <section class="section-tasks">
             <header class="section-header">
                 <h5>Await feedback</h5>
-                <app-button-primary [typeStr]="'addTaskSmall'"></app-button-primary>
+                <app-button-primary
+                    (click)="dialogService.open('add-task'); dialogService.setProgressType('await')"
+                    [typeStr]="'addTaskSmall'"
+                ></app-button-primary>
             </header>
             <div class="task-list-scroll-wrapper">
                 <div

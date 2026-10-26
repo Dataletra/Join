@@ -2,9 +2,12 @@ import { Service, signal } from '@angular/core';
 
 export enum ToastType {
     none,
-    insert,
-    update,
-    delete,
+    insertContact,
+    updateContact,
+    deleteContact,
+    insertTask,
+    updateTask,
+    deleteTask,
 }
 
 @Service()
@@ -14,9 +17,12 @@ export class Toast {
 
     typeMatch: Map<ToastType, boolean> = new Map<ToastType, boolean>([
         [ToastType.none, true],
-        [ToastType.insert, false],
-        [ToastType.update, false],
-        [ToastType.delete, false],
+        [ToastType.insertContact, false],
+        [ToastType.updateContact, false],
+        [ToastType.deleteContact, false],
+        [ToastType.insertTask, false],
+        [ToastType.updateTask, false],
+        [ToastType.deleteTask, false],
     ]);
 
     setTypeMatch(type: ToastType) {

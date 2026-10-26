@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, signal } from '@angular/core';
+import { Component, computed, inject, Input, input, signal } from '@angular/core';
 import { ButtonPriority } from '../elements/button-priority/button-priority';
 import { ComboboxCategory } from '../elements/combobox-category/combobox-category';
 import { ComboboxAssignUser } from '../elements/combobox-assign-user/combobox-assign-user';
@@ -13,6 +13,7 @@ import { CustomValidators } from '../../services/custom-validators';
 import { Task } from '../models/task';
 import { Priority, Status } from '../../interfaces/enums';
 import { TasksService } from '../../services/tasks-service';
+import { ContactDialog } from '../../services/contact-dialog';
 
 @Component({
     imports: [
@@ -32,12 +33,13 @@ export class ContentAddTask {
     contactService = inject(ContactService);
     tasksService = inject(TasksService);
     customValidator = inject(CustomValidators);
+    contactDialog = inject(ContactDialog);
+    requestedStatus = input<Status>(Status.todo);
     comboboxUsers = signal<IUser[]>([]);
     selectedUserIds = signal<number[]>([]);
     IncomingSubtasks = signal<ISubtask[]>([]);
     IncomingCategory = signal<string>('');
     IncomingPriority = signal<string>('');
-    IncomingStatus = signal<string>(Status.todo);
     isCategoryTouched = signal<boolean>(false);
 
     addTaskForm = new FormGroup({
@@ -67,10 +69,6 @@ export class ContentAddTask {
         this.IncomingPriority.set(priority);
     }
 
-    importStatus(status: string) {
-        this.IncomingStatus.set(status);
-    }
-
     isTaskValid() {
         if (this.addTaskForm.valid && this.IncomingCategory() != '') {
             return true;
@@ -88,7 +86,7 @@ export class ContentAddTask {
             category: this.IncomingCategory() as 'Technical Task' | 'User Story',
             due_date: formValues.date ?? '',
             priority: this.IncomingPriority() as Priority,
-            status: this.IncomingStatus() as Status,
+            status: this.requestedStatus() as Status,
             user_ids: this.selectedUserIds(),
             subtasks: this.IncomingSubtasks(),
         });

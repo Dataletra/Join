@@ -110,6 +110,10 @@
     min-height: 20px;
 }
 
+.desktop-d-none {
+    display: none;
+}
+
 @media screen and (min-width: 1440px) {
     .component-container {
         max-width: 1440px;
@@ -127,6 +131,7 @@
         width: 60%;
     }
 }
+
 @media screen and (max-width: $media-sm) {
     h1 {
         font-size: 42px;
@@ -143,28 +148,106 @@
     }
     .component-container {
         padding-top: 20px;
+        padding-inline: 10px;
     }
     form {
         overflow-y: scroll;
         scrollbar-width: none;
     }
     .left-wrapper {
-        width: 100%;
+        width: 99%;
     }
     .right-wrapper {
-        width: 100%;
+        width: 99%;
     }
     .add-task-footer {
         margin-bottom: 15px;
         margin-left: auto;
     }
     .finalize-btn-container {
-        gap: 30px;
+        gap: 10px;
         justify-content: flex-end;
         align-items: flex-end;
     }
 
     .mobile-d-none {
         display: none;
+    }
+    .desktop-d-none {
+        display: block;
+    }
+}
+:host(.in-dialog) {
+    .component-container {
+        padding: 0px;
+    }
+    h1 {
+        font-size: 42px;
+    }
+    .right-wrapper {
+        gap: 5px;
+        padding-right: 5px;
+    }
+
+    textarea {
+        max-width: 100%;
+    }
+    @media screen and (max-width: 680px) {
+        h1 {
+            font-size: 42px;
+        }
+        .wrapper {
+            min-height: 100%;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+        }
+        :host {
+            max-height: $height-content-mobile;
+        }
+        .component-container {
+            padding-top: 20px;
+            padding-inline: 10px;
+        }
+        form {
+            overflow-y: scroll;
+            scrollbar-width: none;
+        }
+        .left-wrapper {
+            width: 99%;
+        }
+        .right-wrapper {
+            width: 99%;
+        }
+        .add-task-footer {
+            margin-bottom: 15px;
+            margin-left: auto;
+        }
+        .finalize-btn-container {
+            gap: 10px;
+            justify-content: flex-end;
+            align-items: flex-end;
+        }
+
+        .mobile-d-none {
+            display: none;
+        }
+        .desktop-d-none {
+            display: block;
+        }
+    }
+    // .wrapper {
+    //     justify-content: center;
+    // }
+    // textarea {
+    //     max-height: 150px !important;
+    // }
+    // :host {
+    //     min-height: $height-content-mobile;
+    // }
+    form {
+        overflow-y: scroll;
+        @include scrollbar-light(4, 8);
     }
 }
