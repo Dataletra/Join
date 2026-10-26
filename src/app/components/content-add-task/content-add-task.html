@@ -82,6 +82,7 @@
                 <div class="input-container">
                     <p>Subtasks</p>
                     <app-subtask (subtaskOutput)="importSubtasks($event)"></app-subtask>
+                    <p class="desktop-d-none"><span class="mandatory-color">*</span> This field is required</p>
                 </div>
             </div>
         </div>
@@ -89,8 +90,9 @@
     <div class="add-task-footer">
         <p class="mobile-d-none"><span class="mandatory-color">*</span> This field is required</p>
         <div class="finalize-btn-container">
-            <app-button-primary class="cancel-btn" [typeStr]="'cancel'">Cancel</app-button-primary>
+            <app-button-primary [small]="true" class="cancel-btn" [typeStr]="'cancel'">Clear</app-button-primary>
             <app-button-primary
+                [small]="true"
                 (click)="submitForm()"
                 type="submit"
                 class="create-btn"

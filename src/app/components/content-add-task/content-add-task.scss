@@ -110,6 +110,10 @@
     min-height: 20px;
 }
 
+.desktop-d-none {
+    display: none;
+}
+
 @media screen and (min-width: 1440px) {
     .component-container {
         max-width: 1440px;
@@ -127,6 +131,7 @@
         width: 60%;
     }
 }
+
 @media screen and (max-width: $media-sm) {
     h1 {
         font-size: 42px;
@@ -143,28 +148,32 @@
     }
     .component-container {
         padding-top: 20px;
+        padding-inline: 10px;
     }
     form {
         overflow-y: scroll;
         scrollbar-width: none;
     }
     .left-wrapper {
-        width: 100%;
+        width: 99%;
     }
     .right-wrapper {
-        width: 100%;
+        width: 99%;
     }
     .add-task-footer {
         margin-bottom: 15px;
         margin-left: auto;
     }
     .finalize-btn-container {
-        gap: 30px;
+        gap: 10px;
         justify-content: flex-end;
         align-items: flex-end;
     }
 
     .mobile-d-none {
         display: none;
+    }
+    .desktop-d-none {
+        display: block;
     }
 }
