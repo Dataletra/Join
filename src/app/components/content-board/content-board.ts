@@ -1,9 +1,9 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { ButtonPrimary } from '../elements/button-primary/button-primary';
 import { TaskListService } from '../../services/tasklist-service';
 import { TasksService } from '../../services/tasks-service';
 import { TaskCard } from './task-card/task-card';
-import { Status } from '../../interfaces/status';
+import { Status } from '../../interfaces/enums';
 import { ITask } from '../../interfaces/itask';
 import {
     CdkDrag,
@@ -15,6 +15,7 @@ import {
     CdkDragPreview,
     CdkDragMove,
 } from '@angular/cdk/drag-drop';
+import { Toast } from '../../services/toast';
 
 @Component({
     imports: [ButtonPrimary, CdkDrag, CdkDropList, CdkDragPlaceholder, CdkDragPreview, TaskCard],
@@ -30,6 +31,14 @@ export class ContentBoard {
 
     sortingService = inject(TaskListService);
     taskService = inject(TasksService);
+    toastService = inject(Toast);
+
+    notFound = signal<boolean>(false);
+    searchResults = signal<number[] | null>(null);
+    tasksToRender = computed(() => {
+        const toFilter = this.searchResults();
+        return toFilter ? this.sortingService.filter(toFilter) : this.sortingService.taskMap();
+    });
 
     private readonly Status = Status; // Make Status enum usable in HTML
 
@@ -138,5 +147,21 @@ export class ContentBoard {
         const pointer = event.pointerPosition;
         this.lastX = this.lastX == 0 ? pointer.x : this.lastX;
         this.turn = Math.min(5, Math.max(-5, (-1 * (this.lastX - pointer.x)) / 10));
+    }
+
+    applyFilter(searchkey: string, showToast: boolean = false) {
+        this.searchResults.set(searchkey ? this.taskService.findString(searchkey) : null);
+        if (0 === this.searchResults()?.length && showToast) {
+            this.toastService.showToast('No results found.');
+            this.notFound.set(true);
+        } else {
+            this.notFound.set(false);
+        }
+    }
+
+    resetColor(event: KeyboardEvent | null = null) {
+        if (null === event || event.key !== 'Enter') {
+            this.notFound.set(false);
+        }
     }
 }

@@ -1,53 +1,99 @@
-<div class="left-wrapper">
-    <div class="input-container">
-        <p>Title<span class="mandatory-color">*</span></p>
-        <input type="text" placeholder="Enter a title" formControlName="title" />
-        <div class="check-wrapper">
-            <p class="form-check">Please enter a valid title.</p>
+<form [formGroup]="addTaskForm">
+    <div class="wrapper">
+        <div class="left-wrapper">
+            <div class="input-container">
+                <p>Title<span class="mandatory-color">*</span></p>
+                <input type="text" placeholder="Enter a title" formControlName="title" />
+                <div class="check-wrapper">
+                    @if (
+                        addTaskForm.controls.title.hasError('required') &&
+                        (addTaskForm.controls.title.touched || addTaskForm.controls.title.dirty)
+                    ) {
+                        <p class="form-check">Please enter a title.</p>
+                    }
+                </div>
+            </div>
+
+            <div class="input-container">
+                <p>Description<span class="mandatory-color">*</span></p>
+                <input type="text" placeholder="Enter a description" formControlName="description" />
+                <div class="check-wrapper">
+                    @if (
+                        addTaskForm.controls.description.hasError('required') &&
+                        (addTaskForm.controls.description.touched || addTaskForm.controls.description.dirty)
+                    ) {
+                        <p class="form-check">Please enter a description.</p>
+                    }
+                </div>
+            </div>
+
+            <div class="input-container">
+                <p>Date<span class="mandatory-color">*</span></p>
+                <input type="date" placeholder="Enter a date" formControlName="date" />
+                <div class="check-wrapper">
+                    @if (
+                        addTaskForm.controls.date.hasError('required') &&
+                        (addTaskForm.controls.date.touched || addTaskForm.controls.date.dirty)
+                    ) {
+                        <p class="form-check">Please enter a date.</p>
+                    }
+                    @if (addTaskForm.controls.date.hasError('date in past')) {
+                        <p class="form-check">Date cannot be in the past.</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <hr class="breakline" />
+
+        <div class="right-wrapper">
+            <div class="input-container">
+                <p>Priority</p>
+                <app-button-priority (priorityOutput)="importPriority($event)" />
+            </div>
+
+            <div class="input-container">
+                <p>Assigned to</p>
+                <app-combobox-assign-user (selectedUser)="assignedUsers($event)"></app-combobox-assign-user>
+            </div>
+            <div class="userIconContainer">
+                @for (user of comboboxUsers().slice(0, 3); track $index) {
+                    <app-ic-contact class="user-ic" [name]="user.name"></app-ic-contact>
+                }
+                @if (comboboxUsers().length > 3) {
+                    <app-ic-contact class="user-ic" [name]="trimmedUserIc()"></app-ic-contact>
+                }
+            </div>
+            <div class="input-container">
+                <p>Category<span class="mandatory-color">*</span></p>
+                <app-combobox-category
+                    (categoryOutput)="importCategory($event)"
+                    (touched)="isCategoryTouched.set(true)"
+                >
+                </app-combobox-category>
+                <div class="check-wrapper">
+                    @if (IncomingCategory() == '' && isCategoryTouched()) {
+                        <p class="form-check">Please select a category.</p>
+                    }
+                </div>
+            </div>
+
+            <div class="input-container">
+                <p>Subtasks</p>
+                <app-subtask (subtaskOutput)="importSubtasks($event)"></app-subtask>
+            </div>
         </div>
     </div>
-
-    <div class="input-container">
-        <p>Description<span class="mandatory-color">*</span></p>
-        <input type="text" placeholder="Enter a description" formControlName="description" />
-        <div class="check-wrapper">
-            <p class="form-check">Please enter a valid description.</p>
-        </div>
+    <div class="finalize-btn-container">
+        <app-button-primary class="cancel-btn" [typeStr]="'cancel'">Cancel</app-button-primary>
+        <app-button-primary
+            (click)="submitForm()"
+            type="submit"
+            class="create-btn"
+            [buttonType]="'submit'"
+            [typeStr]="'createTask'"
+            [isDisabled]="!isTaskValid()"
+            >Create Task</app-button-primary
+        >
     </div>
-
-    <div class="input-container">
-        <p>Date<span class="mandatory-color">*</span></p>
-        <input type="date" placeholder="Enter a date" formControlName="date" />
-        <div class="check-wrapper">
-            <p class="form-check">Please enter a valid date.</p>
-        </div>
-    </div>
-</div>
-
-<hr class="breakline" />
-
-<div class="right-wrapper">
-    <div class="input-container">
-        <p>Priority</p>
-        <app-button-priority />
-    </div>
-
-    <div class="input-container">
-        <p>Assigned to</p>
-        <app-combobox-assign-user (selectedUser)="assignedUsers($event)"></app-combobox-assign-user>
-    </div>
-    <div class="userIconContainer">
-        @for (user of comboboxUserIDs(); track user) {
-            <app-ic-contact class="user-ic" [name]="user.name"></app-ic-contact>
-        }
-    </div>
-    <div class="input-container">
-        <p>Category<span class="mandatory-color">*</span></p>
-        <app-combobox-category></app-combobox-category>
-    </div>
-
-    <div class="input-container">
-        <p>Subtasks</p>
-        <app-subtask></app-subtask>
-    </div>
-</div>
+</form>

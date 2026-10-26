@@ -1,7 +1,7 @@
 import { Service, signal, inject } from '@angular/core';
 import { ITaskList } from '../interfaces/itasklist';
 import { SupabaseService } from './supabase';
-import { Status } from '../interfaces/status';
+import { Status } from '../interfaces/enums';
 
 @Service()
 export class TaskListService {
@@ -47,6 +47,17 @@ export class TaskListService {
 
     getStatusList(status: Status): number[] | null {
         return this.taskMap().get(status) ?? null;
+    }
+
+    filter(ids: number[]): Map<Status, number[]> {
+        const filteredMap: Map<Status, number[]> = new Map<Status, number[]>();
+        for (const [status, tasks] of this.taskMap()) {
+            filteredMap.set(
+                status,
+                tasks.filter((n) => ids.includes(n))
+            );
+        }
+        return filteredMap;
     }
 
     ngOnDestroy() {
