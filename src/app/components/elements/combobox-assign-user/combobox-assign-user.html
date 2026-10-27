@@ -7,7 +7,7 @@
     class="combobox-search-input"
     placeholder="Select contacts to assign"
     autocomplete="off"
-    (click)="popupExpanded.set(true)"
+    (click)="popupExpanded.set(!popupExpanded())"
 />
 <ng-template
     [cdkConnectedOverlay]="{ origin: combobox.element, usePopover: 'inline', matchWidth: true }"

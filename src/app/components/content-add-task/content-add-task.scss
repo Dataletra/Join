@@ -2,14 +2,12 @@
 @use '../../../../public/styles/abstract/mixin.scss' as *;
 @use '../../../../public/styles/abstract/functions.scss' as *;
 
-@import url('https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined');
-
 .wrapper {
     display: flex;
     gap: 20px;
     width: 100%;
     justify-content: flex-start;
-    font-family: inter;
+    font-family: 'Inter';
     position: relative;
 
     input,
@@ -21,7 +19,7 @@
         padding: 10px 10px;
         font-size: 16px;
         overflow-y: hidden;
-        font-family: inter;
+        font-family: 'Inter';
     }
     input.error-input {
         border: 1px solid red;
@@ -84,6 +82,10 @@
 
 .input-container:nth-child(3) {
     margin-top: 20px;
+}
+
+.fixed-height {
+    height: 95px;
 }
 
 .left-wrapper {
