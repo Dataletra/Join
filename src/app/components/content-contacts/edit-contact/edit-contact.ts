@@ -2,15 +2,7 @@ import { Component, inject, viewChild, ElementRef, effect, signal } from '@angul
 import { ContactDialog } from '../../../services/contact-dialog';
 import { IcContact } from '../../elements/ic-contact/ic-contact';
 import { ButtonPrimary } from '../../elements/button-primary/button-primary';
-import {
-    FormControl,
-    ReactiveFormsModule,
-    FormGroup,
-    Validators,
-    ValidatorFn,
-    AbstractControl,
-    ValidationErrors,
-} from '@angular/forms';
+import { FormControl, ReactiveFormsModule, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../models/user';
 import { ContactService } from '../../../services/contact-service';
 import { PopupConfirm } from '../../elements/popup-confirm/popup-confirm';
@@ -79,7 +71,9 @@ export class EditContact {
                 Validators.required,
                 Validators.email,
                 this.validatorService.customMailValidator(),
-                this.validatorService.customMailDbValidator(),
+                this.validatorService.customMailDbValidator(() => {
+                    return this.dialogService.selectedUser()?.email;
+                }),
             ],
         }),
 

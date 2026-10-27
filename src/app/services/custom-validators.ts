@@ -55,13 +55,15 @@ export class CustomValidators {
         };
     }
 
-    customMailDbValidator(): ValidatorFn {
+    customMailDbValidator(exception: null | (() => string | undefined) = null): ValidatorFn {
         return (control: AbstractControl): ValidationErrors | null => {
             const value = control.value;
             if (!value) {
                 return null;
             }
-            return false === this.contactService.has('email', value) ? null : { emailDbPattern: true };
+            return false === this.contactService.has('email', value) || (exception && exception() === value)
+                ? null
+                : { emailDbPattern: true };
         };
     }
 }
