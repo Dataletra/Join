@@ -20,6 +20,9 @@
 }
 
 .active-state {
+    p {
+        color: white;
+    }
     box-shadow: none;
     &:hover {
         box-shadow: none;
