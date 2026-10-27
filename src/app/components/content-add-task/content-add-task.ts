@@ -39,10 +39,11 @@ export class ContentAddTask {
     selectedUserIds = signal<number[]>([]);
     IncomingSubtasks = signal<ISubtask[]>([]);
     IncomingCategory = signal<string>('');
-    readonly categoryComp = viewChild(ComboboxCategory);
-    readonly assignUserComp = viewChild(ComboboxAssignUser);
     IncomingPriority = signal<string>('');
     isCategoryTouched = signal<boolean>(false);
+    readonly categoryComp = viewChild(ComboboxCategory);
+    readonly assignUserComp = viewChild(ComboboxAssignUser);
+    readonly subtaskComp = viewChild(Subtask);
 
     readonly isPopupOpen = computed(() => this.categoryComp()?.popupExpanded() ?? false);
 
@@ -102,6 +103,9 @@ export class ContentAddTask {
     clearForm() {
         this.addTaskForm.reset();
         this.assignUserComp()?.requestReset();
+        this.subtaskComp()?.requestReset();
+        this.categoryComp()?.requestReset();
+        this.isCategoryTouched.set(false);
     }
     //TODO: CSS content add task
     //TODO: On hover THEN show subtasks edit and delete buttons

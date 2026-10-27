@@ -18,6 +18,11 @@ export class Subtask {
     cancel() {
         this.subtaskEntry.reset();
     }
+    requestReset() {
+        this.cancel();
+        this.subtaskItems = [];
+        this.subtaskOutput.emit([]);
+    }
 
     // log() {
     //     console.log(this.subtaskItems);

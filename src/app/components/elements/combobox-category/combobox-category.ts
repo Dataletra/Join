@@ -31,7 +31,7 @@ export class ComboboxCategory {
 
     onCommit() {
         this.popupExpanded.set(false);
-        if (this.selectedValues()[0] == undefined) {
+        if (this.selectedValues()[0] == undefined || this.selectedValues()[0] == null) {
             this.categoryOutput.emit('');
             this.touched.emit();
             return;
@@ -50,5 +50,11 @@ export class ComboboxCategory {
             this.hasBeenTouched = true;
             this.touched.emit(); // Emits once on first interaction
         }
+    }
+
+    requestReset() {
+        this.selectedValues.set([]);
+        this.hasBeenTouched = false;
+        this.categoryOutput.emit('');
     }
 }
