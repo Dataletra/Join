@@ -79,7 +79,12 @@
 
                     <div class="input-container assigned-user">
                         <p>Assigned to</p>
-                        <app-combobox-assign-user (selectedUser)="assignedUsers($event)"></app-combobox-assign-user>
+                        @if (dialogService.isOpen() && dialogService.mode() === 'edit-task') {
+                            <app-combobox-assign-user
+                                [initialSelectedUsers]="selectedUserIds()"
+                                (selectedUser)="assignedUsers($event)"
+                            />
+                        }
                     </div>
                     <div class="userIconContainer">
                         @for (user of comboboxUsers().slice(0, 6); track $index) {

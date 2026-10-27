@@ -45,6 +45,7 @@ export class EditTask {
                     date: task.due_date,
                 });
                 this.IncomingPriority.set(task.priority);
+                this.assignedUsers(task.user_ids);
             }
         });
     }
