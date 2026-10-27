@@ -79,7 +79,7 @@
                     <app-combobox-category
                         (categoryOutput)="importCategory($event)"
                         (touched)="isCategoryTouched.set(true)"
-                        [class.error-input]="IncomingCategory() == '' && isCategoryTouched()"
+                        [class.error-input]="IncomingCategory() == '' && isCategoryTouched() && !isPopupOpen()"
                     >
                     </app-combobox-category>
                     <div class="check-wrapper">

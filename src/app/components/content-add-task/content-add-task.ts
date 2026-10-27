@@ -1,4 +1,4 @@
-import { Component, computed, inject, Input, input, signal } from '@angular/core';
+import { Component, computed, inject, Input, input, signal, viewChild } from '@angular/core';
 import { ButtonPriority } from '../elements/button-priority/button-priority';
 import { ComboboxCategory } from '../elements/combobox-category/combobox-category';
 import { ComboboxAssignUser } from '../elements/combobox-assign-user/combobox-assign-user';
@@ -39,8 +39,11 @@ export class ContentAddTask {
     selectedUserIds = signal<number[]>([]);
     IncomingSubtasks = signal<ISubtask[]>([]);
     IncomingCategory = signal<string>('');
+    readonly categoryComp = viewChild(ComboboxCategory);
     IncomingPriority = signal<string>('');
     isCategoryTouched = signal<boolean>(false);
+
+    readonly isPopupOpen = computed(() => this.categoryComp()?.popupExpanded() ?? false);
 
     addTaskForm = new FormGroup({
         title: new FormControl('', { validators: [Validators.required] }),
