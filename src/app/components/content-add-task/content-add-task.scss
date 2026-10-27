@@ -138,6 +138,19 @@
     display: none;
 }
 
+.date-input {
+    cursor: text;
+    &::-webkit-calendar-picker-indicator {
+        width: 30px;
+        height: 24px;
+        opacity: 0;
+        cursor: pointer;
+    }
+    background-image: url(../../../../public/assets/icons/event.svg);
+    background-repeat: no-repeat;
+    background-position: calc(100% - 16px) center;
+}
+
 @media screen and (min-width: 1440px) {
     .component-container {
         max-width: 1440px;
