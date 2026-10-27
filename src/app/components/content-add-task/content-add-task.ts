@@ -40,6 +40,7 @@ export class ContentAddTask {
     IncomingSubtasks = signal<ISubtask[]>([]);
     IncomingCategory = signal<string>('');
     readonly categoryComp = viewChild(ComboboxCategory);
+    readonly assignUserComp = viewChild(ComboboxAssignUser);
     IncomingPriority = signal<string>('');
     isCategoryTouched = signal<boolean>(false);
 
@@ -98,6 +99,10 @@ export class ContentAddTask {
         console.log('Task Payload:', newTask.getCleanAddJson());
     }
 
+    clearForm() {
+        this.addTaskForm.reset();
+        this.assignUserComp()?.requestReset();
+    }
     //TODO: CSS content add task
     //TODO: On hover THEN show subtasks edit and delete buttons
 }

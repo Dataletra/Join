@@ -83,7 +83,7 @@
                     >
                     </app-combobox-category>
                     <div class="check-wrapper">
-                        @if (IncomingCategory() == '' && isCategoryTouched()) {
+                        @if (IncomingCategory() == '' && isCategoryTouched() && !isPopupOpen()) {
                             <p class="form-check">Please select a category.</p>
                         }
                     </div>
@@ -100,7 +100,9 @@
     <div class="add-task-footer">
         <p class="mobile-d-none"><span class="mandatory-color">*</span> This field is required</p>
         <div class="finalize-btn-container">
-            <app-button-primary [small]="true" class="cancel-btn" [typeStr]="'cancel'">Clear</app-button-primary>
+            <app-button-primary [small]="true" class="cancel-btn" [typeStr]="'cancel'" (click)="clearForm()"
+                >Clear</app-button-primary
+            >
             <app-button-primary
                 [small]="true"
                 (click)="submitForm()"
