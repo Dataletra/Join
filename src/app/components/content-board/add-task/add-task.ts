@@ -9,6 +9,7 @@ import { ContentAddTask } from '../../content-add-task/content-add-task';
     templateUrl: './add-task.html',
 })
 export class AddTask {
+    readonly contentAddTaskComp = viewChild(ContentAddTask);
     dialogService = inject(ContactDialog);
     dialog = viewChild<ElementRef<HTMLDialogElement>>('addTaskDialog');
 
@@ -26,6 +27,7 @@ export class AddTask {
         }
         const element = dialogRef.nativeElement;
         if (isOpen && !element.open) {
+            this.contentAddTaskComp()?.clearForm();
             element.showModal();
         }
         if (!isOpen && element.open) {
