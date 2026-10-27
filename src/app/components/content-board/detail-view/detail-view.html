@@ -1,87 +1,100 @@
-<dialog #taskdetail class="detail-view" closedby="any" (close)="onDialogClose()">
-    @if (task(); as currentTask) {
-        <div class="dialog_wrapper">
-            <div class="dialog-header">
-                <div class="category">
-                    <app-task-lable [category]="'User Story'"></app-task-lable>
-                    <button class="close" (click)="dialogService.close()">
-                        <img src="./assets/icons/close.svg" aria-hidden="true" />
+<dialog
+    #taskdetail
+    closedby="any"
+    (close)="onDialogClose()"
+    (click)="onDialogClose()"
+    [class.d-none]="dialogService.mode() !== 'task'"
+>
+    <div
+        class="animation-wrapper"
+        (click)="dialogService.stopPropagation($event)"
+        [class.move-in-visible]="dialogService.isOpen()"
+        [class.move-out-visible]="!dialogService.isOpen()"
+    >
+        @if (task(); as currentTask) {
+            <div class="dialog_wrapper">
+                <div class="dialog-header">
+                    <div class="category">
+                        <app-task-lable [category]="'User Story'"></app-task-lable>
+                        <button class="close" (click)="dialogService.close()">
+                            <img src="./assets/icons/close.svg" aria-hidden="true" />
+                        </button>
+                    </div>
+                </div>
+
+                <div class="dialog-content">
+                    <h2 class="title">{{ currentTask.title }}</h2>
+                    <p class="description">{{ currentTask.description }}</p>
+                    <div class="date-prio">
+                        <table>
+                            <tr>
+                                <th>Due date:</th>
+                                <td>{{ currentTask.due_date }}</td>
+                            </tr>
+                            <tr>
+                                <th>Priority:</th>
+                                <td>
+                                    {{ currentTask.priority }}
+                                    @if (currentTask.priority === 'low') {
+                                        <img src="./assets/icons/low.svg" />
+                                    } @else if (currentTask.priority === 'medium') {
+                                        <img src="./assets/icons/medium.svg" />
+                                    } @else if (currentTask.priority === 'urgent') {
+                                        <img src="./assets/icons/urgent.svg" />
+                                    }
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="assigned-to">
+                        <p>Assinged To:</p>
+                        <div class="user-list">
+                            @for (user of assignedUsers(); track user.id) {
+                                <div class="user">
+                                    <div class="icon-wrapper">
+                                        <app-ic-contact
+                                            class="user-icon"
+                                            [name]="user.name"
+                                            [enableShadow]="false"
+                                            [isDummy]="false"
+                                        >
+                                        </app-ic-contact>
+                                    </div>
+                                    <p>{{ user.name }}</p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <div class="subtasks">
+                        <p class="sub-title">Subtasks</p>
+                        <div class="sub-body">
+                            @for (subtask of currentTask.subtasks; track $index) {
+                                <label class="subtask-row">
+                                    <input
+                                        type="checkbox"
+                                        [checked]="subtask.completed"
+                                        [class.checked]="subtask.completed"
+                                        (change)="toggleSubtask(currentTask, $index, $event)"
+                                    />
+                                    <p>{{ subtask.title }}</p>
+                                </label>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <button (click)="deleteTask(currentTask.id)">
+                        <img src="./assets/icons/delete.svg" aria-hidden="true" />
+                        Delete
+                    </button>
+                    <hr />
+                    <button (click)="dialogService.switchToEditTask()">
+                        <img src="./assets/icons/edit.svg" aria-hidden="true" />
+                        Edit
                     </button>
                 </div>
             </div>
-
-            <div class="dialog-content">
-                <h2 class="title">{{ currentTask.title }}</h2>
-                <p class="description">{{ currentTask.description }}</p>
-                <div class="date-prio">
-                    <table>
-                        <tr>
-                            <th>Due date:</th>
-                            <td>{{ currentTask.due_date }}</td>
-                        </tr>
-                        <tr>
-                            <th>Priority:</th>
-                            <td>
-                                {{ currentTask.priority }}
-                                @if (currentTask.priority === 'low') {
-                                    <img src="./assets/icons/low.svg" />
-                                } @else if (currentTask.priority === 'medium') {
-                                    <img src="./assets/icons/medium.svg" />
-                                } @else if (currentTask.priority === 'urgent') {
-                                    <img src="./assets/icons/urgent.svg" />
-                                }
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="assigned-to">
-                    <p>Assinged To:</p>
-                    <div class="user-list">
-                        @for (user of assignedUsers(); track user.id) {
-                            <div class="user">
-                                <div class="icon-wrapper">
-                                    <app-ic-contact
-                                        class="user-icon"
-                                        [name]="user.name"
-                                        [enableShadow]="false"
-                                        [isDummy]="false"
-                                    >
-                                    </app-ic-contact>
-                                </div>
-                                <p>{{ user.name }}</p>
-                            </div>
-                        }
-                    </div>
-                </div>
-                <div class="subtasks">
-                    <p class="sub-title">Subtasks</p>
-                    <div class="sub-body">
-                        @for (subtask of currentTask.subtasks; track $index) {
-                            <label class="subtask-row">
-                                <input
-                                    type="checkbox"
-                                    [checked]="subtask.completed"
-                                    [class.checked]="subtask.completed"
-                                    (change)="toggleSubtask(currentTask, $index, $event)"
-                                />
-                                <p>{{ subtask.title }}</p>
-                            </label>
-                        }
-                    </div>
-                </div>
-            </div>
-
-            <div class="buttons">
-                <button (click)="deleteTask(currentTask.id)">
-                    <img src="./assets/icons/delete.svg" aria-hidden="true" />
-                    Delete
-                </button>
-                <hr />
-                <button (click)="dialogService.switchToEditTask()">
-                    <img src="./assets/icons/edit.svg" aria-hidden="true" />
-                    Edit
-                </button>
-            </div>
-        </div>
-    }
+        }
+    </div>
 </dialog>
