@@ -22,13 +22,24 @@
         overflow-y: hidden;
         font-family: inter;
     }
+    input.error-input {
+        border: 1px solid red;
+    }
     textarea {
         min-width: 100%;
         min-height: 100px;
         max-width: 410px;
     }
 }
-
+.error-input {
+    border: 1px solid red;
+    border-radius: 10px;
+}
+.form-check {
+    font-size: 14px;
+    padding-left: 1px;
+    color: red;
+}
 .component-container {
     display: flex;
     flex-direction: column;
