@@ -46,6 +46,7 @@ export class EditTask {
                 });
                 this.IncomingPriority.set(task.priority);
                 this.assignedUsers(task.user_ids);
+                this.IncomingSubtasks.set(task.subtasks.map((subtask) => ({ ...subtask })));
             }
         });
     }

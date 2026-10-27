@@ -97,7 +97,10 @@
 
                     <div class="input-container">
                         <p>Subtasks</p>
-                        <app-subtask (subtaskOutput)="importSubtasks($event)"></app-subtask>
+                        <app-subtask
+                            [initialSubtasks]="IncomingSubtasks()"
+                            (subtaskOutput)="importSubtasks($event)"
+                        ></app-subtask>
                     </div>
                 </div>
 

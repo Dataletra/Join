@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component, effect, input, output } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ISubtask } from '../../../interfaces/isubtask';
 @Component({
@@ -10,19 +10,21 @@ import { ISubtask } from '../../../interfaces/isubtask';
 export class Subtask {
     subtaskItems: ISubtask[] = [];
     subtaskOutput = output<ISubtask[]>();
+    initialSubtasks = input<ISubtask[]>([]);
 
     subtaskEntry = new FormControl('', {
         validators: [Validators.minLength(5)],
     });
 
+    constructor() {
+        effect(() => {
+            this.subtaskItems = this.initialSubtasks().map((subtask) => ({ ...subtask }));
+        });
+    }
+
     cancel() {
         this.subtaskEntry.reset();
     }
-
-    // log() {
-    //     console.log(this.subtaskItems);
-    //     this.subtaskOutput.emit(this.subtaskItems);
-    // }
 
     confirm() {
         if (!this.subtaskEntry.value) {
