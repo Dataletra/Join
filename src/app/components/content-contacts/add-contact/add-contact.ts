@@ -59,7 +59,12 @@ export class AddContact {
 
         email: new FormControl('', {
             nonNullable: true,
-            validators: [Validators.required, Validators.email, this.validatorService.customMailValidator()],
+            validators: [
+                Validators.required,
+                Validators.email,
+                this.validatorService.customMailValidator(),
+                this.validatorService.customMailDbValidator(),
+            ],
         }),
 
         phone: new FormControl('', {
@@ -67,8 +72,6 @@ export class AddContact {
             validators: [Validators.required, this.validatorService.customPhoneValidator()],
         }),
     });
-
-
 
     async onSubmit() {
         if (this.contactForm.invalid) {

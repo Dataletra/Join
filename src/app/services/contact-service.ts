@@ -17,11 +17,22 @@ export class ContactService {
         this.getUsers();
     }
 
+    ngOnDestroy() {
+        this.supabase.removeChannel(this.channelUserInsert);
+        this.supabase.removeChannel(this.channelUserUpdate);
+        this.supabase.removeChannel(this.channelUserDelete);
+    }
+
     sortUsers() {
         if (!this.userList) {
             return;
         }
         this.userList.sort((a, b) => a.name.localeCompare(b.name));
+    }
+
+    has<UserKey extends keyof IUser>(key: UserKey, value: IUser[UserKey]) {
+        console.log("Checking", value, "for", key, "is", this.userList.some(user => user[key] === value));
+        return this.userList.some(user => user[key] === value);
     }
 
     readonly groupedUsers = computed(() => {
@@ -86,11 +97,5 @@ export class ContactService {
         this.toastService.setTypeMatch(ToastType.updateContact);
         const userData = user.getCleanAddJson();
         const { data, error } = await this.supabase.from('user').update([userData]).eq('id', user.id).select();
-    }
-
-    ngOnDestroy() {
-        this.supabase.removeChannel(this.channelUserInsert);
-        this.supabase.removeChannel(this.channelUserUpdate);
-        this.supabase.removeChannel(this.channelUserDelete);
     }
 }

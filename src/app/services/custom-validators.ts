@@ -1,8 +1,11 @@
-import { Service } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { ContactService } from './contact-service';
 
 @Service()
 export class CustomValidators {
+    contactService = inject(ContactService);
+
     dateValidator(control: AbstractControl): { [key: string]: boolean } | null {
         if (control?.value) {
             const today = new Date();
@@ -49,6 +52,16 @@ export class CustomValidators {
                 return { phonePattern: true };
             }
             return null;
+        };
+    }
+
+    customMailDbValidator(): ValidatorFn {
+        return (control: AbstractControl): ValidationErrors | null => {
+            const value = control.value;
+            if (!value) {
+                return null;
+            }
+            return false === this.contactService.has('email', value) ? null : { emailDbPattern: true };
         };
     }
 }

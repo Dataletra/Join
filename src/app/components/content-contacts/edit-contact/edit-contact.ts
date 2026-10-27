@@ -75,7 +75,12 @@ export class EditContact {
 
         email: new FormControl('', {
             nonNullable: true,
-            validators: [Validators.required, Validators.email, this.validatorService.customMailValidator()],
+            validators: [
+                Validators.required,
+                Validators.email,
+                this.validatorService.customMailValidator(),
+                this.validatorService.customMailDbValidator(),
+            ],
         }),
 
         phone: new FormControl('', {

@@ -70,6 +70,8 @@
                                         contactForm.controls.email.hasError('emailPattern')
                                     ) {
                                         Please enter a valid email address.
+                                    } @else if (contactForm.controls.email.hasError('emailDbPattern')) {
+                                        Email already exists.
                                     }
                                 </p>
                             </div>
