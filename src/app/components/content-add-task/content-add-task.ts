@@ -96,6 +96,5 @@ export class ContentAddTask {
     }
 
     //TODO: CSS content add task
-    //TODO: Assign user: if user selected, background dark blue
     //TODO: On hover THEN show subtasks edit and delete buttons
 }
