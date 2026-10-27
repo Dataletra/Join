@@ -15,9 +15,7 @@
         (click)="$event.stopPropagation()"
     >
         <li ngMenuItem value="edit-item" class="edit-item">
-            <p (click)="dialogService.openContact('edit', selectedUser()); hideMenu()" class="button-mobile-text">
-                Edit
-            </p>
+            <p (click)="dialogService.open('edit', selectedUser()); hideMenu()" class="button-mobile-text">Edit</p>
         </li>
         <li ngMenuItem value="delete-item" class="delete-item">
             <p (click)="hideMenu(); showConfirm.set(true)" class="button-mobile-text">Delete</p>
@@ -38,7 +36,7 @@
         <div class="name-container">
             <h2 [style.--char-count]="selectedUser()?.name.length">{{ selectedUser()?.name | titlecase }}</h2>
             <div class="button-container mobile-d-none">
-                <button (click)="dialogService.openContact('edit', selectedUser())">
+                <button (click)="dialogService.open('edit', selectedUser())">
                     <p class="button-text"><img src="./assets/icons/edit.svg" alt="Edit Icon" />Edit</p>
                 </button>
                 <button (click)="showConfirm.set(true)">

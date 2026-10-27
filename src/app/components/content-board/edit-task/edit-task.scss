@@ -2,7 +2,7 @@
 @use '../../../../../public/styles/abstract/mixin.scss' as *;
 
 dialog {
-    height: 900px;
+    height: 930px;
     width: 525px;
     margin: auto;
     border-radius: 30px;
@@ -22,7 +22,7 @@ dialog {
 }
 
 .dialog-content {
-    max-height: 900px;
+    max-height: 720px;
     padding-inline: 40px;
     overflow-y: auto;
     @include scrollbar-light;
@@ -44,6 +44,12 @@ dialog {
         border-radius: 10px;
         border: 1px solid $color-input-border-2;
         padding: 12px 21px;
+        font-family: 'Inter';
+    }
+
+    textarea {
+        min-height: 120px;
+        max-width: 100%;
     }
 }
 
@@ -56,10 +62,19 @@ dialog {
     width: 100%;
     min-height: 35px;
     display: flex;
+    margin-bottom: 24px;
 }
 
 .user-ic {
     width: 35px;
     height: 35px;
     min-width: 35px;
+}
+
+.buttons {
+    height: 48px;
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    padding: 24px 40px 48px 40px;
 }

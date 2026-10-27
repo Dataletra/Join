@@ -1,10 +1,9 @@
 import { Component, computed, effect, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { ContactDialog } from '../../../services/contact-dialog';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CustomValidators } from '../../../services/custom-validators';
 import { ButtonPrimary } from '../../elements/button-primary/button-primary';
 import { ComboboxAssignUser } from '../../elements/combobox-assign-user/combobox-assign-user';
-import { ComboboxCategory } from '../../elements/combobox-category/combobox-category';
 import { ButtonPriority } from '../../elements/button-priority/button-priority';
 import { IcContact } from '../../elements/ic-contact/ic-contact';
 import { ISubtask } from '../../../interfaces/isubtask';
@@ -14,7 +13,7 @@ import { ContactService } from '../../../services/contact-service';
 import { Subtask } from '../../elements/subtask/subtask';
 
 @Component({
-    imports: [ButtonPriority, ComboboxAssignUser, ComboboxCategory, ButtonPriority, IcContact, Subtask],
+    imports: [ButtonPriority, ComboboxAssignUser, IcContact, Subtask, ButtonPrimary, ReactiveFormsModule],
     selector: 'app-edit-task',
     styleUrl: './edit-task.scss',
     templateUrl: './edit-task.html',
@@ -34,6 +33,19 @@ export class EditTask {
     constructor() {
         effect(() => {
             this.openClose();
+        });
+
+        effect(() => {
+            const editMode = this.dialogService.isOpen() && this.dialogService.mode() === 'edit-task';
+            const task = this.dialogService.selectedTask();
+            if (editMode && task) {
+                this.addTaskForm.setValue({
+                    title: task.title,
+                    description: task.description,
+                    date: task.due_date,
+                });
+                this.IncomingPriority.set(task.priority);
+            }
         });
     }
 
