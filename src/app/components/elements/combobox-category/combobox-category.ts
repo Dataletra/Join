@@ -31,6 +31,11 @@ export class ComboboxCategory {
 
     onCommit() {
         this.popupExpanded.set(false);
+        if (this.selectedValues()[0] == undefined) {
+            this.categoryOutput.emit('');
+            this.touched.emit();
+            return;
+        }
         this.categoryOutput.emit(this.selectedValues()[0]);
         this.touched.emit();
     }
