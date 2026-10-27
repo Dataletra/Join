@@ -30,15 +30,9 @@
     display: flex;
 }
 
-// .btn-entry-container {
-//     gap: 5px;
-//     display: flex;
-//     margin-left: auto;
-//     background-color: rgb(133, 133, 229);
-// }
-
 .btn-entry-container,
 .btn-entry-edit-container {
+    display: none;
     position: absolute;
     right: 10px;
     gap: 5px;
@@ -47,13 +41,62 @@
 }
 
 .subtask-item {
-    margin-bottom: 8px;
-    margin-left: 40px;
+    list-style: none;
+    position: relative;
+
+    height: 32px;
+    display: flex;
+    align-items: center;
+    padding-right: 16px;
+    padding-left: 40px;
+    border-radius: 10px;
+    
+    .btn-entry-container {
+        pointer-events: none;
+        opacity: 0;
+    }
+
+    &::before {
+        content: '•';
+        position: absolute;
+        @include flex-center;
+        width: 24px;
+        height: 100%;
+        left: 16px;
+        top: 0;
+        z-index: 2;
+    }
+
+    &:not(.editing):hover {
+        background-color: #eeeeee;
+
+        .subtask-item-input {
+            background-color: #eeeeee;
+        }
+
+        .btn-entry-container {
+            pointer-events: all;
+            opacity: 1;
+        }
+    }
+
+    &.editing::before {
+        opacity: 0;
+        background-color: none;
+    }
 
     &.editing {
-        list-style-type: none;
-        margin-left: 0;
+        padding-left: 16px;
+        background-color: white;
+        border-radius: 0;
     }
+}
+
+.subtask-item,
+.subtask-item::before,
+.subtask-item .btn-entry-container,
+.subtask-item .subtask-item-input {
+    transition: all 100ms ease-in-out;
 }
 
 .subtask-content-wrapper {
@@ -66,18 +109,21 @@
 
 .subtask-item-input {
     width: 100%;
-    height: fit-content;
+    height: 100%;
     border: none;
 
     border-radius: 0px;
     padding: 5px 90px 5px 5px;
     font-size: 16px;
+    font-family: 'Inter';
+
     &:disabled {
         border: none;
         pointer-events: none;
-        background-color: #f6f7f8;
+        background-color: transparent;
         color: black;
     }
+    
     &:focus {
         outline: none;
         border-bottom: 1px solid #335eff;

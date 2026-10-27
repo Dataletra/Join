@@ -1,6 +1,6 @@
 @use '../../../../../public/styles/abstract/variables.scss' as *;
 @use '../../../../../public/styles/abstract/functions.scss' as *;
-@import url('https://fonts.googleapis.com/icon?family=Material+Symbols+Outlined');
+@use '../../../../../public/styles/abstract/mixin.scss' as *;
 
 :host {
     display: flex;
@@ -15,6 +15,7 @@
 }
 
 .combobox-search-input {
+    anchor-name: --combobox-search-input;
     display: flex;
     align-items: center;
     position: relative;
@@ -27,17 +28,25 @@
     font-size: 17px;
     cursor: pointer;
 
-    &[aria-expanded='true'] {
-        box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.28);
-        border: 1px solid black;
-        .example-arrow {
-            transform: rotate(180deg);
-        }
-    }
     box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.28);
     &::placeholder {
         color: black;
     }
+}
+
+.dropdown-arrow {
+    position: absolute;
+    position-anchor: --combobox-search-input;
+    position-area: center;
+    justify-self: end;
+    translate: -13px;
+    width: 24px;
+    height: 24px;
+    transition: transform 0.15s ease;
+}
+
+.turn {
+    transform: rotate(180deg);
 }
 
 .select span {
@@ -73,17 +82,6 @@
     pointer-events: none;
 }
 
-.example-arrow {
-    right: 1rem;
-    position: absolute;
-    pointer-events: none;
-    transition: transform 150ms ease-in-out;
-}
-
-.select[aria-expanded='true'] .example-arrow {
-    transform: rotate(180deg);
-}
-
 .example-popup-container {
     width: 100%;
     background: #fff;
@@ -96,6 +94,7 @@
     margin-top: 0;
     max-height: 12rem;
     overflow-y: auto;
+    @include scrollbar-light(5, 8);
     box-shadow: 0px 6px 5px rgba(0, 0, 0, 0.28);
 }
 
@@ -202,8 +201,8 @@
     display: flex;
     flex-direction: row;
     gap: 10px;
-    padding-inline: 5px;
-    justify-content: flex-start;
+    padding-inline: 16px;
+    justify-content: center;
     transition: 0.2s ease;
     border-radius: 10px;
     margin: 0px;
@@ -211,7 +210,7 @@
     margin-bottom: 2px;
     align-items: center;
     height: 50px;
-    padding-left: clamp-px(5, 24, 1070, 950);
+    // padding-left: clamp-px(5, 24, 1070, 950);
 
     .username {
         transition: 0.2s ease;

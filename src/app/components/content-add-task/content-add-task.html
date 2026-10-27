@@ -1,5 +1,5 @@
 <div class="component-container">
-    <h1>Add Task</h1>
+    <h3>Add Task</h3>
     <form [formGroup]="addTaskForm">
         <div class="wrapper">
             <div class="left-wrapper">
@@ -33,6 +33,7 @@
                     <p>Date<span class="mandatory-color">*</span></p>
                     <input
                         type="date"
+                        class="date-input"
                         placeholder="Enter a date"
                         formControlName="date"
                         [class.error-input]="
@@ -74,7 +75,7 @@
                         }
                     </div>
                 </div>
-                <div class="input-container">
+                <div class="input-container fixed-height">
                     <p>Category<span class="mandatory-color">*</span></p>
                     <app-combobox-category
                         (categoryOutput)="importCategory($event)"
