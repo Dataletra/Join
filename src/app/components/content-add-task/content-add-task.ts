@@ -44,7 +44,7 @@ export class ContentAddTask {
 
     addTaskForm = new FormGroup({
         title: new FormControl('', { validators: [Validators.required] }),
-        description: new FormControl('', { validators: [Validators.required] }),
+        description: new FormControl('', {}),
         date: new FormControl('', { validators: [Validators.required, this.customValidator.dateValidator] }),
     });
 
@@ -95,10 +95,7 @@ export class ContentAddTask {
         console.log('Task Payload:', newTask.getCleanAddJson());
     }
 
-    //TODO: Textarea on description
     //TODO: CSS content add task
-    //TODO: Board: link IncomingStatus() board buttons
-    //TODO: Board: render AddTask over dialog in board
     //TODO: Assign user: if user selected, background dark blue
-    //TODO: Description isn't mandatory
+    //TODO: On hover THEN show subtasks edit and delete buttons
 }
