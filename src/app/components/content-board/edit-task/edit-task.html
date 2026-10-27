@@ -1,8 +1,8 @@
 <dialog
     #edittask
     closedby="any"
-    (close)="dialogService.close()"
-    (click)="dialogService.close()"
+    (close)="onDialogClose()"
+    (click)="onDialogClose()"
     [class.d-none]="dialogService.mode() !== 'edit-task'"
 >
     <div
@@ -105,7 +105,7 @@
                 </div>
 
                 <div class="buttons">
-                    <app-button-primary [typeStr]="'createTask'"> Ok</app-button-primary>
+                    <app-button-primary [typeStr]="'createTask'" (click)="saveTask()"> Ok</app-button-primary>
                 </div>
             </form>
         </div>

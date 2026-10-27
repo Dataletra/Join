@@ -11,6 +11,8 @@ import { Status } from '../../../interfaces/enums';
 import { IUser } from '../../../interfaces/iuser';
 import { ContactService } from '../../../services/contact-service';
 import { Subtask } from '../../elements/subtask/subtask';
+import { TasksService } from '../../../services/tasks-service';
+import { Task } from '../../models/task';
 
 @Component({
     imports: [ButtonPriority, ComboboxAssignUser, IcContact, Subtask, ButtonPrimary, ReactiveFormsModule],
@@ -29,6 +31,7 @@ export class EditTask {
     IncomingCategory = signal<string>('');
     IncomingPriority = signal<string>('');
     IncomingStatus = signal<string>(Status.todo);
+    tasksService = inject(TasksService);
 
     constructor() {
         effect(() => {
@@ -66,6 +69,13 @@ export class EditTask {
         }
     }
 
+    onDialogClose() {
+        if (this.dialogService.mode() === 'task') {
+            return;
+        }
+        this.dialogService.close();
+    }
+
     addTaskForm = new FormGroup({
         title: new FormControl('', { validators: [Validators.required] }),
         description: new FormControl('', { validators: [Validators.required] }),
@@ -95,5 +105,25 @@ export class EditTask {
     assignedUsers(selectedIds: number[]) {
         this.comboboxUsers.set(this.contactService.userList.filter((userObj) => selectedIds.includes(userObj.id)));
         this.selectedUserIds.set(selectedIds);
+    }
+
+    async saveTask() {
+        const currentTask = this.dialogService.selectedTask();
+        if (!currentTask || this.addTaskForm.invalid) {
+            return;
+        }
+        const formValues = this.addTaskForm.value;
+        const updatedTask = new Task({
+            ...currentTask,
+            title: formValues.title ?? '',
+            description: formValues.description ?? '',
+            due_date: formValues.date ?? '',
+            priority: this.IncomingPriority() as Task['priority'],
+            user_ids: this.selectedUserIds(),
+            subtasks: this.IncomingSubtasks(),
+        });
+        await this.tasksService.editTask(updatedTask);
+        this.dialogService.selectedTask.set(updatedTask);
+        this.dialogService.switchToTask();
     }
 }

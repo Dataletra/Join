@@ -32,6 +32,11 @@ export class ContactDialog {
         this.mode.set('edit-task');
     }
 
+    switchToTask() {
+        this.mode.set('task');
+        console.log('switch to task');
+    }
+
     close() {
         if (this.isOpen()) {
             this.isOpen.set(false);
@@ -48,23 +53,3 @@ export class ContactDialog {
         event.stopPropagation();
     }
 }
-
-// TODO Delete Me
-
-// export class ContactDialog {
-//     isOpen = signal(false);
-//     mode = signal<'add' | 'edit' | null>(null);
-//     selectedUser = signal<IUser | null>(null);
-
-//     open(mode: 'add' | 'edit', user: IUser | null = null) {
-//         this.mode.set(mode);
-//         this.selectedUser.set(user);
-//         this.isOpen.set(true);
-//     }
-
-//     close() {
-//         this.isOpen.set(false);
-//         this.mode.set(null);
-//         this.selectedUser.set(null);
-//     }
-// }
