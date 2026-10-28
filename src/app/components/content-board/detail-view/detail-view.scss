@@ -44,6 +44,15 @@ dialog {
     display: flex;
     justify-content: space-between;
     margin-bottom: 24px;
+
+    .close {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        &:hover {
+            background-color: $color-btn-hover;
+        }
+    }
 }
 
 .dialog-content {
@@ -184,12 +193,27 @@ dialog {
 
     button {
         font-size: 16px;
+        color: $color-base;
+        display: flex;
+        justify-content: space-between;
+
+        &:hover {
+            font-weight: 700;
+        }
 
         img {
             width: 24px;
             height: 24px;
         }
     }
+}
+
+.delete {
+    width: 72px;
+}
+
+.edit {
+    width: 54px;
 }
 
 @media screen and (max-width: $media-sm) {
