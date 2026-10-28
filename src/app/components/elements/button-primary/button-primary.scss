@@ -15,7 +15,9 @@
     box-shadow: 0 4px 4px 0 transparent;
 
     gap: 4px;
-    transition: all 100ms ease-in-out;
+    transition-property: box-shadow, border, outline, background-color;
+    transition-duration: 100ms;
+    transition-timing-function: ease-in-out;
 
     &__p {
         font-family: 'Inter';
@@ -175,5 +177,5 @@
 }
 
 .btn-primary:not(:disabled):focus {
-    outline: 2px solid $color-high-2;    
+    outline: 2px solid $color-high-2;
 }

@@ -21,6 +21,10 @@
 .header-user {
     width: clamp-px(40, 56);
     height: clamp-px(40, 56);
+
+    &:not(:focus):active {
+        outline: none;
+    }
 }
 
 .header-nav {
