@@ -1,7 +1,17 @@
 import { Combobox, ComboboxPopup, ComboboxWidget } from '@angular/aria/combobox';
 import { Listbox, Option } from '@angular/aria/listbox';
 import { OverlayModule } from '@angular/cdk/overlay';
-import { afterRenderEffect, Component, computed, signal, viewChild, effect, inject, output } from '@angular/core';
+import {
+    afterRenderEffect,
+    Component,
+    computed,
+    signal,
+    viewChild,
+    effect,
+    inject,
+    output,
+    input,
+} from '@angular/core';
 import { Namelist } from '../../content-contacts/namelist/namelist';
 import { ContactService } from '../../../services/contact-service';
 import { IcContact } from '../ic-contact/ic-contact';
@@ -16,6 +26,7 @@ import { IUser } from '../../../interfaces/iuser';
 export class ComboboxAssignUser {
     dbService = inject(ContactService);
     searchQuery = signal('');
+    readonly initialSelectedUsers = input<number[]>([]);
 
     /** The combobox listbox popup. */
     readonly listbox = viewChild(Listbox);
@@ -47,6 +58,10 @@ export class ComboboxAssignUser {
         // Scrolls to the active item when the active option changes.
         afterRenderEffect(() => {
             this.listbox()?.scrollActiveItemIntoView();
+        });
+
+        effect(() => {
+            this.selectedValues.set(this.initialSelectedUsers());
         });
     }
 

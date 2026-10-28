@@ -4,9 +4,7 @@
     [cdkConnectedOverlayOpen]="overlayListen()"
     (overlayOutsideClick)="hideMenu()"
     (detach)="hideMenu()"
-    [cdkConnectedOverlayPositions]="[
-        { originX: 'end', originY: 'bottom', overlayX: 'end', overlayY: 'top'},
-    ]"
+    [cdkConnectedOverlayPositions]="[{ originX: 'end', originY: 'bottom', overlayX: 'end', overlayY: 'top' }]"
 >
     <menu
         ngMenu
