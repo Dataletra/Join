@@ -5,8 +5,6 @@
 :host {
     width: 100%;
     height: 100%;
-    display: flex;
-    flex-direction: column;
 }
 
 // #region board-header
@@ -190,15 +188,29 @@ main {
     gap: 16px;
     padding-block: 16px;
     padding-inline: 16px;
+    width: 100%;
     min-height: 100%;
-    width: fit-content;
 }
 
-:host,
+.main-scroll-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    scroll-behavior: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+:host {
+    overflow: hidden;
+}
+
 main,
 .scroll-wrapper,
+.main-scroll-wrapper,
 .task-list-scroll-wrapper {
     @include scrollbar-light(4, 10);
+    scroll-behavior: auto;
 }
 
 @media screen and (max-width: $media-m) {
@@ -232,6 +244,8 @@ main,
 
     .task-list {
         flex-direction: row;
+        width: fit-content;
+        min-width: 100%;
     }
 
     .task-list-scroll-wrapper {

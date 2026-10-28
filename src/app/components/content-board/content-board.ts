@@ -17,18 +17,24 @@ import {
 } from '@angular/cdk/drag-drop';
 import { Toast } from '../../services/toast';
 import { ContactDialog } from '../../services/contact-dialog';
+import { CdkScrollable } from '@angular/cdk/scrolling';
 
 @Component({
-    imports: [ButtonPrimary, CdkDrag, CdkDropList, CdkDragPlaceholder, CdkDragPreview, TaskCard],
+    imports: [ButtonPrimary, CdkDrag, CdkDropList, CdkDragPlaceholder, CdkDragPreview, TaskCard, CdkScrollable],
     selector: 'app-content-board',
     styleUrl: './content-board.scss',
     templateUrl: './content-board.html',
 })
 export class ContentBoard {
     lastX: number = 0;
+    currentX: number = 0;
+    currentY: number = 0;
     transX: number = 0;
     transY: number = 0;
     turn: number = 0;
+
+    animationFrameId: number | null = null;
+    isDragging: boolean = false;
 
     dialogService = inject(ContactDialog);
     sortingService = inject(TaskListService);
@@ -48,19 +54,13 @@ export class ContentBoard {
     delayDrag: number = window.matchMedia('(hover: hover)').matches ? 0 : 200;
     isTablet = signal<boolean>(window.matchMedia('(width <= 810px)').matches);
     isMobile = signal<boolean>(window.matchMedia('(width <= 810px)').matches);
-    mediaEventTablet = window.matchMedia('(width <= 810px)');
-    mediaEventMobile = window.matchMedia('(width <= 560px)');
-
-    onMediaChangeTablet = (event: MediaQueryListEvent): void => {
-        this.isTablet.set(event.matches);
-    };
-    onMediaChangeMobile = (event: MediaQueryListEvent): void => {
-        this.isMobile.set(event.matches);
-    };
+    private readonly mediaEventTablet = window.matchMedia('(width <= 810px)');
+    private readonly mediaEventMobile = window.matchMedia('(width <= 560px)');
 
     stickyWrapperHeight = signal<number | null>(1000);
     private readonly destroyRef = inject(DestroyRef);
     private readonly scrollWrapper = viewChild.required<ElementRef<HTMLElement>>('scrollWrapper');
+    private readonly board = viewChild.required<ElementRef<HTMLElement>>('mainScrollable');
 
     constructor() {
         afterNextRender(() => {
@@ -75,6 +75,13 @@ export class ContentBoard {
             this.destroyRef.onDestroy(() => observer.disconnect());
         });
     }
+
+    onMediaChangeTablet = (event: MediaQueryListEvent): void => {
+        this.isTablet.set(event.matches);
+    };
+    onMediaChangeMobile = (event: MediaQueryListEvent): void => {
+        this.isMobile.set(event.matches);
+    };
 
     async ngOnInit() {
         this.fetchTaskLists();
@@ -162,6 +169,7 @@ export class ContentBoard {
             this.sortingService.editTaskList({ status: statusNow, order: dataRefNow });
             this.taskService.editStatus(dataRefNow.at(event.currentIndex), statusNow);
         }
+        this.stopVerticalAutoScroll();
     }
 
     setRelativeMousePosition(event: MouseEvent): void {
@@ -172,9 +180,14 @@ export class ContentBoard {
         this.transY = event.clientY - rect.top;
     }
 
-    rotateByMovement(event: CdkDragMove): void {
+    onDrageMove(event: CdkDragMove): void {
+        this.lastX = this.lastX == 0 ? event.pointerPosition.x : this.lastX;
+        this.rotateCard(event);
+        this.scrollOnMove(event);
+    }
+
+    rotateCard(event: CdkDragMove): void {
         const pointer = event.pointerPosition;
-        this.lastX = this.lastX == 0 ? pointer.x : this.lastX;
         this.turn = Math.min(5, Math.max(-5, (-1 * (this.lastX - pointer.x)) / 10));
     }
 
@@ -191,6 +204,39 @@ export class ContentBoard {
     resetColor(event: KeyboardEvent | null = null) {
         if (null === event || event.key !== 'Enter') {
             this.notFound.set(false);
+        }
+    }
+
+    private scrollOnMove(event: CdkDragMove): void {
+        this.currentX = event.pointerPosition.x;
+        this.currentY = event.pointerPosition.y;
+        this.isDragging = true;
+        if (this.animationFrameId === null) {
+            this.animationFrameId = requestAnimationFrame(() => this.autoScroll());
+        }
+    }
+
+    private autoScroll(): void {
+        this.animationFrameId = null;
+        if (!this.isDragging) {
+            return;
+        }
+        const elementY = this.board().nativeElement;
+        const elementX = this.scrollWrapper().nativeElement;
+        const rectX = elementX.getBoundingClientRect();
+        const rectY = elementY.getBoundingClientRect();
+        elementX.scrollLeft += rectX.left + 80 > this.currentX ? -20 : rectX.right - 80 < this.currentX ? 20 : 0;
+        elementY.scrollTop += rectY.top + 80 > this.currentY ? -20 : rectY.bottom - 80 < this.currentY ? 20 : 0;
+
+        this.animationFrameId = requestAnimationFrame(() => this.autoScroll());
+    }
+
+    private stopVerticalAutoScroll(): void {
+        this.isDragging = false;
+
+        if (this.animationFrameId !== null) {
+            cancelAnimationFrame(this.animationFrameId);
+            this.animationFrameId = null;
         }
     }
 }
