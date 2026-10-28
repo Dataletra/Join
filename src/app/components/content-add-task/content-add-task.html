@@ -1,11 +1,19 @@
 <div class="component-container">
-    <h1>Add Task</h1>
+    <h3>Add Task</h3>
     <form [formGroup]="addTaskForm">
         <div class="wrapper">
             <div class="left-wrapper">
                 <div class="input-container">
                     <p>Title<span class="mandatory-color">*</span></p>
-                    <input type="text" placeholder="Enter a title" formControlName="title" />
+                    <input
+                        type="text"
+                        placeholder="Enter a title"
+                        formControlName="title"
+                        [class.error-input]="
+                            addTaskForm.controls.title.hasError('required') &&
+                            (addTaskForm.controls.title.touched || addTaskForm.controls.title.dirty)
+                        "
+                    />
                     <div class="check-wrapper">
                         @if (
                             addTaskForm.controls.title.hasError('required') &&
@@ -17,21 +25,23 @@
                 </div>
 
                 <div class="input-container">
-                    <p>Description<span class="mandatory-color">*</span></p>
+                    <p>Description</p>
                     <textarea type="text" placeholder="Enter a description" formControlName="description"></textarea>
-                    <div class="check-wrapper">
-                        @if (
-                            addTaskForm.controls.description.hasError('required') &&
-                            (addTaskForm.controls.description.touched || addTaskForm.controls.description.dirty)
-                        ) {
-                            <p class="form-check">Please enter a description.</p>
-                        }
-                    </div>
                 </div>
 
                 <div class="input-container">
                     <p>Date<span class="mandatory-color">*</span></p>
-                    <input type="date" placeholder="Enter a date" formControlName="date" />
+                    <input
+                        type="date"
+                        class="date-input"
+                        placeholder="Enter a date"
+                        formControlName="date"
+                        [class.error-input]="
+                            (addTaskForm.controls.date.hasError('required') &&
+                                (addTaskForm.controls.date.touched || addTaskForm.controls.date.dirty)) ||
+                            addTaskForm.controls.date.hasError('date in past')
+                        "
+                    />
                     <div class="check-wrapper">
                         @if (
                             addTaskForm.controls.date.hasError('required') &&
@@ -65,15 +75,16 @@
                         }
                     </div>
                 </div>
-                <div class="input-container">
+                <div class="input-container fixed-height">
                     <p>Category<span class="mandatory-color">*</span></p>
                     <app-combobox-category
                         (categoryOutput)="importCategory($event)"
                         (touched)="isCategoryTouched.set(true)"
+                        [class.error-input]="IncomingCategory() == '' && isCategoryTouched() && !isPopupOpen()"
                     >
                     </app-combobox-category>
                     <div class="check-wrapper">
-                        @if (IncomingCategory() == '' && isCategoryTouched()) {
+                        @if (IncomingCategory() == '' && isCategoryTouched() && !isPopupOpen()) {
                             <p class="form-check">Please select a category.</p>
                         }
                     </div>
@@ -90,7 +101,9 @@
     <div class="add-task-footer">
         <p class="mobile-d-none"><span class="mandatory-color">*</span> This field is required</p>
         <div class="finalize-btn-container">
-            <app-button-primary [small]="true" class="cancel-btn" [typeStr]="'cancel'">Clear</app-button-primary>
+            <app-button-primary [small]="true" class="cancel-btn" [typeStr]="'cancel'" (click)="clearForm()"
+                >Clear</app-button-primary
+            >
             <app-button-primary
                 [small]="true"
                 (click)="submitForm()"

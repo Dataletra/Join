@@ -17,24 +17,6 @@ export class ComboboxAssignUser {
     dbService = inject(ContactService);
     searchQuery = signal('');
 
-    readonly filteredGroupedUsers = computed(() => {
-        const query = this.searchQuery().toLowerCase().trim();
-        const originalMap = this.dbService.groupedUsers();
-
-        if (!query) return Array.from(originalMap.entries());
-
-        const filteredMap = new Map<string, IUser[]>();
-        for (const [letter, users] of originalMap.entries()) {
-            const matchingUsers = users.filter(
-                (user) => user.name.toLowerCase().includes(query) || user.email?.toLowerCase().includes(query)
-            );
-            if (matchingUsers.length > 0) {
-                filteredMap.set(letter, matchingUsers);
-            }
-        }
-        return Array.from(filteredMap.entries());
-    });
-
     /** The combobox listbox popup. */
     readonly listbox = viewChild(Listbox);
 
@@ -55,7 +37,7 @@ export class ComboboxAssignUser {
 
     isUserVisible(user: IUser): boolean {
         const query = this.searchQuery().toLowerCase().trim();
-        return user.name.toLowerCase().includes(query) || user.email?.toLowerCase().includes(query);
+        return user.name.toLowerCase().includes(query);
     }
 
     /** Whether the popup is expanded. */
@@ -66,5 +48,11 @@ export class ComboboxAssignUser {
         afterRenderEffect(() => {
             this.listbox()?.scrollActiveItemIntoView();
         });
+    }
+
+    requestReset() {
+        this.selectedValues.set([]);
+        this.sendData([]);
+        this.searchQuery.set('');
     }
 }

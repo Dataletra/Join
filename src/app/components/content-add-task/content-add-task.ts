@@ -1,4 +1,4 @@
-import { Component, computed, inject, Input, input, signal } from '@angular/core';
+import { Component, computed, inject, Input, input, signal, viewChild } from '@angular/core';
 import { ButtonPriority } from '../elements/button-priority/button-priority';
 import { ComboboxCategory } from '../elements/combobox-category/combobox-category';
 import { ComboboxAssignUser } from '../elements/combobox-assign-user/combobox-assign-user';
@@ -41,10 +41,16 @@ export class ContentAddTask {
     IncomingCategory = signal<string>('');
     IncomingPriority = signal<string>('');
     isCategoryTouched = signal<boolean>(false);
+    readonly categoryComp = viewChild(ComboboxCategory);
+    readonly assignUserComp = viewChild(ComboboxAssignUser);
+    readonly subtaskComp = viewChild(Subtask);
+    readonly priorityBtnComp = viewChild(ButtonPriority);
+
+    readonly isPopupOpen = computed(() => this.categoryComp()?.popupExpanded() ?? false);
 
     addTaskForm = new FormGroup({
         title: new FormControl('', { validators: [Validators.required] }),
-        description: new FormControl('', { validators: [Validators.required] }),
+        description: new FormControl('', {}),
         date: new FormControl('', { validators: [Validators.required, this.customValidator.dateValidator] }),
     });
 
@@ -95,10 +101,14 @@ export class ContentAddTask {
         console.log('Task Payload:', newTask.getCleanAddJson());
     }
 
-    //TODO: Textarea on description
+    clearForm() {
+        this.addTaskForm.reset();
+        this.assignUserComp()?.requestReset();
+        this.subtaskComp()?.requestReset();
+        this.categoryComp()?.requestReset();
+        this.isCategoryTouched.set(false);
+        this.priorityBtnComp()?.toggleActiveState('medium');
+    }
     //TODO: CSS content add task
-    //TODO: Board: link IncomingStatus() board buttons
-    //TODO: Board: render AddTask over dialog in board
-    //TODO: Assign user: if user selected, background dark blue
-    //TODO: Description isn't mandatory
+    //TODO: On hover THEN show subtasks edit and delete buttons
 }
