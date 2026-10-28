@@ -1,4 +1,5 @@
 <input
+    name="assignUser"
     #combobox="ngCombobox"
     ngCombobox
     [(expanded)]="popupExpanded"
@@ -10,7 +11,7 @@
     autocomplete="off"
     (click)="popupExpanded.set(!popupExpanded())"
 />
-<img class="dropdown-arrow" src="./assets/icons/arrow-drop-down.svg" [class.turn]="popupExpanded()"/>
+<img class="dropdown-arrow" src="./assets/icons/arrow-drop-down.svg" [class.turn]="popupExpanded()" />
 <ng-template
     [cdkConnectedOverlay]="{ origin: combobox.element, usePopover: 'inline', matchWidth: true }"
     [cdkConnectedOverlayOpen]="popupExpanded()"

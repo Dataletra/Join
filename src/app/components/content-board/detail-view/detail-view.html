@@ -77,6 +77,7 @@
                             @for (subtask of currentTask.subtasks; track $index) {
                                 <label class="subtask-row">
                                     <input
+                                        name="subtaskCheckbox"
                                         type="checkbox"
                                         [checked]="subtask.completed"
                                         [class.checked]="subtask.completed"

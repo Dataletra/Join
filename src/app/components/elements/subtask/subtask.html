@@ -1,5 +1,6 @@
 <div class="input-wrapper">
     <input
+        name="subtaskInput"
         class="subtask-general-input"
         type="text"
         placeholder="Add new subtask"
@@ -22,6 +23,7 @@
                 (dblclick)="openEdit(btnEditContainer, btnEntryEditContainer, inputRef)"
             >
                 <input
+                    name="subtaskInputItem"
                     class="subtask-item-input"
                     type="text"
                     [value]="entry.title"

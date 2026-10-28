@@ -6,6 +6,7 @@
                 <div class="input-container">
                     <p>Title<span class="mandatory-color">*</span></p>
                     <input
+                        name="addTaskTitle"
                         type="text"
                         placeholder="Enter a title"
                         formControlName="title"
@@ -26,12 +27,13 @@
 
                 <div class="input-container">
                     <p>Description</p>
-                    <textarea type="text" placeholder="Enter a description" formControlName="description"></textarea>
+                    <textarea name="descriptionText" type="text" placeholder="Enter a description" formControlName="description"></textarea>
                 </div>
 
                 <div class="input-container">
                     <p>Date<span class="mandatory-color">*</span></p>
                     <input
+                        name="addTaskDate"
                         type="date"
                         class="date-input"
                         placeholder="Enter a date"
