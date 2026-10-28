@@ -37,17 +37,51 @@ dialog {
     border-radius: 30px;
 
     background: white;
-    padding: clamp-px(32, 64);
+    padding: clamp-px(16, 64);
 }
 
 .btn-close {
     position: absolute;
-    right: 70px;
+    right: 40px;
+    top: 50px;
 }
 
 .btn-close {
     &:hover {
         border-radius: 50%;
         background-color: $color-btn-hover;
+    }
+}
+
+@media screen and (max-width: $media-m) {
+    dialog::backdrop {
+        background: #00000000;
+    }
+    .animation-wrapper {
+        width: 100%;
+        height: $height-content-mobile;
+        border-radius: 0px;
+        box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4);
+    }
+    .dialog-wrapper {
+        border-radius: 0px;
+    }
+}
+
+@media screen and (max-width: 680px) {
+    .dialog-wrapper {
+        padding-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .btn-close {
+        position: absolute;
+        right: 35px;
+        top: 30px;
+    }
+    .dialog-wrapper {
+        padding: 15px;
+        padding-bottom: 0;
     }
 }

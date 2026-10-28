@@ -213,6 +213,7 @@
         display: block;
     }
 }
+
 :host(.in-dialog) {
     .component-container {
         padding: 0px;
@@ -233,24 +234,23 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            gap: 0;
+            gap: 10px;
         }
         :host {
             max-height: $height-content-mobile;
-        }
-        .component-container {
-            padding-top: 20px;
-            padding-inline: 10px;
         }
         form {
             overflow-y: scroll;
             scrollbar-width: none;
         }
-        .left-wrapper {
-            width: 99%;
-        }
+        .left-wrapper,
         .right-wrapper {
             width: 99%;
+            max-width: 99%;
+            gap: 20px;
+        }
+        .right-wrapper {
+            margin-top: 10px;
         }
         .add-task-footer {
             margin-bottom: 15px;
@@ -273,5 +273,24 @@
     form {
         overflow-y: scroll;
         @include scrollbar-light(4, 8);
+    }
+
+    @media screen and (max-width: 380px) {
+        h3 {
+            font-size: 42px;
+        }
+        .add-task-footer {
+            margin-bottom: 15px;
+            justify-content: center;
+        }
+        .finalize-btn-container {
+            gap: 10px;
+            justify-content: flex-end;
+            align-items: flex-end;
+            margin-left: 0;
+        }
+        .component-container {
+            gap: 10px;
+        }
     }
 }

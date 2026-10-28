@@ -40,3 +40,9 @@
         background-color: #f54319;
     }
 }
+
+@media screen and (max-width: 380px) {
+    :host {
+        gap: 8px;
+    }
+}
