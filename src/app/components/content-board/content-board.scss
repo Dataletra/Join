@@ -13,7 +13,7 @@
 .search-bar {
     display: flex;
     align-items: center;
-    width: clamp-px(220, 312, 1400, 810);
+    width: clamp-px(200, 312, 1400, 810);
     height: 48px;
     grid-area: two;
     padding: 8px 16px;
@@ -64,8 +64,7 @@
 .header-wrapper {
     width: 100%;
     padding-inline: clamp-px(16, 64);
-    padding-top: clamp-px(48, 80);
-    padding-bottom: clamp-px(24, 48);
+    padding-block: clamp-px(16, 80, 1400, 800);
     max-width: calc($content-limitation - $width-nav-desktop);
 }
 
@@ -76,7 +75,7 @@
     align-items: center;
     min-height: 73px;
     width: 100%;
-    row-gap: 40px;
+    row-gap: 16px;
     column-gap: clamp-px(16, 32, 1400, 850);
 
     .title {
