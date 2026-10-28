@@ -72,6 +72,8 @@
                                     [cdkDragStartDelay]="delayDrag"
                                     (pointerdown)="setRelativeMousePosition($event)"
                                     (cdkDragMoved)="onDrageMove($event)"
+                                    tabindex="0"
+                                    (keyup.enter)="dialogService.openTask('task', task)"
                                 >
                                     <div class="drag-placeholder" *cdkDragPlaceholder></div>
                                     <div *cdkDragPreview>
@@ -126,6 +128,8 @@
                                     [cdkDragStartDelay]="delayDrag"
                                     (pointerdown)="setRelativeMousePosition($event)"
                                     (cdkDragMoved)="onDrageMove($event)"
+                                    tabindex="0"
+                                    (keyup.enter)="dialogService.openTask('task', task)"
                                 >
                                     <div class="drag-placeholder" *cdkDragPlaceholder></div>
                                     <div *cdkDragPreview>
@@ -180,6 +184,8 @@
                                     [cdkDragStartDelay]="delayDrag"
                                     (pointerdown)="setRelativeMousePosition($event)"
                                     (cdkDragMoved)="onDrageMove($event)"
+                                    tabindex="0"
+                                    (keyup.enter)="dialogService.openTask('task', task)"
                                 >
                                     <div class="drag-placeholder" *cdkDragPlaceholder></div>
                                     <div *cdkDragPreview>
@@ -229,6 +235,8 @@
                                     [cdkDragStartDelay]="delayDrag"
                                     (pointerdown)="setRelativeMousePosition($event)"
                                     (cdkDragMoved)="onDrageMove($event)"
+                                    tabindex="0"
+                                    (keyup.enter)="dialogService.openTask('task', task)"
                                 >
                                     <div class="drag-placeholder" *cdkDragPlaceholder></div>
                                     <div *cdkDragPreview>

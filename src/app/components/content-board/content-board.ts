@@ -206,7 +206,9 @@ export class ContentBoard {
             this.notFound.set(false);
         }
     }
-
+onEnter() {
+    console.log("ente");
+}
     private scrollOnMove(event: CdkDragMove): void {
         this.currentX = event.pointerPosition.x;
         this.currentY = event.pointerPosition.y;
