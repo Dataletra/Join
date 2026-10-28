@@ -173,3 +173,7 @@
         height: 40px !important;
     }
 }
+
+.btn-primary:not(:disabled):focus {
+    outline: 2px solid $color-high-2;    
+}
