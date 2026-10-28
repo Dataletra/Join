@@ -53,7 +53,7 @@ export class ContentBoard {
 
     delayDrag: number = window.matchMedia('(hover: hover)').matches ? 0 : 200;
     isTablet = signal<boolean>(window.matchMedia('(width <= 810px)').matches);
-    isMobile = signal<boolean>(window.matchMedia('(width <= 810px)').matches);
+    isMobile = signal<boolean>(window.matchMedia('(width <= 560px)').matches);
     private readonly mediaEventTablet = window.matchMedia('(width <= 810px)');
     private readonly mediaEventMobile = window.matchMedia('(width <= 560px)');
 
