@@ -39,14 +39,6 @@
                             placeholder="Enter a description"
                             formControlName="description"
                         ></textarea>
-                        <div class="check-wrapper">
-                            @if (
-                                addTaskForm.controls.description.hasError('required') &&
-                                (addTaskForm.controls.description.touched || addTaskForm.controls.description.dirty)
-                            ) {
-                                <p class="form-check">Please enter a description.</p>
-                            }
-                        </div>
                     </div>
 
                     <div class="input-container">
@@ -70,6 +62,7 @@
                         @if (dialogService.isOpen() && dialogService.mode() === 'edit-task') {
                             @if (dialogService.selectedTask(); as task) {
                                 <app-button-priority
+                                    [useInEditTask]="true"
                                     [existingPriority]="task.priority"
                                     (priorityOutput)="importPriority($event)"
                                 />
@@ -93,6 +86,22 @@
                         @if (comboboxUsers().length > 6) {
                             <app-ic-contact class="user-ic" [name]="trimmedUserIc()"></app-ic-contact>
                         }
+                    </div>
+
+                    <div class="input-container">
+                        <p>Category</p>
+                        <app-combobox-category
+                            [initialCategory]="IncomingCategory()"
+                            (categoryOutput)="importCategory($event)"
+                            (touched)="isCategoryTouched.set(true)"
+                            [class.error-input]="IncomingCategory() == '' && isCategoryTouched() && !isPopupOpen()"
+                        >
+                        </app-combobox-category>
+                        <div class="check-wrapper">
+                            @if (IncomingCategory() == '' && isCategoryTouched() && !isPopupOpen()) {
+                                <p class="form-check">Please select a category.</p>
+                            }
+                        </div>
                     </div>
 
                     <div class="input-container">

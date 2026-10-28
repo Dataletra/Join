@@ -13,9 +13,18 @@ import { ContactService } from '../../../services/contact-service';
 import { Subtask } from '../../elements/subtask/subtask';
 import { TasksService } from '../../../services/tasks-service';
 import { Task } from '../../models/task';
+import { ComboboxCategory } from '../../elements/combobox-category/combobox-category';
 
 @Component({
-    imports: [ButtonPriority, ComboboxAssignUser, IcContact, Subtask, ButtonPrimary, ReactiveFormsModule],
+    imports: [
+        ButtonPriority,
+        ComboboxAssignUser,
+        ComboboxCategory,
+        IcContact,
+        Subtask,
+        ButtonPrimary,
+        ReactiveFormsModule,
+    ],
     selector: 'app-edit-task',
     styleUrl: './edit-task.scss',
     templateUrl: './edit-task.html',
@@ -32,6 +41,9 @@ export class EditTask {
     IncomingPriority = signal<string>('');
     IncomingStatus = signal<string>(Status.todo);
     tasksService = inject(TasksService);
+    isCategoryTouched = signal<boolean>(false);
+    readonly categoryComp = viewChild(ComboboxCategory);
+    readonly isPopupOpen = computed(() => this.categoryComp()?.popupExpanded() ?? false);
 
     constructor() {
         effect(() => {
@@ -48,6 +60,7 @@ export class EditTask {
                     date: task.due_date,
                 });
                 this.IncomingPriority.set(task.priority);
+                this.IncomingCategory.set(task.category);
                 this.assignedUsers(task.user_ids);
                 this.IncomingSubtasks.set(task.subtasks.map((subtask) => ({ ...subtask })));
             }
@@ -78,7 +91,7 @@ export class EditTask {
 
     addTaskForm = new FormGroup({
         title: new FormControl('', { validators: [Validators.required] }),
-        description: new FormControl('', { validators: [Validators.required] }),
+        description: new FormControl(''),
         date: new FormControl('', { validators: [Validators.required, this.customValidator.dateValidator] }),
     });
 
@@ -120,6 +133,7 @@ export class EditTask {
             due_date: formValues.date ?? '',
             priority: this.IncomingPriority() as Task['priority'],
             user_ids: this.selectedUserIds(),
+            category: this.IncomingCategory() as Task['category'],
             subtasks: this.IncomingSubtasks(),
         });
         await this.tasksService.editTask(updatedTask);
