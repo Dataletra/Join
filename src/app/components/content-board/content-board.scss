@@ -66,6 +66,7 @@
     padding-inline: clamp-px(16, 64);
     padding-top: clamp-px(48, 80);
     padding-bottom: clamp-px(24, 48);
+    max-width: calc($content-limitation - $width-nav-desktop);
 }
 
 .board-header {
