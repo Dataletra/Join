@@ -23,7 +23,13 @@
                 </div>
 
                 <div class="dialog-content">
-                    <h2 class="title">{{ currentTask.title }}</h2>
+                    <h2
+                        class="title"
+                        [class.title-medium]="currentTask.title.length > 20"
+                        [class.title-small]="currentTask.title.length > 30"
+                    >
+                        {{ currentTask.title }}
+                    </h2>
                     <p class="description">{{ currentTask.description }}</p>
                     <div class="date-prio">
                         <table>
