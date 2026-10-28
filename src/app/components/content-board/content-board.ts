@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { afterNextRender, Component, computed, DestroyRef, ElementRef, inject, signal, viewChild } from '@angular/core';
 import { ButtonPrimary } from '../elements/button-primary/button-primary';
 import { TaskListService } from '../../services/tasklist-service';
 import { TasksService } from '../../services/tasks-service';
@@ -46,20 +46,45 @@ export class ContentBoard {
     private readonly Status = Status; // Make Status enum usable in HTML
 
     delayDrag: number = window.matchMedia('(hover: hover)').matches ? 0 : 200;
+    isTablet = signal<boolean>(window.matchMedia('(width <= 810px)').matches);
     isMobile = signal<boolean>(window.matchMedia('(width <= 810px)').matches);
-    mediaEvent = window.matchMedia('(width <= 810px)');
+    mediaEventTablet = window.matchMedia('(width <= 810px)');
+    mediaEventMobile = window.matchMedia('(width <= 560px)');
 
-    onMediaChange = (event: MediaQueryListEvent): void => {
+    onMediaChangeTablet = (event: MediaQueryListEvent): void => {
+        this.isTablet.set(event.matches);
+    };
+    onMediaChangeMobile = (event: MediaQueryListEvent): void => {
         this.isMobile.set(event.matches);
     };
 
+    stickyWrapperHeight = signal<number | null>(1000);
+    private readonly destroyRef = inject(DestroyRef);
+    private readonly scrollWrapper = viewChild.required<ElementRef<HTMLElement>>('scrollWrapper');
+
+    constructor() {
+        afterNextRender(() => {
+            const el = this.scrollWrapper().nativeElement;
+            this.stickyWrapperHeight.set(el.offsetHeight);
+
+            const observer = new ResizeObserver(() => {
+                this.stickyWrapperHeight.set(this.isMobile() ? el.offsetHeight : null);
+            });
+            observer.observe(el);
+
+            this.destroyRef.onDestroy(() => observer.disconnect());
+        });
+    }
+
     async ngOnInit() {
         this.fetchTaskLists();
-        this.mediaEvent.addEventListener('change', this.onMediaChange);
+        this.mediaEventTablet.addEventListener('change', this.onMediaChangeTablet);
+        this.mediaEventMobile.addEventListener('change', this.onMediaChangeMobile);
     }
 
     ngOnDestroy() {
-        this.mediaEvent.removeEventListener('change', this.onMediaChange);
+        this.mediaEventTablet.removeEventListener('change', this.onMediaChangeTablet);
+        this.mediaEventMobile.addEventListener('change', this.onMediaChangeMobile);
     }
 
     async fetchTaskLists() {

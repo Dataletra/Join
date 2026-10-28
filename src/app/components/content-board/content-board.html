@@ -9,7 +9,7 @@
             >Add task</app-button-primary
         >
         <div class="sticky-placeholder">
-            <div class="sticky-wrapper">
+            <div class="sticky-wrapper" [style.height]="stickyWrapperHeight() ? (stickyWrapperHeight() + 'px') : 'auto'">
                 <div class="search-bar-bg">
                     <nav class="search-bar">
                         <input
@@ -39,7 +39,7 @@
 </div>
 
 <main>
-    <div class="scroll-wrapper">
+    <div #scrollWrapper class="scroll-wrapper">
         <section class="section-tasks">
             <header class="section-header">
                 <h5>To do</h5>
@@ -52,7 +52,7 @@
             <div class="task-list-scroll-wrapper">
                 <div
                     cdkDropList
-                    [cdkDropListOrientation]="isMobile() ? 'horizontal' : 'vertical'"
+                    [cdkDropListOrientation]="isTablet() ? 'horizontal' : 'vertical'"
                     #listTodo="cdkDropList"
                     [cdkDropListConnectedTo]="[listProgress, listAwait, listDone]"
                     class="task-list"
@@ -107,7 +107,7 @@
             <div class="task-list-scroll-wrapper">
                 <div
                     cdkDropList
-                    [cdkDropListOrientation]="isMobile() ? 'horizontal' : 'vertical'"
+                    [cdkDropListOrientation]="isTablet() ? 'horizontal' : 'vertical'"
                     #listProgress="cdkDropList"
                     [cdkDropListConnectedTo]="[listTodo, listAwait, listDone]"
                     class="task-list"
@@ -162,7 +162,7 @@
             <div class="task-list-scroll-wrapper">
                 <div
                     cdkDropList
-                    [cdkDropListOrientation]="isMobile() ? 'horizontal' : 'vertical'"
+                    [cdkDropListOrientation]="isTablet() ? 'horizontal' : 'vertical'"
                     #listAwait="cdkDropList"
                     [cdkDropListConnectedTo]="[listProgress, listTodo, listDone]"
                     class="task-list"
@@ -212,7 +212,7 @@
             <div class="task-list-scroll-wrapper">
                 <div
                     cdkDropList
-                    [cdkDropListOrientation]="isMobile() ? 'horizontal' : 'vertical'"
+                    [cdkDropListOrientation]="isTablet() ? 'horizontal' : 'vertical'"
                     #listDone="cdkDropList"
                     [cdkDropListConnectedTo]="[listProgress, listAwait, listTodo]"
                     class="task-list"
