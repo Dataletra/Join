@@ -25,11 +25,12 @@ $media-s: 320px;
 $media-sm: 560px;
 $media-m: 810px;
 
-$height-header: 96px;
+$height-header: 80px;
 $height-footer: 80px;
 $height-content-desktop: calc(100svh - $height-header);
 $height-content-mobile: calc(100svh - $height-header - $height-footer);
 
 $width-nav-desktop: clamp(180px, calc((100svw - 950px) * 52 / 450 + 180px), 232px);
 $width-user-list-icon: 42px;
-$width-task-card: 244px;
+$width-task-card: 252px;
+$width-task-section: $width-task-card + 2 + 2 * 16px;

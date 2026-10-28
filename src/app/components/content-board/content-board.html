@@ -1,7 +1,11 @@
 <div class="header-wrapper">
     <header class="board-header">
         <h3 class="title">Board</h3>
-        <app-button-primary [typeStr]="'addTask'" [small]="true" (click)="dialogService.open('add-task')"
+        <app-button-primary
+            [typeStr]="'addTask'"
+            [small]="true"
+            (click)="dialogService.open('add-task')"
+            [isDisabled]="isFetchPending()"
             >Add task</app-button-primary
         >
 
@@ -16,9 +20,10 @@
                 (blur)="applyFilter(searchInput.value)"
                 (pointerdown)="resetColor()"
                 [class.color-red]="notFound()"
+                [disabled]="isFetchPending()"
             />
-            <button class="search-btn">
-                <img src="./assets/icons/search.svg" alt="search icon" (click)="applyFilter(searchInput.value)" />
+            <button class="search-btn" [disabled]="isFetchPending()">
+                <img src="./assets/icons/search.svg" alt="search icon" (click)="applyFilter(searchInput.value, true)" />
             </button>
         </nav>
     </header>
@@ -29,7 +34,11 @@
         <section class="section-tasks">
             <header class="section-header">
                 <h5>To do</h5>
-                <app-button-primary [typeStr]="'addTaskSmall'"></app-button-primary>
+                <app-button-primary
+                    [isDisabled]="isFetchPending()"
+                    (click)="dialogService.open('add-task'); dialogService.setProgressType('todo')"
+                    [typeStr]="'addTaskSmall'"
+                ></app-button-primary>
             </header>
             <div class="task-list-scroll-wrapper">
                 <div
@@ -80,7 +89,11 @@
         <section class="section-tasks">
             <header class="section-header">
                 <h5>In progress</h5>
-                <app-button-primary [typeStr]="'addTaskSmall'"></app-button-primary>
+                <app-button-primary
+                    [isDisabled]="isFetchPending()"
+                    (click)="dialogService.open('add-task'); dialogService.setProgressType('progress')"
+                    [typeStr]="'addTaskSmall'"
+                ></app-button-primary>
             </header>
             <div class="task-list-scroll-wrapper">
                 <div
@@ -131,7 +144,11 @@
         <section class="section-tasks">
             <header class="section-header">
                 <h5>Await feedback</h5>
-                <app-button-primary [typeStr]="'addTaskSmall'"></app-button-primary>
+                <app-button-primary
+                    [isDisabled]="isFetchPending()"
+                    (click)="dialogService.open('add-task'); dialogService.setProgressType('await')"
+                    [typeStr]="'addTaskSmall'"
+                ></app-button-primary>
             </header>
             <div class="task-list-scroll-wrapper">
                 <div

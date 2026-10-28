@@ -1,5 +1,6 @@
-import { Service, signal } from '@angular/core';
+import { Service, signal, viewChild } from '@angular/core';
 import { IUser } from '../interfaces/iuser';
+import { Status } from '../interfaces/enums';
 import { ITask } from '../interfaces/itask';
 
 @Service()
@@ -7,6 +8,7 @@ export class ContactDialog {
     isOpen = signal(false);
     mode = signal<'add' | 'edit' | 'add-task' | 'task' | 'edit-task' | null>(null);
     selectedUser = signal<IUser | null>(null);
+    progressType = signal<Status>(Status.todo);
     selectedTask = signal<ITask | null>(null);
 
     open(mode: 'add' | 'edit' | 'add-task', user: IUser | null = null) {
@@ -46,6 +48,24 @@ export class ContactDialog {
                 this.selectedUser.set(null);
                 this.selectedTask.set(null);
             }, 300);
+        }
+    }
+
+    setProgressType(type: string) {
+        switch (type) {
+            case 'todo':
+                this.progressType.set(Status.todo);
+                break;
+            case 'progress':
+                this.progressType.set(Status.progress);
+                break;
+            case 'await':
+                this.progressType.set(Status.await);
+                break;
+            default:
+                this.progressType.set(Status.todo);
+                console.error('Failiure setProgressType: ' + type);
+                break;
         }
     }
 

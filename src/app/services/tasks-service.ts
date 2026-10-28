@@ -3,11 +3,13 @@ import { SupabaseService } from './supabase';
 import { ITask } from '../interfaces/itask';
 import { Task } from '../components/models/task';
 import { Status } from '../interfaces/enums';
+import { Toast, ToastType } from './toast';
 
 @Service()
 export class TasksService {
     supabase = inject(SupabaseService).supabase;
     tasklist = signal<ITask[]>([]);
+    toastService = inject(Toast);
 
     ngOnDestroy() {
         this.supabase.removeChannel(this.channelTaskInsert);
@@ -19,6 +21,7 @@ export class TasksService {
         .channel('task-insert-channel')
         .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'tasks' }, (payload) => {
             this.tasklist.update((list) => [...list, new Task(payload.new)]);
+            this.toastService.showToast('Task added to board', ToastType.insertTask);
         })
         .subscribe();
 
@@ -28,6 +31,7 @@ export class TasksService {
             this.tasklist.update((list) =>
                 list.map((task) => (task.id === payload.new['id'] ? { ...task, ...payload.new } : task))
             );
+            this.toastService.showToast('Task udpated succesfully', ToastType.updateTask);
         })
         .subscribe();
 
@@ -35,6 +39,7 @@ export class TasksService {
         .channel('task-delete-channel')
         .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'tasks' }, (payload) => {
             this.tasklist.update((list) => list.filter((task) => task.id !== payload.old['id']));
+            this.toastService.showToast('Task removed from board', ToastType.updateTask);
         })
         .subscribe();
 
@@ -45,11 +50,13 @@ export class TasksService {
     }
 
     async addTask(task: Task) {
+        this.toastService.setTypeMatch(ToastType.insertTask);
         const taskData = task.getCleanAddJson();
         const { data, error } = await this.supabase.from('tasks').insert([taskData]).select();
     }
 
     async editTask(task: Task) {
+        this.toastService.setTypeMatch(ToastType.updateTask);
         const taskData = task.getCleanAddJson();
         const { data, error } = await this.supabase.from('tasks').update(taskData).eq('id', task.id).select();
     }
@@ -61,6 +68,7 @@ export class TasksService {
     }
 
     async deleteTask(id: number) {
+        this.toastService.setTypeMatch(ToastType.deleteTask);
         const { error } = await this.supabase.from('tasks').delete().eq('id', id);
     }
 

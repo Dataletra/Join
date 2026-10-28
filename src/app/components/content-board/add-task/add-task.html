@@ -12,12 +12,13 @@
         [class.move-out-visible]="!dialogService.isOpen()"
     >
         <div class="dialog-wrapper">
-            <header class="add-task-dialog-header">
-                <h3>Add Task</h3>
-                <button class="btn-close" (click)="dialogService.close()">
-                    <img src="./assets/icons/close.svg" aria-hidden="true" />
-                </button>
-            </header>
+            <button class="btn-close" (click)="dialogService.close()">
+                <img src="./assets/icons/close.svg" aria-hidden="true" />
+            </button>
+            <app-content-add-task
+                class="in-dialog"
+                [requestedStatus]="dialogService.progressType()"
+            ></app-content-add-task>
         </div>
     </div>
 </dialog>

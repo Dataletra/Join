@@ -19,8 +19,9 @@ dialog {
 .animation-wrapper {
     width: 84%;
     height: 58%;
-    max-width: 1212px;
-    height: 600px;
+    // max-width: 1212px;
+    max-width: 991px;
+    height: 650px;
     margin: auto;
     border-radius: 30px;
     border: none;
@@ -39,10 +40,9 @@ dialog {
     padding: clamp-px(32, 64);
 }
 
-.add-task-dialog-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+.btn-close {
+    position: absolute;
+    right: 70px;
 }
 
 .btn-close {

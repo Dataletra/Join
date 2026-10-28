@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, signal } from '@angular/core';
+import { Component, computed, inject, Input, input, signal, viewChild } from '@angular/core';
 import { ButtonPriority } from '../elements/button-priority/button-priority';
 import { ComboboxCategory } from '../elements/combobox-category/combobox-category';
 import { ComboboxAssignUser } from '../elements/combobox-assign-user/combobox-assign-user';
@@ -13,6 +13,7 @@ import { CustomValidators } from '../../services/custom-validators';
 import { Task } from '../models/task';
 import { Priority, Status } from '../../interfaces/enums';
 import { TasksService } from '../../services/tasks-service';
+import { ContactDialog } from '../../services/contact-dialog';
 
 @Component({
     imports: [
@@ -32,17 +33,24 @@ export class ContentAddTask {
     contactService = inject(ContactService);
     tasksService = inject(TasksService);
     customValidator = inject(CustomValidators);
+    contactDialog = inject(ContactDialog);
+    requestedStatus = input<Status>(Status.todo);
     comboboxUsers = signal<IUser[]>([]);
     selectedUserIds = signal<number[]>([]);
     IncomingSubtasks = signal<ISubtask[]>([]);
     IncomingCategory = signal<string>('');
     IncomingPriority = signal<string>('');
-    IncomingStatus = signal<string>(Status.todo);
     isCategoryTouched = signal<boolean>(false);
+    readonly categoryComp = viewChild(ComboboxCategory);
+    readonly assignUserComp = viewChild(ComboboxAssignUser);
+    readonly subtaskComp = viewChild(Subtask);
+    readonly priorityBtnComp = viewChild(ButtonPriority);
+
+    readonly isPopupOpen = computed(() => this.categoryComp()?.popupExpanded() ?? false);
 
     addTaskForm = new FormGroup({
         title: new FormControl('', { validators: [Validators.required] }),
-        description: new FormControl('', { validators: [Validators.required] }),
+        description: new FormControl('', {}),
         date: new FormControl('', { validators: [Validators.required, this.customValidator.dateValidator] }),
     });
 
@@ -67,10 +75,6 @@ export class ContentAddTask {
         this.IncomingPriority.set(priority);
     }
 
-    importStatus(status: string) {
-        this.IncomingStatus.set(status);
-    }
-
     isTaskValid() {
         if (this.addTaskForm.valid && this.IncomingCategory() != '') {
             return true;
@@ -88,7 +92,7 @@ export class ContentAddTask {
             category: this.IncomingCategory() as 'Technical Task' | 'User Story',
             due_date: formValues.date ?? '',
             priority: this.IncomingPriority() as Priority,
-            status: this.IncomingStatus() as Status,
+            status: this.requestedStatus() as Status,
             user_ids: this.selectedUserIds(),
             subtasks: this.IncomingSubtasks(),
         });
@@ -97,10 +101,14 @@ export class ContentAddTask {
         console.log('Task Payload:', newTask.getCleanAddJson());
     }
 
-    //TODO: Textarea on description
+    clearForm() {
+        this.addTaskForm.reset();
+        this.assignUserComp()?.requestReset();
+        this.subtaskComp()?.requestReset();
+        this.categoryComp()?.requestReset();
+        this.isCategoryTouched.set(false);
+        this.priorityBtnComp()?.toggleActiveState('medium');
+    }
     //TODO: CSS content add task
-    //TODO: Board: link IncomingStatus() board buttons
-    //TODO: Board: render AddTask over dialog in board
-    //TODO: Assign user: if user selected, background dark blue
-    //TODO: Description isn't mandatory
+    //TODO: On hover THEN show subtasks edit and delete buttons
 }
