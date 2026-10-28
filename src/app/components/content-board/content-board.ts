@@ -35,6 +35,7 @@ export class ContentBoard {
     taskService = inject(TasksService);
     toastService = inject(Toast);
 
+    isFetchPending = signal<boolean>(true);
     notFound = signal<boolean>(false);
     searchResults = signal<number[] | null>(null);
     tasksToRender = computed(() => {
@@ -65,6 +66,7 @@ export class ContentBoard {
         await this.sortingService.getTaskLists();
         await this.taskService.getTasks();
         this.syncTasksWithTaskMap();
+        this.isFetchPending.set(false);
     }
 
     syncTasksWithTaskMap() {

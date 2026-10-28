@@ -1,6 +1,7 @@
 <div class="wrapper">
     <div class="btn-container">
         <app-button-primary
+            [isDisabled]="isFetchPending()"
             (click)="dialogService.open('add')"
             class="add-contact-btn"
             [typeStr]="'addContact'"

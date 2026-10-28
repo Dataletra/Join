@@ -1,4 +1,4 @@
-import { Component, computed, inject, output, effect } from '@angular/core';
+import { Component, computed, inject, output, effect, signal } from '@angular/core';
 import { ContactService } from '../../../services/contact-service';
 import { TitleCasePipe } from '@angular/common';
 import { IUser } from '../../../interfaces/iuser';
@@ -17,6 +17,7 @@ export class Namelist {
     dbService = inject(ContactService);
     userList: IUser[] | null = [];
     dialogService = inject(ContactDialog);
+    isFetchPending = signal<boolean>(true);
 
     constructor() {
         effect(() => {
@@ -39,6 +40,7 @@ export class Namelist {
         await this.dbService.getUsers();
         this.userList = this.dbService.users();
         this.sortUsers();
+        this.isFetchPending.set(false);
     }
 
     sortUsers() {

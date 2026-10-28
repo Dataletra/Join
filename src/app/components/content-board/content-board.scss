@@ -29,6 +29,10 @@
         font-family: 'Inter';
         font-size: 20px;
         outline: none;
+
+        &:disabled {
+            cursor: not-allowed;
+        }
     }
 
     .search-btn {
