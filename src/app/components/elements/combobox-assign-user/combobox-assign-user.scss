@@ -43,6 +43,7 @@
     width: 24px;
     height: 24px;
     transition: transform 0.15s ease;
+    pointer-events: none;
 }
 
 .turn {
