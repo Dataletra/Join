@@ -10,12 +10,26 @@
 }
 
 // #region board-header
+.sticky-placeholder {
+    grid-area: two;
+}
+
+.sticky-wrapper {
+    width: 100%;
+    pointer-events: none;
+}
+
+.search-bar-bg {
+    background: linear-gradient(to bottom, $color-bg-content 54px, transparent 80px);
+    height: 80px;
+    padding-top: 16px;
+}
+
 .search-bar {
     display: flex;
     align-items: center;
     width: clamp-px(200, 312, 1400, 810);
     height: 48px;
-    grid-area: two;
     padding: 8px 16px;
     border: 1px solid $color-icon;
     border-radius: 10px;
@@ -29,7 +43,7 @@
         font-family: 'Inter';
         font-size: 20px;
         outline: none;
-
+        pointer-events: all;
         &:disabled {
             cursor: not-allowed;
         }
@@ -41,6 +55,7 @@
         width: 48px;
         height: 32px;
         border-left: 1px solid $color-icon;
+        pointer-events: all;
 
         > img {
             transition: background-color 125ms ease-in-out;
@@ -63,8 +78,9 @@
 
 .header-wrapper {
     width: 100%;
-    padding-inline: clamp-px(16, 64);
-    padding-block: clamp-px(16, 80, 1400, 800);
+    padding-inline: clamp-px(16, 48);
+    padding-top: clamp-px(16, 48, 1400, 800);
+    padding-bottom: clamp-px(32, 48, 1400, 800);
     max-width: calc($content-limitation - $width-nav-desktop);
 }
 
@@ -75,7 +91,6 @@
     align-items: center;
     min-height: 73px;
     width: 100%;
-    row-gap: 16px;
     column-gap: clamp-px(16, 32, 1400, 850);
 
     .title {
@@ -93,6 +108,20 @@
         grid-template-areas:
             'one thr'
             'two two';
+    }
+
+    .sticky-placeholder {
+        height: 48px;
+        position: relative;
+    }
+
+    .sticky-wrapper {
+        height: 1000px;
+    }
+
+    .search-bar-bg {
+        position: sticky;
+        top: 0;
     }
 
     .search-bar {
@@ -162,8 +191,10 @@ main {
     padding-block: 16px;
     padding-inline: 16px;
     min-height: 100%;
+    width: fit-content;
 }
 
+:host,
 main,
 .scroll-wrapper,
 .task-list-scroll-wrapper {
@@ -174,12 +205,19 @@ main,
     h5 {
         color: $color-base;
     }
+
+    :host {
+        overflow-y: auto;
+    }
+
     main {
         width: 100%;
         max-width: none;
+        overflow: visible;
 
         .scroll-wrapper {
             width: 100%;
+            height: fit-content;
             max-width: none;
             flex-direction: column;
             overflow-x: hidden;

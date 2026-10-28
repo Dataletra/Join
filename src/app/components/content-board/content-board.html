@@ -8,24 +8,33 @@
             [isDisabled]="isFetchPending()"
             >Add task</app-button-primary
         >
-
-        <nav class="search-bar">
-            <input
-                #searchInput
-                class="search-input"
-                type="text"
-                placeholder="Find Task"
-                (keydown)="resetColor($event)"
-                (keydown.enter)="applyFilter(searchInput.value, true)"
-                (blur)="applyFilter(searchInput.value)"
-                (pointerdown)="resetColor()"
-                [class.color-red]="notFound()"
-                [disabled]="isFetchPending()"
-            />
-            <button class="search-btn" [disabled]="isFetchPending()">
-                <img src="./assets/icons/search.svg" alt="search icon" (click)="applyFilter(searchInput.value, true)" />
-            </button>
-        </nav>
+        <div class="sticky-placeholder">
+            <div class="sticky-wrapper">
+                <div class="search-bar-bg">
+                    <nav class="search-bar">
+                        <input
+                            #searchInput
+                            class="search-input"
+                            type="text"
+                            placeholder="Find Task"
+                            (keydown)="resetColor($event)"
+                            (keydown.enter)="applyFilter(searchInput.value, true)"
+                            (blur)="applyFilter(searchInput.value)"
+                            (pointerdown)="resetColor()"
+                            [class.color-red]="notFound()"
+                            [disabled]="isFetchPending()"
+                        />
+                        <button class="search-btn" [disabled]="isFetchPending()">
+                            <img
+                                src="./assets/icons/search.svg"
+                                alt="search icon"
+                                (click)="applyFilter(searchInput.value, true)"
+                            />
+                        </button>
+                    </nav>
+                </div>
+            </div>
+        </div>
     </header>
 </div>
 
