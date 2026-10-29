@@ -25,7 +25,6 @@ dialog {
     background: white;
     border-radius: 30px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.4);
-    // overflow-y: auto;
     @include scrollbar-light();
 }
 
@@ -148,6 +147,7 @@ dialog {
 
 .subtasks {
     margin-bottom: 24px;
+
     .sub-title {
         font-size: 20px;
         color: $color-base;

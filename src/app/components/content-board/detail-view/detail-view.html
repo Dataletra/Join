@@ -40,7 +40,7 @@
                             <tr>
                                 <th>Priority:</th>
                                 <td>
-                                    {{ currentTask.priority }}
+                                    {{ currentTask.priority | titlecase }}
                                     @if (currentTask.priority === 'low') {
                                         <img src="./assets/icons/low.svg" />
                                     } @else if (currentTask.priority === 'medium') {

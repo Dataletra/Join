@@ -19,7 +19,7 @@
                 </div>
 
                 <div class="dialog-content">
-                    <div class="input-container">
+                    <div class="input-container input-title">
                         <p>Title</p>
                         <input name="editTaskTitle" type="text" placeholder="Enter a title" formControlName="title" />
                         <div class="check-wrapper">
@@ -42,9 +42,15 @@
                         ></textarea>
                     </div>
 
-                    <div class="input-container">
+                    <div class="input-container input-date">
                         <p>Date</p>
-                        <input name="editTaskDate" type="date" placeholder="Enter a date" formControlName="date" />
+                        <input
+                            name="editTaskDate"
+                            type="date"
+                            placeholder="Enter a date"
+                            formControlName="date"
+                            class="date-input"
+                        />
                         <div class="check-wrapper">
                             @if (
                                 addTaskForm.controls.date.hasError('required') &&
@@ -81,10 +87,10 @@
                         }
                     </div>
                     <div class="userIconContainer">
-                        @for (user of comboboxUsers().slice(0, 6); track $index) {
+                        @for (user of comboboxUsers().slice(0, 3); track $index) {
                             <app-ic-contact class="user-ic" [name]="user.name"></app-ic-contact>
                         }
-                        @if (comboboxUsers().length > 6) {
+                        @if (comboboxUsers().length > 3) {
                             <app-ic-contact class="user-ic" [name]="trimmedUserIc()"></app-ic-contact>
                         }
                     </div>
