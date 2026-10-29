@@ -36,7 +36,7 @@ dialog {
 
 .dialog-header {
     height: 75px;
-    padding: 48px 40px 0 40px;
+    padding: 40px 40px 0 40px;
 }
 
 .category {
@@ -49,6 +49,7 @@ dialog {
         width: 24px;
         height: 24px;
         border-radius: 50%;
+
         &:hover {
             background-color: $color-btn-hover;
         }

@@ -41,6 +41,16 @@ dialog {
     margin-bottom: 24px;
 }
 
+.close {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+
+    &:hover {
+        background-color: $color-btn-hover;
+    }
+}
+
 .dialog-content {
     max-height: 70dvh;
     padding-inline: 40px;
@@ -66,6 +76,7 @@ dialog {
         border: 1px solid $color-input-border-2;
         padding: 12px 21px;
         font-family: 'Inter';
+        font-size: 16px;
     }
 
     textarea {
