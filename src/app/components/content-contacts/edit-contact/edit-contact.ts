@@ -2,18 +2,11 @@ import { Component, inject, viewChild, ElementRef, effect, signal } from '@angul
 import { ContactDialog } from '../../../services/contact-dialog';
 import { IcContact } from '../../elements/ic-contact/ic-contact';
 import { ButtonPrimary } from '../../elements/button-primary/button-primary';
-import {
-    FormControl,
-    ReactiveFormsModule,
-    FormGroup,
-    Validators,
-    ValidatorFn,
-    AbstractControl,
-    ValidationErrors,
-} from '@angular/forms';
+import { FormControl, ReactiveFormsModule, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../models/user';
 import { ContactService } from '../../../services/contact-service';
 import { PopupConfirm } from '../../elements/popup-confirm/popup-confirm';
+import { CustomValidators } from '../../../services/custom-validators';
 
 @Component({
     imports: [IcContact, ButtonPrimary, ReactiveFormsModule, PopupConfirm],
@@ -23,6 +16,7 @@ import { PopupConfirm } from '../../elements/popup-confirm/popup-confirm';
 })
 export class EditContact {
     supabaseService = inject(ContactService);
+    validatorService = inject(CustomValidators);
     dialogService = inject(ContactDialog);
     dialog = viewChild<ElementRef<HTMLDialogElement>>('editContact');
     avatarName = signal('');
@@ -59,63 +53,35 @@ export class EditContact {
             element.showModal();
         }
         if (!isOpen && element.open) {
-            element.close();
+            setTimeout(() => {
+                element.close();
+            }, 300);
         }
     }
 
     contactForm = new FormGroup({
         name: new FormControl('', {
             nonNullable: true,
-            validators: [Validators.required, this.customNameValidator()],
+            validators: [Validators.required, this.validatorService.customNameValidator()],
         }),
 
         email: new FormControl('', {
             nonNullable: true,
-            validators: [Validators.required, Validators.email, this.customMailValidator()],
+            validators: [
+                Validators.required,
+                Validators.email,
+                this.validatorService.customMailValidator(),
+                this.validatorService.customMailDbValidator(() => {
+                    return this.dialogService.selectedUser()?.email;
+                }),
+            ],
         }),
 
         phone: new FormControl('', {
             nonNullable: true,
-            validators: [Validators.required, this.customPhoneValidator()],
+            validators: [Validators.required, this.validatorService.customPhoneValidator()],
         }),
     });
-
-    customNameValidator(): ValidatorFn {
-        return (control: AbstractControl): ValidationErrors | null => {
-            const value = control.value;
-            if (!value) {
-                return null;
-            }
-            const pattern = /^[\p{L},'-]{2,}(?:[ ][\p{L},'-]{2,})+$/u;
-            return pattern.test(value) ? null : { namePattern: true };
-        };
-    }
-
-    customMailValidator(): ValidatorFn {
-        return (control: AbstractControl): ValidationErrors | null => {
-            const value = control.value;
-            if (!value) {
-                return null;
-            }
-            const pattern = /^[^\s@]{2,}@[^\s@]{2,}\.[^\s@]{2,}$/;
-            return pattern.test(value) ? null : { emailPattern: true };
-        };
-    }
-
-    customPhoneValidator(): ValidatorFn {
-        return (control: AbstractControl): ValidationErrors | null => {
-            const value = control.value;
-            if (!value) {
-                return null;
-            }
-            const pattern = /^\+?[0-9\s()/-]+$/;
-            const digitCount = value.replace(/\D/g, '').length;
-            if (!pattern.test(value) || digitCount < 6) {
-                return { phonePattern: true };
-            }
-            return null;
-        };
-    }
 
     async onSubmit() {
         if (this.contactForm.invalid) {

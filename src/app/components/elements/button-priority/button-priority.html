@@ -1,12 +1,30 @@
-<button class="btn-priority low-prio" [class.active-state]="lowIsActive()" (click)="toggleActiveState('lowPrio')">
-    <p>{{ btnSrc.get('lowPrio')?.[2] }}</p>
-    <img [src]="lowIsActive() ? btnSrc.get('lowPrio')?.[1] : btnSrc.get('lowPrio')?.[0]" />
+<button
+    type="button"
+    class="btn-priority low-prio"
+    [class.active-state]="lowIsActive()"
+    [class.useInEditTask]="useInEditTask()"
+    (click)="toggleActiveState('low')"
+>
+    <p>{{ btnSrc.get('low')?.[2] }}</p>
+    <img [src]="lowIsActive() ? btnSrc.get('low')?.[1] : btnSrc.get('low')?.[0]" />
 </button>
-<button class="btn-priority med-prio" [class.active-state]="medIsActive()" (click)="toggleActiveState('medPrio')">
-    <p>{{ btnSrc.get('medPrio')?.[2] }}</p>
-    <img [src]="medIsActive() ? btnSrc.get('medPrio')?.[1] : btnSrc.get('medPrio')?.[0]" />
+<button
+    type="button"
+    class="btn-priority med-prio"
+    [class.active-state]="medIsActive()"
+    [class.useInEditTask]="useInEditTask()"
+    (click)="toggleActiveState('medium')"
+>
+    <p>{{ btnSrc.get('medium')?.[2] }}</p>
+    <img [src]="medIsActive() ? btnSrc.get('medium')?.[1] : btnSrc.get('medium')?.[0]" />
 </button>
-<button class="btn-priority hi-prio" [class.active-state]="hiIsActive()" (click)="toggleActiveState('hiPrio')">
-    <p>{{ btnSrc.get('hiPrio')?.[2] }}</p>
-    <img [src]="hiIsActive() ? btnSrc.get('hiPrio')?.[1] : btnSrc.get('hiPrio')?.[0]" />
+<button
+    type="button"
+    class="btn-priority hi-prio"
+    [class.active-state]="hiIsActive()"
+    [class.useInEditTask]="useInEditTask()"
+    (click)="toggleActiveState('urgent')"
+>
+    <p>{{ btnSrc.get('urgent')?.[2] }}</p>
+    <img [src]="hiIsActive() ? btnSrc.get('urgent')?.[1] : btnSrc.get('urgent')?.[0]" />
 </button>

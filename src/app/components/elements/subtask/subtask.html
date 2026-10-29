@@ -1,26 +1,56 @@
 <div class="input-wrapper">
-    <input type="text" placeholder="Enter a description" [formControl]="subtaskEntry" />
+    <input
+        name="subtaskInput"
+        class="subtask-general-input"
+        type="text"
+        placeholder="Add new subtask"
+        [formControl]="subtaskEntry"
+        (keydown.enter)="confirm()"
+    />
     @if (subtaskEntry.value) {
         <div class="btn-container">
-            <button (click)="confirm()">Yes</button>
+            <button (click)="cancel()"><img src="./assets/icons/close.svg" alt="close icon" /></button>
             <hr />
-            <button (click)="cancel()">No</button>
+            <button (click)="confirm()"><img src="./assets/icons/check-black.svg" alt="check icon" /></button>
         </div>
     }
 </div>
 <ul>
     @for (entry of subtaskItems; track $index) {
         <li class="subtask-item" [attr.id]="'subtask-' + $index">
-            <input class="subtask-item-input" type="text" [value]="entry.title" #inputRef [disabled]="true" />
-            <div class="btn-entry-container" #btnEditContainer>
-                <button (click)="openEdit(btnEditContainer)">edit</button>
-                <hr />
-                <button (click)="delete($index)">del</button>
-            </div>
-            <div class="btn-entry-edit-container">
-                <button (click)="saveEdit($index, inputRef.value, btnEditContainer)">Aedit</button>
-                <hr />
-                <button (click)="delete($index)">Adel</button>
+            <div
+                class="subtask-content-wrapper"
+                (dblclick)="openEdit(btnEditContainer, btnEntryEditContainer, inputRef)"
+            >
+                <input
+                    name="subtaskInputItem"
+                    class="subtask-item-input"
+                    type="text"
+                    [value]="entry.title"
+                    #inputRef
+                    disabled
+                    (keydown.enter)="
+                        saveEdit($index, inputRef.value, btnEditContainer, btnEntryEditContainer, inputRef)
+                    "
+                />
+
+                <div class="btn-entry-container" #btnEditContainer>
+                    <button (click)="openEdit(btnEditContainer, btnEntryEditContainer, inputRef)">
+                        <img src="./assets/icons/edit.svg" alt="edit icon" />
+                    </button>
+                    <hr />
+                    <button (click)="delete($index)"><img src="./assets/icons/delete.svg" alt="delete icon" /></button>
+                </div>
+
+                <div class="btn-entry-edit-container d-none" #btnEntryEditContainer>
+                    <button
+                        (click)="saveEdit($index, inputRef.value, btnEditContainer, btnEntryEditContainer, inputRef)"
+                    >
+                        <img src="./assets/icons/check-black.svg" alt="check icon" />
+                    </button>
+                    <hr />
+                    <button (click)="delete($index)"><img src="./assets/icons/delete.svg" alt="delete icon" /></button>
+                </div>
             </div>
         </li>
     }

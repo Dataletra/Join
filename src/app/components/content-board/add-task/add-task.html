@@ -1,0 +1,24 @@
+<dialog
+    #addTaskDialog
+    closedby="any"
+    (close)="dialogService.close()"
+    (click)="dialogService.close()"
+    [class.d-none]="dialogService.mode() !== 'add-task'"
+>
+    <div
+        class="animation-wrapper"
+        (click)="dialogService.stopPropagation($event)"
+        [class.move-in-visible]="dialogService.isOpen()"
+        [class.move-out-visible]="!dialogService.isOpen()"
+    >
+        <div class="dialog-wrapper">
+            <button class="btn-close" (click)="dialogService.close()">
+                <img src="./assets/icons/close.svg" aria-hidden="true" />
+            </button>
+            <app-content-add-task
+                class="in-dialog"
+                [requestedStatus]="dialogService.progressType()"
+            ></app-content-add-task>
+        </div>
+    </div>
+</dialog>

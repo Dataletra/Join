@@ -18,7 +18,7 @@
     }
     <div class="task-footer">
         <div class="member">
-            @for (user of task().assignedTo.slice(0, 3); track $index) {
+            @for (user of assignedUsers().slice(0, 3); track user.id) {
                 <app-ic-contact
                     class="badge"
                     [name]="user.name"
@@ -26,10 +26,10 @@
                     [isDummy]="false"
                 ></app-ic-contact>
             }
-            @if (task().assignedTo.length > 3) {
+            @if (task().user_ids.length > 3) {
                 <app-ic-contact
                     class="badge"
-                    [name]="'+' + '(task().assignedTo.length - 3)'"
+                    [name]="'+ ' + (task().user_ids.length - 3)"
                     [enableShadow]="false"
                     [isDummy]="false"
                 ></app-ic-contact>
@@ -37,4 +37,88 @@
         </div>
         <img class="prio" src="./assets/icons/{{ task().priority }}.svg" aria-hidden="true" />
     </div>
+    <button
+        type="button"
+        cdkOverlayOrigin
+        #origin="cdkOverlayOrigin"
+        class="btn-status-menu"
+        (keyup.enter)="toggleMenu($event)"
+        (click)="toggleMenu($event)"
+        (keydown.escape)="hideMenu($event)"
+        ngMenuTrigger
+        #trigger="ngMenuTrigger"
+        [menu]="statusMenu()"
+    >
+        <img src="./assets/icons/swap.svg" aria-hidden="true" />
+    </button>
 </section>
+
+<ng-template
+    cdkConnectedOverlay
+    [cdkConnectedOverlayOrigin]="origin"
+    [cdkConnectedOverlayOpen]="overlayListen()"
+    (overlayOutsideClick)="hideMenu()"
+    (detach)="hideMenu()"
+    [cdkConnectedOverlayPositions]="[{ originX: 'end', originY: 'bottom', overlayX: 'end', overlayY: 'top' }]"
+>
+    <menu
+        ngMenu
+        #statusMenu="ngMenu"
+        class="status-menu"
+        [class.grow]="showMenu()"
+        [class.shrink]="!showMenu()"
+        (click)="$event.stopPropagation()"
+    >
+        <ng-template ngMenuContent>
+            <p class="popup-title">Move to</p>
+            @if (task().status !== Status.todo) {
+                <div
+                    ngMenuItem
+                    class="status-menu-item"
+                    value="move-to-todo"
+                    (click)="moveTo(Status.todo)"
+                    (keydown.enter)="moveTo(Status.todo)"
+                >
+                    <img src="./assets/icons/status-todo.svg" aria-hidden="true" />
+                    <p>To do</p>
+                </div>
+            }
+            @if (task().status !== Status.progress) {
+                <div
+                    ngMenuItem
+                    class="status-menu-item"
+                    value="move-to-progress"
+                    (click)="moveTo(Status.progress)"
+                    (keydown.enter)="moveTo(Status.progress)"
+                >
+                    <img src="./assets/icons/status-progress.svg" aria-hidden="true" />
+                    <p>In progress</p>
+                </div>
+            }
+            @if (task().status !== Status.await) {
+                <div
+                    ngMenuItem
+                    class="status-menu-item"
+                    value="move-to-await"
+                    (click)="moveTo(Status.await)"
+                    (keydown.enter)="moveTo(Status.await)"
+                >
+                    <img src="./assets/icons/status-await.svg" aria-hidden="true" />
+                    <p>Await feedback</p>
+                </div>
+            }
+            @if (task().status !== Status.done) {
+                <div
+                    ngMenuItem
+                    class="status-menu-item"
+                    value="move-to-done"
+                    (click)="moveTo(Status.done)"
+                    (keydown.enter)="moveTo(Status.done)"
+                >
+                    <img src="./assets/icons/status-done.svg" aria-hidden="true" />
+                    <p>Done</p>
+                </div>
+            }
+        </ng-template>
+    </menu>
+</ng-template>

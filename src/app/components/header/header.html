@@ -9,10 +9,15 @@
         cdkOverlayOrigin
         #origin="cdkOverlayOrigin"
         (click)="toggleMenu()"
+        (keyup.enter)="toggleMenu()"
         (keyup.escape)="hideMenu()"
         class="header-user"
         [name]="'TODO NAME'"
         [isHeader]="true"
+        tabindex="0"
+        ngMenuTrigger
+        #trigger="ngMenuTrigger"
+        [menu]="headerMenu()"
     ></app-ic-contact>
 </nav>
 <ng-template
@@ -23,9 +28,33 @@
     (detach)="hideMenu()"
 >
     <menu ngMenu #headerMenu="ngMenu" class="user-menu" [class.move-out]="!showMenu()" [class.move-in]="showMenu()">
-        <li ngMenuItem value="help" (click)="goToPage('help')" class="help-mobile"><a>Help</a></li>
-        <li ngMenuItem value="legal-notice"><a (click)="goToPage('legal-notice')">Legal Notice</a></li>
-        <li ngMenuItem value="privacy-policy"><a (click)="goToPage('privacy-policy')">Privacy Policy</a></li>
-        <li ngMenuItem value="logout"><a href="#TODO">Log out</a></li>
+        <ng-template ngMenuContent >
+            <li
+                ngMenuItem
+                value="help"
+                (click)="goToPage('help')"
+                (keydown.enter)="goToPage('help')"
+                class="help-mobile"
+            >
+                <a>Help</a>
+            </li>
+            <li
+                ngMenuItem
+                value="legal-notice"
+                (click)="goToPage('legal-notice')"
+                (keydown.enter)="goToPage('legal-notice')"
+            >
+                <a>Legal Notice</a>
+            </li>
+            <li
+                ngMenuItem
+                value="privacy-policy"
+                (click)="goToPage('privacy-policy')"
+                (keydown.enter)="goToPage('privacy-policy')"
+            >
+                <a>Privacy Policy</a>
+            </li>
+            <li ngMenuItem value="logout"><a href="#TODO">Log out</a></li>
+        </ng-template>
     </menu>
 </ng-template>

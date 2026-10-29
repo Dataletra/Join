@@ -1,3 +1,5 @@
+$content-limitation: 1920px;
+
 $color-base: #2a3647;
 $color-high-1: #124658;
 $color-high-2: #29abe2;
@@ -7,10 +9,11 @@ $color-nav: #e7e7e7;
 $color-nav-high: #ffffff;
 $color-nav-hover-bg: #2a3d59;
 $color-nav-active-bg: #091931;
-$color-gray: #a8a8a8;
 $color-input-border: #6b6b6bb6;
+$color-input-border-2: #d1d1d1;
 $color-form-check: #e60026;
 $color-popup: #cdcdcd;
+$color-icon: #a8a8a8;
 $color-icon2: #686868;
 $color-menu: #42526e;
 
@@ -18,15 +21,20 @@ $color-task-lable-1: #0038ff;
 $color-task-lable-2: #1fd7c1;
 $color-progress-empty: #f4f4f4;
 $color-progress-fill: #4589ff;
+$color-btn-hover: #d9d9d9;
 
 $media-s: 320px;
 $media-sm: 560px;
 $media-m: 810px;
 
-$height-header: 96px;
+$height-header: 80px;
 $height-footer: 80px;
 $height-content-desktop: calc(100svh - $height-header);
 $height-content-mobile: calc(100svh - $height-header - $height-footer);
+$height-contact-dialog-title: 40%;
 
 $width-nav-desktop: clamp(180px, calc((100svw - 950px) * 52 / 450 + 180px), 232px);
 $width-user-list-icon: 42px;
+$width-task-card: 252px;
+$width-task-section: $width-task-card + 2 + 2 * 16px;
+$size-dialog-avatar: clamp(40px, calc((100svh - 300px) * 60 / 400 + 60px), 120px);

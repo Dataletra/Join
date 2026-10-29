@@ -1,14 +1,17 @@
 <input
+    name="assignUser"
     #combobox="ngCombobox"
     ngCombobox
     [(expanded)]="popupExpanded"
     [(value)]="searchQuery"
     type="text"
     class="combobox-search-input"
-    placeholder="Search users..."
+    name="combobox-search-input"
+    placeholder="Select contacts to assign"
     autocomplete="off"
-    (click)="popupExpanded.set(true)"
+    (click)="popupExpanded.set(!popupExpanded())"
 />
+<img class="dropdown-arrow" src="./assets/icons/arrow-drop-down.svg" [class.turn]="popupExpanded()" />
 <ng-template
     [cdkConnectedOverlay]="{ origin: combobox.element, usePopover: 'inline', matchWidth: true }"
     [cdkConnectedOverlayOpen]="popupExpanded()"

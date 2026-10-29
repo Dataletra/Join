@@ -1,0 +1,129 @@
+<dialog
+    #edittask
+    closedby="any"
+    (close)="onDialogClose()"
+    (click)="onDialogClose()"
+    [class.d-none]="dialogService.mode() !== 'edit-task'"
+>
+    <div
+        class="animation-wrapper"
+        (click)="dialogService.stopPropagation($event)"
+        [class.move-out-visible]="!dialogService.isOpen()"
+    >
+        <div class="dialog-wrapper">
+            <form [formGroup]="addTaskForm">
+                <div class="dialog-header">
+                    <button class="close" (click)="dialogService.close()">
+                        <img src="./assets/icons/close.svg" aria-hidden="true" />
+                    </button>
+                </div>
+
+                <div class="dialog-content">
+                    <div class="input-container input-title">
+                        <p>Title</p>
+                        <input name="editTaskTitle" type="text" placeholder="Enter a title" formControlName="title" />
+                        <div class="check-wrapper">
+                            @if (
+                                addTaskForm.controls.title.hasError('required') &&
+                                (addTaskForm.controls.title.touched || addTaskForm.controls.title.dirty)
+                            ) {
+                                <p class="form-check">Please enter a title.</p>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="input-container">
+                        <p>Description</p>
+                        <textarea
+                            name="descriptionText"
+                            type="text"
+                            placeholder="Enter a description"
+                            formControlName="description"
+                        ></textarea>
+                    </div>
+
+                    <div class="input-container input-date">
+                        <p>Date</p>
+                        <input
+                            name="editTaskDate"
+                            type="date"
+                            placeholder="Enter a date"
+                            formControlName="date"
+                            class="date-input"
+                        />
+                        <div class="check-wrapper">
+                            @if (
+                                addTaskForm.controls.date.hasError('required') &&
+                                (addTaskForm.controls.date.touched || addTaskForm.controls.date.dirty)
+                            ) {
+                                <p class="form-check">Please enter a date.</p>
+                            }
+                            @if (addTaskForm.controls.date.hasError('date in past')) {
+                                <p class="form-check">Date cannot be in the past.</p>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="input-container priority">
+                        <p>Priority</p>
+                        @if (dialogService.isOpen() && dialogService.mode() === 'edit-task') {
+                            @if (dialogService.selectedTask(); as task) {
+                                <app-button-priority
+                                    [useInEditTask]="true"
+                                    [existingPriority]="task.priority"
+                                    (priorityOutput)="importPriority($event)"
+                                />
+                            }
+                        }
+                    </div>
+
+                    <div class="input-container assigned-user">
+                        <p>Assigned to</p>
+                        @if (dialogService.isOpen() && dialogService.mode() === 'edit-task') {
+                            <app-combobox-assign-user
+                                [initialSelectedUsers]="selectedUserIds()"
+                                (selectedUser)="assignedUsers($event)"
+                            />
+                        }
+                    </div>
+                    <div class="userIconContainer">
+                        @for (user of comboboxUsers().slice(0, 3); track $index) {
+                            <app-ic-contact class="user-ic" [name]="user.name"></app-ic-contact>
+                        }
+                        @if (comboboxUsers().length > 3) {
+                            <app-ic-contact class="user-ic" [name]="trimmedUserIc()"></app-ic-contact>
+                        }
+                    </div>
+
+                    <div class="input-container">
+                        <p>Category</p>
+                        <app-combobox-category
+                            [initialCategory]="IncomingCategory()"
+                            (categoryOutput)="importCategory($event)"
+                            (touched)="isCategoryTouched.set(true)"
+                            [class.error-input]="IncomingCategory() == '' && isCategoryTouched() && !isPopupOpen()"
+                        >
+                        </app-combobox-category>
+                        <div class="check-wrapper">
+                            @if (IncomingCategory() == '' && isCategoryTouched() && !isPopupOpen()) {
+                                <p class="form-check">Please select a category.</p>
+                            }
+                        </div>
+                    </div>
+
+                    <div class="input-container">
+                        <p>Subtasks</p>
+                        <app-subtask
+                            [initialSubtasks]="IncomingSubtasks()"
+                            (subtaskOutput)="importSubtasks($event)"
+                        ></app-subtask>
+                    </div>
+                </div>
+
+                <div class="buttons">
+                    <app-button-primary [typeStr]="'createTask'" (click)="saveTask()"> Ok</app-button-primary>
+                </div>
+            </form>
+        </div>
+    </div>
+</dialog>

@@ -2,9 +2,12 @@ import { Service, signal } from '@angular/core';
 
 export enum ToastType {
     none,
-    insert,
-    update,
-    delete,
+    insertContact,
+    updateContact,
+    deleteContact,
+    insertTask,
+    updateTask,
+    deleteTask,
 }
 
 @Service()
@@ -14,9 +17,12 @@ export class Toast {
 
     typeMatch: Map<ToastType, boolean> = new Map<ToastType, boolean>([
         [ToastType.none, true],
-        [ToastType.insert, false],
-        [ToastType.update, false],
-        [ToastType.delete, false],
+        [ToastType.insertContact, false],
+        [ToastType.updateContact, false],
+        [ToastType.deleteContact, false],
+        [ToastType.insertTask, false],
+        [ToastType.updateTask, false],
+        [ToastType.deleteTask, false],
     ]);
 
     setTypeMatch(type: ToastType) {
@@ -34,14 +40,13 @@ export class Toast {
     }
 
     showToast(message: string, type: ToastType = ToastType.none) {
-        console.log(type, this.typeMatch.get(type));
         if (this.typeMatch.get(type)) {
             this.message.set(message);
             this.show();
             setTimeout(() => {
                 this.hide();
             }, 2000);
-            this.typeMatch.set(type, false);
+            this.typeMatch.set(type, type === ToastType.none);
         }
     }
 }

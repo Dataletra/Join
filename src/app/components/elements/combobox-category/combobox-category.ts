@@ -1,4 +1,4 @@
-import { Component, afterRenderEffect, computed, signal, viewChild } from '@angular/core';
+import { Component, afterRenderEffect, computed, effect, input, output, signal, viewChild } from '@angular/core';
 import { Combobox, ComboboxPopup, ComboboxWidget } from '@angular/aria/combobox';
 import { Listbox, Option } from '@angular/aria/listbox';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -8,29 +8,60 @@ import { OverlayModule } from '@angular/cdk/overlay';
     selector: 'app-combobox-category',
     styleUrl: './combobox-category.scss',
     templateUrl: './combobox-category.html',
+    host: {
+        '(click)': 'markAsTouched()',
+    },
 })
 export class ComboboxCategory {
     readonly listbox = viewChild(Listbox);
     readonly selectedValues = signal<string[]>([]);
+    categoryOutput = output<string>();
     readonly popupExpanded = signal(false);
-
-    readonly displayIcon = computed(() => {
-        const val = this.selectedValues()[0];
-        const label = this.labels.find((label) => label.value === val);
-        return label;
-    });
-
-    readonly displayValue = computed(() => this.selectedValues()[0] || 'Select a label');
-
+    touched = output<void>();
+    private hasBeenTouched = false;
+    readonly displayValue = computed(() => this.selectedValues()[0] || 'Select a Category');
     readonly labels = [{ value: 'Technical Task' }, { value: 'User Story' }];
+    readonly initialCategory = input<string>('');
 
     constructor() {
         afterRenderEffect(() => {
             this.listbox()?.scrollActiveItemIntoView();
         });
+
+        effect(() => {
+            const category = this.initialCategory();
+            if (category) {
+                this.selectedValues.set([category]);
+            }
+        });
     }
 
     onCommit() {
         this.popupExpanded.set(false);
+        if (this.selectedValues()[0] == undefined || this.selectedValues()[0] == null) {
+            this.categoryOutput.emit('');
+            this.touched.emit();
+            return;
+        }
+        this.categoryOutput.emit(this.selectedValues()[0]);
+        this.touched.emit();
+    }
+    onOpenOrClose(expanded: boolean) {
+        this.popupExpanded.set(expanded);
+        if (!expanded) {
+            this.touched.emit();
+        }
+    }
+    markAsTouched() {
+        if (!this.hasBeenTouched) {
+            this.hasBeenTouched = true;
+            this.touched.emit(); // Emits once on first interaction
+        }
+    }
+
+    requestReset() {
+        this.selectedValues.set([]);
+        this.hasBeenTouched = false;
+        this.categoryOutput.emit('');
     }
 }

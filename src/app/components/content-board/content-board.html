@@ -1,127 +1,273 @@
-<div class="header-wrapper">
-    <header class="board-header">
-        <h3 class="title">Board</h3>
-        <app-button-primary [typeStr]="'addTask'" [small]="true">Add task</app-button-primary>
-
-        <nav class="search-bar">
-            <input class="search-input" type="text" placeholder="Find Task" />
-            <button class="search-btn"><img src="./assets/icons/search.svg" alt="search icon" /></button>
-        </nav>
-    </header>
-</div>
-
-<main>
-    <div class="scroll-wrapper">
-        <section class="section-tasks">
-            <header class="section-header">
-                <h5>To do</h5>
-                <app-button-primary [typeStr]="'addTaskSmall'"></app-button-primary>
-            </header>
-            <div class="task-list-scroll-wrapper">
+<div #mainScrollable class="main-scroll-wrapper">
+    <div class="header-wrapper">
+        <header class="board-header">
+            <h3 class="title">Board</h3>
+            <app-button-primary
+                [typeStr]="'addTask'"
+                [small]="true"
+                (click)="dialogService.open('add-task')"
+                [isDisabled]="isFetchPending()"
+                >Add task</app-button-primary
+            >
+            <div class="sticky-placeholder">
                 <div
-                    cdkDropList
-                    #listTodo="cdkDropList"
-                    [cdkDropListConnectedTo]="[listProgress, listAwait, listDone]"
-                    class="task-list"
-                    /* [cdkDropListData]="this.taskListService.taskMap().get(Status.todo) ?? []" */
-                    [cdkDropListData]="Status.todo"
-                    /* (cdkDropListDropped)="drop($event, Status.todo)" */
-                    (cdkDropListDropped)="drop($event)"
+                    class="sticky-wrapper"
+                    [style.height]="stickyWrapperHeight() ? stickyWrapperHeight() + 'px' : 'auto'"
                 >
-                    @if (taskListService.taskMap().get(Status.todo)?.length === 0) {
-                        <div class="no-task" cdkDrag><p>No tasks to do</p></div>
-                    } @else {
-                        @for (id of taskListService.taskMap().get(Status.todo); track id) {
-                            <div class="no-task" cdkDrag>
-                                <p>Rons Task {{ id }}</p>
-                            </div>
-                        }
-                    }
+                    <div class="search-bar-bg">
+                        <nav class="search-bar">
+                            <input
+                                #searchInput
+                                name="searchInput"
+                                class="search-input"
+                                type="text"
+                                placeholder="Find Task"
+                                (keydown)="resetColor($event)"
+                                (keydown.enter)="applyFilter(searchInput.value, true)"
+                                (blur)="applyFilter(searchInput.value)"
+                                (pointerdown)="resetColor()"
+                                [class.color-red]="notFound()"
+                                [disabled]="isFetchPending()"
+                            />
+                            <button class="search-btn" [disabled]="isFetchPending()">
+                                <img
+                                    src="./assets/icons/search.svg"
+                                    alt="search icon"
+                                    (click)="applyFilter(searchInput.value, true)"
+                                />
+                            </button>
+                        </nav>
+                    </div>
                 </div>
             </div>
-        </section>
-        <section class="section-tasks">
-            <header class="section-header">
-                <h5>In progress</h5>
-                <app-button-primary [typeStr]="'addTaskSmall'"></app-button-primary>
-            </header>
-            <div class="task-list-scroll-wrapper">
-                <div
-                    cdkDropList
-                    #listProgress="cdkDropList"
-                    [cdkDropListConnectedTo]="[listTodo, listAwait, listDone]"
-                    class="task-list"
-                    /* [cdkDropListData]="this.taskListService.taskMap().get(Status.progress) ?? []" */
-                    [cdkDropListData]="Status.progress"
-                    /* (cdkDropListDropped)="drop($event, Status.progress)" */
-                    (cdkDropListDropped)="drop($event)"
-                >
-                    @if (taskListService.taskMap().get(Status.progress)?.length === 0) {
-                        <div class="no-task" cdkDrag><p>No tasks to do</p></div>
-                    } @else {
-                        @for (id of taskListService.taskMap().get(Status.progress); track id) {
-                            <div class="no-task" cdkDrag>
-                                <p>Rons Task {{ id }}</p>
-                            </div>
-                        }
-                    }
-                </div>
-            </div>
-        </section>
-        <section class="section-tasks">
-            <header class="section-header">
-                <h5>Await feedback</h5>
-                <app-button-primary [typeStr]="'addTaskSmall'"></app-button-primary>
-            </header>
-            <div class="task-list-scroll-wrapper">
-                <div
-                    cdkDropList
-                    #listAwait="cdkDropList"
-                    [cdkDropListConnectedTo]="[listProgress, listTodo, listDone]"
-                    class="task-list"
-                    /* [cdkDropListData]="this.taskListService.taskMap().get(Status.await) ?? []" */
-                    [cdkDropListData]="Status.await"
-                    /* (cdkDropListDropped)="drop($event, Status.await)" */
-                    (cdkDropListDropped)="drop($event)"
-                >
-                    @if (taskListService.taskMap().get(Status.await)?.length === 0) {
-                        <div class="no-task" cdkDrag><p>No tasks to do</p></div>
-                    } @else {
-                        @for (id of taskListService.taskMap().get(Status.await); track id) {
-                            <div class="no-task" cdkDrag>
-                                <p>Rons Task {{ id }}</p>
-                            </div>
-                        }
-                    }
-                </div>
-            </div>
-        </section>
-        <section class="section-tasks">
-            <header class="section-header">
-                <h5>Done</h5>
-            </header>
-            <div class="task-list-scroll-wrapper">
-                <div
-                    cdkDropList
-                    #listDone="cdkDropList"
-                    [cdkDropListConnectedTo]="[listProgress, listAwait, listTodo]"
-                    class="task-list"
-                    /* [cdkDropListData]="this.taskListService.taskMap().get(Status.done) ?? []" */
-                    [cdkDropListData]="Status.done"
-                    /* (cdkDropListDropped)="drop($event, Status.done)" */
-                    (cdkDropListDropped)="drop($event)"
-                >
-                    @if (taskListService.taskMap().get(Status.done)?.length === 0) {
-                        <div class="no-task" cdkDrag><p>No tasks to do</p></div>
-                    } @else {
-                        @for (id of taskListService.taskMap().get(Status.done); track id) {
-                            <div class="no-task" cdkDrag>
-                                <p>Rons Task {{ id }}</p>
-                            </div>
-                        }
-                    }
-                </div>
-            </div>
-        </section>
+        </header>
     </div>
-</main>
+
+    <main>
+        <div #scrollWrapper class="scroll-wrapper">
+            <section class="section-tasks">
+                <header class="section-header">
+                    <h5>To do</h5>
+                    <app-button-primary
+                        [isDisabled]="isFetchPending()"
+                        (click)="dialogService.open('add-task'); dialogService.setProgressType('todo')"
+                        [typeStr]="'addTaskSmall'"
+                    ></app-button-primary>
+                </header>
+                <div class="task-list-scroll-wrapper" cdkScrollable>
+                    <div
+                        cdkDropList
+                        [cdkDropListOrientation]="isTablet() ? 'horizontal' : 'vertical'"
+                        #listTodo="cdkDropList"
+                        [cdkDropListConnectedTo]="[listProgress, listAwait, listDone]"
+                        class="task-list"
+                        [cdkDropListData]="Status.todo"
+                        (cdkDropListDropped)="drop($event)"
+                        [cdkDropListAutoScrollStep]="10"
+                    >
+                        @for (id of tasksToRender().get(Status.todo); track id) {
+                            @if (taskService.getTaskPerId(id); as task) {
+                                <app-task-card
+                                    [task]="task"
+                                    cdkDrag
+                                    [cdkDragStartDelay]="delayDrag"
+                                    (pointerdown)="setRelativeMousePosition($event)"
+                                    (cdkDragMoved)="onDrageMove($event)"
+                                    tabindex="0"
+                                    (keyup.enter)="dialogService.openTask('task', task)"
+                                    (statusChange)="setStatus($event)"
+                                >
+                                    <div class="drag-placeholder" *cdkDragPlaceholder></div>
+                                    <div *cdkDragPreview>
+                                        <app-task-card
+                                            [task]="task"
+                                            [style.box-shadow]="-2 * turn + 'px 8px 10px 0 #00000014'"
+                                            [style.transform]="
+                                                'translateX(-' +
+                                                transX +
+                                                'px) translateY(-' +
+                                                transY +
+                                                'px) rotate(' +
+                                                turn +
+                                                'deg)'
+                                            "
+                                        >
+                                        </app-task-card>
+                                    </div>
+                                </app-task-card>
+                            }
+                        } @empty {
+                            <div class="no-task"><p>No tasks to do</p></div>
+                        }
+                    </div>
+                </div>
+            </section>
+            <section class="section-tasks">
+                <header class="section-header">
+                    <h5>In progress</h5>
+                    <app-button-primary
+                        [isDisabled]="isFetchPending()"
+                        (click)="dialogService.open('add-task'); dialogService.setProgressType('progress')"
+                        [typeStr]="'addTaskSmall'"
+                    ></app-button-primary>
+                </header>
+                <div class="task-list-scroll-wrapper" cdkScrollable>
+                    <div
+                        cdkDropList
+                        [cdkDropListOrientation]="isTablet() ? 'horizontal' : 'vertical'"
+                        #listProgress="cdkDropList"
+                        [cdkDropListConnectedTo]="[listTodo, listAwait, listDone]"
+                        class="task-list"
+                        [cdkDropListData]="Status.progress"
+                        (cdkDropListDropped)="drop($event)"
+                        [cdkDropListAutoScrollStep]="10"
+                    >
+                        @for (id of tasksToRender().get(Status.progress); track id) {
+                            @if (taskService.getTaskPerId(id); as task) {
+                                <app-task-card
+                                    [task]="task"
+                                    cdkDrag
+                                    [cdkDragStartDelay]="delayDrag"
+                                    (pointerdown)="setRelativeMousePosition($event)"
+                                    (cdkDragMoved)="onDrageMove($event)"
+                                    tabindex="0"
+                                    (keyup.enter)="dialogService.openTask('task', task)"
+                                    (statusChange)="setStatus($event)"
+                                >
+                                    <div class="drag-placeholder" *cdkDragPlaceholder></div>
+                                    <div *cdkDragPreview>
+                                        <app-task-card
+                                            [task]="task"
+                                            [style.box-shadow]="-2 * turn + 'px 8px 10px 0 #00000014'"
+                                            [style.transform]="
+                                                'translateX(-' +
+                                                transX +
+                                                'px) translateY(-' +
+                                                transY +
+                                                'px) rotate(' +
+                                                turn +
+                                                'deg)'
+                                            "
+                                        >
+                                        </app-task-card>
+                                    </div>
+                                </app-task-card>
+                            }
+                        } @empty {
+                            <div class="no-task"><p>No tasks in progress</p></div>
+                        }
+                    </div>
+                </div>
+            </section>
+            <section class="section-tasks">
+                <header class="section-header">
+                    <h5>Await feedback</h5>
+                    <app-button-primary
+                        [isDisabled]="isFetchPending()"
+                        (click)="dialogService.open('add-task'); dialogService.setProgressType('await')"
+                        [typeStr]="'addTaskSmall'"
+                    ></app-button-primary>
+                </header>
+                <div class="task-list-scroll-wrapper" cdkScrollable>
+                    <div
+                        cdkDropList
+                        [cdkDropListOrientation]="isTablet() ? 'horizontal' : 'vertical'"
+                        #listAwait="cdkDropList"
+                        [cdkDropListConnectedTo]="[listProgress, listTodo, listDone]"
+                        class="task-list"
+                        [cdkDropListData]="Status.await"
+                        (cdkDropListDropped)="drop($event)"
+                        [cdkDropListAutoScrollStep]="10"
+                    >
+                        @for (id of tasksToRender().get(Status.await); track id) {
+                            @if (taskService.getTaskPerId(id); as task) {
+                                <app-task-card
+                                    [task]="task"
+                                    cdkDrag
+                                    [cdkDragStartDelay]="delayDrag"
+                                    (pointerdown)="setRelativeMousePosition($event)"
+                                    (cdkDragMoved)="onDrageMove($event)"
+                                    tabindex="0"
+                                    (keyup.enter)="dialogService.openTask('task', task)"
+                                    (statusChange)="setStatus($event)"
+                                >
+                                    <div class="drag-placeholder" *cdkDragPlaceholder></div>
+                                    <div *cdkDragPreview>
+                                        <app-task-card
+                                            [task]="task"
+                                            [style.box-shadow]="-2 * turn + 'px 8px 10px 0 #00000014'"
+                                            [style.transform]="
+                                                'translateX(-' +
+                                                transX +
+                                                'px) translateY(-' +
+                                                transY +
+                                                'px) rotate(' +
+                                                turn +
+                                                'deg)'
+                                            "
+                                        >
+                                        </app-task-card>
+                                    </div>
+                                </app-task-card>
+                            }
+                        } @empty {
+                            <div class="no-task"><p>No tasks awaiting feedback</p></div>
+                        }
+                    </div>
+                </div>
+            </section>
+            <section class="section-tasks">
+                <header class="section-header">
+                    <h5>Done</h5>
+                </header>
+                <div class="task-list-scroll-wrapper" cdkScrollable>
+                    <div
+                        cdkDropList
+                        [cdkDropListOrientation]="isTablet() ? 'horizontal' : 'vertical'"
+                        #listDone="cdkDropList"
+                        [cdkDropListConnectedTo]="[listProgress, listAwait, listTodo]"
+                        class="task-list"
+                        [cdkDropListData]="Status.done"
+                        (cdkDropListDropped)="drop($event)"
+                        [cdkDropListAutoScrollStep]="10"
+                    >
+                        @for (id of tasksToRender().get(Status.done); track id) {
+                            @if (taskService.getTaskPerId(id); as task) {
+                                <app-task-card
+                                    [task]="task"
+                                    cdkDrag
+                                    [cdkDragStartDelay]="delayDrag"
+                                    (pointerdown)="setRelativeMousePosition($event)"
+                                    (cdkDragMoved)="onDrageMove($event)"
+                                    tabindex="0"
+                                    (keyup.enter)="dialogService.openTask('task', task)"
+                                    (statusChange)="setStatus($event)"
+                                >
+                                    <div class="drag-placeholder" *cdkDragPlaceholder></div>
+                                    <div *cdkDragPreview>
+                                        <app-task-card
+                                            [task]="task"
+                                            [style.box-shadow]="-2 * turn + 'px 8px 10px 0 #00000014'"
+                                            [style.transform]="
+                                                'translateX(-' +
+                                                transX +
+                                                'px) translateY(-' +
+                                                transY +
+                                                'px) rotate(' +
+                                                turn +
+                                                'deg)'
+                                            "
+                                        >
+                                        </app-task-card>
+                                    </div>
+                                </app-task-card>
+                            }
+                        } @empty {
+                            <div class="no-task"><p>No tasks done</p></div>
+                        }
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+</div>
