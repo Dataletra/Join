@@ -92,7 +92,6 @@ export class TaskCard {
     }
 
     hideMenu(event: Event | null = null) {
-        console.log('menu:', this.statusMenu());
         event?.stopPropagation();
         if (this.showMenu()) {
             this.showMenu.set(false);
