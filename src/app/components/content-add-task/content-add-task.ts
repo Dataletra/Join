@@ -98,7 +98,7 @@ export class ContentAddTask {
         });
         await this.tasksService.addTask(newTask);
 
-        console.log('Task Payload:', newTask.getCleanAddJson());
+        this.contactDialog.close();
     }
 
     clearForm() {
