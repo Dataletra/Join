@@ -1,3 +1,5 @@
+$content-limitation: 1920px;
+
 $color-base: #2a3647;
 $color-high-1: #124658;
 $color-high-2: #29abe2;
@@ -29,8 +31,10 @@ $height-header: 80px;
 $height-footer: 80px;
 $height-content-desktop: calc(100svh - $height-header);
 $height-content-mobile: calc(100svh - $height-header - $height-footer);
+$height-contact-dialog-title: 40%;
 
 $width-nav-desktop: clamp(180px, calc((100svw - 950px) * 52 / 450 + 180px), 232px);
 $width-user-list-icon: 42px;
 $width-task-card: 252px;
 $width-task-section: $width-task-card + 2 + 2 * 16px;
+$size-dialog-avatar: clamp(40px, calc((100svh - 300px) * 60 / 400 + 60px), 120px);

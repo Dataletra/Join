@@ -21,7 +21,7 @@
                 <div class="dialog-content">
                     <div class="input-container">
                         <p>Title</p>
-                        <input type="text" placeholder="Enter a title" formControlName="title" />
+                        <input name="editTaskTitle" type="text" placeholder="Enter a title" formControlName="title" />
                         <div class="check-wrapper">
                             @if (
                                 addTaskForm.controls.title.hasError('required') &&
@@ -35,6 +35,7 @@
                     <div class="input-container">
                         <p>Description</p>
                         <textarea
+                            name="descriptionText"
                             type="text"
                             placeholder="Enter a description"
                             formControlName="description"
@@ -43,7 +44,7 @@
 
                     <div class="input-container">
                         <p>Date</p>
-                        <input type="date" placeholder="Enter a date" formControlName="date" />
+                        <input name="editTaskDate" type="date" placeholder="Enter a date" formControlName="date" />
                         <div class="check-wrapper">
                             @if (
                                 addTaskForm.controls.date.hasError('required') &&

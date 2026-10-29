@@ -19,6 +19,8 @@
                     class="user-item"
                     [attr.id]="'user-' + user.id"
                     (click)="selectUser(user.id)"
+                    (keyup.enter)="selectUser(user.id)"
+                    tabindex="0"
                 >
                     <app-ic-contact class="user-ic" [name]="user.name"></app-ic-contact>
                     <div class="flex-column">

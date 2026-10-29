@@ -35,6 +35,7 @@
                     <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
                         <div class="forms-input">
                             <input
+                                name="addContactName"
                                 class="input-name"
                                 type="text"
                                 placeholder="Name"
@@ -55,7 +56,7 @@
                                     }
                                 </p>
                             </div>
-                            <input class="input-email" type="email" placeholder="Email" formControlName="email" />
+                            <input  name="addContactMail" class="input-email" type="email" placeholder="Email" formControlName="email" />
                             <div class="check-wrapper">
                                 <p
                                     class="form-check"
@@ -75,7 +76,7 @@
                                     }
                                 </p>
                             </div>
-                            <input class="input-number" type="tel" placeholder="Phone" formControlName="phone" />
+                            <input name="addContactPhone" class="input-number" type="tel" placeholder="Phone" formControlName="phone" />
                             <div class="check-wrapper">
                                 <p
                                     class="form-check"

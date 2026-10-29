@@ -1,4 +1,4 @@
-<section class="task-card" (click)="onTaskClick()">
+<section class="task-card" (click)="onTaskClick()" (keyup.enter)="onTaskClick()">
     <div class="lable-wrapper">
         <app-task-lable [category]="task().category"></app-task-lable>
     </div>
