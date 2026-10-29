@@ -88,4 +88,18 @@ export class TasksService {
         }
         return results;
     }
+
+    async deleteUser(userId: number | null) {
+        if (this.tasklist().length === 0) {
+            await this.getTasks();
+        }
+        if (userId) {
+            const tasksWithUser = this.tasklist().filter((task) => task.user_ids.includes(userId));
+            for (const task of tasksWithUser) {
+                const index = task.user_ids.indexOf(userId);
+                task.user_ids.splice(index, 1);
+                this.editTask(new Task(task));
+            }
+        }
+    }
 }
