@@ -1,4 +1,4 @@
-<div #mainScrollable class="main-scroll-wrapper">
+<div #mainScrollable cdkScrollable class="main-scroll-wrapper">
     <div class="header-wrapper">
         <header class="board-header">
             <h3 class="title">Board</h3>
@@ -43,8 +43,8 @@
         </header>
     </div>
 
-    <main>
-        <div #scrollWrapper class="scroll-wrapper">
+    <main cdkScrollable>
+        <div #scrollWrapper cdkScrollable class="scroll-wrapper">
             <section class="section-tasks">
                 <header class="section-header">
                     <h5>To do</h5>

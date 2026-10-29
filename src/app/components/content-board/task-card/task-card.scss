@@ -12,12 +12,17 @@
     background-color: $color-nav-high;
     box-shadow: 0 0 10px 3px #00000014;
     cursor: pointer;
-    position: relative;
 }
 
 .lable-wrapper {
     width: 100%;
     margin-bottom: 24px;
+    display: flex;
+    justify-content: space-between;
+
+    app-task-lable {
+        margin-top: 3px;
+    }
 }
 
 .task-body {
@@ -95,17 +100,26 @@
 }
 
 .btn-status-menu {
-    opacity: 0.2;
+    .btn-fill {
+        fill: rgba(42, 54, 71, 0.2);
+    }
 
-    position: absolute;
-    top: 13px;
-    right: 12px;
+    .btn-stroke {
+        stroke: rgba(42, 54, 71, 0.2);
+    }
+
     width: 32px;
     height: 32px;
     border-radius: 6px;
 
     &:hover {
-        opacity: 0.6;
+    .btn-fill {
+        fill: rgba(42, 54, 71, 0.6);
+    }
+
+    .btn-stroke {
+        stroke: rgba(42, 54, 71, 0.6);
+    }
     }
 }
 
