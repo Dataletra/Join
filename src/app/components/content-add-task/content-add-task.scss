@@ -51,6 +51,7 @@
     height: 100%;
     padding-block: clamp(32px, calc((100svh - 400px) * 48 / 500 + 32px), 80px);
     padding-inline: clamp-px(15, 80, 1440, 950);
+    padding-bottom: 35px;
 
     gap: 20px;
 
@@ -188,6 +189,7 @@ app-button-priority {
     .component-container {
         padding-top: 20px;
         padding-inline: 10px;
+        padding-bottom: 10px;
     }
     form {
         overflow-y: scroll;
@@ -214,6 +216,20 @@ app-button-priority {
     }
     .desktop-d-none {
         display: block;
+    }
+}
+
+@media screen and (max-width: 380px) {
+    .add-task-footer {
+        margin-bottom: 15px;
+        justify-content: center;
+        align-items: center;
+    }
+    .finalize-btn-container {
+        gap: 10px;
+        justify-content: flex-end;
+        align-items: flex-end;
+        margin-left: 0;
     }
 }
 
