@@ -12,6 +12,7 @@
     background-color: $color-nav-high;
     box-shadow: 0 0 10px 3px #00000014;
     cursor: pointer;
+    position: relative;
 }
 
 .lable-wrapper {
@@ -90,5 +91,85 @@
 
     .prio {
         padding-right: 8px;
+    }
+}
+
+.btn-status-menu {
+    opacity: 0.2;
+
+    position: absolute;
+    top: 13px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    border-radius: 6px;
+
+    &:hover {
+        opacity: 0.6;
+    }
+}
+
+.status-menu {
+    width: 200px;
+    background-color: $color-base;
+    height: 0;
+    padding: 0 16px;
+    border-radius: 20px;
+    border-top-right-radius: 0;
+    overflow: hidden;
+
+    .popup-title {
+        font-weight: 700;
+        margin-bottom: 2px;
+    }
+
+    p {
+        color: white;
+        padding: 8px;
+    }
+
+    .status-menu-item {
+        display: flex;
+        width: 100%;
+        border-radius: 8px;
+        padding-inline: 4px;
+        &:hover {
+            background-color: $color-nav-active-bg;
+            cursor: pointer;
+        }
+    }
+}
+
+.status-menu-item:not(:disabled):focus {
+    outline: 2px solid $color-high-2;
+}
+
+.grow {
+    animation: grow-animation 100ms ease-in-out forwards;
+}
+
+.shrink {
+    animation: shrink-animation 100ms ease-in-out forwards;
+}
+
+@keyframes grow-animation {
+    0% {
+        height: 0;
+        padding: 0 16px;
+    }
+    100% {
+        height: 175px;
+        padding: 16px 16px;
+    }
+}
+
+@keyframes shrink-animation {
+    0% {
+        height: 175px;
+        padding: 16px 16px;
+    }
+    100% {
+        height: 0;
+        padding: 0 16px;
     }
 }

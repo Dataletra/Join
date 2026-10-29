@@ -15,6 +15,7 @@ export class Header {
     overlayListen = signal<boolean>(false);
     navigateService = inject(TrackableNavigate);
     headerMenu = viewChild<Menu<string>>('headerMenu');
+    
     toggleMenu() {
         if (false === this.showMenu()) {
             this.overlayListen.set(true);

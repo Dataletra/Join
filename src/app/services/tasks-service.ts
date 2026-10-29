@@ -55,8 +55,8 @@ export class TasksService {
         const { data, error } = await this.supabase.from('tasks').insert([taskData]).select();
     }
 
-    async editTask(task: Task) {
-        this.toastService.setTypeMatch(ToastType.updateTask);
+    async editTask(task: Task, showToast: boolean = false) {
+        this.toastService.setTypeMatch(showToast ? ToastType.updateTask : ToastType.none);
         const taskData = task.getCleanAddJson();
         const { data, error } = await this.supabase.from('tasks').update(taskData).eq('id', task.id).select();
     }

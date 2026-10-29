@@ -75,6 +75,7 @@
                                     (cdkDragMoved)="onDrageMove($event)"
                                     tabindex="0"
                                     (keyup.enter)="dialogService.openTask('task', task)"
+                                    (statusChange)="setStatus($event)"
                                 >
                                     <div class="drag-placeholder" *cdkDragPlaceholder></div>
                                     <div *cdkDragPreview>
@@ -131,6 +132,7 @@
                                     (cdkDragMoved)="onDrageMove($event)"
                                     tabindex="0"
                                     (keyup.enter)="dialogService.openTask('task', task)"
+                                    (statusChange)="setStatus($event)"
                                 >
                                     <div class="drag-placeholder" *cdkDragPlaceholder></div>
                                     <div *cdkDragPreview>
@@ -187,6 +189,7 @@
                                     (cdkDragMoved)="onDrageMove($event)"
                                     tabindex="0"
                                     (keyup.enter)="dialogService.openTask('task', task)"
+                                    (statusChange)="setStatus($event)"
                                 >
                                     <div class="drag-placeholder" *cdkDragPlaceholder></div>
                                     <div *cdkDragPreview>
@@ -238,6 +241,7 @@
                                     (cdkDragMoved)="onDrageMove($event)"
                                     tabindex="0"
                                     (keyup.enter)="dialogService.openTask('task', task)"
+                                    (statusChange)="setStatus($event)"
                                 >
                                     <div class="drag-placeholder" *cdkDragPlaceholder></div>
                                     <div *cdkDragPreview>
