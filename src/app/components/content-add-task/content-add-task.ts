@@ -14,6 +14,7 @@ import { Task } from '../models/task';
 import { Priority, Status } from '../../interfaces/enums';
 import { TasksService } from '../../services/tasks-service';
 import { ContactDialog } from '../../services/contact-dialog';
+import { Router } from '@angular/router';
 
 @Component({
     imports: [
@@ -34,6 +35,7 @@ export class ContentAddTask {
     tasksService = inject(TasksService);
     customValidator = inject(CustomValidators);
     contactDialog = inject(ContactDialog);
+    router = inject(Router);
     requestedStatus = input<Status>(Status.todo);
     comboboxUsers = signal<IUser[]>([]);
     selectedUserIds = signal<number[]>([]);
@@ -97,8 +99,7 @@ export class ContentAddTask {
             subtasks: this.IncomingSubtasks(),
         });
         await this.tasksService.addTask(newTask);
-
-        console.log('Task Payload:', newTask.getCleanAddJson());
+        this.router.navigate(['/board']);
     }
 
     clearForm() {
@@ -109,6 +110,4 @@ export class ContentAddTask {
         this.isCategoryTouched.set(false);
         this.priorityBtnComp()?.toggleActiveState('medium');
     }
-
-    //TODO: board dialog
 }
