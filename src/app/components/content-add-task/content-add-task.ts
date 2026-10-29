@@ -109,6 +109,6 @@ export class ContentAddTask {
         this.isCategoryTouched.set(false);
         this.priorityBtnComp()?.toggleActiveState('medium');
     }
-    //TODO: CSS content add task
-    //TODO: On hover THEN show subtasks edit and delete buttons
+
+    //TODO: board dialog
 }

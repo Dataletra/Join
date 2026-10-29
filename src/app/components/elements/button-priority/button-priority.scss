@@ -43,6 +43,11 @@
     }
 }
 
+@media screen and (max-width: 380px) {
+    :host {
+      gap: 8px;
+  }
+  
 @media screen and (max-width: $media-sm) {
     .useInEditTask {
         width: clamp(80px, calc(24.681px + 17.021vw), 120px);
