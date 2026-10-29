@@ -25,7 +25,7 @@ dialog {
     background: white;
     border-radius: 30px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.4);
-    @include scrollbar-light;
+    @include scrollbar-light(4, 10);
 }
 
 .dialog-wrapper {
@@ -55,7 +55,7 @@ dialog {
     max-height: 70dvh;
     padding-inline: 40px;
     overflow-y: auto;
-    @include scrollbar-light;
+    @include scrollbar-light(4, 10);
 }
 
 .input-container {

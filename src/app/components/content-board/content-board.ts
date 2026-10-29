@@ -108,7 +108,7 @@ export class ContentBoard {
      * Fetch data of services for task info and order.
      */
     async fetchTaskLists() {
-        await this.sortingService.getTaskLists();
+        await this.sortingService.fetchTaskLists();
         await this.taskService.getTasks();
         this.syncTasksWithTaskMap();
         this.isFetchPending.set(false);
@@ -126,7 +126,7 @@ export class ContentBoard {
         }
         this.findDeprecatedTasks(allTasks, deleteMap);
         const updatedMap = this.createCleanTaskMap(allTasks, deleteMap);
-        this.sortingService.editTaskMap(updatedMap);
+        this.sortingService.editApiTaskMap(updatedMap);
     }
 
     /**
@@ -166,7 +166,7 @@ export class ContentBoard {
      * @param deleteMap Map<Status, number[]> - all to be deleted tasks in relevant status-list
      * @returns Map<Status, number[]> clean map
      */
-    createCleanTaskMap(allTasks: number[], deleteMap: Map<Status, number[]>) : Map<Status, number[]> {
+    createCleanTaskMap(allTasks: number[], deleteMap: Map<Status, number[]>): Map<Status, number[]> {
         const updatedMap = new Map(this.sortingService.taskMap());
         for (const [status, taskList] of deleteMap) {
             const ids = updatedMap.get(status) ?? [];
@@ -196,20 +196,29 @@ export class ContentBoard {
         if (event.previousContainer === event.container) {
             if (this.sortingService.taskMap().has(statusNow) && event.previousIndex !== event.currentIndex) {
                 moveItemInArray(dataRefNow, event.previousIndex, event.currentIndex);
-                this.sortingService.editTaskList({ status: statusNow, order: dataRefNow });
+                this.sortingService.editApiTaskList({ status: statusNow, order: dataRefNow });
             }
         } else if (this.sortingService.taskMap().has(statusPre) && this.sortingService.taskMap().has(statusNow)) {
             const dataRefPre = this.sortingService.taskMap().get(statusPre) ?? [];
             transferArrayItem(dataRefPre, dataRefNow, event.previousIndex, event.currentIndex);
-            this.sortingService.editTaskList({ status: statusPre, order: dataRefPre });
-            this.sortingService.editTaskList({ status: statusNow, order: dataRefNow });
+            this.sortingService.editApiTaskList({ status: statusPre, order: dataRefPre });
+            this.sortingService.editApiTaskList({ status: statusNow, order: dataRefNow });
             this.taskService.editStatus(dataRefNow.at(event.currentIndex), statusNow);
         }
         this.stopVerticalAutoScroll();
     }
 
     /**
-     * Set mouse position relative to task-card and sets transition values, so that mouse will naturally stick 
+     * Update status data via API.
+     * @param event { id: number; status: Status } - output fram task-card
+     */
+    setStatus(event: { id: number; status: Status }) {
+        this.sortingService.moveApiItem(event.id, event.status);
+        this.taskService.editStatus(event.id, event.status);
+    }
+
+    /**
+     * Set mouse position relative to task-card and sets transition values, so that mouse will naturally stick
      * where it grabbed
      * @param event MouseEvent
      */
