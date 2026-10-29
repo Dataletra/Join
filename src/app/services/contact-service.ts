@@ -3,11 +3,13 @@ import { IUser } from '../interfaces/iuser';
 import { User } from '../components/models/user';
 import { Toast, ToastType } from './toast';
 import { SupabaseService } from './supabase';
+import { TasksService } from './tasks-service';
 
 @Service()
 export class ContactService {
     supabase = inject(SupabaseService).supabase;
     toastService = inject(Toast);
+    taskService = inject(TasksService);
     userList: IUser[] = [];
 
     users = signal<IUser[]>([]);
@@ -90,6 +92,7 @@ export class ContactService {
 
     async deleteUser(id: number | null) {
         this.toastService.setTypeMatch(ToastType.deleteContact);
+        this.taskService.deleteUser(id);
         const response = await this.supabase.from('user').delete().eq('id', id);
     }
 
