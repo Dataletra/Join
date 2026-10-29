@@ -26,7 +26,7 @@ dialog {
     border-radius: 30px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.4);
     // overflow-y: auto;
-    @include scrollbar-light;
+    @include scrollbar-light(4, 10);
 }
 
 .dialog_wrapper {
@@ -60,7 +60,7 @@ dialog {
 
     padding-inline: 40px;
     overflow-y: auto;
-    @include scrollbar-light;
+    @include scrollbar-light(4, 10);
 }
 
 .title {
@@ -120,7 +120,7 @@ dialog {
     max-height: 200px;
     padding: 16px;
     overflow-y: scroll;
-    @include scrollbar-light;
+    @include scrollbar-light(4, 8);
 
     .user {
         display: flex;
@@ -157,7 +157,7 @@ dialog {
         max-height: 115px;
         padding: 16px;
         overflow-y: scroll;
-        @include scrollbar-light;
+        @include scrollbar-light(4, 8);
     }
 
     .subtask-row {
