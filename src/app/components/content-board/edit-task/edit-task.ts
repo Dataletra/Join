@@ -122,7 +122,7 @@ export class EditTask {
             user_ids: this.selectedUserIds(),
             subtasks: this.IncomingSubtasks(),
         });
-        await this.tasksService.editTask(updatedTask);
+        await this.tasksService.editTask(updatedTask, true);
         this.dialogService.selectedTask.set(updatedTask);
         this.dialogService.switchToTask();
     }
