@@ -1,3 +1,5 @@
+@use '../../../../../public/styles/abstract/variables.scss' as *;
+
 :host {
     display: flex;
     gap: 13px;
@@ -43,6 +45,19 @@
 
 @media screen and (max-width: 380px) {
     :host {
-        gap: 8px;
+      gap: 8px;
+  }
+  
+@media screen and (max-width: $media-sm) {
+    .useInEditTask {
+        width: clamp(80px, calc(24.681px + 17.021vw), 120px);
+
+        p {
+            font-size: clamp(14px, calc(11.234px + 0.851vw), 16px);
+        }
+
+        img {
+            width: clamp(15px, calc(8.085px + 2.128vw), 20px);
+        }
     }
 }

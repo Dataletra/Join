@@ -15,7 +15,7 @@
             <div class="dialog_wrapper">
                 <div class="dialog-header">
                     <div class="category">
-                        <app-task-lable [category]="'User Story'"></app-task-lable>
+                        <app-task-lable [category]="currentTask.category"></app-task-lable>
                         <button class="close" (click)="dialogService.close()">
                             <img src="./assets/icons/close.svg" aria-hidden="true" />
                         </button>
@@ -77,6 +77,7 @@
                             @for (subtask of currentTask.subtasks; track $index) {
                                 <label class="subtask-row">
                                     <input
+                                        name="subtaskCheckbox"
                                         type="checkbox"
                                         [checked]="subtask.completed"
                                         [class.checked]="subtask.completed"
@@ -90,12 +91,12 @@
                 </div>
 
                 <div class="buttons">
-                    <button (click)="deleteTask(currentTask.id)">
+                    <button class="delete" (click)="deleteTask(currentTask.id)">
                         <img src="./assets/icons/delete.svg" aria-hidden="true" />
                         Delete
                     </button>
                     <hr />
-                    <button (click)="dialogService.switchToEditTask()">
+                    <button class="edit" (click)="dialogService.switchToEditTask()">
                         <img src="./assets/icons/edit.svg" aria-hidden="true" />
                         Edit
                     </button>
