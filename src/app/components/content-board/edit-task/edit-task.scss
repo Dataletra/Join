@@ -68,6 +68,16 @@ dialog {
         margin-bottom: 8px;
     }
 
+    .check-wrapper {
+        min-height: 20px;
+
+        .form-check {
+            height: 20px;
+            font-size: 14px;
+            color: $color-form-check;
+        }
+    }
+
     textarea,
     input {
         width: 100%;
@@ -83,6 +93,24 @@ dialog {
         min-height: 120px;
         max-width: 100%;
     }
+}
+
+.input-title,
+.input-date {
+    margin-bottom: 12px;
+}
+
+.date-input {
+    cursor: text;
+    &::-webkit-calendar-picker-indicator {
+        width: 30px;
+        height: 24px;
+        opacity: 0;
+        cursor: pointer;
+    }
+    background-image: url(../../../../../public/assets/icons/event.svg);
+    background-repeat: no-repeat;
+    background-position: calc(100% - 16px) center;
 }
 
 .assigned-user {

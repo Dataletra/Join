@@ -120,24 +120,46 @@ export class EditTask {
         this.selectedUserIds.set(selectedIds);
     }
 
+    hasChanges() {
+        const task = this.dialogService.selectedTask();
+        const formValues = this.addTaskForm.value;
+        if (!task) {
+            return false;
+        }
+        return (
+            formValues.title !== task.title ||
+            formValues.description !== task.description ||
+            formValues.date !== task.due_date ||
+            this.IncomingPriority() !== task.priority ||
+            this.IncomingCategory() !== task.category ||
+            !this.sameValues(this.selectedUserIds(), task.user_ids) ||
+            !this.sameValues(this.IncomingSubtasks(), task.subtasks)
+        );
+    }
+
+    private sameValues(a: unknown, b: unknown): boolean {
+        return JSON.stringify(a) === JSON.stringify(b);
+    }
+
     async saveTask() {
         const currentTask = this.dialogService.selectedTask();
         if (!currentTask || this.addTaskForm.invalid) {
             return;
         }
-        const formValues = this.addTaskForm.value;
-        const updatedTask = new Task({
-            ...currentTask,
-            title: formValues.title ?? '',
-            description: formValues.description ?? '',
-            due_date: formValues.date ?? '',
-            priority: this.IncomingPriority() as Task['priority'],
-            user_ids: this.selectedUserIds(),
-            category: this.IncomingCategory() as Task['category'],
-            subtasks: this.IncomingSubtasks(),
-        });
-        await this.tasksService.editTask(updatedTask, true);
-        this.dialogService.selectedTask.set(updatedTask);
-        this.dialogService.switchToTask();
+        if (this.hasChanges()) {
+            const formValues = this.addTaskForm.getRawValue();
+            const updatedTask = new Task({
+                ...currentTask,
+                title: formValues.title ?? '',
+                description: formValues.description ?? '',
+                due_date: formValues.date ?? '',
+                priority: this.IncomingPriority() as Task['priority'],
+                user_ids: this.selectedUserIds(),
+                category: this.IncomingCategory() as Task['category'],
+                subtasks: this.IncomingSubtasks(),
+            });
+            await this.tasksService.editTask(updatedTask);
+        }
+        this.dialogService.close();
     }
 }

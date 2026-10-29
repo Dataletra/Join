@@ -39,7 +39,7 @@ export class TasksService {
         .channel('task-delete-channel')
         .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'tasks' }, (payload) => {
             this.tasklist.update((list) => list.filter((task) => task.id !== payload.old['id']));
-            this.toastService.showToast('Task removed from board', ToastType.updateTask);
+            this.toastService.showToast('Task removed from board', ToastType.deleteTask);
         })
         .subscribe();
 

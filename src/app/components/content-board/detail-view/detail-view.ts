@@ -7,9 +7,11 @@ import { IcContact } from '../../elements/ic-contact/ic-contact';
 import { ContactService } from '../../../services/contact-service';
 import { TasksService } from '../../../services/tasks-service';
 import { Task } from '../../models/task';
+import { TitleCasePipe } from '@angular/common';
+import { Toast, ToastType } from '../../../services/toast';
 
 @Component({
-    imports: [TaskLable, IcContact],
+    imports: [TaskLable, IcContact, TitleCasePipe],
     selector: 'app-detail-view',
     styleUrl: './detail-view.scss',
     templateUrl: './detail-view.html',
@@ -21,6 +23,7 @@ export class DetailView {
     dialog = viewChild<ElementRef<HTMLDialogElement>>('taskdetail');
     subtaskUpdateQueue: Promise<void> = Promise.resolve();
     readonly task = computed(() => this.dialogService.selectedTask());
+    toastService = inject(Toast);
 
     assignedUsers = computed(() => {
         const task = this.task();
@@ -60,6 +63,7 @@ export class DetailView {
     }
 
     async deleteTask(id: number) {
+        this.toastService.setTypeMatch(ToastType.deleteTask);
         await this.taskService.deleteTask(id);
         this.dialogService.close();
     }
