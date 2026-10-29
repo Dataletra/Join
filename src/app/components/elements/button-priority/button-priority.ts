@@ -13,6 +13,7 @@ export class ButtonPriority {
     prioSignals = [this.lowIsActive, this.medIsActive, this.hiIsActive];
     readonly existingPriority = input<string | null>();
     priorityOutput = output<string>();
+    readonly useInEditTask = input<boolean>(false);
 
     btnSrc = new Map<string, string[]>([
         ['low', ['./assets/icons/low.svg', './assets/icons/low-white.svg', 'Low']],

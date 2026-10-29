@@ -17,7 +17,6 @@ dialog {
 
 .animation-wrapper {
     width: 525px;
-    // height: 930px;
     height: auto;
     max-height: 95%;
     max-width: 1212px;
@@ -26,7 +25,6 @@ dialog {
     background: white;
     border-radius: 30px;
     box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.4);
-    // overflow-y: auto;
     @include scrollbar-light;
 }
 
@@ -52,6 +50,7 @@ dialog {
 
 .input-container {
     margin-bottom: 32px;
+    font-family: 'Inter';
 
     p {
         font-size: 20px;
@@ -94,7 +93,6 @@ dialog {
 }
 
 .buttons {
-    // height: 56px;
     width: 100%;
     display: flex;
     justify-content: end;

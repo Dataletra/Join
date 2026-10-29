@@ -2,6 +2,7 @@
     type="button"
     class="btn-priority low-prio"
     [class.active-state]="lowIsActive()"
+    [class.useInEditTask]="useInEditTask()"
     (click)="toggleActiveState('low')"
 >
     <p>{{ btnSrc.get('low')?.[2] }}</p>
@@ -11,6 +12,7 @@
     type="button"
     class="btn-priority med-prio"
     [class.active-state]="medIsActive()"
+    [class.useInEditTask]="useInEditTask()"
     (click)="toggleActiveState('medium')"
 >
     <p>{{ btnSrc.get('medium')?.[2] }}</p>
@@ -20,6 +22,7 @@
     type="button"
     class="btn-priority hi-prio"
     [class.active-state]="hiIsActive()"
+    [class.useInEditTask]="useInEditTask()"
     (click)="toggleActiveState('urgent')"
 >
     <p>{{ btnSrc.get('urgent')?.[2] }}</p>

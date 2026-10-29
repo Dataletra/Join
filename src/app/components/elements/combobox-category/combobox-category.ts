@@ -1,4 +1,4 @@
-import { Component, afterRenderEffect, computed, output, signal, viewChild } from '@angular/core';
+import { Component, afterRenderEffect, computed, effect, input, output, signal, viewChild } from '@angular/core';
 import { Combobox, ComboboxPopup, ComboboxWidget } from '@angular/aria/combobox';
 import { Listbox, Option } from '@angular/aria/listbox';
 import { OverlayModule } from '@angular/cdk/overlay';
@@ -20,12 +20,19 @@ export class ComboboxCategory {
     touched = output<void>();
     private hasBeenTouched = false;
     readonly displayValue = computed(() => this.selectedValues()[0] || 'Select a Category');
-
     readonly labels = [{ value: 'Technical Task' }, { value: 'User Story' }];
+    readonly initialCategory = input<string>('');
 
     constructor() {
         afterRenderEffect(() => {
             this.listbox()?.scrollActiveItemIntoView();
+        });
+
+        effect(() => {
+            const category = this.initialCategory();
+            if (category) {
+                this.selectedValues.set([category]);
+            }
         });
     }
 
