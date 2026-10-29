@@ -100,6 +100,8 @@ export class ContentAddTask {
         });
         await this.tasksService.addTask(newTask);
         this.router.navigate(['/board']);
+
+        this.contactDialog.close();
     }
 
     clearForm() {
