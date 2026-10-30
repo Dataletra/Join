@@ -101,11 +101,11 @@
 
 .btn-status-menu {
     .btn-fill {
-        fill: rgba(42, 54, 71, 0.2);
+        fill: rgba(168, 168, 168, 0.8);
     }
 
     .btn-stroke {
-        stroke: rgba(42, 54, 71, 0.2);
+        stroke: rgba(168, 168, 168, 0.8);
     }
 
     width: 32px;
@@ -114,11 +114,11 @@
 
     &:hover {
     .btn-fill {
-        fill: rgba(42, 54, 71, 0.6);
+        fill: $color-icon2;
     }
 
     .btn-stroke {
-        stroke: rgba(42, 54, 71, 0.6);
+        stroke: $color-icon2;
     }
     }
 }
