@@ -5,15 +5,28 @@
         type="text"
         placeholder="Add new subtask"
         [formControl]="subtaskEntry"
-        (keydown.enter)="confirm()"
+        (keydown.enter)="confirm(true)"
+        (keyup)="subtaskExists(subtaskEntry.value!)"
     />
-    @if (subtaskEntry.value) {
+    @if (subtaskEntry.value && !duplicateExists()) {
         <div class="btn-container">
             <button (click)="cancel()"><img src="./assets/icons/close.svg" alt="close icon" /></button>
             <hr />
-            <button (click)="confirm()"><img src="./assets/icons/check-black.svg" alt="check icon" /></button>
+            <button (click)="confirm(false)"><img src="./assets/icons/check-black.svg" alt="check icon" /></button>
         </div>
     }
+    @if (subtaskEntry.value && duplicateExists()) {
+        <div class="btn-container">
+            <button (click)="cancel()"><img src="./assets/icons/close.svg" alt="close icon" /></button>
+            <hr />
+            <button (click)="confirm(true)"><img src="./assets/icons/check-black.svg" alt="check icon" /></button>
+        </div>
+    }
+    <div class="duplicate-warn">
+        @if (duplicateExists()) {
+            <p>Warning: Subtask already exists, continue?</p>
+        }
+    </div>
 </div>
 <ul>
     @for (entry of subtaskItems; track $index) {
