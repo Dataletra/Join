@@ -62,9 +62,9 @@ export class DetailView {
         this.dialogService.close();
     }
 
-    async deleteTask(id: number) {
+    async deleteApiTask(id: number) {
         this.toastService.setTypeMatch(ToastType.deleteTask);
-        await this.taskService.deleteTask(id);
+        await this.taskService.deleteApiTask(id);
         this.dialogService.close();
     }
 
@@ -78,7 +78,7 @@ export class DetailView {
             subtasks: updatedSubtasks,
         };
         this.dialogService.selectedTask.set(updatedTask);
-        this.subtaskUpdateQueue = this.subtaskUpdateQueue.then(() => this.taskService.editTask(new Task(updatedTask)));
+        this.subtaskUpdateQueue = this.subtaskUpdateQueue.then(() => this.taskService.editApiTask(new Task(updatedTask)));
         await this.subtaskUpdateQueue;
     }
 }

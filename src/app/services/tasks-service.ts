@@ -4,12 +4,14 @@ import { ITask } from '../interfaces/itask';
 import { Task } from '../components/models/task';
 import { Status } from '../interfaces/enums';
 import { Toast, ToastType } from './toast';
+import { TaskListService } from './tasklist-service';
 
 @Service()
 export class TasksService {
     supabase = inject(SupabaseService).supabase;
     tasklist = signal<ITask[]>([]);
     toastService = inject(Toast);
+    taskSortService = inject(TaskListService);
 
     ngOnDestroy() {
         this.supabase.removeChannel(this.channelTaskInsert);
@@ -20,7 +22,9 @@ export class TasksService {
     channelTaskInsert = this.supabase
         .channel('task-insert-channel')
         .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'tasks' }, (payload) => {
-            this.tasklist.update((list) => [...list, new Task(payload.new)]);
+            const newTask = new Task(payload.new);
+            this.tasklist.update((list) => [...list, newTask]);
+            this.taskSortService.addTask(newTask.id, newTask.status);
             this.toastService.showToast('Task added to board', ToastType.insertTask);
         })
         .subscribe();
@@ -28,9 +32,12 @@ export class TasksService {
     channelTaskUpdate = this.supabase
         .channel('task-update-channel')
         .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'tasks' }, (payload) => {
+            const newTask = new Task(payload.new);
             this.tasklist.update((list) =>
-                list.map((task) => (task.id === payload.new['id'] ? { ...task, ...payload.new } : task))
+                list.map((task) => (task.id === payload.new['id'] ? { ...task, ...newTask } : task))
             );
+            this.taskSortService.moveApiItem(newTask.id, newTask.status);
+
             this.toastService.showToast('Task udpated succesfully', ToastType.updateTask);
         })
         .subscribe();
@@ -39,35 +46,39 @@ export class TasksService {
         .channel('task-delete-channel')
         .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'tasks' }, (payload) => {
             this.tasklist.update((list) => list.filter((task) => task.id !== payload.old['id']));
+            this.taskSortService.deleteTask(payload.old['id']);
             this.toastService.showToast('Task removed from board', ToastType.deleteTask);
         })
         .subscribe();
 
-    async getTasks() {
+    async fetchTasks() {
         let { data, error } = await this.supabase.from('tasks').select('*');
         if (!data) return;
         this.tasklist.set(data.map((task) => new Task(task)));
     }
 
-    async addTask(task: Task) {
+    async addApiTask(task: Task) {
         this.toastService.setTypeMatch(ToastType.insertTask);
         const taskData = task.getCleanAddJson();
         const { data, error } = await this.supabase.from('tasks').insert([taskData]).select();
     }
 
-    async editTask(task: Task, showToast: boolean = false) {
-        this.toastService.setTypeMatch(showToast ? ToastType.updateTask : ToastType.none);
-        const taskData = task.getCleanAddJson();
-        const { data, error } = await this.supabase.from('tasks').update(taskData).eq('id', task.id).select();
+    async editApiTask(task: Task, showToast: boolean = false) {
+        const oldTask = this.getTaskPerId(task.id);
+        if (oldTask) {
+            this.toastService.setTypeMatch(showToast ? ToastType.updateTask : ToastType.none);
+            const taskData = task.getCleanAddJson();
+            const { data, error } = await this.supabase.from('tasks').update(taskData).eq('id', task.id).select();
+        }
     }
 
-    async editStatus(id: number | undefined, status: Status) {
-        if (this.getTaskPerId(id)) {
+    async editApiStatus(id: number | undefined, status: Status) {
+        if (id && this.getTaskPerId(id)) {
             const { data, error } = await this.supabase.from('tasks').update({ status: status }).eq('id', id).select();
         }
     }
 
-    async deleteTask(id: number) {
+    async deleteApiTask(id: number) {
         this.toastService.setTypeMatch(ToastType.deleteTask);
         const { error } = await this.supabase.from('tasks').delete().eq('id', id);
     }
@@ -89,16 +100,16 @@ export class TasksService {
         return results;
     }
 
-    async deleteUser(userId: number | null) {
+    async deleteApiUser(userId: number | null) {
         if (this.tasklist().length === 0) {
-            await this.getTasks();
+            await this.fetchTasks();
         }
         if (userId) {
             const tasksWithUser = this.tasklist().filter((task) => task.user_ids.includes(userId));
             for (const task of tasksWithUser) {
                 const index = task.user_ids.indexOf(userId);
                 task.user_ids.splice(index, 1);
-                this.editTask(new Task(task));
+                this.editApiTask(new Task(task));
             }
         }
     }

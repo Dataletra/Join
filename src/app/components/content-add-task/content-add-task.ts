@@ -98,7 +98,7 @@ export class ContentAddTask {
             user_ids: this.selectedUserIds(),
             subtasks: this.IncomingSubtasks(),
         });
-        await this.tasksService.addTask(newTask);
+        await this.tasksService.addApiTask(newTask);
         this.router.navigate(['/board']);
 
         this.contactDialog.close();

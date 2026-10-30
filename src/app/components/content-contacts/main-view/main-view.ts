@@ -64,6 +64,6 @@ export class MainView {
     }
 
     deleteUser() {
-        this.dbService.deleteUser(this.dbService.selectedUserID());
+        this.dbService.deleteApiUser(this.dbService.selectedUserID());
     }
 }
