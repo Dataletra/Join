@@ -42,7 +42,7 @@ dialog {
 
 .btn-close {
     position: absolute;
-    right: 40px;
+    right: 80px;
     top: 50px;
 }
 
@@ -70,18 +70,24 @@ dialog {
 
 @media screen and (max-width: 680px) {
     .dialog-wrapper {
+        padding: 0;
         padding-bottom: 10px;
+    }
+    .btn-close {
+        position: absolute;
+        right: 15px;
+        top: 20px;
     }
 }
 
 @media screen and (max-width: 380px) {
     .btn-close {
         position: absolute;
-        right: 35px;
-        top: 30px;
+        right: 15px;
+        top: 15px;
     }
     .dialog-wrapper {
-        padding: 15px;
+        padding: 0px;
         padding-bottom: 0;
     }
 }
