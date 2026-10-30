@@ -19,16 +19,17 @@ $color-menu: #42526e;
 
 $color-task-lable-1: #0038ff;
 $color-task-lable-2: #1fd7c1;
-$color-progress-empty: #f4f4f4;
+$color-progress-empty: rgba(168, 168, 168, 0.3);
 $color-progress-fill: #4589ff;
 $color-btn-hover: #d9d9d9;
 
-$media-s: 320px;
 $media-s-raw: 320;
-$media-sm: 560px;
 $media-sm-raw: 560;
-$media-m: 810px;
 $media-m-raw: 810;
+
+$media-s: $media-s-raw * 1px;
+$media-sm: $media-sm-raw * 1px;
+$media-m: $media-m-raw * 1px;
 
 $size-dialog-avatar: clamp(40px, calc((100svh - 300px) * 60 / 400 + 60px), 120px);
 $size-task-card-shadow: 10px;
