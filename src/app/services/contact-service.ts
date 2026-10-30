@@ -90,9 +90,9 @@ export class ContactService {
         return data?.[0];
     }
 
-    async deleteUser(id: number | null) {
+    async deleteApiUser(id: number | null) {
         this.toastService.setTypeMatch(ToastType.deleteContact);
-        this.taskService.deleteUser(id);
+        this.taskService.deleteApiUser(id);
         const response = await this.supabase.from('user').delete().eq('id', id);
     }
 

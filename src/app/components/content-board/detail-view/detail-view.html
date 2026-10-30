@@ -15,7 +15,7 @@
             <div class="dialog_wrapper">
                 <div class="dialog-header">
                     <div class="category">
-                        <app-task-lable [category]="currentTask.category"></app-task-lable>
+                        <app-task-label [category]="currentTask.category"></app-task-label>
                         <button class="close" (click)="dialogService.close()">
                             <img src="./assets/icons/close.svg" aria-hidden="true" />
                         </button>
@@ -34,11 +34,11 @@
                     <div class="date-prio">
                         <table>
                             <tr>
-                                <th>Due date:</th>
+                                <th class="detail-attribute">Due date:</th>
                                 <td>{{ currentTask.due_date }}</td>
                             </tr>
                             <tr>
-                                <th>Priority:</th>
+                                <th class="detail-attribute">Priority:</th>
                                 <td>
                                     {{ currentTask.priority | titlecase }}
                                     @if (currentTask.priority === 'low') {
@@ -53,7 +53,7 @@
                         </table>
                     </div>
                     <div class="assigned-to">
-                        <p class="assigned-title">Assigned To:</p>
+                        <p class="assigned-title detail-attribute">Assigned To:</p>
                         <div class="user-list">
                             @for (user of assignedUsers(); track user.id) {
                                 <div class="user">
@@ -69,12 +69,12 @@
                                     <p>{{ user.name }}</p>
                                 </div>
                             } @empty {
-                                <p class="no-users">no user assigned</p>
+                                <p class="no-assigned">no user assigned</p>
                             }
                         </div>
                     </div>
                     <div class="subtasks">
-                        <p class="sub-title">Subtasks</p>
+                        <p class="sub-title detail-attribute">Subtasks</p>
                         <div class="sub-body">
                             @for (subtask of currentTask.subtasks; track $index) {
                                 <label class="subtask-row">
@@ -88,21 +88,21 @@
                                     <p>{{ subtask.title }}</p>
                                 </label>
                             } @empty {
-                                <p>no subtasks</p>
+                                <p class="no-assigned">no subtasks</p>
                             }
                         </div>
                     </div>
                 </div>
 
                 <div class="buttons">
-                    <button class="delete" (click)="deleteTask(currentTask.id)">
+                    <button class="delete btn-bot" (click)="deleteApiTask(currentTask.id)">
                         <img src="./assets/icons/delete.svg" aria-hidden="true" />
-                        Delete
+                        <p>Delete</p>
                     </button>
                     <hr />
-                    <button class="edit" (click)="dialogService.switchToEditTask()">
+                    <button class="edit btn-bot" (click)="dialogService.switchToEditTask()">
                         <img src="./assets/icons/edit.svg" aria-hidden="true" />
-                        Edit
+                        <p>Edit</p>
                     </button>
                 </div>
             </div>

@@ -34,7 +34,7 @@
     }
     .username,
     .email {
-        max-width: clamp-px(170, 430, 560, 320) !important;
+        max-width: clamp-px(170, 430, $media-sm-raw, $media-s-raw) !important;
     }
     .btn-container {
         position: absolute;

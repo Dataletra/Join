@@ -1,6 +1,6 @@
 import { Component, computed, effect, ElementRef, inject, input, viewChild } from '@angular/core';
 import { ContactDialog } from '../../../services/contact-dialog';
-import { TaskLable } from '../../elements/task-lable/task-lable';
+import { Tasklabel } from '../../elements/task-label/task-label';
 import { ITask } from '../../../interfaces/itask';
 import { Status } from '../../../interfaces/enums';
 import { IcContact } from '../../elements/ic-contact/ic-contact';
@@ -11,7 +11,7 @@ import { TitleCasePipe } from '@angular/common';
 import { Toast, ToastType } from '../../../services/toast';
 
 @Component({
-    imports: [TaskLable, IcContact, TitleCasePipe],
+    imports: [Tasklabel, IcContact, TitleCasePipe],
     selector: 'app-detail-view',
     styleUrl: './detail-view.scss',
     templateUrl: './detail-view.html',
@@ -51,7 +51,9 @@ export class DetailView {
             element.showModal();
         }
         if (!isOpen && element.open) {
-            element.close();
+            setTimeout(() => {
+                element.close();
+            }, 300);
         }
     }
 
@@ -62,9 +64,9 @@ export class DetailView {
         this.dialogService.close();
     }
 
-    async deleteTask(id: number) {
+    async deleteApiTask(id: number) {
         this.toastService.setTypeMatch(ToastType.deleteTask);
-        await this.taskService.deleteTask(id);
+        await this.taskService.deleteApiTask(id);
         this.dialogService.close();
     }
 
@@ -78,7 +80,9 @@ export class DetailView {
             subtasks: updatedSubtasks,
         };
         this.dialogService.selectedTask.set(updatedTask);
-        this.subtaskUpdateQueue = this.subtaskUpdateQueue.then(() => this.taskService.editTask(new Task(updatedTask)));
+        this.subtaskUpdateQueue = this.subtaskUpdateQueue.then(() =>
+            this.taskService.editApiTask(new Task(updatedTask))
+        );
         await this.subtaskUpdateQueue;
     }
 }

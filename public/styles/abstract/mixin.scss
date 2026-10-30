@@ -19,7 +19,8 @@
     }
 
     &::-webkit-scrollbar-thumb {
-        background: #a8a8a8;
+        background: rgba(168, 168, 168, 0.5);
+
         border-radius: clamp(
             $min * 1px,
             calc((100svw - $end * 1px) * ($max - $min) / ($start - $end) + $min * 1px),
@@ -28,7 +29,7 @@
     }
 
     &::-webkit-scrollbar-thumb:hover {
-        background: #686868;
+        background: rgba(168, 168, 168, 0.8);
     }
 }
 
