@@ -1,6 +1,7 @@
-import { Component, effect, input, output } from '@angular/core';
+import { Component, effect, inject, input, output } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ISubtask } from '../../../interfaces/isubtask';
+import { CustomValidators } from '../../../services/custom-validators';
 @Component({
     imports: [ReactiveFormsModule],
     selector: 'app-subtask',
@@ -8,12 +9,13 @@ import { ISubtask } from '../../../interfaces/isubtask';
     templateUrl: './subtask.html',
 })
 export class Subtask {
+    customValidator = inject(CustomValidators);
     subtaskItems: ISubtask[] = [];
     subtaskOutput = output<ISubtask[]>();
     initialSubtasks = input<ISubtask[]>([]);
 
     subtaskEntry = new FormControl('', {
-        validators: [Validators.minLength(5)],
+        validators: [Validators.minLength(1), this.customValidator.containsOnlyWhitespaceValidator()],
     });
 
     constructor() {
@@ -32,7 +34,12 @@ export class Subtask {
     }
 
     confirm() {
-        if (!this.subtaskEntry.value) {
+        if (
+            !this.subtaskEntry.value ||
+            this.subtaskEntry.value == '' ||
+            this.subtaskEntry.hasError('whitespace') ||
+            this.subtaskEntry.hasError('minlength')
+        ) {
             return;
         }
         const newSubtask: ISubtask = {
