@@ -1,6 +1,9 @@
 import {
+    afterNextRender,
     Component,
     computed,
+    DestroyRef,
+    ElementRef,
     inject,
     input,
     output,
@@ -9,7 +12,7 @@ import {
 } from '@angular/core';
 import { IcContact } from '../../elements/ic-contact/ic-contact';
 import { ITask } from '../../../interfaces/itask';
-import { TaskLable } from '../../elements/task-lable/task-lable';
+import { Tasklabel } from '../../elements/task-label/task-label';
 import { ContactService } from '../../../services/contact-service';
 import { ContactDialog } from '../../../services/contact-dialog';
 import { Menu, MenuItem, MenuTrigger, MenuContent } from '@angular/aria/menu';
@@ -18,7 +21,7 @@ import { CdkConnectedOverlay, CdkOverlayOrigin, ScrollDispatcher } from '@angula
 import { Subscription } from 'rxjs';
 
 @Component({
-    imports: [IcContact, TaskLable, Menu, MenuItem, MenuTrigger, CdkConnectedOverlay, CdkOverlayOrigin, MenuContent],
+    imports: [IcContact, Tasklabel, Menu, MenuItem, MenuTrigger, CdkConnectedOverlay, CdkOverlayOrigin, MenuContent],
     selector: 'app-task-card',
     styleUrl: './task-card.scss',
     templateUrl: './task-card.html',
@@ -30,15 +33,34 @@ export class TaskCard {
 
     showMenu = signal<boolean>(false);
     overlayListen = signal<boolean>(false);
+    isTight = signal<boolean>(false);
 
     private readonly Status = Status; // Make Status enum usable in HTML
     statusMenu = viewChild<Menu<string>>('statusMenu');
+    private readonly tasCard = viewChild.required<ElementRef<HTMLElement>>('taskCard');
 
     contactService = inject(ContactService);
     dialogService = inject(ContactDialog);
+    private readonly destroyRef = inject(DestroyRef);
 
     private scrollDispatcher = inject(ScrollDispatcher);
     private scrollSubscription?: Subscription;
+
+    /**
+     * Start ResizeObserver to observe width of task card.
+     */
+    constructor() {
+        afterNextRender(() => {
+            const el = this.tasCard().nativeElement;
+            const observer = new ResizeObserver(() => {
+                this.isTight.set(el.offsetWidth < 140);
+            });
+            observer.observe(el);
+            this.destroyRef.onDestroy(() => {
+                observer.disconnect();
+            });
+        });
+    }
 
     ngOnInit() {
         this.scrollSubscription = this.scrollDispatcher.scrolled().subscribe(() => {

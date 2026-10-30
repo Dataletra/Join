@@ -1,26 +1,31 @@
 @use '../../../../../public/styles/abstract/variables.scss' as *;
 @use '../../../../../public/styles/abstract/functions.scss' as *;
 
-.task-lable {
+.task-label {
     width: fit-content;
-    height: 27px;
+    max-width: clamp-px(60, 150, 1400, $media-m-raw);
+    height: 26px;
     padding: 4px clamp-px(8, 16, 1400, $media-m-raw);
     border-radius: 8px;
     display: flex;
     align-items: center;
-    
+
     p {
         font-size: clamp-px(14, 16, 1400, $media-m-raw);
         line-height: 100%;
+
         white-space: nowrap;
         color: $color-nav-high;
+        text-overflow: ellipsis;
+        overflow: hidden;
+
     }
 }
 
 .user-story {
-    background-color: $color-task-lable-1;
+    background-color: $color-task-label-1;
 }
 
 .tech-task {
-    background-color: $color-task-lable-2;
+    background-color: $color-task-label-2;
 }

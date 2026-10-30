@@ -77,8 +77,7 @@
 .header-wrapper {
     width: 100%;
     padding-inline: $width-board-padding-outer;
-    padding-top: clamp-px(16, 40, 1400, 800);
-    padding-bottom: clamp-px(32, 40, 1400, 800);
+    padding-block: clamp-px(16, 40, 1400, 800);
     max-width: calc($content-limitation - $width-nav-desktop);
 }
 
@@ -130,7 +129,7 @@
 
 // #region board-main
 h5 {
-    font-size: clamp-px(20, 27, 400, 1400);
+    font-size: clamp-px(16, 20, 1400, $media-m-raw);
     font-weight: 700;
     color: $color-menu;
 }
@@ -170,7 +169,7 @@ main {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: clamp-px(24, 32, 400, 1400);
+    height: 40px;
     padding-left: $size-task-card-shadow;
     padding-right: $width-board-scrollbar-max * 1px + $size-task-card-shadow - 2px;
     margin-block: 2px;
@@ -213,10 +212,60 @@ main,
     @include scrollbar-light(4, $width-board-scrollbar-max);
     scroll-behavior: auto;
 }
+// #endregion board-main
+
+// #section drag-drop
+.drag-placeholder {
+    background-color: transparent;
+    width: 100%;
+    min-width: $width-task-card;
+    max-width: $width-task-card;
+    margin: $size-task-card-shadow;
+    min-height: 177px;
+    border: 1px dashed $color-icon;
+    border-radius: 24px;
+}
+
+.task-placeholder,
+.no-task {
+    @include flex-center;
+    min-width: $width-task-card;
+    max-width: $width-task-card;
+    margin: $size-task-card-shadow;
+    height: 48px;
+    background-color: $color-nav;
+    border: 1px dashed $color-icon;
+    border-radius: 10px;
+    cursor: default;
+
+    p {
+        font-size: clamp-px(14, 16, 1400, $media-m-raw);
+        text-align: center;
+        color: $color-icon;
+    }
+}
+
+.task-placeholder {
+    cursor: pointer;
+}
+
+.cdk-drag-animating {
+    transition: none;
+}
+
+.cdk-drop-list-dragging :not(.cdk-drag-placeholder) {
+    transition: transform 125ms ease-in;
+}
+// #endsection drag-drop
+
+.color-red {
+    color: red;
+}
 
 @media screen and (max-width: $media-m) {
     h5 {
         color: $color-base;
+        font-size: 27px;
     }
 
     :host {
@@ -259,52 +308,11 @@ main,
     .task-list-scroll-wrapper {
         height: auto;
     }
-}
-// #endregion board-main
 
-// #section drag-drop
-.drag-placeholder {
-    background-color: transparent;
-    width: 100%;
-    min-width: $width-task-card;
-    max-width: $width-task-card;
-    margin: $size-task-card-shadow;
-    min-height: 177px;
-    border: 1px dashed $color-icon;
-    border-radius: 24px;
-}
-
-.task-placeholder,
-.no-task {
-    @include flex-center;
-    min-width: $width-task-card;
-    max-width: $width-task-card;
-    margin: $size-task-card-shadow;
-    height: 48px;
-    background-color: $color-nav;
-    border: 1px dashed $color-icon;
-    border-radius: 10px;
-    box-shadow: 0 0 4px 0 #00000029;
-    cursor: default;
-
-    p {
-        color: $color-icon;
+    .task-placeholder,
+    .no-task {
+        p {
+            font-size: 16px;
+        }
     }
-}
-
-.task-placeholder {
-    cursor: pointer;
-}
-
-.cdk-drag-animating {
-    transition: none;
-}
-
-.cdk-drop-list-dragging :not(.cdk-drag-placeholder) {
-    transition: transform 125ms ease-in;
-}
-// #endsection drag-drop
-
-.color-red {
-    color: red;
 }

@@ -1,6 +1,6 @@
 import { Component, computed, effect, ElementRef, inject, input, viewChild } from '@angular/core';
 import { ContactDialog } from '../../../services/contact-dialog';
-import { TaskLable } from '../../elements/task-lable/task-lable';
+import { Tasklabel } from '../../elements/task-label/task-label';
 import { ITask } from '../../../interfaces/itask';
 import { Status } from '../../../interfaces/enums';
 import { IcContact } from '../../elements/ic-contact/ic-contact';
@@ -11,7 +11,7 @@ import { TitleCasePipe } from '@angular/common';
 import { Toast, ToastType } from '../../../services/toast';
 
 @Component({
-    imports: [TaskLable, IcContact, TitleCasePipe],
+    imports: [Tasklabel, IcContact, TitleCasePipe],
     selector: 'app-detail-view',
     styleUrl: './detail-view.scss',
     templateUrl: './detail-view.html',

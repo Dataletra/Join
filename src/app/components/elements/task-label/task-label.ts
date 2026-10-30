@@ -3,10 +3,10 @@ import { ITask } from '../../../interfaces/itask';
 
 @Component({
     imports: [],
-    selector: 'app-task-lable',
-    styleUrl: './task-lable.scss',
-    templateUrl: './task-lable.html',
+    selector: 'app-task-label',
+    styleUrl: './task-label.scss',
+    templateUrl: './task-label.html',
 })
-export class TaskLable {
+export class Tasklabel {
     readonly category = input.required<ITask['category']>();
 }
