@@ -9,5 +9,5 @@ import { ITask } from '../../../interfaces/itask';
 })
 export class Tasklabel {
     readonly category = input.required<ITask['category']>();
-    maxWidthStr = input<string>("auto");
+    useClamp = input<boolean>(false);
 }

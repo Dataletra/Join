@@ -1,6 +1,6 @@
 <div
     class="task-label"
-    [style.max-width]="maxWidthStr()"
+    [class.use-clamp]="useClamp()"
     [class.user-story]="category() === 'User Story'"
     [class.tech-task]="category() === 'Technical Task'"
 >

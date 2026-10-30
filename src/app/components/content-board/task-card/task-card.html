@@ -2,7 +2,7 @@
     <div class="label-wrapper">
         <app-task-label
             [category]="task().category"
-            [maxWidthStr]="'clamp(60px, calc((100svw - 810px) * 90 / 590 + 60px), 150px)'"
+            [useClamp]="true"
         ></app-task-label>
         <button
             type="button"
