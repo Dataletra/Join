@@ -3,7 +3,6 @@
 
 .task-label {
     width: fit-content;
-    max-width: clamp-px(60, 150, 1400, $media-m-raw);
     height: 26px;
     padding: 4px clamp-px(8, 16, 1400, $media-m-raw);
     border-radius: 8px;

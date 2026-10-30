@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
 import { ITask } from '../../../interfaces/itask';
 
 @Component({
@@ -9,4 +9,5 @@ import { ITask } from '../../../interfaces/itask';
 })
 export class Tasklabel {
     readonly category = input.required<ITask['category']>();
+    maxWidthStr = input<string>("auto");
 }
