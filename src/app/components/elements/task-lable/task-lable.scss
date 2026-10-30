@@ -4,13 +4,13 @@
 .task-lable {
     width: fit-content;
     height: 27px;
-    padding: 4px clamp-px(8, 16, 1400, 810);
+    padding: 4px clamp-px(8, 16, 1400, $media-m-raw);
     border-radius: 8px;
     display: flex;
     align-items: center;
     
     p {
-        font-size: clamp-px(14, 16, 1400, 810);
+        font-size: clamp-px(14, 16, 1400, $media-m-raw);
         line-height: 100%;
         white-space: nowrap;
         color: $color-nav-high;
