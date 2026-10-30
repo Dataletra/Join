@@ -1,12 +1,18 @@
 @use '../../../../../public/styles/abstract/variables.scss' as *;
+@use '../../../../../public/styles/abstract/functions.scss' as *;
 
 .task-lable {
     width: fit-content;
     height: 27px;
-    padding: 4px 16px;
+    padding: 4px clamp-px(8, 16, 1400, 810);
     border-radius: 8px;
-
+    display: flex;
+    align-items: center;
+    
     p {
+        font-size: clamp-px(14, 16, 1400, 810);
+        line-height: 100%;
+        white-space: nowrap;
         color: $color-nav-high;
     }
 }

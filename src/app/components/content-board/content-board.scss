@@ -76,9 +76,9 @@
 
 .header-wrapper {
     width: 100%;
-    padding-inline: clamp-px(16, 48);
-    padding-top: clamp-px(16, 48, 1400, 800);
-    padding-bottom: clamp-px(32, 48, 1400, 800);
+    padding-inline: $width-board-padding-outer;
+    padding-top: clamp-px(16, 40, 1400, 800);
+    padding-bottom: clamp-px(32, 40, 1400, 800);
     max-width: calc($content-limitation - $width-nav-desktop);
 }
 
@@ -138,7 +138,7 @@ h5 {
 main {
     display: flex;
     width: 100%;
-    max-width: $width-task-section * 4 + 3 * 10px + 2 * 48px;
+    max-width: calc($width-task-section * 4 + 3 * $size-task-card-shadow + 2 * $width-board-padding-outer);
     height: 100%;
     padding-bottom: 2px;
     overflow-y: auto;
@@ -149,10 +149,9 @@ main {
         width: 100%;
         max-width: calc(100svw - $width-nav-desktop);
         height: 100%;
-        padding-inline: clamp-px(16, 48);
+        padding-inline: calc($width-board-padding-outer - $size-task-card-shadow);
         padding-bottom: 24px;
 
-        gap: 10px;
         overflow-x: auto;
         overflow-y: hidden;
     }
@@ -161,6 +160,8 @@ main {
         min-width: $width-task-section;
         width: $width-task-section;
         padding-inline: 1px;
+        display: flex;
+        flex-direction: column;
     }
 }
 
@@ -170,13 +171,15 @@ main {
     align-items: center;
     width: 100%;
     height: clamp-px(24, 32, 400, 1400);
-    padding-inline: 16px;
+    padding-left: $size-task-card-shadow;
+    padding-right: $width-board-scrollbar-max * 1px + $size-task-card-shadow - 2px;
     margin-block: 2px;
     overflow: visible;
 }
 
 .task-list-scroll-wrapper {
     margin-top: 5px;
+    padding-block: 2px;
     height: 100%;
     width: 100%;
     overflow: auto;
@@ -185,11 +188,9 @@ main {
 .task-list {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    padding-block: 16px;
-    padding-inline: 16px;
     width: 100%;
     min-height: 100%;
+    z-index: 999;
 }
 
 .main-scroll-wrapper {
@@ -209,7 +210,7 @@ main,
 .scroll-wrapper,
 .main-scroll-wrapper,
 .task-list-scroll-wrapper {
-    @include scrollbar-light(4, 10);
+    @include scrollbar-light(4, $width-board-scrollbar-max);
     scroll-behavior: auto;
 }
 
@@ -227,6 +228,11 @@ main,
         max-width: none;
         overflow: visible;
 
+        .section-header {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
         .scroll-wrapper {
             width: 100%;
             height: fit-content;
@@ -234,6 +240,8 @@ main,
             flex-direction: column;
             overflow-x: hidden;
             overflow-y: auto;
+            gap: 10px;
+            padding-inline: calc($width-board-padding-outer);
         }
 
         .section-tasks {
@@ -260,6 +268,7 @@ main,
     width: 100%;
     min-width: $width-task-card;
     max-width: $width-task-card;
+    margin: $size-task-card-shadow;
     min-height: 177px;
     border: 1px dashed $color-icon;
     border-radius: 24px;
@@ -268,14 +277,13 @@ main,
 .task-placeholder,
 .no-task {
     @include flex-center;
-    width: 100%;
     min-width: $width-task-card;
     max-width: $width-task-card;
+    margin: $size-task-card-shadow;
     height: 48px;
     background-color: $color-nav;
     border: 1px dashed $color-icon;
     border-radius: 10px;
-    padding-inline: 16px;
     box-shadow: 0 0 4px 0 #00000029;
     cursor: default;
 

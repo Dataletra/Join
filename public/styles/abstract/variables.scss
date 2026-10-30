@@ -1,4 +1,4 @@
-$content-limitation: 1920px;
+$content-limitation: 1440px;
 
 $color-base: #2a3647;
 $color-high-1: #124658;
@@ -27,6 +27,9 @@ $media-s: 320px;
 $media-sm: 560px;
 $media-m: 810px;
 
+$size-dialog-avatar: clamp(40px, calc((100svh - 300px) * 60 / 400 + 60px), 120px);
+$size-task-card-shadow: 10px;
+
 $height-header: 80px;
 $height-footer: 80px;
 $height-content-desktop: calc(100svh - $height-header);
@@ -35,6 +38,7 @@ $height-contact-dialog-title: 40%;
 
 $width-nav-desktop: clamp(180px, calc((100svw - 950px) * 52 / 450 + 180px), 232px);
 $width-user-list-icon: 42px;
-$width-task-card: 252px;
-$width-task-section: $width-task-card + 2 + 2 * 16px;
-$size-dialog-avatar: clamp(40px, calc((100svh - 300px) * 60 / 400 + 60px), 120px);
+$width-task-card: clamp(135px, calc((100svw - 810px) * (244 - 135) / (1400 - 810) + 135px), 244px);
+$width-board-scrollbar-max: 8;
+$width-board-padding-outer: clamp(16px, calc((100svw - 400px) * (40 - 16) / 1000 + 16px), 40px);
+$width-task-section: calc($width-task-card + 2 * $size-task-card-shadow + $width-board-scrollbar-max * 1px);
