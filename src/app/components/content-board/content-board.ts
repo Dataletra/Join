@@ -293,9 +293,10 @@ export class ContentBoard {
      */
     private autoScroll(): void {
         this.animationFrameId = null;
-        if (!this.isDragging) {
+        if (!this.isDragging || !(this.isTablet() || this.isMobile())) {
             return;
         }
+        console.log("scrolling");
         const elementY = this.board().nativeElement;
         const elementX = this.scrollWrapper().nativeElement;
         const rectX = elementX.getBoundingClientRect();
