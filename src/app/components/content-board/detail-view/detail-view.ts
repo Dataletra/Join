@@ -51,7 +51,9 @@ export class DetailView {
             element.showModal();
         }
         if (!isOpen && element.open) {
-            element.close();
+            setTimeout(() => {
+                element.close();
+            }, 300);
         }
     }
 
@@ -78,7 +80,9 @@ export class DetailView {
             subtasks: updatedSubtasks,
         };
         this.dialogService.selectedTask.set(updatedTask);
-        this.subtaskUpdateQueue = this.subtaskUpdateQueue.then(() => this.taskService.editApiTask(new Task(updatedTask)));
+        this.subtaskUpdateQueue = this.subtaskUpdateQueue.then(() =>
+            this.taskService.editApiTask(new Task(updatedTask))
+        );
         await this.subtaskUpdateQueue;
     }
 }
