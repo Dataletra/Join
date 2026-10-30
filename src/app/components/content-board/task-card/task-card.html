@@ -96,7 +96,14 @@
     [cdkConnectedOverlayOpen]="overlayListen()"
     (overlayOutsideClick)="hideMenu()"
     (detach)="hideMenu()"
-    [cdkConnectedOverlayPositions]="[{ originX: 'end', originY: 'bottom', overlayX: 'end', overlayY: 'top' }]"
+    [cdkConnectedOverlayPositions]="[
+        {
+            originX: flipMenu() ? 'start' : 'end',
+            originY: 'bottom',
+            overlayX: flipMenu() ? 'start' : 'end',
+            overlayY: 'top',
+        },
+    ]"
 >
     <menu
         ngMenu
@@ -104,6 +111,7 @@
         class="status-menu"
         [class.grow]="showMenu()"
         [class.shrink]="!showMenu()"
+        [class.menu-flipped] = "flipMenu()"
         (click)="$event.stopPropagation()"
     >
         <ng-template ngMenuContent>

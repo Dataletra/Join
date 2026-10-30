@@ -103,7 +103,7 @@
         display: flex;
         align-items: end;
         width: 100%;
-        
+
         .badge {
             width: clamp-px(28, 32, 1400, $media-m-raw);
             height: clamp-px(28, 32, 1400, $media-m-raw);
@@ -150,9 +150,11 @@
     background-color: $color-base;
     height: 0;
     padding: 0 16px;
-    border-radius: 20px;
+    border-radius: $size-task-card-menu-radius;
     border-top-right-radius: 0;
+
     overflow: hidden;
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
 
     .popup-title {
         font-weight: 700;
@@ -174,6 +176,11 @@
             cursor: pointer;
         }
     }
+}
+
+.menu-flipped {
+    border-top-right-radius: $size-task-card-menu-radius;
+    border-top-left-radius: 0;
 }
 
 .status-menu-item:not(:disabled):focus {

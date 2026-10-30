@@ -34,10 +34,11 @@ export class TaskCard {
     showMenu = signal<boolean>(false);
     overlayListen = signal<boolean>(false);
     isTight = signal<boolean>(false);
+    flipMenu = signal<boolean>(false);
 
     private readonly Status = Status; // Make Status enum usable in HTML
     statusMenu = viewChild<Menu<string>>('statusMenu');
-    private readonly tasCard = viewChild.required<ElementRef<HTMLElement>>('taskCard');
+    private readonly taskCard = viewChild.required<ElementRef<HTMLElement>>('taskCard');
 
     contactService = inject(ContactService);
     dialogService = inject(ContactDialog);
@@ -51,7 +52,7 @@ export class TaskCard {
      */
     constructor() {
         afterNextRender(() => {
-            const el = this.tasCard().nativeElement;
+            const el = this.taskCard().nativeElement;
             const observer = new ResizeObserver(() => {
                 this.isTight.set(el.offsetWidth < 140);
             });
@@ -103,6 +104,7 @@ export class TaskCard {
     toggleMenu(event: Event | null = null) {
         event?.stopPropagation();
         if (false === this.showMenu()) {
+            this.setMenuPosition();
             this.overlayListen.set(true);
             this.showMenu.set(true);
         } else {
@@ -122,5 +124,10 @@ export class TaskCard {
                 this.overlayListen.set(false);
             }, 100);
         }
+    }
+
+    setMenuPosition() {
+        const rectRelative = this.taskCard().nativeElement.getBoundingClientRect();
+        this.flipMenu.set(rectRelative.right < (200 + 12));
     }
 }
