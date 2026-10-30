@@ -92,7 +92,18 @@ export class EditTask {
     addTaskForm = new FormGroup({
         title: new FormControl('', { validators: [Validators.required] }),
         description: new FormControl(''),
-        date: new FormControl('', { validators: [Validators.required, this.customValidator.dateValidator] }),
+        date: new FormControl('', {
+            validators: [
+                Validators.required,
+                (control) => {
+                    const currentTask = this.dialogService.selectedTask();
+                    if (currentTask && control.value === currentTask.due_date) {
+                        return null;
+                    }
+                    return this.customValidator.dateValidator(control);
+                },
+            ],
+        }),
     });
 
     importSubtasks(taskArray: ISubtask[]) {
@@ -158,7 +169,7 @@ export class EditTask {
                 category: this.IncomingCategory() as Task['category'],
                 subtasks: this.IncomingSubtasks(),
             });
-            await this.tasksService.editTask(updatedTask);
+            await this.tasksService.editTask(updatedTask, true);
         }
         this.dialogService.close();
     }

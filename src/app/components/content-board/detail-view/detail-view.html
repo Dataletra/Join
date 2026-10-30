@@ -53,7 +53,7 @@
                         </table>
                     </div>
                     <div class="assigned-to">
-                        <p>Assinged To:</p>
+                        <p class="assigned-title">Assigned To:</p>
                         <div class="user-list">
                             @for (user of assignedUsers(); track user.id) {
                                 <div class="user">
@@ -68,6 +68,8 @@
                                     </div>
                                     <p>{{ user.name }}</p>
                                 </div>
+                            } @empty {
+                                <p class="no-users">no user assigned</p>
                             }
                         </div>
                     </div>
@@ -85,6 +87,8 @@
                                     />
                                     <p>{{ subtask.title }}</p>
                                 </label>
+                            } @empty {
+                                <p>no subtasks</p>
                             }
                         </div>
                     </div>
