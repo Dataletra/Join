@@ -11,4 +11,14 @@ import { TrackableNavigate } from '../../services/trackable-navigate';
 export class LogIn {
     navigateService = inject(TrackableNavigate);
     private readonly activeUrl = signal<string>('');
+
+    mode = 'log-in';
+
+    switchToSignUp() {
+        this.mode = 'sign-up';
+    }
+
+    switchToLogIn() {
+        this.mode = 'log-in';
+    }
 }
