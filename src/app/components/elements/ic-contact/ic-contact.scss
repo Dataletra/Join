@@ -18,7 +18,8 @@
     &__p {
         @include flex-center;
         color: white;
-        font-size: max(42cqh, 16px);
+        font-size: max(42cqh, 14px);
+        line-height: 100%;
     }
 
     > img {

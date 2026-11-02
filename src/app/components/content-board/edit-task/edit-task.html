@@ -21,7 +21,13 @@
                 <div class="dialog-content">
                     <div class="input-container input-title">
                         <p>Title</p>
-                        <input name="editTaskTitle" type="text" placeholder="Enter a title" formControlName="title" />
+                        <input
+                            name="editTaskTitle"
+                            type="text"
+                            placeholder="Enter a title"
+                            formControlName="title"
+                            (keydown.enter)="$event.preventDefault()"
+                        />
                         <div class="check-wrapper">
                             @if (
                                 addTaskForm.controls.title.hasError('required') &&
@@ -50,6 +56,7 @@
                             placeholder="Enter a date"
                             formControlName="date"
                             class="date-input"
+                            (keydown.enter)="$event.preventDefault()"
                         />
                         <div class="check-wrapper">
                             @if (
@@ -116,6 +123,7 @@
                         <app-subtask
                             [initialSubtasks]="IncomingSubtasks()"
                             (subtaskOutput)="importSubtasks($event)"
+                            (keydown.enter)="$event.preventDefault()"
                         ></app-subtask>
                     </div>
                 </div>

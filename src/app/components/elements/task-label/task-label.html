@@ -1,5 +1,6 @@
 <div
-    class="task-lable"
+    class="task-label"
+    [class.use-clamp]="useClamp()"
     [class.user-story]="category() === 'User Story'"
     [class.tech-task]="category() === 'Technical Task'"
 >

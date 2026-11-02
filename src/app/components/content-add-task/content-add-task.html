@@ -11,13 +11,15 @@
                         placeholder="Enter a title"
                         formControlName="title"
                         [class.error-input]="
-                            addTaskForm.controls.title.hasError('required') &&
+                            (addTaskForm.controls.title.hasError('required') ||
+                                addTaskForm.controls.title.hasError('whitespace')) &&
                             (addTaskForm.controls.title.touched || addTaskForm.controls.title.dirty)
                         "
                     />
                     <div class="check-wrapper">
                         @if (
-                            addTaskForm.controls.title.hasError('required') &&
+                            (addTaskForm.controls.title.hasError('required') ||
+                                addTaskForm.controls.title.hasError('whitespace')) &&
                             (addTaskForm.controls.title.touched || addTaskForm.controls.title.dirty)
                         ) {
                             <p class="form-check">Please enter a title.</p>
@@ -27,7 +29,12 @@
 
                 <div class="input-container">
                     <p>Description</p>
-                    <textarea name="descriptionText" type="text" placeholder="Enter a description" formControlName="description"></textarea>
+                    <textarea
+                        name="descriptionText"
+                        type="text"
+                        placeholder="Enter a description"
+                        formControlName="description"
+                    ></textarea>
                 </div>
 
                 <div class="input-container">
