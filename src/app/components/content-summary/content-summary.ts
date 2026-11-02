@@ -15,6 +15,9 @@ export class ContentSummary {
     readonly progress = computed(() => this.tasksService.tasklist().filter((t) => t.status === Status.progress));
     readonly feedback = computed(() => this.tasksService.tasklist().filter((t) => t.status === Status.await));
     readonly done = computed(() => this.tasksService.tasklist().filter((t) => t.status === Status.done));
+    readonly total = computed(
+        () => this.todo().length + this.progress().length + this.feedback().length + this.done().length
+    );
 
     async ngOnInit() {
         await this.tasksService.fetchTasks();

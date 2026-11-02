@@ -8,33 +8,33 @@
         <div class="box box-todo">
             <div class="icon-container"><img src="./assets/icons/edit-white.svg" /></div>
             <div class="info-container">
-                <h3>1</h3>
+                <h3>{{ todo().length }}</h3>
                 <p>To-do</p>
             </div>
         </div>
         <div class="box box-done">
             <div class="icon-container"><img src="./assets/icons/check.svg" /></div>
             <div class="info-container">
-                <h3>1</h3>
+                <h3>{{ done().length }}</h3>
                 <p>Done</p>
             </div>
         </div>
         <div class="box box-deadline"></div>
         <div class="box box-board">
             <div class="info-container">
-                <h3>1</h3>
+                <h3>{{ total() }}</h3>
                 <p>Tasks in Board</p>
             </div>
         </div>
         <div class="box box-progress">
             <div class="info-container">
-                <h3>1</h3>
+                <h3>{{ progress().length }}</h3>
                 <p>Tasks in Progress</p>
             </div>
         </div>
         <div class="box box-feedback">
             <div class="info-container">
-                <h3>1</h3>
+                <h3>{{ feedback().length }}</h3>
                 <p>Awaiting Feedback</p>
             </div>
         </div>
