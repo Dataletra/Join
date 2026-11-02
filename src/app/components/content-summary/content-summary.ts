@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, effect, inject, signal } from '@angular/core';
 import { TasksService } from '../../services/tasks-service';
 import { ITask } from '../../interfaces/itask';
 import { Priority, Status } from '../../interfaces/enums';
@@ -18,11 +18,38 @@ export class ContentSummary {
     readonly total = computed(
         () => this.todo().length + this.progress().length + this.feedback().length + this.done().length
     );
+    readonly nextDeadlineTasks = [];
+    readonly showcasedDateInfo = signal<'Upcoming Deadline' | 'Overdue Deadline'>('Upcoming Deadline');
 
-    async ngOnInit() {
-        await this.tasksService.fetchTasks();
-        console.log(this.todo());
+    DateFormatOptions: Intl.DateTimeFormatOptions = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    };
+
+    showcasedDate: string = '';
+
+    constructor() {
+        this.tasksService.fetchTasks();
+        effect(() => {
+            let currentCheckDate: Date | null;
+            this.tasksService.tasklist().filter((element) => {
+                const dueDate = new Date(element.due_date);
+                if (currentCheckDate == undefined) {
+                    currentCheckDate = dueDate;
+                }
+                if (dueDate < currentCheckDate) {
+                    currentCheckDate = dueDate;
+                }
+            });
+            this.showcasedDate = new Date(currentCheckDate!).toLocaleString(undefined, this.DateFormatOptions);
+            if (currentCheckDate! < new Date()) {
+                this.showcasedDateInfo.set('Overdue Deadline');
+            }
+        });
     }
+
+    ngOnInit() {}
 }
 
 /*TODO

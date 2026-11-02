@@ -19,23 +19,35 @@
                 <p>Done</p>
             </div>
         </div>
-        <div class="box box-deadline"></div>
+
+        <div class="box box-deadline">
+            <div class="deadline-info-container">
+                <h3>{{ progress().length }}</h3>
+                <p>Tasks in <br />Progress</p>
+            </div>
+            <hr class="deadline-hr" />
+            <div class="deadline-date-container">
+                <p>{{ showcasedDate }}</p>
+                <p>{{ showcasedDateInfo() }}</p>
+            </div>
+        </div>
+
         <div class="box box-board">
             <div class="info-container">
                 <h3>{{ total() }}</h3>
-                <p>Tasks in Board</p>
+                <p>Tasks in <br />Board</p>
             </div>
         </div>
         <div class="box box-progress">
             <div class="info-container">
                 <h3>{{ progress().length }}</h3>
-                <p>Tasks in Progress</p>
+                <p>Tasks in <br />Progress</p>
             </div>
         </div>
         <div class="box box-feedback">
             <div class="info-container">
                 <h3>{{ feedback().length }}</h3>
-                <p>Awaiting Feedback</p>
+                <p>Awaiting <br />Feedback</p>
             </div>
         </div>
     </div>
