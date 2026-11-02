@@ -36,7 +36,6 @@ export class ContactDialog {
 
     switchToTask() {
         this.mode.set('task');
-        console.log('switch to task');
     }
 
     close() {

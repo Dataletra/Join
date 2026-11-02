@@ -33,7 +33,6 @@ export class ContactService {
     }
 
     has<UserKey extends keyof IUser>(key: UserKey, value: IUser[UserKey]) {
-        console.log("Checking", value, "for", key, "is", this.userList.some(user => user[key] === value));
         return this.userList.some(user => user[key] === value);
     }
 
