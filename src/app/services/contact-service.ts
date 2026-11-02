@@ -33,7 +33,7 @@ export class ContactService {
     }
 
     has<UserKey extends keyof IUser>(key: UserKey, value: IUser[UserKey]) {
-        return this.userList.some(user => user[key] === value);
+        return this.userList.some((user) => user[key] === value);
     }
 
     readonly groupedUsers = computed(() => {
@@ -74,6 +74,11 @@ export class ContactService {
         })
         .subscribe();
 
+    async getUserByEmail(email: string): Promise<IUser | null> {
+        let { data: user, error } = await this.supabase.from('user').select('*').eq('email', email).maybeSingle();
+        return user && !error ? (user as IUser) : null;
+    }
+
     async getUsers() {
         let { data: user, error } = await this.supabase.from('user').select('*');
         if (!user) return;
@@ -82,8 +87,10 @@ export class ContactService {
         this.sortUsers();
     }
 
-    async addUser(user: User) {
-        this.toastService.setTypeMatch(ToastType.insertContact);
+    async addUser(user: User, showToast: boolean = false) {
+        if (showToast) {
+            this.toastService.setTypeMatch(ToastType.insertContact);
+        }
         const userData = user.getCleanAddJson();
         const { data, error } = await this.supabase.from('user').insert([userData]).select();
         return data?.[0];

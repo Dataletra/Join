@@ -3,6 +3,6 @@ export interface IUser {
     created_at: string;
     name: string;
     email: string;
-    phone: string;
-    password: string;
+    phone: string | undefined;
+    uid: string | null;
 }

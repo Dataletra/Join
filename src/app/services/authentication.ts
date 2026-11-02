@@ -1,10 +1,13 @@
 import { computed, inject, Service, signal } from '@angular/core';
 import { SupabaseService } from './supabase';
 import { Session, User } from '@supabase/supabase-js';
+import { ContactService } from './contact-service';
+import { User as Contact } from '../components/models/user';
 
 @Service()
 export class Authentication {
     supabase = inject(SupabaseService).supabase;
+    contactService = inject(ContactService);
 
     readonly session = signal<Session | null>(null);
 
@@ -18,57 +21,56 @@ export class Authentication {
 
     constructor() {
         this.supabase.auth.onAuthStateChange((event, session) => {
-            console.log('session state changed');
-
             this.session.set(session);
         });
     }
 
-    async signUpNewUser() {
+    async signUpNewUser(name: string, email: string, password: string): Promise<boolean> {
+        if (!name || !email) {
+            return false;
+        }
         const { data, error } = await this.supabase.auth.signUp({
-            email: 'svenprimus@gmail.com',
-            password: 'example-password',
+            email: email,
+            password: password,
         });
-
-        if (data) {
-            console.log(data);
+        if (null === error) {
+            const existsContact = await this.contactService.getUserByEmail(email);
+            if (null === existsContact) {
+                this.contactService.addUser(new Contact({ name: name, email: email, uid: data.user?.id }));
+                console.log('added contact on signup');
+            }
         }
-        if (error) {
-            console.log(error);
-        }
+        return error ? false : true;
     }
 
-    async signInWithEmail() {
+    async signInWithEmail(email: string, password: string): Promise<boolean> {
+        if (!email) {
+            return false;
+        }
         const { data, error } = await this.supabase.auth.signInWithPassword({
-            email: 'svenprimus@gmail.com',
-            password: 'example-password',
+            email: email,
+            password: password,
         });
-
-        if (data) {
-            console.log(data);
+        if (!error) {
+            const existsContact = await this.contactService.getUserByEmail(email);
+            if (existsContact && data.user && existsContact.uid !== data.user.id) {
+                console.log('updated uid on signup');
+                existsContact.uid = data.user.id;
+                this.contactService.editUser(new Contact(existsContact));
+            } else {
+                console.log('success, but nothing to edit');
+            }
         }
-        if (error) {
-            console.log(error);
-        }
+        return error ? false : true;
     }
 
-    async signInAnonymously() {
+    async signInAnonymously(): Promise<boolean> {
         const { data, error } = await this.supabase.auth.signInAnonymously();
-
-        if (data) {
-            console.log(data);
-        }
-        if (error) {
-            console.log(error);
-        }
+        return error ? false : true;
     }
 
-    async signOut() {
+    async signOut(): Promise<boolean> {
         const { error } = await this.supabase.auth.signOut();
-        if (error) {
-            console.log(error);
-        } else {
-            console.log('Logged out.');
-        }
+        return error ? false : true;
     }
 }
