@@ -66,4 +66,13 @@ export class CustomValidators {
                 : { emailDbPattern: true };
         };
     }
+
+    containsOnlyWhitespaceValidator(): ValidatorFn {
+        return (control: AbstractControl): ValidationErrors | null => {
+            const value = control.value;
+            if (!value) return null;
+            const isOnlyWhitespace = /^\s+$/.test(value);
+            return isOnlyWhitespace ? { whitespace: { value: control.value } } : null;
+        };
+    }
 }

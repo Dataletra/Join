@@ -51,7 +51,9 @@ export class ContentAddTask {
     readonly isPopupOpen = computed(() => this.categoryComp()?.popupExpanded() ?? false);
 
     addTaskForm = new FormGroup({
-        title: new FormControl('', { validators: [Validators.required] }),
+        title: new FormControl('', {
+            validators: [Validators.required, this.customValidator.containsOnlyWhitespaceValidator()],
+        }),
         description: new FormControl('', {}),
         date: new FormControl('', { validators: [Validators.required, this.customValidator.dateValidator] }),
     });
@@ -90,7 +92,7 @@ export class ContentAddTask {
 
         const newTask = new Task({
             title: formValues.title ?? '',
-            description: formValues.description ?? '',
+            description: formValues.description?.trim() ?? '',
             category: this.IncomingCategory() as 'Technical Task' | 'User Story',
             due_date: formValues.date ?? '',
             priority: this.IncomingPriority() as Priority,
