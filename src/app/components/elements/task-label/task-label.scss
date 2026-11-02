@@ -1,0 +1,39 @@
+@use '../../../../../public/styles/abstract/variables.scss' as *;
+@use '../../../../../public/styles/abstract/functions.scss' as *;
+
+.task-label {
+    width: fit-content;
+    height: 26px;
+    padding: 4px clamp-px(8, 16, 1400, $media-m-raw);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+
+    p {
+        font-size: clamp-px(14, 16, 1400, $media-m-raw);
+        line-height: 100%;
+
+        white-space: nowrap;
+        color: $color-nav-high;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+}
+
+.user-story {
+    background-color: $color-task-label-1;
+}
+
+.tech-task {
+    background-color: $color-task-label-2;
+}
+
+.use-clamp {
+    max-width: clamp-px(60, 150, 1400, $media-m-raw);
+}
+
+@media screen and (max-width: $media-m) {
+    .use-clamp {
+        max-width: none;
+    }
+}

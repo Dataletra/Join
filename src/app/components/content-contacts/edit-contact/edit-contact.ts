@@ -105,7 +105,7 @@ export class EditContact {
         if (!selectedUser) {
             return;
         }
-        await this.supabaseService.deleteUser(selectedUser.id);
+        await this.supabaseService.deleteApiUser(selectedUser.id);
         this.dialogService.close();
     }
 

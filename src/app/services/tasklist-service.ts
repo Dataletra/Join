@@ -45,6 +45,24 @@ export class TaskListService {
         }
     }
 
+    addTask(id: number, status: Status) {
+        const newList = this.taskMap().get(status);
+        if (newList) {
+            newList.push(id);
+            const newTaskList: ITaskList = { status: status, order: newList };
+            this.editApiTaskList(newTaskList);
+        }
+    }
+
+    deleteTask(id: number) {
+        for (const [status, tasks] of this.taskMap()) {
+            const index = tasks.indexOf(id);
+            if (index >= 0) {
+                tasks.splice(index, 1);
+            }
+        }
+    }
+
     moveApiItem(id: number, statusNew: Status) {
         for (const [status, taskList] of this.taskMap()) {
             const index = taskList.indexOf(id);

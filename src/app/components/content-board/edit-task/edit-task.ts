@@ -78,7 +78,9 @@ export class EditTask {
             element.showModal();
         }
         if (!isOpen && element.open) {
-            element.close();
+            setTimeout(() => {
+                element.close();
+            }, 300);
         }
     }
 
@@ -169,7 +171,7 @@ export class EditTask {
                 category: this.IncomingCategory() as Task['category'],
                 subtasks: this.IncomingSubtasks(),
             });
-            await this.tasksService.editTask(updatedTask, true);
+            await this.tasksService.editApiTask(updatedTask);
         }
         this.dialogService.close();
     }

@@ -109,7 +109,7 @@ export class ContentBoard {
      */
     async fetchTaskLists() {
         await this.sortingService.fetchTaskLists();
-        await this.taskService.getTasks();
+        await this.taskService.fetchTasks();
         this.syncTasksWithTaskMap();
         this.isFetchPending.set(false);
     }
@@ -201,9 +201,7 @@ export class ContentBoard {
         } else if (this.sortingService.taskMap().has(statusPre) && this.sortingService.taskMap().has(statusNow)) {
             const dataRefPre = this.sortingService.taskMap().get(statusPre) ?? [];
             transferArrayItem(dataRefPre, dataRefNow, event.previousIndex, event.currentIndex);
-            this.sortingService.editApiTaskList({ status: statusPre, order: dataRefPre });
-            this.sortingService.editApiTaskList({ status: statusNow, order: dataRefNow });
-            this.taskService.editStatus(dataRefNow.at(event.currentIndex), statusNow);
+            this.taskService.editApiStatus(dataRefNow.at(event.currentIndex), statusNow);
         }
         this.stopVerticalAutoScroll();
     }
@@ -213,8 +211,7 @@ export class ContentBoard {
      * @param event { id: number; status: Status } - output fram task-card
      */
     setStatus(event: { id: number; status: Status }) {
-        this.sortingService.moveApiItem(event.id, event.status);
-        this.taskService.editStatus(event.id, event.status);
+        this.taskService.editApiStatus(event.id, event.status);
     }
 
     /**
@@ -293,9 +290,10 @@ export class ContentBoard {
      */
     private autoScroll(): void {
         this.animationFrameId = null;
-        if (!this.isDragging) {
+        if (!this.isDragging || !(this.isTablet() || this.isMobile())) {
             return;
         }
+        console.log("scrolling");
         const elementY = this.board().nativeElement;
         const elementX = this.scrollWrapper().nativeElement;
         const rectX = elementX.getBoundingClientRect();

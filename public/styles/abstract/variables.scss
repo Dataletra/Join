@@ -1,4 +1,4 @@
-$content-limitation: 1920px;
+$content-limitation: 1440px;
 
 $color-base: #2a3647;
 $color-high-1: #124658;
@@ -17,15 +17,23 @@ $color-icon: #a8a8a8;
 $color-icon2: #686868;
 $color-menu: #42526e;
 
-$color-task-lable-1: #0038ff;
-$color-task-lable-2: #1fd7c1;
-$color-progress-empty: #f4f4f4;
+$color-task-label-1: #0038ff;
+$color-task-label-2: #1fd7c1;
+$color-progress-empty: rgba(168, 168, 168, 0.3);
 $color-progress-fill: #4589ff;
 $color-btn-hover: #d9d9d9;
 
-$media-s: 320px;
-$media-sm: 560px;
-$media-m: 810px;
+$media-s-raw: 320;
+$media-sm-raw: 560;
+$media-m-raw: 810;
+
+$media-s: $media-s-raw * 1px;
+$media-sm: $media-sm-raw * 1px;
+$media-m: $media-m-raw * 1px;
+
+$size-dialog-avatar: clamp(40px, calc((100svh - 300px) * 60 / 400 + 60px), 120px);
+$size-task-card-shadow: 10px;
+$size-task-card-menu-radius: 20px;
 
 $height-header: 80px;
 $height-footer: 80px;
@@ -35,6 +43,13 @@ $height-contact-dialog-title: 40%;
 
 $width-nav-desktop: clamp(180px, calc((100svw - 950px) * 52 / 450 + 180px), 232px);
 $width-user-list-icon: 42px;
-$width-task-card: 252px;
-$width-task-section: $width-task-card + 2 + 2 * 16px;
-$size-dialog-avatar: clamp(40px, calc((100svh - 300px) * 60 / 400 + 60px), 120px);
+$width-board-scrollbar-max: 8;
+$width-board-padding-outer: clamp(16px, calc((100svw - 400px) * (40 - 16) / 1000 + 16px), 40px);
+
+$width-task-card-media-m: clamp(120px, calc((100svw - $media-m - 1px) * (120 - 244) / (1) + 120px), 244px);
+$width-task-card: clamp(
+    $width-task-card-media-m,
+    calc((100svw - 810px) * (244 - 135) / (1400 - $media-m-raw) + $width-task-card-media-m),
+    244px
+);
+$width-task-section: calc($width-task-card + 2 * $size-task-card-shadow + $width-board-scrollbar-max * 1px);

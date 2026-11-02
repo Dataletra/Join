@@ -96,9 +96,6 @@ dialog {
 
         th {
             width: 100px;
-            font-weight: 400;
-            color: $color-base;
-            text-align: start;
         }
 
         td {
@@ -114,15 +111,6 @@ dialog {
 
     .assigned-title {
         margin-bottom: 8px;
-    }
-
-    p {
-        font-size: 20px;
-        color: $color-base;
-    }
-
-    .no-users {
-        font-size: 16px;
     }
 }
 
@@ -165,8 +153,6 @@ dialog {
     margin-bottom: 24px;
 
     .sub-title {
-        font-size: 20px;
-        color: $color-base;
         margin-bottom: 8px;
     }
 
@@ -231,6 +217,39 @@ dialog {
 
 .edit {
     width: 54px;
+}
+
+.btn-bot {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    p {
+        color: $color-base;
+        line-height: 100%;
+        -webkit-text-stroke-color: transparent;
+        text-stroke-color: transparent;
+        -webkit-text-stroke-width: 0.5px;
+        text-stroke-width: 0.5px;
+    }
+
+    &:hover p {
+        -webkit-text-stroke-color: $color-base;
+        text-stroke-color: $color-base;
+    }
+}
+
+.no-assigned {
+    font-size: 16px;
+    color: $color-base;
+    font-style: italic;
+}
+
+.detail-attribute {
+    font-size: 20px;
+    font-weight: 400;
+    color: $color-menu;
+    text-align: start;
 }
 
 @media screen and (max-width: $media-sm) {
@@ -302,5 +321,10 @@ dialog {
 
     .buttons {
         padding: 16px 24px 32px 24px;
+    }
+
+    .detail-attribute {
+        font-size: 16px;
+        font-weight: 700;
     }
 }
