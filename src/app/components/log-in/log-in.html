@@ -1,0 +1,33 @@
+<section class="log-in">
+    <header>
+        <img src="./assets/icons/logo-dark.svg" aria-hidden="true" />
+        <div class="not-a-user">
+            <p>Not a Join user?</p>
+            <app-button-primary [small]="true">Sign up</app-button-primary>
+        </div>
+    </header>
+    <div class="log-in-wrapper">
+        <h2>Log in</h2>
+        <hr />
+
+        <div class="inputs">
+            <input class="input-email" type="email" placeholder="Email" />
+            <input class="input-password" type="password" placeholder="Password" />
+        </div>
+
+        <div class="buttons">
+            <app-button-primary [small]="true" [widthStr]="'110px'">Log in</app-button-primary>
+            <app-button-primary [small]="true" [widthStr]="'117px'" [typeStr]="'light'"
+                >Guest Log in</app-button-primary
+            >
+        </div>
+    </div>
+    <footer>
+        <a (click)="navigateService.goTo('privacy-policy')" [class.active]="activeUrl() === '/privacy-policy'"
+            >Privacy Policy</a
+        >
+        <a (click)="navigateService.goTo('legal-notice')" [class.active]="activeUrl() === '/legal-notice'"
+            >Legal notice</a
+        >
+    </footer>
+</section>
