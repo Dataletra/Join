@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { Event, Router, RouterLink, NavigationEnd } from '@angular/router';
 import { TrackableNavigate } from '../../services/trackable-navigate';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AppStateService } from '../../services/app-state-service';
 @Component({
     imports: [RouterLink],
     selector: 'app-nav-bar',
@@ -12,6 +13,9 @@ export class NavBar {
     navigateService = inject(TrackableNavigate);
     private readonly router = inject(Router);
     private readonly activeUrl = signal<string>('');
+
+    // TODO change to auth-service
+    appStateService = inject(AppStateService);
 
     constructor() {
         this.router.events.pipe(takeUntilDestroyed()).subscribe((event: Event) => {
