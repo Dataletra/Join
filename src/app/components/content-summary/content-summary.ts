@@ -51,19 +51,17 @@ export class ContentSummary {
                 this.showcasedDateInfo.set('Overdue Deadline');
             }
 
-            this.tasksService.tasklist().filter((element) => {
+            let incomingDeadlineTasks = this.tasksService.tasklist().filter((element) => {
                 const dueDate = new Date(element.due_date);
-                if (dueDate.valueOf() === currentCheckDate!.valueOf()) {
-                    this.nextDeadlineTasks.push(element);
-                }
+                return dueDate.valueOf() === currentCheckDate!.valueOf();
             });
+
+            this.nextDeadlineTasks = incomingDeadlineTasks;
+            console.log(this.nextDeadlineTasks);
         });
-        console.log(this.nextDeadlineTasks);
     }
 
-    ngOnInit() {
-        // this.nextDeadlineTasks = [];
-    }
+    ngOnInit() {}
 }
 
 /*TODO
