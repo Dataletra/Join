@@ -2,9 +2,11 @@ import { Component, inject, signal } from '@angular/core';
 import { ButtonPrimary } from '../elements/button-primary/button-primary';
 import { TrackableNavigate } from '../../services/trackable-navigate';
 import { AppStateService } from '../../services/app-state-service';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CustomValidators } from '../../services/custom-validators';
 
 @Component({
-    imports: [ButtonPrimary],
+    imports: [ButtonPrimary, ReactiveFormsModule],
     selector: 'app-log-in',
     styleUrl: './log-in.scss',
     templateUrl: './log-in.html',
@@ -12,6 +14,7 @@ import { AppStateService } from '../../services/app-state-service';
 export class LogIn {
     navigateService = inject(TrackableNavigate);
     private readonly activeUrl = signal<string>('');
+    validatorService = inject(CustomValidators);
     appStateService = inject(AppStateService);
 
     mode = 'log-in';
@@ -28,4 +31,21 @@ export class LogIn {
     hideLogIn() {
         this.dNone = true;
     }
+
+    signUpForm = new FormGroup({
+        name: new FormControl('', {
+            nonNullable: true,
+            validators: [Validators.required, this.validatorService.customNameValidator()],
+        }),
+
+        email: new FormControl('', {
+            nonNullable: true,
+            validators: [
+                Validators.required,
+                Validators.email,
+                this.validatorService.customMailValidator(),
+                this.validatorService.customMailDbValidator(),
+            ],
+        }),
+    });
 }

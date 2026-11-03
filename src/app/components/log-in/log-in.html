@@ -15,10 +15,12 @@
                 <h2>Log in</h2>
                 <hr />
 
-                <div class="inputs inputs-log-in">
-                    <input class="input-email" type="email" placeholder="Email" />
-                    <input class="input-password" type="password" placeholder="Password" />
-                </div>
+                <form [formGroup]="signUpForm">
+                    <div class="inputs inputs-log-in">
+                        <input class="input-email" type="email" placeholder="Email" formControlName="name" />
+                        <input class="input-password" type="password" placeholder="Password" />
+                    </div>
+                </form>
 
                 <div class="buttons">
                     <app-button-primary [small]="true" [widthStr]="'110px'">Log in</app-button-primary>
@@ -52,7 +54,7 @@
                     <p>
                         I accept the
                         <a
-                            (click)="navigateService.goTo('privacy-policy')"
+                            (click)="navigateService.goTo('privacy-policy'); appStateService.hideLogIn()"
                             [class.active]="activeUrl() === '/privacy-policy'"
                             >Privacy Policy</a
                         >
