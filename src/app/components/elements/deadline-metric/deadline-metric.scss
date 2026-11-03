@@ -1,0 +1,54 @@
+.deadline-info-container {
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    flex-direction: row;
+    display: flex;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.priority-container {
+    border-radius: 50%;
+    display: flex;
+    background-color: #83e10b;
+    align-items: center;
+    justify-content: center;
+
+    &.size-1 {
+        height: 55px;
+        width: 55px;
+    }
+    &.size-2 {
+        height: 45px;
+        width: 45px;
+    }
+    &.size-3 {
+        height: 35px;
+        width: 35px;
+    }
+
+    &.priority-low {
+        background-color: #83e10b;
+    }
+    &.priority-med {
+        background-color: #f8a900;
+    }
+    &.priority-hi {
+        background-color: #f54319;
+    }
+
+    img {
+        transform: scale(1.5);
+    }
+}
