@@ -2,9 +2,10 @@ import { Component, computed, effect, inject, signal } from '@angular/core';
 import { TasksService } from '../../services/tasks-service';
 import { ITask } from '../../interfaces/itask';
 import { Priority, Status } from '../../interfaces/enums';
+import { DeadlineMetric } from '../elements/deadline-metric/deadline-metric';
 
 @Component({
-    imports: [],
+    imports: [DeadlineMetric],
     selector: 'app-content-summary',
     styleUrl: './content-summary.scss',
     templateUrl: './content-summary.html',

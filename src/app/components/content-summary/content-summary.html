@@ -22,8 +22,12 @@
 
         <div class="box box-deadline">
             <div class="deadline-info-container">
-                <h3>{{ progress().length }}</h3>
-                <p>Tasks in <br />Progress</p>
+                <app-deadline-metric
+                    [incomingPriorityDiversity]="priorityDiversity()"
+                    [incomingLowPrioTasks]="deadlineLowPrioTasks()"
+                    [incomingMedPrioTasks]="deadlineMedPrioTasks()"
+                    [incomingHiPrioTasks]="deadlineHiPrioTasks()"
+                ></app-deadline-metric>
             </div>
             <hr class="deadline-hr" />
             <div class="deadline-date-container">
