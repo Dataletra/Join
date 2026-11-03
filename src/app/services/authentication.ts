@@ -3,74 +3,116 @@ import { SupabaseService } from './supabase';
 import { Session, User } from '@supabase/supabase-js';
 import { ContactService } from './contact-service';
 import { User as Contact } from '../components/models/user';
+import { Toast, ToastType } from './toast';
+import { IUser } from '../interfaces/iuser';
 
 @Service()
 export class Authentication {
-    supabase = inject(SupabaseService).supabase;
+    client = inject(SupabaseService);
     contactService = inject(ContactService);
+    toastService = inject(Toast);
 
     readonly session = signal<Session | null>(null);
-
-    readonly user = computed<User | null>(() => {
-        return this.session()?.user ?? null;
-    });
+    readonly currentUser = signal<IUser | undefined>(undefined);
 
     readonly isSignedIn = computed<boolean>(() => {
         return false === (null === this.session());
     });
 
+    /**
+     * Register onAuthStateChange event, that will never be stopped, as session must be observed all the time.
+     * This will update the session and current user.
+     */
     constructor() {
-        this.supabase.auth.onAuthStateChange((event, session) => {
+        this.client.supabase.auth.onAuthStateChange((event, session) => {
             this.session.set(session);
+            this.udpateUser(session?.user?.id);
         });
     }
 
+    /**
+     * Sign up a new user, or update existing contact (in case a contact exists but was not signed up).
+     * After successfull sign-up, the user still is not logged in.
+     * @param name {string} - Name of user. Must be non-empty and should be validated before.
+     * @param email {string} - Email of user. Must be non-empty and should be validated before.
+     * @param password {string} - Password of user. Must be validated before.
+     * @returns {boolean} - true on success, false on failure or already existing user.
+     */
     async signUpNewUser(name: string, email: string, password: string): Promise<boolean> {
         if (!name || !email) {
             return false;
         }
-        const { data, error } = await this.supabase.auth.signUp({
-            email: email,
-            password: password,
-        });
-        if (null === error) {
-            const existsContact = await this.contactService.getUserByEmail(email);
-            if (null === existsContact) {
-                this.contactService.addUser(new Contact({ name: name, email: email, uid: data.user?.id }));
-                console.log('added contact on signup');
-            }
-        }
-        return error ? false : true;
-    }
-
-    async signInWithEmail(email: string, password: string): Promise<boolean> {
-        if (!email) {
-            return false;
-        }
-        const { data, error } = await this.supabase.auth.signInWithPassword({
+        const { data, error } = await this.client.signUp.auth.signUp({
             email: email,
             password: password,
         });
         if (!error) {
-            const existsContact = await this.contactService.getUserByEmail(email);
-            if (existsContact && data.user && existsContact.uid !== data.user.id) {
-                console.log('updated uid on signup');
-                existsContact.uid = data.user.id;
-                this.contactService.editUser(new Contact(existsContact));
-            } else {
-                console.log('success, but nothing to edit');
-            }
+            await this.createOrEditContact(data.user, name, email);
+            this.toastService.showToast('Signed up successfully.', ToastType.signedUp);
         }
         return error ? false : true;
     }
 
-    async signInAnonymously(): Promise<boolean> {
-        const { data, error } = await this.supabase.auth.signInAnonymously();
+    /**
+     * Sign in a user by email.
+     * @param email {string} - Email credential to sign in with.
+     * @param password {string} - Password credential to sign in with.
+     * @returns {boolean} - true on success
+     */
+    async signInWithEmail(email: string, password: string): Promise<boolean> {
+        if (!email) {
+            return false;
+        }
+        const { data, error } = await this.client.supabase.auth.signInWithPassword({
+            email: email,
+            password: password,
+        });
         return error ? false : true;
     }
 
-    async signOut(): Promise<boolean> {
-        const { error } = await this.supabase.auth.signOut();
+    /**
+     * Sign in anonymously (as Guest).
+     * @returns {boolean} - true on success
+     */
+    async signInAnonymously(): Promise<boolean> {
+        const { data, error } = await this.client.supabase.auth.signInAnonymously();
         return error ? false : true;
+    }
+
+    /**
+     * Sign out.
+     * @returns {boolean} - true on success
+     */
+    async signOut(): Promise<boolean> {
+        const { error } = await this.client.supabase.auth.signOut();
+        return error ? false : true;
+    }
+
+    /**
+     * Create a new user, or update existing contact, if email already exists.
+     * This writes the uid into the contact.
+     * @param user {User | null} - Supabase User
+     * @param name {string} - name of user to be created or updated
+     * @param email {string} - email of user to be searched for - then updated or created
+     */
+    private async createOrEditContact(user: User | null, name: string, email: string) {
+        const existsContact = await this.contactService.getUserByApiEmail(email);
+        if (null === existsContact) {
+            this.contactService.addUser(new Contact({ name: name, email: email, uid: user?.id }));
+            this.toastService.setTypeMatch(ToastType.signedUp);
+        } else if (existsContact && user && existsContact.uid !== user.id) {
+            existsContact.uid = user.id;
+            this.contactService.editUser(new Contact(existsContact));
+            this.toastService.setTypeMatch(ToastType.signedUp);
+        }
+    }
+
+    /**
+     * Get the user from API and update currentUser.
+     * @param uid {string | undefined} - uid from registered user
+     */
+    private async udpateUser(uid: string | undefined) {
+        const user = uid ? await this.contactService.getUserByApiUid(uid) : undefined;
+        this.currentUser.set(user ?? undefined);
     }
 }

@@ -32,8 +32,24 @@ export class ContactService {
         this.userList.sort((a, b) => a.name.localeCompare(b.name));
     }
 
+    /**
+     * Search the user list for at least one matching key-value pair. E.g. .has('email', value)
+     * @param key - key of type IUser
+     * @param value - value to search for
+     * @returns boolean - true if this value exists for given key
+     */
     has<UserKey extends keyof IUser>(key: UserKey, value: IUser[UserKey]) {
         return this.userList.some((user) => user[key] === value);
+    }
+
+    /**
+     * Search the user list for at least one matching key-value pair and return this user. E.g. .get('email', value)
+     * @param key - key of type IUser
+     * @param value - value to search for
+     * @returns IUser | undefined - valid IUser or undefined if no match has been found
+     */
+    get<UserKey extends keyof IUser>(key: UserKey, value: IUser[UserKey]) {
+        return this.userList.find((user) => user[key] === value);
     }
 
     readonly groupedUsers = computed(() => {
@@ -74,8 +90,13 @@ export class ContactService {
         })
         .subscribe();
 
-    async getUserByEmail(email: string): Promise<IUser | null> {
+    async getUserByApiEmail(email: string): Promise<IUser | null> {
         let { data: user, error } = await this.supabase.from('user').select('*').eq('email', email).maybeSingle();
+        return user && !error ? (user as IUser) : null;
+    }
+
+    async getUserByApiUid(uid: string): Promise<IUser | null> {
+        let { data: user, error } = await this.supabase.from('user').select('*').eq('uid', uid).maybeSingle();
         return user && !error ? (user as IUser) : null;
     }
 
@@ -102,8 +123,10 @@ export class ContactService {
         const response = await this.supabase.from('user').delete().eq('id', id);
     }
 
-    async editUser(user: User) {
-        this.toastService.setTypeMatch(ToastType.updateContact);
+    async editUser(user: User, showToast: boolean = false) {
+        if (showToast) {
+            this.toastService.setTypeMatch(ToastType.updateContact);
+        }
         const userData = user.getCleanAddJson();
         const { data, error } = await this.supabase.from('user').update([userData]).eq('id', user.id).select();
     }

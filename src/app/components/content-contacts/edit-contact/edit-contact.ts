@@ -96,7 +96,7 @@ export class EditContact {
             phone: this.contactForm.controls.phone.value,
             uid: selectedUser?.uid,
         });
-        await this.supabaseService.editUser(formData);
+        await this.supabaseService.editUser(formData, true);
         this.dialogService.close();
     }
 
