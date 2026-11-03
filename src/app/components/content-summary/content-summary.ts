@@ -18,8 +18,16 @@ export class ContentSummary {
     readonly total = computed(
         () => this.todo().length + this.progress().length + this.feedback().length + this.done().length
     );
-    nextDeadlineTasks: ITask[] = [];
     readonly showcasedDateInfo = signal<'Upcoming Deadline' | 'Overdue Deadline'>('Upcoming Deadline');
+    readonly deadlineLowPrioTasks = computed(() => this.nextDeadlineTasks().filter((t) => t.priority === Priority.low));
+    readonly deadlineMedPrioTasks = computed(() =>
+        this.nextDeadlineTasks().filter((t) => t.priority === Priority.medium)
+    );
+    readonly deadlineHiPrioTasks = computed(() =>
+        this.nextDeadlineTasks().filter((t) => t.priority === Priority.urgent)
+    );
+
+    priorityDiversity = signal<number>(0);
 
     DateFormatOptions: Intl.DateTimeFormatOptions = {
         year: 'numeric',
@@ -27,6 +35,7 @@ export class ContentSummary {
         day: 'numeric',
     };
 
+    nextDeadlineTasks = signal<ITask[]>([]);
     showcasedDate: string = '';
 
     constructor() {
@@ -51,8 +60,13 @@ export class ContentSummary {
                 return dueDate.valueOf() === currentCheckDate!.valueOf();
             });
 
-            this.nextDeadlineTasks = incomingDeadlineTasks;
-            console.log(this.nextDeadlineTasks);
+            this.nextDeadlineTasks.set(incomingDeadlineTasks);
+            console.log(this.nextDeadlineTasks());
+            console.warn('LOW: ' + this.deadlineLowPrioTasks().length);
+            console.warn('MED: ' + this.deadlineMedPrioTasks().length);
+            console.warn('HI: ' + this.deadlineHiPrioTasks().length);
+            this.updatePriorityDiversity();
+            console.warn('DIVERSITY: ' + this.priorityDiversity());
         });
     }
 
@@ -63,12 +77,23 @@ export class ContentSummary {
         }
     }
 
+    updatePriorityDiversity() {
+        let calculatedDiversity = 0;
+        if (this.deadlineLowPrioTasks().length >= 1) {
+            calculatedDiversity++;
+        }
+        if (this.deadlineMedPrioTasks().length >= 1) {
+            calculatedDiversity++;
+        }
+        if (this.deadlineHiPrioTasks().length >= 1) {
+            calculatedDiversity++;
+        }
+        this.priorityDiversity.set(calculatedDiversity);
+    }
     ngOnInit() {}
 }
 
 /*TODO
-Render current status of all tasks on board
-
 Dealine flow:
 Call board, how many / which priority deadlines next day? -> 1 5 2 -> 
 if priorityDiversity = 3    -> render custom div (left side of deadline container)
