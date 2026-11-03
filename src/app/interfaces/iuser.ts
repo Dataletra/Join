@@ -4,5 +4,5 @@ export interface IUser {
     name: string;
     email: string;
     phone: string | undefined;
-    uid: string | null;
+    uid: string | undefined;
 }

@@ -6,7 +6,7 @@ export class User implements IUser {
     name: string = 'Erika Mustermann';
     email: string = 'erika-mustermann@mail.com';
     phone: string | undefined = undefined;
-    uid: string | null = null;
+    uid: string | undefined = undefined;
 
     constructor(user: Partial<IUser> | null = {}) {
         this.id = user?.id ?? 0;
@@ -14,7 +14,7 @@ export class User implements IUser {
         this.name = user?.name ?? 'Erika Mustermann';
         this.email = user?.email ?? 'erika-mustermann@mail.com';
         this.phone = user?.phone ?? undefined;
-        this.uid = user?.uid ?? null;
+        this.uid = user?.uid ?? undefined;
     }
 
     getCleanAddJson() {
