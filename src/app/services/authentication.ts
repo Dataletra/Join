@@ -42,12 +42,16 @@ export class Authentication {
         if (!name || !email) {
             return false;
         }
+        const contact = await this.contactService.getUserByApiEmail(email);
+        if (contact && contact.uid) {
+            return false;
+        }
         const { data, error } = await this.client.signUp.auth.signUp({
             email: email,
             password: password,
         });
         if (!error) {
-            await this.createOrEditContact(data.user, name, email);
+            await this.createOrEditContact(contact, data.user, name, email);
             this.toastService.showToast('Signed up successfully.', ToastType.signedUp);
         }
         return error ? false : true;
@@ -95,14 +99,14 @@ export class Authentication {
      * @param name {string} - name of user to be created or updated
      * @param email {string} - email of user to be searched for - then updated or created
      */
-    private async createOrEditContact(user: User | null, name: string, email: string) {
-        const existsContact = await this.contactService.getUserByApiEmail(email);
-        if (null === existsContact) {
+    private async createOrEditContact(contact: IUser | null, user: User | null, name: string, email: string) {
+        if (null === contact) {
             this.contactService.addUser(new Contact({ name: name, email: email, uid: user?.id }));
             this.toastService.setTypeMatch(ToastType.signedUp);
-        } else if (existsContact && user && existsContact.uid !== user.id) {
-            existsContact.uid = user.id;
-            this.contactService.editUser(new Contact(existsContact));
+        } else if (contact && user && contact.uid !== user.id) {
+            contact.uid = user.id;
+            contact.name = name;
+            this.contactService.editUser(new Contact(contact));
             this.toastService.setTypeMatch(ToastType.signedUp);
         }
     }
