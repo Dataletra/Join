@@ -78,7 +78,7 @@ export class AddContact {
             return;
         }
         const formData = new User(this.contactForm.value);
-        const newUser = await this.supabaseService.addUser(formData);
+        const newUser = await this.supabaseService.addUser(formData, true);
         this.contactForm.reset();
         this.avatarName = '';
         this.dialogService.close();

@@ -2,12 +2,13 @@
     #addContact
     closedby="any"
     (close)="dialogService.close()"
-    (click)="dialogService.close()"
+    (pointerdown)="dialogService.close()"
     [class.d-none]="dialogService.mode() !== 'add'"
 >
     <div
         class="animation-wrapper"
         (click)="dialogService.stopPropagation($event)"
+        (pointerdown)="dialogService.stopPropagation($event)"
         [class.move-in-visible]="dialogService.isOpen()"
         [class.move-out-visible]="!dialogService.isOpen()"
     >

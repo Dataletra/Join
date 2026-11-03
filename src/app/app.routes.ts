@@ -5,15 +5,16 @@ import { ContentPrivacy } from './components/content-privacy/content-privacy';
 import { ContentLegal } from './components/content-legal/content-legal';
 import { ContentBoard } from './components/content-board/content-board';
 import { ContentAddTask } from './components/content-add-task/content-add-task';
+import { ContentSummary } from './components/content-summary/content-summary';
 
 export const routes: Routes = [
     {
         path: 'summary',
-        component: ContentContacts, // TODO
+        component: ContentSummary,
     },
     {
         path: 'add-task',
-        component: ContentAddTask, // TODO
+        component: ContentAddTask,
     },
     {
         path: 'board',

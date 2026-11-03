@@ -2,9 +2,9 @@
     <div class="logo-nav">
         <img class="logo" src="./assets/icons/logo.svg" alt="logo" />
 
-        @if (appStateService.isLoggedIn()) {
-            <nav>
-                <ul>
+        <nav>
+            <ul>
+                @if (authService.isSignedIn()) {
                     <li>
                         <a routerLink="summary" routerLinkActive="active" [class.active]="activeUrl() === '/summary'">
                             <img class="icon-default" src="./assets/icons/summary.svg" aria-hidden="true" />
@@ -37,13 +37,26 @@
                             Contacts
                         </a>
                     </li>
-                </ul>
-            </nav>
-        } @else {
-            <div class="login_wrapper">
-                <button (click)="appStateService.showLogIn()"><img src="/assets/icons/log-in.svg" /> Log In</button>
-            </div>
-        }
+                } @else {
+                    <li>
+                        <a routerLink="login" routerLinkActive="active">
+                            <img class="icon-default" src="./assets/icons/log-in.svg" aria-hidden="true" />
+                            <img class="icon-active" src="./assets/icons/log-in.svg" aria-hidden="true" />
+                            Log In
+                        </a>
+                    </li>
+                    <li class="placeholder">
+                        <a></a>
+                    </li>
+                    <li class="placeholder">
+                        <a></a>
+                    </li>
+                    <li class="placeholder">
+                        <a></a>
+                    </li>
+                }
+            </ul>
+        </nav>
     </div>
 
     <div class="legal-links">

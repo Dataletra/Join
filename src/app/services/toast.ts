@@ -8,6 +8,7 @@ export enum ToastType {
     insertTask,
     updateTask,
     deleteTask,
+    signedUp,
 }
 
 @Service()
@@ -23,6 +24,7 @@ export class Toast {
         [ToastType.insertTask, false],
         [ToastType.updateTask, false],
         [ToastType.deleteTask, false],
+        [ToastType.signedUp, false],
     ]);
 
     setTypeMatch(type: ToastType) {

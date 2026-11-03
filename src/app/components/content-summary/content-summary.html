@@ -1,1 +1,59 @@
-<p>content-summary works!</p>
+<header>
+    <h3>Join 360</h3>
+    <hr />
+    <h4>Key Metrics at a Glance</h4>
+</header>
+<section>
+    <div class="statistics-container">
+        <div class="box box-todo">
+            <div class="icon-container"><img src="./assets/icons/edit-white.svg" /></div>
+            <div class="info-container">
+                <h3>{{ todo().length }}</h3>
+                <p>To-do</p>
+            </div>
+        </div>
+        <div class="box box-done">
+            <div class="icon-container"><img src="./assets/icons/check.svg" /></div>
+            <div class="info-container">
+                <h3>{{ done().length }}</h3>
+                <p>Done</p>
+            </div>
+        </div>
+
+        <div class="box box-deadline">
+            <app-deadline-metric
+                [incomingPriorityDiversity]="priorityDiversity()"
+                [incomingLowPrioTasks]="deadlineLowPrioTasks()"
+                [incomingMedPrioTasks]="deadlineMedPrioTasks()"
+                [incomingHiPrioTasks]="deadlineHiPrioTasks()"
+            ></app-deadline-metric>
+            <hr class="deadline-hr" />
+            <div class="deadline-date-container">
+                <div class="flex-column">
+                    <p>{{ showcasedDate }}</p>
+                    <p>{{ showcasedDateInfo() }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="box box-board">
+            <div class="info-container">
+                <h3>{{ total() }}</h3>
+                <p>Tasks in <br />Board</p>
+            </div>
+        </div>
+        <div class="box box-progress">
+            <div class="info-container">
+                <h3>{{ progress().length }}</h3>
+                <p>Tasks in <br />Progress</p>
+            </div>
+        </div>
+        <div class="box box-feedback">
+            <div class="info-container">
+                <h3>{{ feedback().length }}</h3>
+                <p>Awaiting <br />Feedback</p>
+            </div>
+        </div>
+    </div>
+    <div class="welcome-container">hi</div>
+</section>

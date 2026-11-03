@@ -1,0 +1,92 @@
+<div class="deadline-info-container">
+    @if (incomingPriorityDiversity() == 0) {
+        <p>NO TASKS</p>
+    }
+    @if (incomingPriorityDiversity() == 1) {
+        @if (incomingLowPrioTasks().length >= 1) {
+            <div class="flex-row">
+                <div [class]="'priority-container size-' + incomingPriorityDiversity() + ' priority-low'">
+                    <img src="./assets/icons/low-white.svg" />
+                </div>
+                <div class="flex-column">
+                    <h3>{{ incomingLowPrioTasks().length }}</h3>
+                    <p>Low</p>
+                </div>
+            </div>
+        }
+        @if (incomingMedPrioTasks().length >= 1) {
+            <div class="flex-row">
+                <div [class]="'priority-container size-' + incomingPriorityDiversity() + ' priority-med'">
+                    <img src="./assets/icons/medium-white.svg" />
+                </div>
+                <div class="flex-column">
+                    <h3>{{ incomingMedPrioTasks().length }}</h3>
+                    <p>Medium</p>
+                </div>
+            </div>
+        }
+        @if (incomingHiPrioTasks().length >= 1) {
+            <div class="flex-row">
+                <div [class]="'priority-container size-' + incomingPriorityDiversity() + ' priority-hi'">
+                    <img src="./assets/icons/urgent-white.svg" />
+                </div>
+                <div class="flex-column">
+                    <h3>{{ incomingHiPrioTasks().length }}</h3>
+                    <p>Urgent</p>
+                </div>
+            </div>
+        }
+    }
+    @if (incomingPriorityDiversity() == 2) {
+        @if (incomingLowPrioTasks().length >= 1) {
+            <div [class]="'flex-column size-' + incomingPriorityDiversity()">
+                <h3>{{ incomingLowPrioTasks().length }}</h3>
+                <div [class]="'priority-container size-' + incomingPriorityDiversity() + ' priority-low'">
+                    <img src="./assets/icons/low-white.svg" />
+                </div>
+            </div>
+        }
+        @if (incomingMedPrioTasks().length >= 1) {
+            <div [class]="'flex-column size-' + incomingPriorityDiversity()">
+                <h3>{{ incomingMedPrioTasks().length }}</h3>
+                <div [class]="'priority-container size-' + incomingPriorityDiversity() + ' priority-med'">
+                    <img src="./assets/icons/medium-white.svg" />
+                </div>
+            </div>
+        }
+        @if (incomingHiPrioTasks().length >= 1) {
+            <div [class]="'flex-column size-' + incomingPriorityDiversity()">
+                <h3>{{ incomingHiPrioTasks().length }}</h3>
+                <div [class]="'priority-container size-' + incomingPriorityDiversity() + ' priority-hi'">
+                    <img src="./assets/icons/urgent-white.svg" />
+                </div>
+            </div>
+        }
+    }
+    @if (incomingPriorityDiversity() == 3) {
+        @if (incomingLowPrioTasks().length >= 1) {
+            <div [class]="'flex-column size-' + incomingPriorityDiversity()">
+                <h3>{{ incomingLowPrioTasks().length }}</h3>
+                <div [class]="'priority-container size-' + incomingPriorityDiversity() + ' priority-low'">
+                    <img src="./assets/icons/low-white.svg" />
+                </div>
+            </div>
+        }
+        @if (incomingMedPrioTasks().length >= 1) {
+            <div [class]="'flex-column size-' + incomingPriorityDiversity()">
+                <h3>{{ incomingMedPrioTasks().length }}</h3>
+                <div [class]="'priority-container size-' + incomingPriorityDiversity() + ' priority-med'">
+                    <img src="./assets/icons/medium-white.svg" />
+                </div>
+            </div>
+        }
+        @if (incomingHiPrioTasks().length >= 1) {
+            <div [class]="'flex-column size-' + incomingPriorityDiversity()">
+                <h3>{{ incomingHiPrioTasks().length }}</h3>
+                <div [class]="'priority-container size-' + incomingPriorityDiversity() + ' priority-hi'">
+                    <img src="./assets/icons/urgent-white.svg" />
+                </div>
+            </div>
+        }
+    }
+</div>
