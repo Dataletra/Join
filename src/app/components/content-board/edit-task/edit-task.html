@@ -2,12 +2,13 @@
     #edittask
     closedby="any"
     (close)="onDialogClose()"
-    (click)="onDialogClose()"
+    (pointerdown)="onDialogClose()"
     [class.d-none]="dialogService.mode() !== 'edit-task'"
 >
     <div
         class="animation-wrapper"
         (click)="dialogService.stopPropagation($event)"
+        (pointerdown)="dialogService.stopPropagation($event)"
         [class.move-out-visible]="!dialogService.isOpen()"
     >
         <div class="dialog-wrapper">
