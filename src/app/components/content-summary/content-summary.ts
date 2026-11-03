@@ -18,7 +18,7 @@ export class ContentSummary {
     readonly total = computed(
         () => this.todo().length + this.progress().length + this.feedback().length + this.done().length
     );
-    readonly nextDeadlineTasks = [];
+    nextDeadlineTasks: ITask[] = [];
     readonly showcasedDateInfo = signal<'Upcoming Deadline' | 'Overdue Deadline'>('Upcoming Deadline');
 
     DateFormatOptions: Intl.DateTimeFormatOptions = {
@@ -30,7 +30,10 @@ export class ContentSummary {
     showcasedDate: string = '';
 
     constructor() {
+        if (this.tasksService.tasklist().length == 0) {
+        }
         this.tasksService.fetchTasks();
+
         effect(() => {
             let currentCheckDate: Date | null;
             this.tasksService.tasklist().filter((element) => {
@@ -42,14 +45,25 @@ export class ContentSummary {
                     currentCheckDate = dueDate;
                 }
             });
+
             this.showcasedDate = new Date(currentCheckDate!).toLocaleString(undefined, this.DateFormatOptions);
             if (currentCheckDate! < new Date()) {
                 this.showcasedDateInfo.set('Overdue Deadline');
             }
+
+            this.tasksService.tasklist().filter((element) => {
+                const dueDate = new Date(element.due_date);
+                if (dueDate.valueOf() === currentCheckDate!.valueOf()) {
+                    this.nextDeadlineTasks.push(element);
+                }
+            });
         });
+        console.log(this.nextDeadlineTasks);
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        // this.nextDeadlineTasks = [];
+    }
 }
 
 /*TODO
