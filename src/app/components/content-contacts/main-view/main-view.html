@@ -34,7 +34,12 @@
     <div class="user-container">
         <app-ic-contact [enableShadow]="true" class="user-ic" [name]="selectedUser()?.name ?? ''"></app-ic-contact>
         <div class="name-container">
-            <h2 [style.--char-count]="selectedUser()?.name.length">{{ selectedUser()?.name | titlecase }}</h2>
+            <h2 [style.--char-count]="selectedUser()?.name.length">
+                {{ selectedUser()?.name | titlecase }}
+                <span [class.d-none]="!selectedUser()?.uid"
+                    ><img class="registered" src="./assets/icons/registered.svg"
+                /></span>
+            </h2>
             <div class="button-container mobile-d-none">
                 <button (click)="dialogService.open('edit', selectedUser())">
                     <p class="button-text"><img src="./assets/icons/edit.svg" alt="Edit Icon" />Edit</p>

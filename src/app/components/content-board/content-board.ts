@@ -293,7 +293,6 @@ export class ContentBoard {
         if (!this.isDragging || !(this.isTablet() || this.isMobile())) {
             return;
         }
-        console.log("scrolling");
         const elementY = this.board().nativeElement;
         const elementX = this.scrollWrapper().nativeElement;
         const rectX = elementX.getBoundingClientRect();
