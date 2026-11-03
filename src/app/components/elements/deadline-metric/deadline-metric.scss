@@ -4,20 +4,31 @@
     min-width: 100%;
     flex-direction: row;
     display: flex;
+    gap: 15px;
+    justify-content: center;
 }
 
 .flex-row {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
+    gap: 15px;
 }
+
 .flex-column {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    &.size-2 {
+        gap: 0px;
+    }
+    &.size-3 {
+        gap: 0px;
+    }
 }
+
 .priority-container {
     border-radius: 50%;
     display: flex;
@@ -36,6 +47,7 @@
     &.size-3 {
         height: 35px;
         width: 35px;
+        gap: 5px;
     }
 
     &.priority-low {

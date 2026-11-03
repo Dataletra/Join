@@ -21,18 +21,18 @@
         </div>
 
         <div class="box box-deadline">
-            <div class="deadline-info-container">
-                <app-deadline-metric
-                    [incomingPriorityDiversity]="priorityDiversity()"
-                    [incomingLowPrioTasks]="deadlineLowPrioTasks()"
-                    [incomingMedPrioTasks]="deadlineMedPrioTasks()"
-                    [incomingHiPrioTasks]="deadlineHiPrioTasks()"
-                ></app-deadline-metric>
-            </div>
+            <app-deadline-metric
+                [incomingPriorityDiversity]="priorityDiversity()"
+                [incomingLowPrioTasks]="deadlineLowPrioTasks()"
+                [incomingMedPrioTasks]="deadlineMedPrioTasks()"
+                [incomingHiPrioTasks]="deadlineHiPrioTasks()"
+            ></app-deadline-metric>
             <hr class="deadline-hr" />
             <div class="deadline-date-container">
-                <p>{{ showcasedDate }}</p>
-                <p>{{ showcasedDateInfo() }}</p>
+                <div class="flex-column">
+                    <p>{{ showcasedDate }}</p>
+                    <p>{{ showcasedDateInfo() }}</p>
+                </div>
             </div>
         </div>
 

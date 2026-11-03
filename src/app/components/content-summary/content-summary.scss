@@ -107,3 +107,37 @@ section {
     width: 50%;
     background-color: blueviolet;
 }
+
+app-deadline-metric {
+    width: 50%;
+    height: 100%;
+}
+
+.box-deadline {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+}
+.deadline-hr {
+    width: 1px;
+    height: 65%;
+    border: 1px solid gray;
+    margin-right: 15px;
+    margin-left: 15px;
+}
+
+.deadline-date-container {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+    width: 50%;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
