@@ -25,8 +25,7 @@ export class Authentication {
      */
     constructor() {
         this.client.supabase.auth.onAuthStateChange((event, session) => {
-            this.session.set(session);
-            this.udpateUser(session?.user?.id);
+            this.setSession(session);
         });
     }
 
@@ -109,6 +108,16 @@ export class Authentication {
             this.contactService.editUser(new Contact(contact));
             this.toastService.setTypeMatch(ToastType.signedUp);
         }
+    }
+
+    /**
+     * Sets new session after user was updated. Important to wait for user update, as we otherwise will see Guest
+     * temporarily in other signals
+     * @param session {Session | null} - supabase auth session
+     */
+    private async setSession(session: Session | null) {
+        await this.udpateUser(session?.user?.id);
+        this.session.set(session);
     }
 
     /**

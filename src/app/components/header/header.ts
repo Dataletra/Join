@@ -1,8 +1,9 @@
-import { Component, inject, signal, viewChild } from '@angular/core';
+import { Component, computed, inject, signal, viewChild } from '@angular/core';
 import { IcContact } from '../elements/ic-contact/ic-contact';
 import { TrackableNavigate } from '../../services/trackable-navigate';
 import { Menu, MenuItem, MenuContent, MenuTrigger } from '@angular/aria/menu';
 import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
+import { Authentication } from '../../services/authentication';
 
 @Component({
     imports: [IcContact, Menu, MenuItem, MenuContent, CdkConnectedOverlay, CdkOverlayOrigin, MenuTrigger],
@@ -14,8 +15,12 @@ export class Header {
     showMenu = signal<boolean>(false);
     overlayListen = signal<boolean>(false);
     navigateService = inject(TrackableNavigate);
+    authService = inject(Authentication);
     headerMenu = viewChild<Menu<string>>('headerMenu');
-    
+    userName = computed<string>(() => {
+        const currentName = this.authService.currentUser()?.name?? 'Guest';
+        return this.authService.isSignedIn() ? currentName : 'XX';
+    });
     toggleMenu() {
         if (false === this.showMenu()) {
             this.overlayListen.set(true);
