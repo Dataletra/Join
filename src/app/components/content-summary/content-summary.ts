@@ -30,8 +30,6 @@ export class ContentSummary {
     showcasedDate: string = '';
 
     constructor() {
-        if (this.tasksService.tasklist().length == 0) {
-        }
         this.tasksService.fetchTasks();
 
         effect(() => {
@@ -46,10 +44,7 @@ export class ContentSummary {
                 }
             });
 
-            this.showcasedDate = new Date(currentCheckDate!).toLocaleString(undefined, this.DateFormatOptions);
-            if (currentCheckDate! < new Date()) {
-                this.showcasedDateInfo.set('Overdue Deadline');
-            }
+            this.updateShowcasedDateInfo(currentCheckDate!);
 
             let incomingDeadlineTasks = this.tasksService.tasklist().filter((element) => {
                 const dueDate = new Date(element.due_date);
@@ -59,6 +54,13 @@ export class ContentSummary {
             this.nextDeadlineTasks = incomingDeadlineTasks;
             console.log(this.nextDeadlineTasks);
         });
+    }
+
+    updateShowcasedDateInfo(currentCheckDate: Date) {
+        this.showcasedDate = new Date(currentCheckDate).toLocaleString(undefined, this.DateFormatOptions);
+        if (currentCheckDate < new Date()) {
+            this.showcasedDateInfo.set('Overdue Deadline');
+        }
     }
 
     ngOnInit() {}
