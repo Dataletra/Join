@@ -10,7 +10,7 @@ import { ITask } from '../../../interfaces/itask';
 export class DeadlineMetric {
     incomingPriorityDiversity = input<number>();
     incomingDate = input<string>();
-    deadlineLowPrioTasks = input<ITask[]>([]);
-    deadlineMedPrioTasks = input<ITask[]>([]);
-    deadlineHiPrioTasks = input<ITask[]>([]);
+    incomingLowPrioTasks = input<ITask[]>([]);
+    incomingMedPrioTasks = input<ITask[]>([]);
+    incomingHiPrioTasks = input<ITask[]>([]);
 }
