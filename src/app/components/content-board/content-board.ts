@@ -18,6 +18,7 @@ import {
 import { Toast } from '../../services/toast';
 import { ContactDialog } from '../../services/contact-dialog';
 import { CdkScrollable } from '@angular/cdk/scrolling';
+import { Authentication } from '../../services/authentication';
 
 @Component({
     imports: [ButtonPrimary, CdkDrag, CdkDropList, CdkDragPlaceholder, CdkDragPreview, TaskCard, CdkScrollable],
@@ -131,8 +132,8 @@ export class ContentBoard {
 
     /**
      * Find tasks that have missmatching status between backend and frontend.
-     * @param task id of task to be checked.
-     * @param deleteMap Map<Status, number[]> - map to be filled with tasks to delete
+     * @param task {ITask} - task to be checked.
+     * @param deleteMap {Map<Status, number[]>} - map to be filled with tasks to delete
      */
     findDirtyTasks(task: ITask, deleteMap: Map<Status, number[]>) {
         for (const [status, taskList] of this.sortingService.taskMap()) {
@@ -146,8 +147,8 @@ export class ContentBoard {
 
     /**
      * Find tasks are not present in backend anymore.
-     * @param allTasks  number[] - all available task ids
-     * @param deleteMap Map<Status, number[]> - map to be filled with tasks to delete
+     * @param allTasks  {number[]} - all available task ids
+     * @param deleteMap {Map<Status, number[]>} - map to be filled with tasks to delete
      */
     findDeprecatedTasks(allTasks: number[], deleteMap: Map<Status, number[]>) {
         for (const [status, taskList] of this.sortingService.taskMap()) {
@@ -162,9 +163,9 @@ export class ContentBoard {
 
     /**
      * Clean up given tasks with deleteMap.
-     * @param allTasks number[] - all available task ids
-     * @param deleteMap Map<Status, number[]> - all to be deleted tasks in relevant status-list
-     * @returns Map<Status, number[]> clean map
+     * @param allTasks {number[]} - all available task ids
+     * @param deleteMap {Map<Status, number[]>} - all to be deleted tasks in relevant status-list
+     * @returns {Map<Status, number[]>} clean map
      */
     createCleanTaskMap(allTasks: number[], deleteMap: Map<Status, number[]>): Map<Status, number[]> {
         const updatedMap = new Map(this.sortingService.taskMap());
@@ -186,7 +187,7 @@ export class ContentBoard {
 
     /**
      * Drop task-card in new place (new position or new status-list) and update backend.
-     * @param event CdkDragDrop - Angular Drop Event
+     * @param event {CdkDragDrop} - Angular Drop Event
      */
     drop(event: CdkDragDrop<Status>) {
         const statusPre = event.previousContainer.data;
@@ -208,7 +209,7 @@ export class ContentBoard {
 
     /**
      * Update status data via API.
-     * @param event { id: number; status: Status } - output fram task-card
+     * @param event {{ id: number; status: Status }} - output fram task-card
      */
     setStatus(event: { id: number; status: Status }) {
         this.taskService.editApiStatus(event.id, event.status);
@@ -217,7 +218,7 @@ export class ContentBoard {
     /**
      * Set mouse position relative to task-card and sets transition values, so that mouse will naturally stick
      * where it grabbed
-     * @param event MouseEvent
+     * @param event {MouseEvent}
      */
     setRelativeMousePosition(event: MouseEvent): void {
         const element = event.currentTarget as HTMLElement;
@@ -229,7 +230,7 @@ export class ContentBoard {
 
     /**
      * While moving a task-card, call rotation animation and eventually scroll.
-     * @param event CdkDragMove Angular Drag Event
+     * @param event {CdkDragMove} - Angular Drag Event
      */
     onDrageMove(event: CdkDragMove): void {
         this.lastX = this.lastX == 0 ? event.pointerPosition.x : this.lastX;
@@ -239,7 +240,7 @@ export class ContentBoard {
 
     /**
      * Depending on last pointer X position, calculate how many degrees to turn left or right.
-     * @param event CdkDragMove Angular Drag Event
+     * @param event {CdkDragMove} - Angular Drag Event
      */
     rotateCard(event: CdkDragMove): void {
         const pointer = event.pointerPosition;
@@ -248,8 +249,8 @@ export class ContentBoard {
 
     /**
      * Filter current rendering for searched string.
-     * @param searchkey string - to search for
-     * @param showToast boolean - show additional toast message if failed
+     * @param searchkey {string} - to search for
+     * @param showToast {boolean} - show additional toast message if failed
      */
     applyFilter(searchkey: string, showToast: boolean = false) {
         this.searchResults.set(searchkey ? this.taskService.findString(searchkey) : null);
@@ -263,7 +264,7 @@ export class ContentBoard {
 
     /**
      * If Enter was pressed, reset the notFound attribute to false, which will reset color of failed validator.
-     * @param event KeyboardEvent
+     * @param event {KeyboardEvent}
      */
     resetColor(event: KeyboardEvent | null = null) {
         if (null === event || event.key !== 'Enter') {
@@ -273,7 +274,7 @@ export class ContentBoard {
 
     /**
      * Memorize current pointer position and start autoScrolling. Must be canceled on drop().
-     * @param event CdkDragMove Angular Drag Event
+     * @param event {CdkDragMove} - Angular Drag Event
      */
     private scrollOnMove(event: CdkDragMove): void {
         this.currentX = event.pointerPosition.x;
