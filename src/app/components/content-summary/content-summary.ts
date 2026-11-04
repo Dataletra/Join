@@ -55,6 +55,7 @@ export class ContentSummary {
                 }
             });
 
+            console.log(currentCheckDate!);
             this.updateShowcasedDateInfo(currentCheckDate!);
 
             let incomingDeadlineTasks = this.tasksService.tasklist().filter((element) => {
@@ -63,12 +64,7 @@ export class ContentSummary {
             });
 
             this.nextDeadlineTasks.set(incomingDeadlineTasks);
-            console.log(this.nextDeadlineTasks());
-            console.warn('LOW: ' + this.deadlineLowPrioTasks().length);
-            console.warn('MED: ' + this.deadlineMedPrioTasks().length);
-            console.warn('HI: ' + this.deadlineHiPrioTasks().length);
             this.updatePriorityDiversity();
-            console.warn('DIVERSITY: ' + this.priorityDiversity());
         });
     }
 
@@ -76,6 +72,8 @@ export class ContentSummary {
         this.showcasedDate = new Date(currentCheckDate).toLocaleString(undefined, this.DateFormatOptions);
         if (currentCheckDate < new Date()) {
             this.showcasedDateInfo.set('Overdue Deadline');
+        } else {
+            this.showcasedDateInfo.set('Upcoming Deadline');
         }
     }
 
