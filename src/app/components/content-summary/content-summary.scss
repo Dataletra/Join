@@ -196,9 +196,18 @@ h1 {
         position: absolute;
         background-color: white;
         top: 0;
+    }
+
+    .welcome-animation {
         animation-name: splashScreen;
         animation-duration: 2.5s;
         animation-fill-mode: forwards;
+    }
+
+    .welcome-hide {
+        opacity: 0;
+        visibility: hidden;
+        display: none;
     }
 
     :host {
