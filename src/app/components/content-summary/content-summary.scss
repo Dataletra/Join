@@ -191,69 +191,14 @@ h1 {
 
 @media screen and (max-width: $media-m) {
     .welcome-container {
-        display: none;
-    }
-
-    :host {
-        padding-top: clamp-px(16, 48);
-    }
-
-    header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 8px;
-
-        h4 {
-            font-size: 20px;
-        }
-
-        hr {
-            margin-top: 8px;
-            height: 0px;
-            width: 90px;
-            order: 1;
-        }
-    }
-
-    section {
-        justify-content: center;
-    }
-
-    .statistics-container {
         width: 100%;
-    }
-
-    h1 {
-        font-size: 64px;
-    }
-
-    .info-container {
-        h3 {
-            font-size: clamp-px(36, 61);
-        }
-    }
-
-    .box-title {
-        font-size: clamp-px(15, 20);
-    }
-
-    .box {
-        gap: clamp-px(10, 20);
-    }
-
-    .deadline-date-container {
-        p {
-            font-size: clamp-px(15, 20, 400, 300);
-        }
-        h5 {
-            font-size: clamp-px(18, 20, 400, 300);
-        }
-    }
-}
-
-@media screen and (max-width: $media-m) {
-    .welcome-container {
-        display: none;
+        height: 100%;
+        position: absolute;
+        background-color: white;
+        top: 0;
+        animation-name: $splashScreen;
+        animation-duration: 2.5s;
+        animation-fill-mode: forwards;
     }
 
     :host {
