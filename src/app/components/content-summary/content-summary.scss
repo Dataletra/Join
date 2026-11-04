@@ -5,10 +5,9 @@
 @use '../../../../public/styles/abstract/helpers.scss' as *;
 
 :host {
-    padding-top: clamp-px(15, 50, 1440, 850);
-    padding-left: clamp-px(15, 50, 1440, 850);
-    padding-block: clamp(32px, calc((100svh - 400px) * 48 / 500 + 32px), 80px);
-    padding-right: 5px;
+    padding-inline: clamp-px(15, 50, 1440, 850);
+    padding-block: clamp(24px, calc((100svh - 650px) * 56 / 200 + 24px), 80px);
+    max-width: calc(1440px - $width-nav-desktop);
     margin-right: 5px;
     position: relative;
     gap: 20px;
@@ -34,6 +33,7 @@ header {
 hr {
     height: 60px;
     border: 2px solid $color-high-2;
+    border-radius: 5px;
 }
 
 section {
@@ -149,16 +149,64 @@ app-deadline-metric {
     align-items: center;
 }
 
-@media screen and (max-width: 680px) {
+@media screen and (max-width: $media-m) {
     .welcome-container {
-        width: 100%;
-        height: 100%;
-        top: 0;
-        display: flex;
+        display: none;
+    }
+
+    :host {
+        padding-top: clamp-px(16, 48);
+    }
+
+    header {
         flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+
+        h4 {
+            font-size: 20px;
+        }
+
+        hr {
+            margin-top: 8px;
+            height: 0px;
+            width: 90px;
+            order: 1;
+        }
+    }
+
+    section {
         justify-content: center;
-        align-items: center;
-        position: absolute;
-        background-color: aqua;
+    }
+
+    .statistics-container {
+        width: 100%;
+    }
+
+    h1 {
+        font-size: 64px;
+    }
+
+    .info-container {
+        h3 {
+            font-size: clamp-px(36, 61);
+        }
+    }
+
+    .box-title {
+        font-size: clamp-px(15, 20);
+    }
+
+    .box {
+        gap: clamp-px(10, 20);
+    }
+
+    .deadline-date-container {
+        p {
+            font-size: clamp-px(15, 20, 400, 300);
+        }
+        h5 {
+            font-size: clamp-px(18, 20, 400, 300);
+        }
     }
 }

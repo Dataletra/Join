@@ -4,7 +4,7 @@
     min-width: 100%;
     flex-direction: row;
     display: flex;
-    gap: 15px;
+    gap: clamp-px(2, 15, 400, 300);
     justify-content: center;
     padding: 15px;
 }
@@ -72,5 +72,15 @@
 
     img {
         transform: scale(1.5);
+    }
+}
+
+@media screen and (max-width: $media-m) {
+    .flex-column {
+        &.size-3 {
+            h3 {
+                font-size: clamp-px(36, 61);
+            }
+        }
     }
 }
