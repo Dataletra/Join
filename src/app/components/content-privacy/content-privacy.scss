@@ -30,11 +30,66 @@ article {
     color: $color-high-1;
 }
 
+h1,
+h2,
+h3,
 h4,
-h5 {
+p,
+li,
+a {
+    font-family: 'Inter';
+    margin-top: 1em;
+    margin-bottom: 10px;
+    color: black;
+}
+
+h1,
+h2,
+h3,
+h4 {
     font-weight: 700;
 }
 
+a {
+    color: $color-high-2;
+}
+
+h1 {
+    font-size: clamp-px(47, 61);
+    margin-block: 0;
+}
+
+h2 {
+    font-size: clamp-px(36, 47);
+}
+
+h3 {
+    font-size: 27px;
+}
+
 h4 {
-    margin-bottom: 16px;
+    font-size: 20px;
+}
+
+li {
+    list-style: none;
+    position: relative;
+
+    padding-left: 40px;
+
+    &::before {
+        content: '•';
+        position: absolute;
+        width: 24px;
+        height: 100%;
+        left: 16px;
+        top: 0;
+        z-index: 2;
+    }
+
+    li {
+        &::before {
+            content: '◦';
+        }
+    }
 }
