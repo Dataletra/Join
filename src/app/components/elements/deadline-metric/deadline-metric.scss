@@ -7,7 +7,7 @@
     min-width: 100%;
     flex-direction: row;
     display: flex;
-    gap: 15px;
+    gap: clamp-px(2, 15, 400, 300);
     justify-content: center;
 }
 
@@ -81,7 +81,7 @@
     .flex-column {
         &.size-3 {
             h3 {
-                font-size: 50px;
+                font-size: clamp-px(36, 61);
             }
         }
     }

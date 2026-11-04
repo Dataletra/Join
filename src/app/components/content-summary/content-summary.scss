@@ -5,7 +5,7 @@
 @use '../../../../public/styles/abstract/helpers.scss' as *;
 
 :host {
-    padding-left: clamp-px(15, 50, 1440, 850);
+    padding-inline: clamp-px(15, 50, 1440, 850);
     padding-block: clamp(24px, calc((100svh - 650px) * 56 / 200 + 24px), 80px);
     max-width: calc(1440px - $width-nav-desktop);
     margin-right: 5px;
@@ -32,6 +32,7 @@ header {
 hr {
     height: 60px;
     border: 2px solid $color-high-2;
+    border-radius: 5px;
 }
 
 section {
@@ -189,21 +190,63 @@ h1 {
 }
 
 @media screen and (max-width: $media-m) {
+    .welcome-container {
+        display: none;
+    }
+
+    :host {
+        padding-top: clamp-px(16, 48);
+    }
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+
+        h4 {
+            font-size: 20px;
+        }
+
+        hr {
+            margin-top: 8px;
+            height: 0px;
+            width: 90px;
+            order: 1;
+        }
+    }
+
+    section {
+        justify-content: center;
+    }
+
+    .statistics-container {
+        width: 100%;
+    }
+
     h1 {
         font-size: 64px;
     }
 
     .info-container {
         h3 {
-            font-size: clamp-px(47, 61);
+            font-size: clamp-px(36, 61);
         }
     }
 
     .box-title {
-        font-size: 20px;
+        font-size: clamp-px(15, 20);
     }
 
     .box {
-        gap: 20px;
+        gap: clamp-px(10, 20);
+    }
+
+    .deadline-date-container {
+        p {
+            font-size: clamp-px(15, 20, 400, 300);
+        }
+        h5 {
+            font-size: clamp-px(18, 20, 400, 300);
+        }
     }
 }
