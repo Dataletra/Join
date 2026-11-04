@@ -119,20 +119,25 @@ app-deadline-metric {
     align-items: center;
     justify-content: center;
     gap: 0;
+    h5 {
+        font-weight: bold;
+        color: $color-base;
+    }
 }
 .deadline-hr {
     width: 1px;
     height: 65%;
     border: 1px solid gray;
-    margin-right: 15px;
-    margin-left: 15px;
 }
 
 .deadline-date-container {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: center;
     height: 100%;
     width: 50%;
+    padding: 15px;
 }
 
 .flex-column {
