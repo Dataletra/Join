@@ -63,8 +63,8 @@ section {
 .box-progress,
 .box-feedback {
     background-color: white;
-    border-radius: 28px;
-    border: 1px solid gray;
+    border-radius: 30px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 }
 
 .box-todo {
@@ -89,8 +89,8 @@ section {
 .icon-container {
     background-color: $color-base;
     border-radius: 50%;
-    height: 69px;
-    width: 69px;
+    height: $size-summary-icon;
+    width: $size-summary-icon;
     display: flex;
     padding: 15px;
 
@@ -145,7 +145,7 @@ h1 {
 .deadline-hr {
     width: 1px;
     height: 65%;
-    border: 1px solid gray;
+    border: 1px solid $color-input-border-2;
 }
 
 .deadline-date-container {
