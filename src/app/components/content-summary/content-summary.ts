@@ -28,6 +28,7 @@ export class ContentSummary {
         this.nextDeadlineTasks().filter((t) => t.priority === Priority.urgent)
     );
 
+    greetingMessage = signal<'Good morning,' | 'Good afternoon,' | 'Good evening,'>('Good morning,');
     priorityDiversity = signal<number>(0);
 
     DateFormatOptions: Intl.DateTimeFormatOptions = {
@@ -91,7 +92,17 @@ export class ContentSummary {
         }
         this.priorityDiversity.set(calculatedDiversity);
     }
-    ngOnInit() {}
+    ngOnInit() {
+        const date = new Date();
+        let currentTOD = date.getHours();
+        if (currentTOD >= 0 && currentTOD < 12) {
+            this.greetingMessage.set('Good morning,');
+        } else if (currentTOD >= 12 && currentTOD < 17) {
+            this.greetingMessage.set('Good afternoon,');
+        } else if (currentTOD >= 17 && currentTOD < 24) {
+            this.greetingMessage.set('Good evening,');
+        }
+    }
 }
 
 /*TODO
