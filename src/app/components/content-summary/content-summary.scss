@@ -16,9 +16,8 @@
     max-height: $height-content-desktop;
     width: 100%;
     height: 100%;
-    // overflow-y: auto;
-    // @include scrollbar-light(4, 8);
 }
+
 header {
     display: flex;
     align-items: center;
@@ -37,23 +36,26 @@ hr {
 }
 
 section {
-    flex: 1;
     width: 100%;
     display: flex;
 }
+
 .statistics-container {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     grid-template-rows: repeat(3, 1fr);
     gap: 15px;
     width: 50%;
+    height: fit-content;
 }
 
 .box {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: clamp-px(10, 20, 1400, $media-m-raw);
+    padding: 10px;
+    max-height: 168px;
 }
 
 .box-todo,
@@ -63,8 +65,8 @@ section {
 .box-progress,
 .box-feedback {
     background-color: white;
-    border-radius: 28px;
-    border: 1px solid gray;
+    border-radius: 30px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 }
 
 .box-todo {
@@ -87,12 +89,18 @@ section {
 }
 
 .icon-container {
+    @include flex-center;
     background-color: $color-base;
     border-radius: 50%;
-    height: 55px;
-    width: 55px;
+    height: $size-summary-icon;
+    width: $size-summary-icon;
     display: flex;
     padding: 15px;
+
+    img {
+        width: 40px;
+        height: 40px;
+    }
 }
 
 .info-container {
@@ -100,6 +108,14 @@ section {
     flex-direction: column;
     align-items: center;
     text-align: center;
+
+    h3 {
+        font-size: clamp-px(36, 61, 1400, $media-m-raw);
+    }
+
+    p {
+        white-space: nowrap;
+    }
 }
 
 app-deadline-metric {
@@ -113,15 +129,36 @@ app-deadline-metric {
     align-items: center;
     justify-content: center;
     gap: 0;
+
     h5 {
-        font-weight: bold;
+        font-weight: 700;
+        color: $color-base;
+    }
+
+    p {
         color: $color-base;
     }
 }
+
+h2 {
+    color: $color-base;
+}
+
+h1 {
+    color: $color-high-1;
+    font-size: clamp-px(47, 64, 1400, $media-m-raw);
+}
+
+.box-title {
+    color: $color-base;
+    font-size: clamp-px(16, 20, 1400, $media-m-raw);
+}
+
 .deadline-hr {
     width: 1px;
     height: 65%;
-    border: 1px solid gray;
+    border: 1px solid $color-input-border-2;
+    margin-inline: 7.5px;
 }
 
 .deadline-date-container {
@@ -131,7 +168,6 @@ app-deadline-metric {
     justify-content: center;
     height: 100%;
     width: 50%;
-    padding: 15px;
 }
 
 .flex-column {
@@ -147,6 +183,72 @@ app-deadline-metric {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    > div {
+        margin-left: 16px;
+    }
+}
+
+@media screen and (max-width: $media-m) {
+    .welcome-container {
+        display: none;
+    }
+
+    :host {
+        padding-top: clamp-px(16, 48);
+    }
+
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+
+        h4 {
+            font-size: 20px;
+        }
+
+        hr {
+            margin-top: 8px;
+            height: 0px;
+            width: 90px;
+            order: 1;
+        }
+    }
+
+    section {
+        justify-content: center;
+    }
+
+    .statistics-container {
+        width: 100%;
+    }
+
+    h1 {
+        font-size: 64px;
+    }
+
+    .info-container {
+        h3 {
+            font-size: clamp-px(36, 61);
+        }
+    }
+
+    .box-title {
+        font-size: clamp-px(15, 20);
+    }
+
+    .box {
+        gap: clamp-px(10, 20);
+    }
+
+    .deadline-date-container {
+        p {
+            font-size: clamp-px(15, 20, 400, 300);
+        }
+        h5 {
+            font-size: clamp-px(18, 20, 400, 300);
+        }
+    }
 }
 
 @media screen and (max-width: $media-m) {
