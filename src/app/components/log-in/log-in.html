@@ -16,7 +16,7 @@
                 <hr />
 
                 <div class="inputs inputs-log-in">
-                    <input class="input-email" type="email" placeholder="Email" formControlName="name" />
+                    <input class="input-email" type="email" placeholder="Email" />
                     <input class="input-password" type="password" placeholder="Password" />
                 </div>
 
@@ -35,7 +35,7 @@
                 </button>
                 <h2>Sign up</h2>
                 <hr />
-                <form [formGroup]="signUpForm">
+                <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
                     <div class="inputs inputs-sign-up">
                         <input class="input-name" type="text" placeholder="Name" formControlName="name" />
                         <div class="su-check-wrapper">
@@ -119,7 +119,7 @@
                     </div>
 
                     <div class="privacy-policy">
-                        <input type="checkbox" />
+                        <input type="checkbox" formControlName="privacyAccepted" />
                         <p>
                             I accept the
                             <a
@@ -129,9 +129,11 @@
                             >
                         </p>
                     </div>
-                </form>
 
-                <app-button-primary [small]="true" [widthStr]="'126px'">Sign up</app-button-primary>
+                    <app-button-primary [buttonType]="'submit'" [small]="true" [widthStr]="'126px'"
+                        >Sign up</app-button-primary
+                    >
+                </form>
             </div>
         }
 

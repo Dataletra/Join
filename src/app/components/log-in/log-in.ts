@@ -59,6 +59,11 @@ export class LogIn {
                 nonNullable: true,
                 validators: [Validators.required],
             }),
+
+            privacyAccepted: new FormControl(false, {
+                nonNullable: true,
+                validators: [Validators.requiredTrue],
+            }),
         },
 
         {
@@ -71,6 +76,19 @@ export class LogIn {
 
         if (success) {
             this.navigateService.goTo('summary');
+        }
+    }
+
+    async signUp() {
+        if (this.signUpForm.invalid) {
+            this.signUpForm.markAllAsTouched();
+            return;
+        }
+        const formData = this.signUpForm.getRawValue();
+        const success = await this.authentication.signUpNewUser(formData.name, formData.email, formData.password);
+        if (success) {
+            this.signUpForm.reset();
+            this.switchToLogIn();
         }
     }
 }
