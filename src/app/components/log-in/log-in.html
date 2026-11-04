@@ -130,7 +130,11 @@
                         </p>
                     </div>
 
-                    <app-button-primary [buttonType]="'submit'" [small]="true" [widthStr]="'126px'"
+                    <app-button-primary
+                        [buttonType]="'submit'"
+                        [small]="true"
+                        [widthStr]="'126px'"
+                        [isDisabled]="signUpForm.invalid"
                         >Sign up</app-button-primary
                     >
                 </form>

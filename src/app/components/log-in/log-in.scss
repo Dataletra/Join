@@ -74,6 +74,21 @@ header {
                 cursor: pointer;
             }
         }
+
+        input {
+            width: 16px;
+            height: 16px;
+            appearance: none;
+            background-image: url('../../../../public/assets/icons/checkbox-disable.svg');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: contain;
+            cursor: pointer;
+
+            &:checked {
+                background-image: url('../../../../public/assets/icons/checkbox-checked.svg');
+            }
+        }
     }
 }
 
