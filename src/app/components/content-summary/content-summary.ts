@@ -3,6 +3,7 @@ import { TasksService } from '../../services/tasks-service';
 import { ITask } from '../../interfaces/itask';
 import { Priority, Status } from '../../interfaces/enums';
 import { DeadlineMetric } from '../elements/deadline-metric/deadline-metric';
+import { Authentication } from '../../services/authentication';
 
 @Component({
     imports: [DeadlineMetric],
@@ -12,6 +13,7 @@ import { DeadlineMetric } from '../elements/deadline-metric/deadline-metric';
 })
 export class ContentSummary {
     tasksService = inject(TasksService);
+    authService = inject(Authentication);
     readonly todo = computed(() => this.tasksService.tasklist().filter((t) => t.status === Status.todo));
     readonly progress = computed(() => this.tasksService.tasklist().filter((t) => t.status === Status.progress));
     readonly feedback = computed(() => this.tasksService.tasklist().filter((t) => t.status === Status.await));
@@ -28,7 +30,7 @@ export class ContentSummary {
         this.nextDeadlineTasks().filter((t) => t.priority === Priority.urgent)
     );
 
-    greetingMessage = signal<'Good morning,' | 'Good afternoon,' | 'Good evening,'>('Good morning,');
+    greetingMessage = signal<string>('Good morning');
     priorityDiversity = signal<number>(0);
 
     DateFormatOptions: Intl.DateTimeFormatOptions = {
@@ -94,12 +96,13 @@ export class ContentSummary {
         const date = new Date();
         let currentTOD = date.getHours();
         if (currentTOD >= 0 && currentTOD < 12) {
-            this.greetingMessage.set('Good morning,');
+            this.greetingMessage.set('Good morning');
         } else if (currentTOD >= 12 && currentTOD < 17) {
-            this.greetingMessage.set('Good afternoon,');
+            this.greetingMessage.set('Good afternoon');
         } else if (currentTOD >= 17 && currentTOD < 24) {
-            this.greetingMessage.set('Good evening,');
+            this.greetingMessage.set('Good evening');
         }
+        this.greetingMessage.set(this.greetingMessage() + (this.authService.currentUser() ? ',' : '!'));
     }
 }
 
