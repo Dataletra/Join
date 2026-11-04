@@ -34,7 +34,7 @@ $media-m: $media-m-raw * 1px;
 $size-dialog-avatar: clamp(40px, calc((100svh - 300px) * 60 / 400 + 60px), 120px);
 $size-task-card-shadow: 10px;
 $size-task-card-menu-radius: 20px;
-$size-summary-icon: 70px;
+$size-summary-icon: clamp(56px, calc((100svw - $media-sm) * 14 / (1400 - $media-sm-raw) + 56px), 70px);
 
 $height-header: 80px;
 $height-footer: 80px;
