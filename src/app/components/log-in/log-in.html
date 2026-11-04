@@ -1,5 +1,5 @@
-@if (!appStateService.isLoggedIn()) {
-    <section class="log-in" [class.d-none]="appStateService.displayLogIn()">
+@if (!authentication.isSignedIn()) {
+    <section class="log-in" [class.d-none]="authentication.isSignedIn()">
         <header>
             <img src="./assets/icons/logo-dark.svg" aria-hidden="true" />
             <div class="not-a-user">
@@ -25,11 +25,7 @@
                 <div class="buttons">
                     <app-button-primary [small]="true" [widthStr]="'110px'">Log in</app-button-primary>
 
-                    <app-button-primary
-                        (click)="appStateService.loggingIn()"
-                        [small]="true"
-                        [widthStr]="'117px'"
-                        [typeStr]="'light'"
+                    <app-button-primary [small]="true" [widthStr]="'117px'" [typeStr]="'light'"
                         >Guest Log in</app-button-primary
                     >
                 </div>
@@ -54,7 +50,7 @@
                     <p>
                         I accept the
                         <a
-                            (click)="navigateService.goTo('privacy-policy'); appStateService.hideLogIn()"
+                            (click)="navigateService.goTo('privacy-policy')"
                             [class.active]="activeUrl() === '/privacy-policy'"
                             >Privacy Policy</a
                         >
@@ -66,14 +62,10 @@
         }
 
         <footer>
-            <a
-                (click)="navigateService.goTo('privacy-policy'); appStateService.hideLogIn()"
-                [class.active]="activeUrl() === '/privacy-policy'"
+            <a (click)="navigateService.goTo('privacy-policy')" [class.active]="activeUrl() === '/privacy-policy'"
                 >Privacy Policy</a
             >
-            <a
-                (click)="navigateService.goTo('legal-notice'); appStateService.hideLogIn()"
-                [class.active]="activeUrl() === '/legal-notice'"
+            <a (click)="navigateService.goTo('legal-notice')" [class.active]="activeUrl() === '/legal-notice'"
                 >Legal notice</a
             >
         </footer>

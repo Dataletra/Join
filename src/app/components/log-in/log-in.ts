@@ -1,9 +1,9 @@
 import { Component, inject, signal } from '@angular/core';
 import { ButtonPrimary } from '../elements/button-primary/button-primary';
 import { TrackableNavigate } from '../../services/trackable-navigate';
-import { AppStateService } from '../../services/app-state-service';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CustomValidators } from '../../services/custom-validators';
+import { Authentication } from '../../services/authentication';
 
 @Component({
     imports: [ButtonPrimary, ReactiveFormsModule],
@@ -15,7 +15,7 @@ export class LogIn {
     navigateService = inject(TrackableNavigate);
     private readonly activeUrl = signal<string>('');
     validatorService = inject(CustomValidators);
-    appStateService = inject(AppStateService);
+    authentication = inject(Authentication);
 
     mode = 'log-in';
     dNone = false;
@@ -40,12 +40,7 @@ export class LogIn {
 
         email: new FormControl('', {
             nonNullable: true,
-            validators: [
-                Validators.required,
-                Validators.email,
-                this.validatorService.customMailValidator(),
-                this.validatorService.customMailDbValidator(),
-            ],
+            validators: [Validators.required, Validators.email, this.validatorService.customMailValidator()],
         }),
     });
 }
