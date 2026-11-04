@@ -21,10 +21,12 @@ export class LogIn {
     dNone = signal(false);
 
     switchToSignUp() {
+        this.signUpForm.reset();
         this.mode = 'sign-up';
     }
 
     switchToLogIn() {
+        this.signUpForm.reset();
         this.mode = 'log-in';
     }
 
@@ -36,17 +38,33 @@ export class LogIn {
         this.dNone.set(false);
     }
 
-    signUpForm = new FormGroup({
-        name: new FormControl('', {
-            nonNullable: true,
-            validators: [Validators.required, this.validatorService.customNameValidator()],
-        }),
+    signUpForm = new FormGroup(
+        {
+            name: new FormControl('', {
+                nonNullable: true,
+                validators: [Validators.required, this.validatorService.customNameValidator()],
+            }),
 
-        email: new FormControl('', {
-            nonNullable: true,
-            validators: [Validators.required, Validators.email, this.validatorService.customMailValidator()],
-        }),
-    });
+            email: new FormControl('', {
+                nonNullable: true,
+                validators: [Validators.required, Validators.email, this.validatorService.customMailValidator()],
+            }),
+
+            password: new FormControl('', {
+                nonNullable: true,
+                validators: [Validators.required, this.validatorService.customPasswordValidator()],
+            }),
+
+            confirmPassword: new FormControl('', {
+                nonNullable: true,
+                validators: [Validators.required],
+            }),
+        },
+
+        {
+            validators: [this.validatorService.customPasswordMatchValidator()],
+        }
+    );
 
     async guestLogIn() {
         const success = await this.authentication.signInAnonymously();

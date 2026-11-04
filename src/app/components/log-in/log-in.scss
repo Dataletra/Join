@@ -101,8 +101,8 @@ hr {
     width: 422px;
     display: flex;
     flex-direction: column;
-    gap: 32px;
-    margin-bottom: 56px;
+    // gap: 32px;
+    margin-bottom: 32px;
 
     input {
         width: 100%;
@@ -115,9 +115,26 @@ hr {
     }
 }
 
-.inputs-sign-up {
-    gap: 24px;
+.su-check-wrapper {
+    height: 24px;
+    padding-left: 21px;
+    display: flex;
+    align-items: center;
 }
+
+.form-check {
+    display: none;
+}
+
+.form-check.is-visible {
+    display: block;
+    font-size: 14px;
+    color: $color-form-check;
+}
+
+// .inputs-sign-up {
+//     gap: 24px;
+// }
 
 .input-name {
     background-image: url(../../../../public/assets/icons/person.svg);
