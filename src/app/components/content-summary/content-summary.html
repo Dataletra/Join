@@ -9,14 +9,14 @@
             <div class="icon-container"><img src="./assets/icons/edit-white.svg" /></div>
             <div class="info-container">
                 <h3>{{ todo().length }}</h3>
-                <p>To-do</p>
+                <p class="box-title">To-do</p>
             </div>
         </div>
         <div class="box box-done">
-            <div class="icon-container"><img src="./assets/icons/check.svg" /></div>
+            <div class="icon-container"><img src="./assets/icons/check-summary.svg" /></div>
             <div class="info-container">
                 <h3>{{ done().length }}</h3>
-                <p>Done</p>
+                <p class="box-title">Done</p>
             </div>
         </div>
 
@@ -39,24 +39,26 @@
         <div class="box box-board">
             <div class="info-container">
                 <h3>{{ total() }}</h3>
-                <p>Tasks in <br />Board</p>
+                <p class="box-title">Tasks in <br />Board</p>
             </div>
         </div>
         <div class="box box-progress">
             <div class="info-container">
                 <h3>{{ progress().length }}</h3>
-                <p>Tasks in <br />Progress</p>
+                <p class="box-title">Tasks in <br />Progress</p>
             </div>
         </div>
         <div class="box box-feedback">
             <div class="info-container">
                 <h3>{{ feedback().length }}</h3>
-                <p>Awaiting <br />Feedback</p>
+                <p class="box-title">Awaiting <br />Feedback</p>
             </div>
         </div>
     </div>
     <div class="welcome-container">
-        <h2>{{ greetingMessage() }}</h2>
-        <h1>{{authService.currentUser()?.name}}</h1>
+        <div>
+            <h2>{{ greetingMessage() }}</h2>
+            <h1>{{ authService.currentUser()?.name }}</h1>
+        </div>
     </div>
 </section>
