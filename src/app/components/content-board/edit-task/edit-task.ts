@@ -171,7 +171,7 @@ export class EditTask {
                 category: this.IncomingCategory() as Task['category'],
                 subtasks: this.IncomingSubtasks(),
             });
-            await this.tasksService.editApiTask(updatedTask);
+            await this.tasksService.editApiTask(updatedTask, true);
         }
         this.dialogService.close();
     }

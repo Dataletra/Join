@@ -37,7 +37,6 @@ export class TasksService {
                 list.map((task) => (task.id === payload.new['id'] ? { ...task, ...newTask } : task))
             );
             this.taskSortService.moveApiItem(newTask.id, newTask.status);
-
             this.toastService.showToast('Task udpated succesfully', ToastType.updateTask);
         })
         .subscribe();
