@@ -18,7 +18,7 @@ export class LogIn {
     authentication = inject(Authentication);
 
     mode = 'log-in';
-    dNone = false;
+    dNone = signal(false);
 
     switchToSignUp() {
         this.mode = 'sign-up';
@@ -29,7 +29,11 @@ export class LogIn {
     }
 
     hideLogIn() {
-        this.dNone = true;
+        this.dNone.set(true);
+    }
+
+    showLogIn() {
+        this.dNone.set(false);
     }
 
     signUpForm = new FormGroup({
@@ -43,4 +47,12 @@ export class LogIn {
             validators: [Validators.required, Validators.email, this.validatorService.customMailValidator()],
         }),
     });
+
+    async guestLogIn() {
+        const success = await this.authentication.signInAnonymously();
+
+        if (success) {
+            this.navigateService.goTo('summary');
+        }
+    }
 }

@@ -39,7 +39,7 @@
                     </li>
                 } @else {
                     <li>
-                        <a routerLink="login" routerLinkActive="active">
+                        <a (click)="authService.hideLogIn.set(false)" routerLink="login" routerLinkActive="active">
                             <img class="icon-default" src="./assets/icons/log-in.svg" aria-hidden="true" />
                             <img class="icon-active" src="./assets/icons/log-in.svg" aria-hidden="true" />
                             Log In

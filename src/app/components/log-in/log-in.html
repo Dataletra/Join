@@ -1,5 +1,5 @@
 @if (!authentication.isSignedIn()) {
-    <section class="log-in" [class.d-none]="authentication.isSignedIn()">
+    <section class="log-in" [class.d-none]="authentication.hideLogIn()">
         <header>
             <img src="./assets/icons/logo-dark.svg" aria-hidden="true" />
             <div class="not-a-user">
@@ -25,7 +25,7 @@
                 <div class="buttons">
                     <app-button-primary [small]="true" [widthStr]="'110px'">Log in</app-button-primary>
 
-                    <app-button-primary [small]="true" [widthStr]="'117px'" [typeStr]="'light'"
+                    <app-button-primary (click)="guestLogIn()" [small]="true" [widthStr]="'117px'" [typeStr]="'light'"
                         >Guest Log in</app-button-primary
                     >
                 </div>
@@ -50,7 +50,7 @@
                     <p>
                         I accept the
                         <a
-                            (click)="navigateService.goTo('privacy-policy')"
+                            (click)="authentication.hideLogIn.set(true); navigateService.goTo('privacy-policy')"
                             [class.active]="activeUrl() === '/privacy-policy'"
                             >Privacy Policy</a
                         >
@@ -62,10 +62,14 @@
         }
 
         <footer>
-            <a (click)="navigateService.goTo('privacy-policy')" [class.active]="activeUrl() === '/privacy-policy'"
+            <a
+                (click)="authentication.hideLogIn.set(true); navigateService.goTo('privacy-policy')"
+                [class.active]="activeUrl() === '/privacy-policy'"
                 >Privacy Policy</a
             >
-            <a (click)="navigateService.goTo('legal-notice')" [class.active]="activeUrl() === '/legal-notice'"
+            <a
+                (click)="authentication.hideLogIn.set(true); navigateService.goTo('legal-notice')"
+                [class.active]="activeUrl() === '/legal-notice'"
                 >Legal notice</a
             >
         </footer>
