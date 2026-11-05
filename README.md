@@ -1,59 +1,88 @@
 # Join
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.8.
+<div style="display: flex; gap: 20px;">
+<p>
+Join is a kanban-based project management tool designed and built by a group of
+dedicated students as part of their web development bootcamp at the Developer Akademie.
+</br>
+</br>
+Kanban, a Japanese term meaning "billboard", is a highly effective method to visualize work, limit
+work-in-progress, and maximize efficiency (or flow). Join leverages the principles
+of kanban to help users manage their tasks and projects in an intuitive, visual interface.
+</br>
+</br>
+It is important to note that Join is designed as an educational exercise and is
+not intended for extensive business usage. While we strive to ensure the best possible user experience, we
+cannot guarantee consistent availability, reliability, accuracy, or other aspects of quality regarding Join.
+</p>
+<img src="./readme/thumbnail.webp" alt="Join thumbnail" width="250px" height="260px"/>
 
-## Development server
+</div>
 
-To start a local development server, run:
+## Technologies
 
-```bash
-ng serve
-```
+<table>
+    <tr>
+        <td valign="middle">
+            <img src="./readme/angular.svg" alt="Angular Logo" width="28" />
+        </td>
+        <td valign="middle">Angular 22</td>
+        <td valign="middle">
+            <img src="./readme/supabase.svg" alt="Supabase Logo" width="28" />
+        </td>
+        <td valign="middle">Supabase</td>
+        <td valign="middle">
+            <img src="./readme/ts.svg" alt="TypeScript Logo" width="28" />
+        </td>
+        <td valign="middle">TypeScript</td>
+        <td valign="middle">
+            <img src="./readme/css.svg" alt="CSS Logo" width="28" />
+        </td>
+        <td valign="middle">CSS</td>
+        <td valign="middle">
+            <img src="./readme/html.svg" alt="HTML Logo" width="28" />
+        </td>
+        <td valign="middle">HTML</td>
+    </tr>
+</table>
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+## How to use it
 
-## Code scaffolding
+Here is a step-by-step guide on how to use Join.
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+1. Exploring the Board
 
-```bash
-ng generate component component-name
-```
+    When you log in to Join, you'll find a default board. This board
+    represents your project and contains four default lists: "To Do", "In Progress", “Await
+    feedback” and "Done".
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+2. Creating Contacts
 
-```bash
-ng generate --help
-```
+    In Join, you can add contacts to collaborate on your projects. Go to
+    the "Contacts" section, click on "New contact", and fill in the required information. Once
+    added, these contacts can be assigned tasks and they can interact with the tasks on the board.
 
-## Building
+3. Adding Cards
 
-To build the project run:
+    Now that you've added your contacts, you can start adding cards. Cards represent individual
+    tasks. Click the "+" button under the appropriate list to create a new card. Fill in the task
+    details in the card, like task name, description, due date, assignees, etc.
 
-```bash
-ng build
-```
+4. Moving Cards
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+    As the task moves from one stage to another, you can reflect that on the board by dragging and
+    dropping the card from one list to another.
 
-## Running unit tests
+5. Deleting Cards
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+    Once a task is completed, you can either move it to the "Done" list or delete it. Deleting a
+    card will permanently remove it from the board. Please exercise caution when deleting cards, as
+    this action is irreversible.
 
-```bash
-ng test
-```
+Remember that using Join effectively requires consistent updates from
+you and your team to ensure the board reflects the current state of your project.
 
-## Running end-to-end tests
+Have more questions about Join? Feel free to contact us at svenprimus@gmail.com.
+We're here to help you!
 
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+**Enjoy using Join!**
