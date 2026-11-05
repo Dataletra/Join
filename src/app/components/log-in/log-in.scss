@@ -137,10 +137,23 @@ form {
 }
 
 .inputs-log-in {
-    gap: 32px;
+    margin-bottom: 24px;
+    input {
+        margin-bottom: 32px;
+    }
+    .input-password {
+        margin-bottom: 8px;
+    }
 }
 
 .su-check-wrapper {
+    height: 24px;
+    padding-left: 21px;
+    display: flex;
+    align-items: center;
+}
+
+.li-check-wrapper {
     height: 24px;
     padding-left: 21px;
     display: flex;

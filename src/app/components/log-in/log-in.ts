@@ -16,9 +16,9 @@ export class LogIn {
     private readonly activeUrl = signal<string>('');
     validatorService = inject(CustomValidators);
     authentication = inject(Authentication);
-
     mode = 'log-in';
     dNone = signal(false);
+    loginError = signal(false);
 
     switchToSignUp() {
         this.signUpForm.reset();
@@ -71,6 +71,17 @@ export class LogIn {
         }
     );
 
+    logInForm = new FormGroup({
+        email: new FormControl('', {
+            nonNullable: true,
+            validators: [Validators.required, Validators.email],
+        }),
+        password: new FormControl('', {
+            nonNullable: true,
+            validators: [Validators.required],
+        }),
+    });
+
     async guestLogIn() {
         const success = await this.authentication.signInAnonymously();
 
@@ -81,7 +92,6 @@ export class LogIn {
 
     async signUp() {
         if (this.signUpForm.invalid) {
-            this.signUpForm.markAllAsTouched();
             return;
         }
         const formData = this.signUpForm.getRawValue();
@@ -89,6 +99,20 @@ export class LogIn {
         if (success) {
             this.signUpForm.reset();
             this.switchToLogIn();
+        }
+    }
+
+    async logIn() {
+        if (this.logInForm.invalid) {
+            return;
+        }
+        const formData = this.logInForm.getRawValue();
+        const success = await this.authentication.signInWithEmail(formData.email, formData.password);
+        if (success) {
+            this.logInForm.reset();
+            this.navigateService.goTo('summary');
+        } else {
+            this.loginError.set(true);
         }
     }
 }

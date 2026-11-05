@@ -15,18 +15,49 @@
                 <h2>Log in</h2>
                 <hr />
 
-                <div class="inputs inputs-log-in">
-                    <input class="input-email" type="email" placeholder="Email" />
-                    <input class="input-password" type="password" placeholder="Password" />
-                </div>
+                <form [formGroup]="logInForm" (ngSubmit)="logIn()">
+                    <div class="inputs inputs-log-in">
+                        <input
+                            class="input-email"
+                            type="email"
+                            placeholder="Email"
+                            formControlName="email"
+                            (input)="loginError.set(false)"
+                        />
+                        <input
+                            class="input-password"
+                            type="password"
+                            placeholder="Password"
+                            formControlName="password"
+                            (input)="loginError.set(false)"
+                        />
+                        <div class="li-check-wrapper">
+                            <p class="form-check" [class.is-visible]="loginError()">
+                                @if (loginError()) {
+                                    Check your email and password. Please try again.
+                                }
+                            </p>
+                        </div>
+                    </div>
 
-                <div class="buttons">
-                    <app-button-primary [small]="true" [widthStr]="'110px'">Log in</app-button-primary>
+                    <div class="buttons">
+                        <app-button-primary
+                            [buttonType]="'submit'"
+                            [small]="true"
+                            [widthStr]="'110px'"
+                            [isDisabled]="logInForm.invalid"
+                            >Log in</app-button-primary
+                        >
 
-                    <app-button-primary (click)="guestLogIn()" [small]="true" [widthStr]="'117px'" [typeStr]="'light'"
-                        >Guest Log in</app-button-primary
-                    >
-                </div>
+                        <app-button-primary
+                            (click)="guestLogIn()"
+                            [small]="true"
+                            [widthStr]="'117px'"
+                            [typeStr]="'light'"
+                            >Guest Log in</app-button-primary
+                        >
+                    </div>
+                </form>
             </div>
         } @else {
             <div class="sign-up-wrapper">
