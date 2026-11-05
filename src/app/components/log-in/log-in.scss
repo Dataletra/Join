@@ -60,15 +60,16 @@ header {
 }
 
 .sign-up-wrapper {
-    width: 698px;
-    height: 630px;
+    width: clamp(290px, calc(173.429px + 36.429vw), 698px);
+    max-height: 630px;
     background-color: $color-nav-high;
     border-radius: 30px;
     box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.14);
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 48px;
+    padding-block: clamp(16px, calc(6.857px + 2.857vw), 48px);
+    padding-inline: clamp(8px, calc(-3.429px + 3.571vw), 48px);
     position: relative;
 
     .privacy-policy {
@@ -105,7 +106,7 @@ header {
 
 .back-btn {
     position: absolute;
-    left: 48px;
+    left: clamp(10px, calc(-22px + 10vw), 48px);
     top: 64px;
 }
 
@@ -117,7 +118,7 @@ h2 {
 
 hr {
     height: 3px;
-    width: 150px;
+    width: clamp(88px, calc(70.286px + 5.536vw), 150px);
     border: 1.5px solid $color-high-2;
     border-radius: 3px;
     background-color: $color-high-2;
@@ -238,5 +239,9 @@ footer {
     .log-in-buttons {
         flex-direction: column;
         gap: 21px;
+    }
+
+    .inputs-sign-up {
+        margin-bottom: 8px;
     }
 }
