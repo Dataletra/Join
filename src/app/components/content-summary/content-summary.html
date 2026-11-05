@@ -55,7 +55,7 @@
             </div>
         </div>
     </div>
-    <div class="welcome-container">
+    <div class="welcome-container" [class.welcome-hide]="!showWelcome" [class.welcome-animation]="showWelcome">
         <div>
             <h2>{{ greetingMessage() }}</h2>
             <h1>{{ authService.currentUser()?.name }}</h1>

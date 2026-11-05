@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { afterNextRender, Component, computed, effect, inject, signal } from '@angular/core';
 import { TasksService } from '../../services/tasks-service';
 import { ITask } from '../../interfaces/itask';
 import { Priority, Status } from '../../interfaces/enums';
@@ -30,6 +30,9 @@ export class ContentSummary {
         this.nextDeadlineTasks().filter((t) => t.priority === Priority.urgent)
     );
 
+    static showWelcome: boolean = true;
+    showWelcome = ContentSummary.showWelcome;
+
     greetingMessage = signal<string>('Good morning');
     priorityDiversity = signal<number>(0);
 
@@ -43,6 +46,9 @@ export class ContentSummary {
     showcasedDate: string = '';
 
     constructor() {
+        afterNextRender(() => {
+            ContentSummary.showWelcome = false;
+        });
         this.tasksService.fetchTasks();
 
         effect(() => {
