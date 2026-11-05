@@ -7,7 +7,8 @@
     position: absolute;
     top: 0;
     z-index: 999;
-    padding: 67px 77px;
+    padding-block: clamp(8px, calc(-8.857px + 5.268vw), 67px);
+    padding-inline: clamp(8px, calc(-11.714px + 6.161vw), 77px);
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -26,6 +27,10 @@ header {
     align-items: start;
 }
 
+.logo {
+    width: clamp(64px, calc(53.714px + 3.214vw), 100px);
+}
+
 .not-a-user {
     display: flex;
     align-items: center;
@@ -36,8 +41,12 @@ header {
     }
 }
 
+.nau-mobile {
+    display: none;
+}
+
 .log-in-wrapper {
-    width: 652px;
+    width: clamp(290px, calc(186.571px + 32.321vw), 652px);
     height: 449px;
     background-color: $color-nav-high;
     border-radius: 30px;
@@ -45,7 +54,9 @@ header {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 48px;
+    justify-content: center;
+    padding-block: clamp(16px, calc(6.857px + 2.857vw), 48px) 0 0;
+    padding-inline: clamp(8px, calc(-3.429px + 3.571vw), 48px);
 }
 
 .sign-up-wrapper {
@@ -99,7 +110,7 @@ header {
 }
 
 h2 {
-    font-size: 61px;
+    font-size: clamp(48px, calc(44.286px + 1.161vw), 61px);
     font-weight: 700;
     margin-bottom: 16px;
 }
@@ -114,7 +125,7 @@ hr {
 }
 
 .inputs {
-    width: 422px;
+    width: 100%;
     display: flex;
     flex-direction: column;
     margin-bottom: 32px;
@@ -131,6 +142,7 @@ hr {
 }
 
 form {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -210,5 +222,21 @@ footer {
             -webkit-text-stroke-color: $color-nav-hover-bg;
             text-stroke-color: $color-nav-hover-bg;
         }
+    }
+}
+
+@media screen and (max-width: $media-sm) {
+    .nau-desktop {
+        display: none;
+    }
+
+    .nau-mobile {
+        display: flex;
+        gap: clamp(16px, calc(13.429px + 0.804vw), 25px);
+    }
+
+    .log-in-buttons {
+        flex-direction: column;
+        gap: 21px;
     }
 }

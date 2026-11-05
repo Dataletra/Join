@@ -1,8 +1,8 @@
 @if (!authentication.isSignedIn()) {
     <section class="log-in" [class.d-none]="authentication.hideLogIn()">
         <header>
-            <img src="./assets/icons/logo-dark.svg" aria-hidden="true" />
-            <div class="not-a-user">
+            <img class="logo" src="./assets/icons/logo-dark.svg" aria-hidden="true" />
+            <div class="not-a-user nau-desktop">
                 @if (mode === 'log-in') {
                     <p>Not a Join user?</p>
                     <app-button-primary (click)="switchToSignUp()" [small]="true">Sign up</app-button-primary>
@@ -40,7 +40,7 @@
                         </div>
                     </div>
 
-                    <div class="buttons">
+                    <div class="buttons log-in-buttons">
                         <app-button-primary
                             [buttonType]="'submit'"
                             [small]="true"
@@ -171,6 +171,13 @@
                 </form>
             </div>
         }
+
+        <div class="not-a-user nau-mobile">
+            @if (mode === 'log-in') {
+                <p>Not a Join user?</p>
+                <app-button-primary (click)="switchToSignUp()" [small]="true">Sign up</app-button-primary>
+            }
+        </div>
 
         <footer>
             <a
