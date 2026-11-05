@@ -44,6 +44,7 @@ export class ContentSummary {
 
     nextDeadlineTasks = signal<ITask[]>([]);
     showcasedDate: string = '';
+    isDeadlineHovered: boolean = false;
 
     constructor() {
         afterNextRender(() => {
@@ -113,12 +114,6 @@ export class ContentSummary {
 }
 
 /*TODO
-Dealine flow:
-Call board, how many / which priority deadlines next day? -> 1 5 2 -> 
-if priorityDiversity = 3    -> render custom div (left side of deadline container)
-if priorityDiversity = 2    -> render custom div (left side of deadline container)
-if priorityDiversity = 1    -> render custom div (left side of deadline container)
-
-Good morning / Evening / Day message dependent on time of day
-Render name of currently logged in user
+HOVER on box's (consult figma)
+mobile height responsiveness
 */
