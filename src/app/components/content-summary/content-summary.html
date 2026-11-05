@@ -6,26 +6,27 @@
 <section>
     <div class="statistics-container">
         <div class="box box-todo">
-            <div class="icon-container"><img src="./assets/icons/edit-white.svg" /></div>
+            <div class="icon-container"></div>
             <div class="info-container">
                 <h3>{{ todo().length }}</h3>
                 <p class="box-title">To-do</p>
             </div>
         </div>
         <div class="box box-done">
-            <div class="icon-container"><img src="./assets/icons/check-summary.svg" /></div>
+            <div class="icon-container"></div>
             <div class="info-container">
                 <h3>{{ done().length }}</h3>
                 <p class="box-title">Done</p>
             </div>
         </div>
 
-        <div class="box box-deadline">
+        <div class="box box-deadline" (mouseenter)="isDeadlineHovered = true" (mouseleave)="isDeadlineHovered = false">
             <app-deadline-metric
                 [incomingPriorityDiversity]="priorityDiversity()"
                 [incomingLowPrioTasks]="deadlineLowPrioTasks()"
                 [incomingMedPrioTasks]="deadlineMedPrioTasks()"
                 [incomingHiPrioTasks]="deadlineHiPrioTasks()"
+                [isParentHovered]="isDeadlineHovered"
             ></app-deadline-metric>
             <hr class="deadline-hr" />
             <div class="deadline-date-container">

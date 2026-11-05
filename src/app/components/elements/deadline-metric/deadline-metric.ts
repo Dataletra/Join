@@ -13,4 +13,5 @@ export class DeadlineMetric {
     incomingLowPrioTasks = input<ITask[]>([]);
     incomingMedPrioTasks = input<ITask[]>([]);
     incomingHiPrioTasks = input<ITask[]>([]);
+    isParentHovered = input<boolean>(false);
 }

@@ -77,6 +77,11 @@
     }
 }
 
+.isHovered {
+    color: white;
+    transition: 0.2s ease;
+}
+
 @media screen and (max-width: $media-m) {
     .flex-column {
         &.size-3 {
