@@ -1,4 +1,5 @@
 @use '../../../../public/styles/abstract/variables.scss' as *;
+@use '../../../../public/styles/abstract/helpers.scss' as *;
 
 :host {
     width: 100%;
@@ -271,9 +272,12 @@ footer {
         position: absolute;
         inset: 0;
         background-color: $color-nav-high;
-        animation: intro-background 0.5s ease forwards;
-        animation-delay: 0.7s;
     }
+}
+
+.intro-animation-play {
+    animation: intro-background 0.5s ease forwards;
+    animation-delay: 0.7s;
 }
 
 .intro-logo {

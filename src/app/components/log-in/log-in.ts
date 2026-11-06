@@ -22,10 +22,12 @@ export class LogIn {
     passwordVisible = signal(false);
     signUpPasswordVisible = signal(false);
     confirmPasswordVisible = signal(false);
+    static introPlayed: boolean = false;
+    introPlayed = LogIn.introPlayed;
 
     constructor() {
         afterNextRender(() => {
-            this.authentication.introPlayed.set(true);
+            LogIn.introPlayed = true;
         });
     }
 

@@ -16,7 +16,6 @@ export class Authentication {
     readonly initialized = signal<boolean>(false);
     readonly session = signal<Session | null>(null);
     readonly currentUser = signal<IUser | undefined>(undefined);
-    readonly introPlayed = signal(false);
 
     readonly isSignedIn = computed<boolean>(() => {
         return false === (null === this.session());
