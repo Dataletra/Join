@@ -112,8 +112,3 @@ export class ContentSummary {
         this.greetingMessage.set(this.greetingMessage() + (this.authService.currentUser() ? ',' : '!'));
     }
 }
-
-/*TODO
-HOVER on box's (consult figma)
-mobile height responsiveness
-*/

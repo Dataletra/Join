@@ -37,9 +37,9 @@
 ## How to use it
 
 <table>
+        Here is a step-by-step guide on how to use Join.
     <tr>
         <td valign="top" width="65%">
-        Here is a step-by-step guide on how to use Join.
         <br><br>
         1. <strong>Exploring the Board</strong><br>
         When you log in to Join, you'll find a default board representing your project. It contains four default lists: "To Do", "In Progress", "Await feedback", and "Done".
