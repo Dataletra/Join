@@ -11,7 +11,7 @@ import { EditTask } from './components/content-board/edit-task/edit-task';
 import { LogIn } from './components/log-in/log-in';
 
 @Component({
-    imports: [RouterOutlet, NavBar, Header, ToastAdded, AddContact, EditContact, AddTask, DetailView, EditTask, LogIn],
+    imports: [LogIn, RouterOutlet],
     selector: 'app-root',
     styleUrl: './app.scss',
     templateUrl: './app.html',
