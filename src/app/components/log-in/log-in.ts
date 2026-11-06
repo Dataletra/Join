@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { afterNextRender, Component, inject, signal } from '@angular/core';
 import { ButtonPrimary } from '../elements/button-primary/button-primary';
 import { TrackableNavigate } from '../../services/trackable-navigate';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -22,6 +22,14 @@ export class LogIn {
     passwordVisible = signal(false);
     signUpPasswordVisible = signal(false);
     confirmPasswordVisible = signal(false);
+    static introPlayed: boolean = false;
+    introPlayed = LogIn.introPlayed;
+
+    constructor() {
+        afterNextRender(() => {
+            LogIn.introPlayed = true;
+        });
+    }
 
     switchToSignUp() {
         this.signUpForm.reset();
@@ -84,7 +92,6 @@ export class LogIn {
 
     async guestLogIn() {
         const success = await this.authentication.signInAnonymously();
-
         if (success) {
             this.navigateService.goTo('summary');
         }

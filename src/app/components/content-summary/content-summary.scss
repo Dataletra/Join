@@ -57,7 +57,8 @@ section {
     padding: 10px;
     max-height: 168px;
     transition: 0.2s ease;
-
+    cursor: pointer;
+    
     &:hover {
         background-color: $color-base;
         h5,
