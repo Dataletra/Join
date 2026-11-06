@@ -18,7 +18,13 @@
             <p (click)="dialogService.open('edit', selectedUser()); hideMenu()" class="button-mobile-text">Edit</p>
         </li>
         <li ngMenuItem value="delete-item" class="delete-item">
-            <p (click)="hideMenu(); showConfirm.set(true)" class="button-mobile-text">Delete</p>
+            <button
+                (click)="hideMenu(); showConfirm.set(true)"
+                class="button-mobile-text"
+                [disabled]="!disableDelete()"
+            >
+                <p>Delete</p>
+            </button>
         </li>
     </menu>
 </ng-template>
@@ -44,7 +50,7 @@
                 <button (click)="dialogService.open('edit', selectedUser())">
                     <p class="button-text"><img src="./assets/icons/edit.svg" alt="Edit Icon" />Edit</p>
                 </button>
-                <button (click)="showConfirm.set(true)">
+                <button (click)="showConfirm.set(true)" [disabled]="!disableDelete()">
                     <p class="button-text"><img src="./assets/icons/delete.svg" alt="Delete Icon" />Delete</p>
                 </button>
             </div>
