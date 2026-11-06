@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { afterNextRender, Component, inject, signal } from '@angular/core';
 import { ButtonPrimary } from '../elements/button-primary/button-primary';
 import { TrackableNavigate } from '../../services/trackable-navigate';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -22,6 +22,12 @@ export class LogIn {
     passwordVisible = signal(false);
     signUpPasswordVisible = signal(false);
     confirmPasswordVisible = signal(false);
+
+    constructor() {
+        afterNextRender(() => {
+            this.authentication.introPlayed.set(true);
+        });
+    }
 
     switchToSignUp() {
         this.signUpForm.reset();
