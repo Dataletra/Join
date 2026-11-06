@@ -30,6 +30,7 @@ header {
 
 .logo {
     width: clamp(64px, calc(53.714px + 3.214vw), 100px);
+    opacity: 1;
 }
 
 .not-a-user {
@@ -293,10 +294,10 @@ footer {
     display: none;
 }
 
-.logo {
+.logo-animation-play {
     opacity: 0;
     animation: header-logo 0.3s ease forwards;
-    animation-delay: 1.05s;
+    animation-delay: 1.4s;
 }
 
 @keyframes intro-logo {

@@ -5,7 +5,12 @@
     </div>
 
     <header>
-        <img class="logo" src="./assets/icons/logo-dark.svg" aria-hidden="true" />
+        <img
+            class="logo"
+            [class.logo-animation-play]="!introPlayed"
+            src="./assets/icons/logo-dark.svg"
+            aria-hidden="true"
+        />
         <div class="not-a-user nau-desktop">
             @if (mode === 'log-in') {
                 <p>Not a Join user?</p>
