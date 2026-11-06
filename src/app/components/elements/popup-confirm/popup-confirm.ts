@@ -36,6 +36,13 @@ export class PopupConfirm {
         this.callbackOkay()();
     }
 
+    onBackdropClick(event: MouseEvent) {
+        const dialogElement = event.currentTarget as HTMLDialogElement;
+        if (event.target === dialogElement) {
+            this.deny();
+        }
+    }
+
     toggleDialog() {
         const dialogRef = this.dialog();
         if (!dialogRef) {
