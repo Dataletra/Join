@@ -5,14 +5,14 @@
 </header>
 <section>
     <div class="statistics-container">
-        <div class="box box-todo">
+        <div class="box box-todo" (click)="navService.goTo('board')">
             <div class="icon-container"></div>
             <div class="info-container">
                 <h3>{{ todo().length }}</h3>
                 <p class="box-title">To-do</p>
             </div>
         </div>
-        <div class="box box-done">
+        <div class="box box-done" (click)="navService.goTo('board')">
             <div class="icon-container"></div>
             <div class="info-container">
                 <h3>{{ done().length }}</h3>
@@ -20,7 +20,12 @@
             </div>
         </div>
 
-        <div class="box box-deadline" (mouseenter)="isDeadlineHovered = true" (mouseleave)="isDeadlineHovered = false">
+        <div
+            class="box box-deadline"
+            (mouseenter)="isDeadlineHovered = true"
+            (mouseleave)="isDeadlineHovered = false"
+            (click)="navService.goTo('board')"
+        >
             <app-deadline-metric
                 [incomingPriorityDiversity]="priorityDiversity()"
                 [incomingLowPrioTasks]="deadlineLowPrioTasks()"
@@ -37,19 +42,19 @@
             </div>
         </div>
 
-        <div class="box box-board">
+        <div class="box box-board" (click)="navService.goTo('board')">
             <div class="info-container">
                 <h3>{{ total() }}</h3>
                 <p class="box-title">Tasks in <br />Board</p>
             </div>
         </div>
-        <div class="box box-progress">
+        <div class="box box-progress" (click)="navService.goTo('board')">
             <div class="info-container">
                 <h3>{{ progress().length }}</h3>
                 <p class="box-title">Tasks in <br />Progress</p>
             </div>
         </div>
-        <div class="box box-feedback">
+        <div class="box box-feedback" (click)="navService.goTo('board')">
             <div class="info-container">
                 <h3>{{ feedback().length }}</h3>
                 <p class="box-title">Awaiting <br />Feedback</p>
