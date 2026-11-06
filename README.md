@@ -1,23 +1,27 @@
 # Join
 
-<div style="display: flex; gap: 20px;">
-<div>
-    Join is a Kanban-based project management tool designed and built by a group of
-    dedicated students as part of their web development bootcamp at the Developer Akademie.
-    <br><br>
-    Kanban, a Japanese term meaning "billboard", is an effective method to visualize work, limit
-    work-in-progress, and maximize efficiency (or flow). Join leverages these principles
-    to help users manage tasks and projects through an intuitive, visual interface.
-    <br><br>
-    Join features real-time synchronization across all instances. Whenever a task's state changes, a user is added or removed,
-    the update is instantly reflected everywhere.
-    <br><br>
-    <hr>
-    <h4>⚠️ Educational Disclaimer</h4>
-    <p><em>Please note that Join was developed as a capstone educational project and is not intended for commercial production or enterprise-grade usage. While we ensure a robust user experience, continuous uptime and data persistence cannot be guaranteed.</em></p>
-</div>
-    <img src="./readme/thumbnail.webp" alt="Join thumbnail" width="250px" height="260px" min-width="250px" style="border-radius: 8px;" />
-</div>
+<table>
+    <tr>
+        <td valign="top" width="65%" style="border: none;">
+        Join is a Kanban-based project management tool designed and built by a group of
+        dedicated students as part of their web development bootcamp at the Developer Akademie.
+        <br><br>
+        Kanban, a Japanese term meaning "billboard", is an effective method to visualize work, limit
+        work-in-progress, and maximize efficiency (or flow). Join leverages these principles
+        to help users manage tasks and projects through an intuitive, visual interface.
+        <br><br>
+        Join features real-time synchronization across all instances. Whenever a task's state changes, a user is added or removed,
+        the update is instantly reflected everywhere.
+        <br><br>
+        <hr>
+        <h4>⚠️ Educational Disclaimer</h4>
+        <p><em>Please note that Join was developed as a capstone educational project and is not intended for commercial production or enterprise-grade usage. While we ensure a robust user experience, continuous uptime and data persistence cannot be guaranteed.</em></p>
+        </td>
+        <td align="center" valign="middle" width="35%" style="border: none;">
+        <img src="./readme/thumbnail.webp" alt="Join thumbnail" width="250px" height="260px" min-width="250px" style="border-radius: 8px;" />
+        </td>
+    </tr>
+</table>
 
 ## Technologies
 
@@ -47,7 +51,6 @@ Here is a step-by-step guide on how to use Join.
    <br><br>
 5. <strong>Deleting Cards</strong><br>
    Once a task is completed, you can move it to the "Done" list or delete it. Deleting a card permanently removes it from the board. Please exercise caution, as this action is irreversible.
-   <br><br>
    Using Join effectively requires consistent updates from you and your team to ensure the board accurately reflects your project's current state.
 
 Have more questions about Join? Feel free to contact us at svenprimus@gmail.com
