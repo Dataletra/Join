@@ -75,4 +75,28 @@ export class CustomValidators {
             return isOnlyWhitespace ? { whitespace: { value: control.value } } : null;
         };
     }
+
+    customPasswordValidator(): ValidatorFn {
+        return (control: AbstractControl): ValidationErrors | null => {
+            const value = control.value;
+            if (!value) {
+                return null;
+            }
+            const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)\S{8,}$/;
+            return pattern.test(value) ? null : { passwordPattern: true };
+        };
+    }
+
+    customPasswordMatchValidator(): ValidatorFn {
+        return (control: AbstractControl): ValidationErrors | null => {
+            const password = control.get('password')?.value;
+            const confirmPassword = control.get('confirmPassword')?.value;
+
+            if (!password || !confirmPassword) {
+                return null;
+            }
+
+            return password === confirmPassword ? null : { passwordMismatch: true };
+        };
+    }
 }

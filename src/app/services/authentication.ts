@@ -19,6 +19,8 @@ export class Authentication {
         return false === (null === this.session());
     });
 
+    readonly hideLogIn = signal<boolean>(false);
+
     /**
      * Register onAuthStateChange event, that will never be stopped, as session must be observed all the time.
      * This will update the session and current user.
