@@ -1,8 +1,9 @@
-import { Component, computed, effect, inject, signal } from '@angular/core';
+import { afterNextRender, Component, computed, effect, inject, signal } from '@angular/core';
 import { TasksService } from '../../services/tasks-service';
 import { ITask } from '../../interfaces/itask';
 import { Priority, Status } from '../../interfaces/enums';
 import { DeadlineMetric } from '../elements/deadline-metric/deadline-metric';
+import { Authentication } from '../../services/authentication';
 
 @Component({
     imports: [DeadlineMetric],
@@ -12,6 +13,7 @@ import { DeadlineMetric } from '../elements/deadline-metric/deadline-metric';
 })
 export class ContentSummary {
     tasksService = inject(TasksService);
+    authService = inject(Authentication);
     readonly todo = computed(() => this.tasksService.tasklist().filter((t) => t.status === Status.todo));
     readonly progress = computed(() => this.tasksService.tasklist().filter((t) => t.status === Status.progress));
     readonly feedback = computed(() => this.tasksService.tasklist().filter((t) => t.status === Status.await));
@@ -28,6 +30,10 @@ export class ContentSummary {
         this.nextDeadlineTasks().filter((t) => t.priority === Priority.urgent)
     );
 
+    static showWelcome: boolean = true;
+    showWelcome = ContentSummary.showWelcome;
+
+    greetingMessage = signal<string>('Good morning');
     priorityDiversity = signal<number>(0);
 
     DateFormatOptions: Intl.DateTimeFormatOptions = {
@@ -38,8 +44,12 @@ export class ContentSummary {
 
     nextDeadlineTasks = signal<ITask[]>([]);
     showcasedDate: string = '';
+    isDeadlineHovered: boolean = false;
 
     constructor() {
+        afterNextRender(() => {
+            ContentSummary.showWelcome = false;
+        });
         this.tasksService.fetchTasks();
 
         effect(() => {
@@ -54,6 +64,7 @@ export class ContentSummary {
                 }
             });
 
+            console.log(currentCheckDate!);
             this.updateShowcasedDateInfo(currentCheckDate!);
 
             let incomingDeadlineTasks = this.tasksService.tasklist().filter((element) => {
@@ -62,12 +73,7 @@ export class ContentSummary {
             });
 
             this.nextDeadlineTasks.set(incomingDeadlineTasks);
-            console.log(this.nextDeadlineTasks());
-            console.warn('LOW: ' + this.deadlineLowPrioTasks().length);
-            console.warn('MED: ' + this.deadlineMedPrioTasks().length);
-            console.warn('HI: ' + this.deadlineHiPrioTasks().length);
             this.updatePriorityDiversity();
-            console.warn('DIVERSITY: ' + this.priorityDiversity());
         });
     }
 
@@ -75,6 +81,8 @@ export class ContentSummary {
         this.showcasedDate = new Date(currentCheckDate).toLocaleString(undefined, this.DateFormatOptions);
         if (currentCheckDate < new Date()) {
             this.showcasedDateInfo.set('Overdue Deadline');
+        } else {
+            this.showcasedDateInfo.set('Upcoming Deadline');
         }
     }
 
@@ -91,16 +99,16 @@ export class ContentSummary {
         }
         this.priorityDiversity.set(calculatedDiversity);
     }
-    ngOnInit() {}
+    ngOnInit() {
+        const date = new Date();
+        let currentTOD = date.getHours();
+        if (currentTOD >= 0 && currentTOD < 12) {
+            this.greetingMessage.set('Good morning');
+        } else if (currentTOD >= 12 && currentTOD < 17) {
+            this.greetingMessage.set('Good afternoon');
+        } else if (currentTOD >= 17 && currentTOD < 24) {
+            this.greetingMessage.set('Good evening');
+        }
+        this.greetingMessage.set(this.greetingMessage() + (this.authService.currentUser() ? ',' : '!'));
+    }
 }
-
-/*TODO
-Dealine flow:
-Call board, how many / which priority deadlines next day? -> 1 5 2 -> 
-if priorityDiversity = 3    -> render custom div (left side of deadline container)
-if priorityDiversity = 2    -> render custom div (left side of deadline container)
-if priorityDiversity = 1    -> render custom div (left side of deadline container)
-
-Good morning / Evening / Day message dependent on time of day
-Render name of currently logged in user
-*/

@@ -61,3 +61,22 @@
         padding: 0 10px;
     }
 }
+
+@keyframes splashScreen {
+    0% {
+        opacity: 1;
+        visibility: visible;
+    }
+    25% {
+        opacity: 1;
+        visibility: visible;
+    }
+    50% {
+        opacity: 1;
+        visibility: visible;
+    }
+    100% {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
