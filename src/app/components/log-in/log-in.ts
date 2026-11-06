@@ -84,7 +84,6 @@ export class LogIn {
 
     async guestLogIn() {
         const success = await this.authentication.signInAnonymously();
-
         if (success) {
             this.navigateService.goTo('summary');
         }

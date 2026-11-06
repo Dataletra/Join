@@ -64,7 +64,6 @@ export class ContentSummary {
                 }
             });
 
-            console.log(currentCheckDate!);
             this.updateShowcasedDateInfo(currentCheckDate!);
 
             let incomingDeadlineTasks = this.tasksService.tasklist().filter((element) => {

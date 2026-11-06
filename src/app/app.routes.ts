@@ -8,6 +8,7 @@ import { ContentAddTask } from './components/content-add-task/content-add-task';
 import { ContentSummary } from './components/content-summary/content-summary';
 import { ContentMain } from './components/content-main/content-main';
 import { LogIn } from './components/log-in/log-in';
+import { authGuard } from './guards/auth-guard';
 
 export const routes: Routes = [
     {
@@ -18,7 +19,6 @@ export const routes: Routes = [
     {
         path: 'login',
         component: LogIn,
-        // TODO Guards
     },
     {
         path: '',
@@ -27,18 +27,22 @@ export const routes: Routes = [
             {
                 path: 'summary',
                 component: ContentSummary,
+                canActivate: [authGuard],
             },
             {
                 path: 'add-task',
                 component: ContentAddTask,
+                canActivate: [authGuard],
             },
             {
                 path: 'board',
                 component: ContentBoard,
+                canActivate: [authGuard],
             },
             {
                 path: 'contacts',
                 component: ContentContacts,
+                canActivate: [authGuard],
             },
             {
                 path: 'help',
