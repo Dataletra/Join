@@ -5,21 +5,21 @@ import { ContactService } from './contact-service';
 import { User as Contact } from '../components/models/user';
 import { Toast, ToastType } from './toast';
 import { IUser } from '../interfaces/iuser';
-
+import { TrackableNavigate } from './trackable-navigate';
 @Service()
 export class Authentication {
     client = inject(SupabaseService);
     contactService = inject(ContactService);
     toastService = inject(Toast);
+    navService = inject(TrackableNavigate);
 
+    readonly initialized = signal<boolean>(false);
     readonly session = signal<Session | null>(null);
     readonly currentUser = signal<IUser | undefined>(undefined);
 
     readonly isSignedIn = computed<boolean>(() => {
         return false === (null === this.session());
     });
-
-    readonly hideLogIn = signal<boolean>(false);
 
     /**
      * Register onAuthStateChange event, that will never be stopped, as session must be observed all the time.
@@ -68,10 +68,13 @@ export class Authentication {
         if (!email) {
             return false;
         }
+        this.initialized.set(false);
         const { data, error } = await this.client.supabase.auth.signInWithPassword({
             email: email,
             password: password,
         });
+        await this.isInitializing();
+
         return error ? false : true;
     }
 
@@ -80,7 +83,9 @@ export class Authentication {
      * @returns {boolean} - true on success
      */
     async signInAnonymously(): Promise<boolean> {
+        this.initialized.set(false);
         const { data, error } = await this.client.supabase.auth.signInAnonymously();
+        await this.isInitializing();
         return error ? false : true;
     }
 
@@ -89,7 +94,10 @@ export class Authentication {
      * @returns {boolean} - true on success
      */
     async signOut(): Promise<boolean> {
+        this.initialized.set(false);
         const { error } = await this.client.supabase.auth.signOut();
+        this.navService.goTo('login');
+        await this.isInitializing();
         return error ? false : true;
     }
 
@@ -120,6 +128,7 @@ export class Authentication {
     private async setSession(session: Session | null) {
         await this.udpateUser(session?.user?.id);
         this.session.set(session);
+        this.initialized.set(true);
     }
 
     /**
@@ -129,5 +138,15 @@ export class Authentication {
     private async udpateUser(uid: string | undefined) {
         const user = uid ? await this.contactService.getUserByApiUid(uid) : undefined;
         this.currentUser.set(user ?? undefined);
+    }
+
+    /**
+     * Helper method to wait for initialization. When navigating URL through browser, a reload happens so that auth will
+     * possibly return false on initialization -> the router canActivateFn will not work properly. So wait.
+     */
+    async isInitializing(): Promise<void> {
+        while (!this.initialized()) {
+            await new Promise((resolve) => setTimeout(resolve, 10));
+        }
     }
 }

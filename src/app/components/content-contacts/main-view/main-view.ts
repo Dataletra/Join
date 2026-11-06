@@ -7,6 +7,7 @@ import { ButtonBack } from '../../elements/button-back/button-back';
 import { PopupConfirm } from '../../elements/popup-confirm/popup-confirm';
 import { Menu, MenuItem } from '@angular/aria/menu';
 import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
+import { Authentication } from '../../../services/authentication';
 
 @Component({
     imports: [
@@ -24,6 +25,7 @@ import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
     templateUrl: './main-view.html',
 })
 export class MainView {
+    authService = inject(Authentication);
     readonly incomingSelectedViewStatus = input<boolean | null>();
     hideMainViewSignal = output<boolean>();
     showMenu = signal<boolean>(false);
@@ -66,4 +68,13 @@ export class MainView {
     deleteUser() {
         this.dbService.deleteApiUser(this.dbService.selectedUserID());
     }
+
+    disableDelete = computed(() => {
+        const selected = this.selectedUser();
+        const current = this.authService.currentUser();
+        if (!selected?.uid) {
+            return true;
+        }
+        return selected.uid === current?.uid;
+    });
 }

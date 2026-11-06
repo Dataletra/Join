@@ -4,6 +4,7 @@ import { ITask } from '../../interfaces/itask';
 import { Priority, Status } from '../../interfaces/enums';
 import { DeadlineMetric } from '../elements/deadline-metric/deadline-metric';
 import { Authentication } from '../../services/authentication';
+import { TrackableNavigate } from '../../services/trackable-navigate';
 
 @Component({
     imports: [DeadlineMetric],
@@ -14,6 +15,8 @@ import { Authentication } from '../../services/authentication';
 export class ContentSummary {
     tasksService = inject(TasksService);
     authService = inject(Authentication);
+    navService = inject(TrackableNavigate);
+
     readonly todo = computed(() => this.tasksService.tasklist().filter((t) => t.status === Status.todo));
     readonly progress = computed(() => this.tasksService.tasklist().filter((t) => t.status === Status.progress));
     readonly feedback = computed(() => this.tasksService.tasklist().filter((t) => t.status === Status.await));
@@ -64,7 +67,6 @@ export class ContentSummary {
                 }
             });
 
-            console.log(currentCheckDate!);
             this.updateShowcasedDateInfo(currentCheckDate!);
 
             let incomingDeadlineTasks = this.tasksService.tasklist().filter((element) => {
@@ -110,5 +112,10 @@ export class ContentSummary {
             this.greetingMessage.set('Good evening');
         }
         this.greetingMessage.set(this.greetingMessage() + (this.authService.currentUser() ? ',' : '!'));
+    }
+
+    setWelcome() {
+        ContentSummary.showWelcome = true;
+        this.showWelcome = true;
     }
 }

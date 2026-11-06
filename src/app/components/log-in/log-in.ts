@@ -1,12 +1,13 @@
-import { Component, inject, signal } from '@angular/core';
+import { afterNextRender, Component, inject, signal } from '@angular/core';
 import { ButtonPrimary } from '../elements/button-primary/button-primary';
 import { TrackableNavigate } from '../../services/trackable-navigate';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CustomValidators } from '../../services/custom-validators';
 import { Authentication } from '../../services/authentication';
+import { ToastAdded } from '../elements/toast-added/toast-added';
 
 @Component({
-    imports: [ButtonPrimary, ReactiveFormsModule],
+    imports: [ButtonPrimary, ReactiveFormsModule, ToastAdded],
     selector: 'app-log-in',
     styleUrl: './log-in.scss',
     templateUrl: './log-in.html',
@@ -17,11 +18,18 @@ export class LogIn {
     validatorService = inject(CustomValidators);
     authentication = inject(Authentication);
     mode = 'log-in';
-    dNone = signal(false);
     loginError = signal(false);
     passwordVisible = signal(false);
     signUpPasswordVisible = signal(false);
     confirmPasswordVisible = signal(false);
+    static introPlayed: boolean = false;
+    introPlayed = LogIn.introPlayed;
+
+    constructor() {
+        afterNextRender(() => {
+            LogIn.introPlayed = true;
+        });
+    }
 
     switchToSignUp() {
         this.signUpForm.reset();
@@ -36,14 +44,6 @@ export class LogIn {
         this.confirmPasswordVisible.set(false);
         this.passwordVisible.set(false);
         this.mode = 'log-in';
-    }
-
-    hideLogIn() {
-        this.dNone.set(true);
-    }
-
-    showLogIn() {
-        this.dNone.set(false);
     }
 
     signUpForm = new FormGroup(
@@ -92,7 +92,6 @@ export class LogIn {
 
     async guestLogIn() {
         const success = await this.authentication.signInAnonymously();
-
         if (success) {
             this.navigateService.goTo('summary');
         }

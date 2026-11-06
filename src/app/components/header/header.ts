@@ -4,21 +4,25 @@ import { TrackableNavigate } from '../../services/trackable-navigate';
 import { Menu, MenuItem, MenuContent, MenuTrigger } from '@angular/aria/menu';
 import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
 import { Authentication } from '../../services/authentication';
+import { ContentSummary } from '../content-summary/content-summary';
 
 @Component({
     imports: [IcContact, Menu, MenuItem, MenuContent, CdkConnectedOverlay, CdkOverlayOrigin, MenuTrigger],
     selector: 'app-header',
     styleUrl: './header.scss',
     templateUrl: './header.html',
+    providers: [ContentSummary]
 })
 export class Header {
     showMenu = signal<boolean>(false);
     overlayListen = signal<boolean>(false);
     navigateService = inject(TrackableNavigate);
     authService = inject(Authentication);
+    summary = inject(ContentSummary);
+
     headerMenu = viewChild<Menu<string>>('headerMenu');
     userName = computed<string>(() => {
-        const currentName = this.authService.currentUser()?.name?? 'Guest';
+        const currentName = this.authService.currentUser()?.name ?? 'Guest';
         return this.authService.isSignedIn() ? currentName : 'XX';
     });
     toggleMenu() {
