@@ -95,8 +95,10 @@ export class Authentication {
      * @returns {boolean} - true on success
      */
     async signOut(): Promise<boolean> {
+        this.initialized.set(false);
         const { error } = await this.client.supabase.auth.signOut();
         this.navService.goTo('login');
+        await this.isInitializing();
         return error ? false : true;
     }
 
