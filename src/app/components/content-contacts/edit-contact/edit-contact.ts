@@ -35,7 +35,7 @@ export class EditContact {
                 this.contactForm.setValue({
                     name: name,
                     email: user.email,
-                    phone: user.phone,
+                    phone: user.phone ?? '',
                 });
                 this.avatarName.set(user.name);
             }
@@ -94,9 +94,9 @@ export class EditContact {
             name: this.contactForm.controls.name.value,
             email: this.contactForm.controls.email.value,
             phone: this.contactForm.controls.phone.value,
-            password: selectedUser?.password,
+            uid: selectedUser?.uid,
         });
-        await this.supabaseService.editUser(formData);
+        await this.supabaseService.editUser(formData, true);
         this.dialogService.close();
     }
 

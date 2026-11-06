@@ -2,6 +2,8 @@ import { Component, inject, signal } from '@angular/core';
 import { Event, Router, RouterLink, NavigationEnd } from '@angular/router';
 import { TrackableNavigate } from '../../services/trackable-navigate';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Authentication } from '../../services/authentication';
+
 @Component({
     imports: [RouterLink],
     selector: 'app-nav-bar',
@@ -10,6 +12,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class NavBar {
     navigateService = inject(TrackableNavigate);
+    authService = inject(Authentication);
     private readonly router = inject(Router);
     private readonly activeUrl = signal<string>('');
 

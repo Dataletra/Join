@@ -4,6 +4,7 @@
 
         <nav>
             <ul>
+                <!-- @if (authService.isSignedIn()) { -->
                 <li>
                     <a routerLink="summary" routerLinkActive="active" [class.active]="activeUrl() === '/summary'">
                         <img class="icon-default" src="./assets/icons/summary.svg" aria-hidden="true" />
@@ -32,6 +33,24 @@
                         Contacts
                     </a>
                 </li>
+                <!-- } @else {
+                    <li>
+                        <a (click)="authService.hideLogIn.set(false)" routerLink="login" routerLinkActive="active">
+                            <img class="icon-default" src="./assets/icons/log-in.svg" aria-hidden="true" />
+                            <img class="icon-active" src="./assets/icons/log-in.svg" aria-hidden="true" />
+                            Log In
+                        </a>
+                    </li>
+                    <li class="placeholder">
+                        <a></a>
+                    </li>
+                    <li class="placeholder">
+                        <a></a>
+                    </li>
+                    <li class="placeholder">
+                        <a></a>
+                    </li>
+                } -->
             </ul>
         </nav>
     </div>

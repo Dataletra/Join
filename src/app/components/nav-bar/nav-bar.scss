@@ -44,6 +44,24 @@ nav {
     }
 }
 
+.login_wrapper {
+    height: 100%;
+    width: 100%;
+
+    button {
+        width: 100%;
+        color: $color-nav;
+
+        img {
+            margin-right: 4px;
+        }
+
+        &:hover {
+            background-color: $color-nav-hover-bg;
+        }
+    }
+}
+
 li {
     width: 100%;
     list-style: none;
@@ -130,6 +148,10 @@ li {
             cursor: default;
         }
     }
+}
+
+.placeholder {
+    pointer-events: none;
 }
 
 @media screen and (max-width: $media-m) {
