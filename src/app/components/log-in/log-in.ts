@@ -19,14 +19,22 @@ export class LogIn {
     mode = 'log-in';
     dNone = signal(false);
     loginError = signal(false);
+    passwordVisible = signal(false);
+    signUpPasswordVisible = signal(false);
+    confirmPasswordVisible = signal(false);
 
     switchToSignUp() {
         this.signUpForm.reset();
+        this.signUpPasswordVisible.set(false);
+        this.confirmPasswordVisible.set(false);
         this.mode = 'sign-up';
     }
 
     switchToLogIn() {
         this.signUpForm.reset();
+        this.signUpPasswordVisible.set(false);
+        this.confirmPasswordVisible.set(false);
+        this.passwordVisible.set(false);
         this.mode = 'log-in';
     }
 

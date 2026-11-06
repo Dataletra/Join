@@ -24,13 +24,32 @@
                             formControlName="email"
                             (input)="loginError.set(false)"
                         />
-                        <input
-                            class="input-password"
-                            type="password"
-                            placeholder="Password"
-                            formControlName="password"
-                            (input)="loginError.set(false)"
-                        />
+                        <div class="password-input-wrapper">
+                            <input
+                                class="input-password"
+                                type="password"
+                                placeholder="Password"
+                                formControlName="password"
+                                (input)="loginError.set(false)"
+                                [class.has-value]="logInForm.controls.password.value"
+                                [type]="passwordVisible() ? 'text' : 'password'"
+                            />
+
+                            @if (logInForm.controls.password.value) {
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    (click)="passwordVisible.set(!passwordVisible())"
+                                >
+                                    <img
+                                        [src]="
+                                            passwordVisible() ? './assets/icons/eye.svg' : './assets/icons/eye-off.svg'
+                                        "
+                                        alt="Toggle password visibility"
+                                    />
+                                </button>
+                            }
+                        </div>
                         <div class="li-check-wrapper">
                             <p class="form-check" [class.is-visible]="loginError()">
                                 @if (loginError()) {
@@ -103,12 +122,31 @@
                             </p>
                         </div>
 
-                        <input
-                            class="input-password"
-                            type="password"
-                            placeholder="Password"
-                            formControlName="password"
-                        />
+                        <div class="password-input-wrapper">
+                            <input
+                                class="input-password"
+                                [type]="signUpPasswordVisible() ? 'text' : 'password'"
+                                placeholder="Password"
+                                formControlName="password"
+                                [class.has-value]="signUpForm.controls.password.value"
+                            />
+                            @if (signUpForm.controls.password.value) {
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    (click)="signUpPasswordVisible.set(!signUpPasswordVisible())"
+                                >
+                                    <img
+                                        [src]="
+                                            signUpPasswordVisible()
+                                                ? './assets/icons/eye.svg'
+                                                : './assets/icons/eye-off.svg'
+                                        "
+                                        alt="Toggle password visibility"
+                                    />
+                                </button>
+                            }
+                        </div>
                         <div class="su-check-wrapper">
                             <p
                                 class="form-check"
@@ -124,12 +162,32 @@
                             </p>
                         </div>
 
-                        <input
-                            class="input-password"
-                            type="password"
-                            placeholder="Confirm Password"
-                            formControlName="confirmPassword"
-                        />
+                        <div class="password-input-wrapper">
+                            <input
+                                class="input-password"
+                                [type]="confirmPasswordVisible() ? 'text' : 'password'"
+                                placeholder="Confirm Password"
+                                formControlName="confirmPassword"
+                                [class.has-value]="signUpForm.controls.confirmPassword.value"
+                            />
+
+                            @if (signUpForm.controls.confirmPassword.value) {
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    (click)="confirmPasswordVisible.set(!confirmPasswordVisible())"
+                                >
+                                    <img
+                                        [src]="
+                                            confirmPasswordVisible()
+                                                ? './assets/icons/eye.svg'
+                                                : './assets/icons/eye-off.svg'
+                                        "
+                                        alt="Toggle password visibility"
+                                    />
+                                </button>
+                            }
+                        </div>
                         <div class="su-check-wrapper">
                             <p
                                 class="form-check"

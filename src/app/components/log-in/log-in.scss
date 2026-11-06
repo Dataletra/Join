@@ -151,11 +151,17 @@ form {
 
 .inputs-log-in {
     margin-bottom: 24px;
+
     input {
         margin-bottom: 32px;
     }
-    .input-password {
+
+    .password-input-wrapper {
         margin-bottom: 8px;
+
+        .input-password {
+            margin-bottom: 0px;
+        }
     }
 }
 
@@ -199,6 +205,34 @@ form {
     background-image: url(../../../../public/assets/icons/lock.svg);
     background-position: 96%;
     background-repeat: no-repeat;
+
+    &.has-value {
+        background-image: none;
+    }
+}
+
+.password-input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+
+    img {
+        width: 24px;
+        height: 24px;
+    }
 }
 
 .buttons {
