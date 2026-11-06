@@ -1,4 +1,11 @@
 <section class="log-in">
+    @if (!authentication.introPlayed()) {
+        <div class="intro-screen">
+            <img src="./assets/icons/logo-dark.svg" class="intro-logo intro-logo-desktop" />
+            <img src="./assets/icons/logo.svg" class="intro-logo intro-logo-mobile" />
+        </div>
+    }
+
     <header>
         <img class="logo" src="./assets/icons/logo-dark.svg" aria-hidden="true" />
         <div class="not-a-user nau-desktop">
@@ -226,14 +233,10 @@
     </div>
 
     <footer>
-        <a
-            (click)="navigateService.goTo('privacy-policy')"
-            [class.active]="activeUrl() === '/privacy-policy'"
+        <a (click)="navigateService.goTo('privacy-policy')" [class.active]="activeUrl() === '/privacy-policy'"
             >Privacy Policy</a
         >
-        <a
-            (click)="navigateService.goTo('legal-notice')"
-            [class.active]="activeUrl() === '/legal-notice'"
+        <a (click)="navigateService.goTo('legal-notice')" [class.active]="activeUrl() === '/legal-notice'"
             >Legal notice</a
         >
     </footer>
