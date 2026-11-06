@@ -113,4 +113,9 @@ export class ContentSummary {
         }
         this.greetingMessage.set(this.greetingMessage() + (this.authService.currentUser() ? ',' : '!'));
     }
+
+    setWelcome() {
+        ContentSummary.showWelcome = true;
+        this.showWelcome = true;
+    }
 }

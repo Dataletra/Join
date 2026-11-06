@@ -6,7 +6,6 @@ import { User as Contact } from '../components/models/user';
 import { Toast, ToastType } from './toast';
 import { IUser } from '../interfaces/iuser';
 import { TrackableNavigate } from './trackable-navigate';
-
 @Service()
 export class Authentication {
     client = inject(SupabaseService);
