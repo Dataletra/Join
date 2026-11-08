@@ -1,14 +1,6 @@
-<section class="log-in">
+<section class="sign-up">
     <header>
         <img class="logo" src="./assets/icons/logo-dark.svg" aria-hidden="true" />
-        <div class="not-a-user nau-desktop">
-            @if (mode === 'log-in') {
-                <p>Not a Join user?</p>
-                <app-button-primary (click)="navigateService.goTo('sign-up')" [small]="true"
-                    >Sign up</app-button-primary
-                >
-            }
-        </div>
     </header>
 
     <div class="sign-up-wrapper">
@@ -134,11 +126,7 @@
                 <input type="checkbox" formControlName="privacyAccepted" />
                 <p>
                     I accept the
-                    <a
-                        (click)="navigateService.goTo('privacy-policy')"
-                        [class.active]="activeUrl() === '/privacy-policy'"
-                        >Privacy Policy</a
-                    >
+                    <a (click)="navigateService.goTo('privacy-policy')">Privacy Policy</a>
                 </p>
             </div>
 
@@ -153,12 +141,8 @@
     </div>
 
     <footer>
-        <a (click)="navigateService.goTo('privacy-policy')" [class.active]="activeUrl() === '/privacy-policy'"
-            >Privacy Policy</a
-        >
-        <a (click)="navigateService.goTo('legal-notice')" [class.active]="activeUrl() === '/legal-notice'"
-            >Legal notice</a
-        >
+        <a (click)="navigateService.goTo('privacy-policy')">Privacy Policy</a>
+        <a (click)="navigateService.goTo('legal-notice')">Legal notice</a>
     </footer>
 </section>
 <app-toast-added></app-toast-added>

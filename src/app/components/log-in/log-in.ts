@@ -19,8 +19,13 @@ export class LogIn {
     passwordVisible = signal(false);
     static introPlayed: boolean = false;
     introPlayed = LogIn.introPlayed;
+    static savedFormData: any = null;
 
     constructor() {
+        if (LogIn.savedFormData) {
+            this.logInForm.patchValue(LogIn.savedFormData);
+        }
+
         afterNextRender(() => {
             LogIn.introPlayed = true;
         });
@@ -58,5 +63,9 @@ export class LogIn {
         } else {
             this.loginError.set(true);
         }
+    }
+
+    ngOnDestroy() {
+        LogIn.savedFormData = this.logInForm.getRawValue();
     }
 }

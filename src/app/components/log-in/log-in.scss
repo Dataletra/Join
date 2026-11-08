@@ -213,8 +213,8 @@ footer {
 }
 
 .intro-animation-play {
-    animation: intro-background 0.5s ease forwards;
-    animation-delay: 0.7s;
+    animation: intro-background 0.4s ease forwards;
+    animation-delay: 2s;
 }
 
 .intro-logo {
@@ -223,7 +223,7 @@ footer {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    animation: intro-logo 1.7s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    animation: intro-logo 2s cubic-bezier(0.65, 0, 0.35, 1) forwards;
 }
 
 .intro-logo-mobile {
@@ -233,7 +233,7 @@ footer {
 .logo-animation-play {
     opacity: 0;
     animation: header-logo 0.3s ease forwards;
-    animation-delay: 1.4s;
+    animation-delay: 1.9s;
 }
 
 @keyframes intro-logo {
@@ -241,12 +241,24 @@ footer {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        opacity: 1;
     }
 
-    29.4% {
+    25% {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+
+    90% {
+        top: clamp(8px, calc(-8.857px + 5.268vw), 67px);
+        left: calc(
+            max(0px, (100vw - 2 * clamp(8px, calc(-11.714px + 6.161vw), 77px) - 1440px) / 2) +
+                clamp(8px, calc(-11.714px + 6.161vw), 77px)
+        );
+        transform: translate(0, 0);
+        opacity: 1;
     }
 
     100% {
