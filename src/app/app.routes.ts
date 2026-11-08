@@ -10,6 +10,7 @@ import { ContentMain } from './components/content-main/content-main';
 import { LogIn } from './components/log-in/log-in';
 import { authGuard } from './guards/auth-guard';
 import { unauthGuard } from './guards/unauth-guard';
+import { SignUp } from './components/sign-up/sign-up';
 
 export const routes: Routes = [
     {
@@ -20,6 +21,11 @@ export const routes: Routes = [
     {
         path: 'login',
         component: LogIn,
+        canActivate: [unauthGuard],
+    },
+    {
+        path: 'sign-up',
+        component: SignUp,
         canActivate: [unauthGuard],
     },
     {

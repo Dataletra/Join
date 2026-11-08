@@ -110,6 +110,8 @@ export class LogIn {
     }
 
     async logIn() {
+        console.log('login aufgerufen');
+
         if (this.logInForm.invalid) {
             return;
         }

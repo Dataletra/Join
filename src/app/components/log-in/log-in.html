@@ -14,7 +14,9 @@
         <div class="not-a-user nau-desktop">
             @if (mode === 'log-in') {
                 <p>Not a Join user?</p>
-                <app-button-primary (click)="switchToSignUp()" [small]="true">Sign up</app-button-primary>
+                <app-button-primary (click)="navigateService.goTo('sign-up')" [small]="true"
+                    >Sign up</app-button-primary
+                >
             }
         </div>
     </header>
@@ -230,7 +232,7 @@
     <div class="not-a-user nau-mobile">
         @if (mode === 'log-in') {
             <p>Not a Join user?</p>
-            <app-button-primary (click)="switchToSignUp()" [small]="true">Sign up</app-button-primary>
+            <app-button-primary (click)="navigateService.goTo('sign-up')" [small]="true">Sign up</app-button-primary>
         }
     </div>
 
