@@ -11,6 +11,10 @@ import { MainView } from './main-view/main-view';
 export class ContentContacts {
     showMainView = signal<boolean>(false);
 
+    /**
+     * Set or unset if a user is currently selected. 
+     * @param isSelected {boolean} - set showMainView to value
+     */
     handleUserSelectedStatus(isSelected: boolean) {
         this.showMainView.set(isSelected);
     }

@@ -45,6 +45,10 @@ export class EditTask {
     readonly categoryComp = viewChild(ComboboxCategory);
     readonly isPopupOpen = computed(() => this.categoryComp()?.popupExpanded() ?? false);
 
+    /**
+     * Creates effects for controlling the dialog visibility
+     * and loading the selected task's data into the form.
+     */
     constructor() {
         effect(() => {
             this.openClose();
@@ -67,6 +71,10 @@ export class EditTask {
         });
     }
 
+    /**
+     * Opens or closes the edit-task dialog depending on its current state
+     * and the active dialog mode.
+     */
     openClose() {
         const isOpen = this.dialogService.isOpen() && this.dialogService.mode() === 'edit-task';
         const dialogRef = this.dialog();
@@ -84,6 +92,10 @@ export class EditTask {
         }
     }
 
+    /**
+     * Handles the closing event of the edit-task dialog.
+     * Prevents closing when switching back to the task detail view.
+     */
     onDialogClose() {
         if (this.dialogService.mode() === 'task') {
             return;
@@ -91,6 +103,7 @@ export class EditTask {
         this.dialogService.close();
     }
 
+    /** Form group containing the editable task title, description and due date with their validators. */
     addTaskForm = new FormGroup({
         title: new FormControl('', { validators: [Validators.required] }),
         description: new FormControl(''),
@@ -108,31 +121,63 @@ export class EditTask {
         }),
     });
 
+    /**
+     * Updates the stored subtasks with the values received from the subtask component.
+     *
+     * @param taskArray - Array of subtasks to be stored.
+     */
     importSubtasks(taskArray: ISubtask[]) {
         this.IncomingSubtasks.set(taskArray);
     }
 
+    /**
+     * Updates the selected task category.
+     *
+     * @param category - Category value received from the category combobox.
+     */
     importCategory(category: string) {
         this.IncomingCategory.set(category);
     }
 
+    /**
+     * Updates the selected task priority.
+     *
+     * @param priority - Priority value received from the priority component.
+     */
     importPriority(priority: string) {
         this.IncomingPriority.set(priority);
     }
 
+    /**
+     * Updates the selected task status.
+     *
+     * @param status - Status value received from the status component.
+     */
     importStatus(status: string) {
         this.IncomingStatus.set(status);
     }
 
+    /** Calculates the number of additional assigned users beyond the first three. */
     trimmedUserIc = computed(() => {
         return '+ ' + (this.comboboxUsers().length - 3);
     });
 
+    /**
+     * Sets the assigned users based on their IDs.
+     * Updates both the user objects displayed in the combobox and the selected ID list.
+     *
+     * @param selectedIds - IDs of the users assigned to the task.
+     */
     assignedUsers(selectedIds: number[]) {
         this.comboboxUsers.set(this.contactService.userList.filter((userObj) => selectedIds.includes(userObj.id)));
         this.selectedUserIds.set(selectedIds);
     }
 
+    /**
+     * Checks whether any task properties have changed compared to the original task.
+     *
+     * @returns True if at least one property has changed, otherwise false.
+     */
     hasChanges() {
         const task = this.dialogService.selectedTask();
         const formValues = this.addTaskForm.value;
@@ -150,11 +195,22 @@ export class EditTask {
         );
     }
 
+    /**
+     * Compares two values by converting them to JSON strings.
+     *
+     * @param a - First value to compare.
+     * @param b - Second value to compare.
+     * @returns True if both serialized values are equal, otherwise false.
+     */
     private sameValues(a: unknown, b: unknown): boolean {
         return JSON.stringify(a) === JSON.stringify(b);
     }
 
-    async saveTask() {
+    /**
+     * Validates the form and saves the updated task if changes have been made.
+     * Closes the dialog after processing.
+     */
+    saveTask() {
         const currentTask = this.dialogService.selectedTask();
         if (!currentTask || this.addTaskForm.invalid) {
             return;
@@ -171,7 +227,7 @@ export class EditTask {
                 category: this.IncomingCategory() as Task['category'],
                 subtasks: this.IncomingSubtasks(),
             });
-            await this.tasksService.editApiTask(updatedTask, true);
+            this.tasksService.editApiTask(updatedTask, true);
         }
         this.dialogService.close();
     }

@@ -1,4 +1,4 @@
-import { ISubtask, ITask, ITaskUser } from '../../interfaces/itask';
+import { ISubtask, ITask } from '../../interfaces/itask';
 import { Status, Priority } from '../../interfaces/enums';
 
 export class Task implements ITask {
@@ -39,9 +39,3 @@ export class Task implements ITask {
         };
     }
 }
-
-//TODO ENUM priority
-//TODO ENUM category (maybe?)
-//TODO FIX task.ts -> make work with interface
-//TODO content-add-task.ts -> comboboxUserID's has to actually return the ID's and not USERS
-//TODO adjust content-add-task.ts to work with task class

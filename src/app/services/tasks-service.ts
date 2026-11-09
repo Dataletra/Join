@@ -13,6 +13,9 @@ export class TasksService {
     toastService = inject(Toast);
     taskSortService = inject(TaskListService);
 
+    /**
+     * remove channel subscription
+     */
     ngOnDestroy() {
         this.supabase.removeChannel(this.channelTaskInsert);
         this.supabase.removeChannel(this.channelTaskUpdate);
@@ -50,18 +53,31 @@ export class TasksService {
         })
         .subscribe();
 
+    /**
+     * Fetch all tasks from database.
+     * @returns void
+     */
     async fetchTasks() {
         let { data, error } = await this.supabase.from('tasks').select('*');
         if (!data) return;
         this.tasklist.set(data.map((task) => new Task(task)));
     }
 
+    /**
+     * Upload new task to database.
+     * @param task {Task} - to add
+     */
     async addApiTask(task: Task) {
         this.toastService.setTypeMatch(ToastType.insertTask);
         const taskData = task.getCleanAddJson();
         const { data, error } = await this.supabase.from('tasks').insert([taskData]).select();
     }
 
+    /**
+     * Edit task on database
+     * @param task {Task} - updated task
+     * @param showToast - wether to show a success toast.
+     */
     async editApiTask(task: Task, showToast: boolean = false) {
         const oldTask = this.getTaskPerId(task.id);
         if (oldTask) {
@@ -71,21 +87,40 @@ export class TasksService {
         }
     }
 
+    /**
+     * Edit status of a databaes task
+     * @param id {number | undefined} - id of destination task
+     * @param status {Status} - new status
+     */
     async editApiStatus(id: number | undefined, status: Status) {
         if (id && this.getTaskPerId(id)) {
             const { data, error } = await this.supabase.from('tasks').update({ status: status }).eq('id', id).select();
         }
     }
 
+    /**
+     * Delete Task from database
+     * @param id {number} - id to be deleted
+     */
     async deleteApiTask(id: number) {
         this.toastService.setTypeMatch(ToastType.deleteTask);
         const { error } = await this.supabase.from('tasks').delete().eq('id', id);
     }
 
+    /**
+     * Get local task.
+     * @param id {number | undefined} - task id to get task details from.
+     * @returns task on success, else undefined
+     */
     getTaskPerId(id: number | undefined): ITask | undefined {
         return id ? this.tasklist().find((task) => task.id === id) : undefined;
     }
 
+    /**
+     * Searh all local tasks for given string occurence in title and description.
+     * @param searchkey {string} - search string
+     * @returns {number[]} - id array of all matches.
+     */
     findString(searchkey: string): number[] {
         const results: number[] = [];
         for (const task of this.tasklist()) {
@@ -99,6 +134,10 @@ export class TasksService {
         return results;
     }
 
+    /**
+     * Delete user form all tasks connected to that user.
+     * @param userId {number | null} - deleted user
+     */
     async deleteApiUser(userId: number | null) {
         if (this.tasklist().length === 0) {
             await this.fetchTasks();

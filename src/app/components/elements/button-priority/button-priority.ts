@@ -45,7 +45,6 @@ export class ButtonPriority {
                 this.prioSignals[2].set(true);
                 break;
             default:
-                console.error('PRIORITY BUTTON ERROR:' + prio);
         }
         this.priorityOutput.emit(prio);
     }

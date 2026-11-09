@@ -48,7 +48,9 @@ export class TaskCard {
     private scrollSubscription?: Subscription;
 
     /**
-     * Start ResizeObserver to observe width of task card.
+     * Initializes a ResizeObserver to monitor the task card's width.
+     * Updates isTight when the card becomes narrower than 140 pixels.
+     * Disconnects the observer when the component is destroyed.
      */
     constructor() {
         afterNextRender(() => {
@@ -63,6 +65,10 @@ export class TaskCard {
         });
     }
 
+    /**
+     * Subscribes to scrolling events.
+     * Closes the context menu whenever the user scrolls while it is open.
+     */
     ngOnInit() {
         this.scrollSubscription = this.scrollDispatcher.scrolled().subscribe(() => {
             if (this.showMenu()) {
@@ -71,24 +77,41 @@ export class TaskCard {
         });
     }
 
+    /**
+     * Unsubscribes from scrolling events when the component is destroyed.
+     */
     ngOnDestroy() {
         this.scrollSubscription?.unsubscribe();
     }
 
+    /**
+     * Returns the contact objects assigned to the current task.
+     * Resolves the user IDs stored in the task against the contact list.
+     */
     assignedUsers = computed(() => {
         const userIds = this.task().user_ids;
         const users = this.contactService.users();
         return userIds.map((id) => users.find((user) => user.id === id)).filter((user) => user !== undefined);
     });
 
+    /**
+     * Opens the task detail dialog for the current task.
+     */
     onTaskClick() {
         this.dialogService.openTask('task', this.task());
     }
 
+    /**
+     * Returns the number of completed subtasks.
+     */
     get completedSubtasks(): number {
         return this.task().subtasks.filter((subtask) => subtask.completed).length;
     }
 
+    /**
+     * Calculates the completion percentage of the task's subtasks.
+     * Returns 0 if the task has no subtasks.
+     */
     get progress(): number {
         const total = this.task().subtasks.length;
         if (total === 0) {
@@ -97,10 +120,19 @@ export class TaskCard {
         return (this.completedSubtasks / total) * 100;
     }
 
+    /**
+     * Emits a status change for the current task.
+     * @param status - The new status to assign to the task.
+     */
     moveTo(status: Status) {
         this.statusChange.emit({ id: this.task().id, status: status });
     }
 
+    /**
+     * Toggles the context menu and updates the overlay state.
+     * Calculates the menu position before opening it.
+     * @param event - Optional event whose propagation should be stopped.
+     */
     toggleMenu(event: Event | null = null) {
         event?.stopPropagation();
         if (false === this.showMenu()) {
@@ -115,6 +147,10 @@ export class TaskCard {
         }
     }
 
+    /**
+     * Closes the context menu and disables overlay listening after a short delay.
+     * @param event - Optional event whose propagation should be stopped.
+     */
     hideMenu(event: Event | null = null) {
         event?.stopPropagation();
         if (this.showMenu()) {
@@ -126,8 +162,13 @@ export class TaskCard {
         }
     }
 
+    /**
+     * Determines whether the context menu needs to be flipped
+     * based on the task card's position within the viewport.
+     * Flips the menu if there is not enough space on the right.
+     */
     setMenuPosition() {
         const rectRelative = this.taskCard().nativeElement.getBoundingClientRect();
-        this.flipMenu.set(rectRelative.right < (200 + 12));
+        this.flipMenu.set(rectRelative.right < 200 + 12);
     }
 }

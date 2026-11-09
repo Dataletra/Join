@@ -73,9 +73,12 @@ export class Authentication {
             email: email,
             password: password,
         });
+        if (error) {
+            this.initialized.set(true);
+            return false;
+        }
         await this.isInitializing();
-
-        return error ? false : true;
+        return true;
     }
 
     /**
@@ -85,6 +88,9 @@ export class Authentication {
     async signInAnonymously(): Promise<boolean> {
         this.initialized.set(false);
         const { data, error } = await this.client.supabase.auth.signInAnonymously();
+        if (error) {
+            this.initialized.set(true);
+        }
         await this.isInitializing();
         return error ? false : true;
     }
@@ -96,6 +102,9 @@ export class Authentication {
     async signOut(): Promise<boolean> {
         this.initialized.set(false);
         const { error } = await this.client.supabase.auth.signOut();
+        if (error) {
+            this.initialized.set(true);
+        }
         this.navService.goTo('login');
         await this.isInitializing();
         return error ? false : true;
@@ -145,7 +154,11 @@ export class Authentication {
      * possibly return false on initialization -> the router canActivateFn will not work properly. So wait.
      */
     async isInitializing(): Promise<void> {
-        while (!this.initialized()) {
+        let escape: boolean = false;
+        setTimeout(() => {
+            escape = true;
+        }, 1000);
+        while (!this.initialized() && !escape) {
             await new Promise((resolve) => setTimeout(resolve, 10));
         }
     }

@@ -25,6 +25,10 @@ export class Header {
         const currentName = this.authService.currentUser()?.name ?? 'Guest';
         return this.authService.isSignedIn() ? currentName : 'XX';
     });
+
+    /**
+     * Show or hide the dropdown menu from user icon.
+     */
     toggleMenu() {
         if (false === this.showMenu()) {
             this.overlayListen.set(true);
@@ -37,6 +41,9 @@ export class Header {
         }
     }
 
+    /**
+     * Hide dropdown menu.
+     */
     hideMenu() {
         if (this.showMenu()) {
             this.showMenu.set(false);
@@ -47,6 +54,10 @@ export class Header {
         }
     }
 
+    /**
+     * Hide menu and go to given path by navigation service.
+     * @param path {string} - path to go to
+     */
     goToPage(path: string) {
         this.hideMenu();
         this.navigateService.goTo(path);

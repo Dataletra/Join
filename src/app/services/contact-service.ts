@@ -14,17 +14,28 @@ export class ContactService {
 
     users = signal<IUser[]>([]);
     selectedUserID = signal<number | null>(null);
+    shouldScrollToSelectedUser = signal<boolean>(false);
 
+    /**
+     * Fetch and sort users.
+     */
     constructor() {
         this.getUsers();
     }
 
+    /**
+     * Remove channel subscribtions.
+     */
     ngOnDestroy() {
         this.supabase.removeChannel(this.channelUserInsert);
         this.supabase.removeChannel(this.channelUserUpdate);
         this.supabase.removeChannel(this.channelUserDelete);
     }
 
+    /**
+     * Sort users alphabetically.
+     * @returns void
+     */
     sortUsers() {
         if (!this.userList) {
             return;
@@ -90,16 +101,30 @@ export class ContactService {
         })
         .subscribe();
 
+    /**
+     * Get User from API, or null if email does not exist
+     * @param email {string} email
+     * @returns {Promise<IUser | null>} - User from API, or null if email does not exist.
+     */
     async getUserByApiEmail(email: string): Promise<IUser | null> {
         let { data: user, error } = await this.supabase.from('user').select('*').eq('email', email).maybeSingle();
         return user && !error ? (user as IUser) : null;
     }
 
+    /**
+     * Get User from API, or null if uid does not exist
+     * @param uid {string} uid
+     * @returns {Promise<IUser | null>} - User from API, or null if uid does not exist.
+     */
     async getUserByApiUid(uid: string): Promise<IUser | null> {
         let { data: user, error } = await this.supabase.from('user').select('*').eq('uid', uid).maybeSingle();
         return user && !error ? (user as IUser) : null;
     }
 
+    /**
+     * Fetch all users.
+     * @returns void
+     */
     async getUsers() {
         let { data: user, error } = await this.supabase.from('user').select('*');
         if (!user) return;
@@ -108,6 +133,12 @@ export class ContactService {
         this.sortUsers();
     }
 
+    /**
+     * Upload a user to databank.
+     * @param user {User} - User to add to Supabase.
+     * @param showToast {boolean} - show toast message, if possible.
+     * @returns userid
+     */
     async addUser(user: User, showToast: boolean = false) {
         if (showToast) {
             this.toastService.setTypeMatch(ToastType.insertContact);
@@ -117,12 +148,35 @@ export class ContactService {
         return data?.[0];
     }
 
+    /**
+     * Delete User from databank.
+     * @param id {number | null} - user id to delete.
+     */
     async deleteApiUser(id: number | null) {
         this.toastService.setTypeMatch(ToastType.deleteContact);
         this.taskService.deleteApiUser(id);
         const response = await this.supabase.from('user').delete().eq('id', id);
     }
 
+    /**
+     * Delete Authenticated user (currently logged in user) from databank.
+     * @param id {number | null} - user id to delete.
+     * @returns void on error
+     */
+    async deleteAuthUser(id: number | null) {
+        const pendingDeletion = this.userList.find((entry) => entry.id === id);
+        if (pendingDeletion == undefined) {
+            return;
+        }
+        this.toastService.setTypeMatch(ToastType.deleteContact);
+        const { data, error } = await this.supabase.auth.admin.deleteUser(pendingDeletion.uid!);
+    }
+
+    /**
+     * Edit User on databank.
+     * @param user {User} - user to be updated.
+     * @param showToast {boolean} - show toast message, if possible.
+     */
     async editUser(user: User, showToast: boolean = false) {
         if (showToast) {
             this.toastService.setTypeMatch(ToastType.updateContact);
