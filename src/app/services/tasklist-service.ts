@@ -92,14 +92,14 @@ export class TaskListService {
     moveApiItem(id: number, statusNew: Status) {
         for (const [status, taskList] of this.taskMap()) {
             const index = taskList.indexOf(id);
-            if (index >= 0) {
+            if (index >= 0 && status !== statusNew) {
                 taskList.splice(index, 1);
                 this.editApiTaskList({ status: status, order: taskList });
                 break;
             }
         }
         const updatedStatus = this.taskMap().get(statusNew);
-        if (updatedStatus) {
+        if (updatedStatus && updatedStatus.indexOf(id) < 0) {
             updatedStatus.push(id);
             this.editApiTaskList({ status: statusNew, order: updatedStatus });
         }
