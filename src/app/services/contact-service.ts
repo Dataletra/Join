@@ -14,6 +14,7 @@ export class ContactService {
 
     users = signal<IUser[]>([]);
     selectedUserID = signal<number | null>(null);
+    shouldScrollToSelectedUser = signal<boolean>(false);
 
     constructor() {
         this.getUsers();

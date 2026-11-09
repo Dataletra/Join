@@ -83,6 +83,7 @@ export class AddContact {
         this.avatarName = '';
         this.dialogService.close();
         this.supabaseService.selectedUserID.set(newUser.id);
+        this.supabaseService.shouldScrollToSelectedUser.set(true);
     }
 
     updateAvatar() {
