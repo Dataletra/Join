@@ -202,8 +202,22 @@ li {
             }
         }
     }
-
-    .legal-links {
+    .placeholder {
         display: none;
+    }
+    .legal-links {
+        display: flex;
+        flex-direction: row;
+    }
+    .mobile-legal {
+        a {
+            min-width: 150px;
+        }
+        &.margin-left-auto {
+            grid-column: 3;
+        }
+    }
+    .margin-left-auto {
+        margin-left: auto !important;
     }
 }
