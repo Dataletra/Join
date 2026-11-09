@@ -23,11 +23,13 @@ export class Namelist {
         effect(() => {
             const selectedUserID = this.dbService.selectedUserID();
             const users = this.dbService.users();
-            if (selectedUserID === null) return;
+            const shoulScroll = this.dbService.shouldScrollToSelectedUser();
+            if (!shoulScroll || selectedUserID === null) return;
             const checkUser = users.some((user) => user.id === selectedUserID);
             if (!checkUser) return;
             queueMicrotask(() => {
                 this.scrollToSelectedUser();
+                this.dbService.shouldScrollToSelectedUser.set(false);
             });
         });
     }
