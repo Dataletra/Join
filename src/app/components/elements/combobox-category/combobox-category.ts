@@ -23,6 +23,10 @@ export class ComboboxCategory {
     readonly labels = [{ value: 'Technical Task' }, { value: 'User Story' }];
     readonly initialCategory = input<string>('');
 
+    /**
+     * Keeps the active listbox item visible after rendering.
+     * Initializes the selected category when the input value changes.
+     */
     constructor() {
         afterRenderEffect(() => {
             this.listbox()?.scrollActiveItemIntoView();
@@ -36,6 +40,11 @@ export class ComboboxCategory {
         });
     }
 
+    /**
+     * Confirms the current selection and closes the popup.
+     * Emits the selected category or an empty string if no category is selected.
+     * Also emits the touched event.
+     */
     onCommit() {
         this.popupExpanded.set(false);
         if (this.selectedValues()[0] == undefined || this.selectedValues()[0] == null) {
@@ -46,19 +55,34 @@ export class ComboboxCategory {
         this.categoryOutput.emit(this.selectedValues()[0]);
         this.touched.emit();
     }
+
+    /**
+     * Updates the expanded state of the popup.
+     * Emits the touched event when the popup is closed.
+     * @param expanded - Whether the combobox popup is currently expanded.
+     */
     onOpenOrClose(expanded: boolean) {
         this.popupExpanded.set(expanded);
         if (!expanded) {
             this.touched.emit();
         }
     }
+
+    /**
+     * Marks the category field as touched on its first interaction.
+     * Emits the touched event only once.
+     */
     markAsTouched() {
         if (!this.hasBeenTouched) {
             this.hasBeenTouched = true;
-            this.touched.emit(); // Emits once on first interaction
+            this.touched.emit();
         }
     }
 
+    /**
+     * Clears the selected category and resets the touched state.
+     * Emits an empty string to notify the parent component.
+     */
     requestReset() {
         this.selectedValues.set([]);
         this.hasBeenTouched = false;
