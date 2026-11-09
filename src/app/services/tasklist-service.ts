@@ -19,6 +19,10 @@ export class TaskListService {
         })
         .subscribe();
 
+    /**
+     * Fetch all tasklists from databank and set it into local memory.
+     * @returns void on error
+     */
     async fetchTaskLists() {
         let { data: taskList, error } = await this.supabase.from('taskList').select('*');
         if (!taskList) {
@@ -31,6 +35,10 @@ export class TaskListService {
         this.taskMap.set(taskMap);
     }
 
+    /**
+     * Edit a tasklist from databank.
+     * @param taskList {ITaskList} - to be updated
+     */
     async editApiTaskList(taskList: ITaskList) {
         const { data, error } = await this.supabase
             .from('taskList')
@@ -39,12 +47,21 @@ export class TaskListService {
             .select();
     }
 
+    /**
+     * Update complete tasklist map on databank.
+     * @param taskMap {Map<Status, number[]>} - map to be updated
+     */
     async editApiTaskMap(taskMap: Map<Status, number[]>) {
         for (const [status, tasks] of taskMap) {
             await this.editApiTaskList({ status: status, order: tasks });
         }
     }
 
+    /**
+     * Add a new task to the bottom of tasklist defined by status.
+     * @param id {number} - id of task
+     * @param status {Status} - initial status (tasklist)
+     */
     addTask(id: number, status: Status) {
         const newList = this.taskMap().get(status);
         if (newList) {
@@ -54,6 +71,10 @@ export class TaskListService {
         }
     }
 
+    /**
+     * Remove Task from local task lists.
+     * @param id {number} - task to be deleted
+     */
     deleteTask(id: number) {
         for (const [status, tasks] of this.taskMap()) {
             const index = tasks.indexOf(id);
@@ -63,6 +84,11 @@ export class TaskListService {
         }
     }
 
+    /**
+     * Move Task to another status and update task itself and tasklists accordingly.
+     * @param id {number} - task to be moved
+     * @param statusNew {Status} - destination status
+     */
     moveApiItem(id: number, statusNew: Status) {
         for (const [status, taskList] of this.taskMap()) {
             const index = taskList.indexOf(id);
@@ -79,10 +105,20 @@ export class TaskListService {
         }
     }
 
+    /**
+     * Get local list by status.
+     * @param status {Status} - status of target list.
+     * @returns number[]
+     */
     getStatusList(status: Status): number[] | null {
         return this.taskMap().get(status) ?? null;
     }
 
+    /**
+     * Filter the local data by given ids.
+     * @param ids {number[]} ids to be use as filter
+     * @returns
+     */
     filter(ids: number[]): Map<Status, number[]> {
         const filteredMap: Map<Status, number[]> = new Map<Status, number[]>();
         for (const [status, tasks] of this.taskMap()) {
@@ -94,6 +130,9 @@ export class TaskListService {
         return filteredMap;
     }
 
+    /**
+     * Remove channel subscription
+     */
     ngOnDestroy() {
         this.supabase.removeChannel(this.channeTaskListUpdate);
     }

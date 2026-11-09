@@ -10,6 +10,9 @@ import { TrackableNavigate } from '../../../services/trackable-navigate';
 export class ButtonBack {
     private navigateService = inject(TrackableNavigate);
     
+    /**
+     * Navigate back by trackable router navigation.
+     */
     goBack = () => {
         this.navigateService.goBack();
     };
