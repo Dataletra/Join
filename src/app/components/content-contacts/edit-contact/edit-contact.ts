@@ -22,6 +22,10 @@ export class EditContact {
     avatarName = signal('');
     showConfirm = signal<boolean>(false);
 
+    /**
+     * Creates effects for controlling the dialog visibility
+     * and loading the selected contact's data into the form.
+     */
     constructor() {
         effect(() => {
             this.openClose();
@@ -42,6 +46,10 @@ export class EditContact {
         });
     }
 
+    /**
+     * Opens or closes the contact dialog depending on its current state
+     * and the active dialog mode.
+     */
     openClose() {
         const isOpen = this.dialogService.isOpen() && this.dialogService.mode() === 'edit';
         const dialogRef = this.dialog();
@@ -59,6 +67,7 @@ export class EditContact {
         }
     }
 
+    /** Form group containing the contact name, email address and phone number with their validators. */
     contactForm = new FormGroup({
         name: new FormControl('', {
             nonNullable: true,
@@ -83,6 +92,11 @@ export class EditContact {
         }),
     });
 
+    /**
+     * Validates the form, creates an updated User object
+     * and saves the changes to the database.
+     * Closes the dialog after a successful update.
+     */
     async onSubmit() {
         if (this.contactForm.invalid) {
             return;
@@ -100,6 +114,10 @@ export class EditContact {
         this.dialogService.close();
     }
 
+    /**
+     * Deletes the currently selected contact from the database
+     * and closes the dialog.
+     */
     async onDelete() {
         const selectedUser = this.dialogService.selectedUser();
         if (!selectedUser) {
@@ -109,6 +127,10 @@ export class EditContact {
         this.dialogService.close();
     }
 
+    /**
+     * Updates the avatar name based on the validity of the name input.
+     * Displays the entered name only when it passes validation.
+     */
     updateAvatar() {
         const nameControl = this.contactForm.controls.name;
         if (nameControl.valid) {
