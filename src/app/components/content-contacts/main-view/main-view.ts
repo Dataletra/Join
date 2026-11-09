@@ -67,6 +67,7 @@ export class MainView {
 
     deleteUser() {
         this.dbService.deleteApiUser(this.dbService.selectedUserID());
+        this.dbService.deleteAuthUser(this.dbService.selectedUserID());
     }
 
     disableDelete = computed(() => {
