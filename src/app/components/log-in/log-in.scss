@@ -30,6 +30,7 @@ header {
 
 .logo {
     width: clamp(64px, calc(53.714px + 3.214vw), 100px);
+    opacity: 1;
 }
 
 .not-a-user {
@@ -58,57 +59,6 @@ header {
     justify-content: center;
     padding-block: clamp(16px, calc(6.857px + 2.857vw), 48px) 0 0;
     padding-inline: clamp(8px, calc(-3.429px + 3.571vw), 48px);
-}
-
-.sign-up-wrapper {
-    width: clamp(290px, calc(173.429px + 36.429vw), 698px);
-    max-height: 630px;
-    background-color: $color-nav-high;
-    border-radius: 30px;
-    box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.14);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-block: clamp(16px, calc(6.857px + 2.857vw), 48px);
-    padding-inline: clamp(8px, calc(-3.429px + 3.571vw), 48px);
-    position: relative;
-
-    .privacy-policy {
-        display: flex;
-        justify-content: center;
-        gap: 12px;
-        margin-bottom: 32px;
-
-        p {
-            color: $color-icon2;
-
-            a {
-                color: #124658;
-                cursor: pointer;
-            }
-        }
-
-        input {
-            width: 16px;
-            height: 16px;
-            appearance: none;
-            background-image: url('../../../../public/assets/icons/checkbox-disable.svg');
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: contain;
-            cursor: pointer;
-
-            &:checked {
-                background-image: url('../../../../public/assets/icons/checkbox-checked.svg');
-            }
-        }
-    }
-}
-
-.back-btn {
-    position: absolute;
-    left: clamp(10px, calc(-22px + 10vw), 48px);
-    top: 64px;
 }
 
 h2 {
@@ -166,13 +116,6 @@ form {
     }
 }
 
-.su-check-wrapper {
-    height: 24px;
-    padding-left: 21px;
-    display: flex;
-    align-items: center;
-}
-
 .li-check-wrapper {
     height: 24px;
     padding-left: 21px;
@@ -188,12 +131,6 @@ form {
     display: block;
     font-size: 14px;
     color: $color-form-check;
-}
-
-.input-name {
-    background-image: url(../../../../public/assets/icons/person.svg);
-    background-position: 96%;
-    background-repeat: no-repeat;
 }
 
 .input-email {
@@ -276,8 +213,8 @@ footer {
 }
 
 .intro-animation-play {
-    animation: intro-background 0.5s ease forwards;
-    animation-delay: 0.7s;
+    animation: intro-background 0.4s ease forwards;
+    animation-delay: 2s;
 }
 
 .intro-logo {
@@ -286,17 +223,17 @@ footer {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    animation: intro-logo 1.7s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+    animation: intro-logo 2s cubic-bezier(0.65, 0, 0.35, 1) forwards;
 }
 
 .intro-logo-mobile {
     display: none;
 }
 
-.logo {
+.logo-animation-play {
     opacity: 0;
     animation: header-logo 0.3s ease forwards;
-    animation-delay: 1.05s;
+    animation-delay: 1.9s;
 }
 
 @keyframes intro-logo {
@@ -304,12 +241,24 @@ footer {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        opacity: 1;
     }
 
-    29.4% {
+    25% {
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+
+    90% {
+        top: clamp(8px, calc(-8.857px + 5.268vw), 67px);
+        left: calc(
+            max(0px, (100vw - 2 * clamp(8px, calc(-11.714px + 6.161vw), 77px) - 1440px) / 2) +
+                clamp(8px, calc(-11.714px + 6.161vw), 77px)
+        );
+        transform: translate(0, 0);
+        opacity: 1;
     }
 
     100% {
@@ -348,10 +297,6 @@ footer {
     .log-in-buttons {
         flex-direction: column;
         gap: 21px;
-    }
-
-    .inputs-sign-up {
-        margin-bottom: 8px;
     }
 
     .intro-screen {

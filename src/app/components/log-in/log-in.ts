@@ -14,70 +14,22 @@ import { ToastAdded } from '../elements/toast-added/toast-added';
 })
 export class LogIn {
     navigateService = inject(TrackableNavigate);
-    private readonly activeUrl = signal<string>('');
-    validatorService = inject(CustomValidators);
     authentication = inject(Authentication);
-    mode = 'log-in';
     loginError = signal(false);
     passwordVisible = signal(false);
-    signUpPasswordVisible = signal(false);
-    confirmPasswordVisible = signal(false);
     static introPlayed: boolean = false;
     introPlayed = LogIn.introPlayed;
+    static savedFormData: any = null;
 
     constructor() {
+        if (LogIn.savedFormData) {
+            this.logInForm.patchValue(LogIn.savedFormData);
+        }
+
         afterNextRender(() => {
             LogIn.introPlayed = true;
         });
     }
-
-    switchToSignUp() {
-        this.signUpForm.reset();
-        this.signUpPasswordVisible.set(false);
-        this.confirmPasswordVisible.set(false);
-        this.mode = 'sign-up';
-    }
-
-    switchToLogIn() {
-        this.signUpForm.reset();
-        this.signUpPasswordVisible.set(false);
-        this.confirmPasswordVisible.set(false);
-        this.passwordVisible.set(false);
-        this.mode = 'log-in';
-    }
-
-    signUpForm = new FormGroup(
-        {
-            name: new FormControl('', {
-                nonNullable: true,
-                validators: [Validators.required, this.validatorService.customNameValidator()],
-            }),
-
-            email: new FormControl('', {
-                nonNullable: true,
-                validators: [Validators.required, Validators.email, this.validatorService.customMailValidator()],
-            }),
-
-            password: new FormControl('', {
-                nonNullable: true,
-                validators: [Validators.required, this.validatorService.customPasswordValidator()],
-            }),
-
-            confirmPassword: new FormControl('', {
-                nonNullable: true,
-                validators: [Validators.required],
-            }),
-
-            privacyAccepted: new FormControl(false, {
-                nonNullable: true,
-                validators: [Validators.requiredTrue],
-            }),
-        },
-
-        {
-            validators: [this.validatorService.customPasswordMatchValidator()],
-        }
-    );
 
     logInForm = new FormGroup({
         email: new FormControl('', {
@@ -97,19 +49,9 @@ export class LogIn {
         }
     }
 
-    async signUp() {
-        if (this.signUpForm.invalid) {
-            return;
-        }
-        const formData = this.signUpForm.getRawValue();
-        const success = await this.authentication.signUpNewUser(formData.name, formData.email, formData.password);
-        if (success) {
-            this.signUpForm.reset();
-            this.switchToLogIn();
-        }
-    }
-
     async logIn() {
+        console.log('login aufgerufen');
+
         if (this.logInForm.invalid) {
             return;
         }
@@ -121,5 +63,9 @@ export class LogIn {
         } else {
             this.loginError.set(true);
         }
+    }
+
+    ngOnDestroy() {
+        LogIn.savedFormData = this.logInForm.getRawValue();
     }
 }

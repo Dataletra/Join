@@ -73,9 +73,11 @@ export class Authentication {
             email: email,
             password: password,
         });
+        if (error) {
+            return false;
+        }
         await this.isInitializing();
-
-        return error ? false : true;
+        return true;
     }
 
     /**

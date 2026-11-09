@@ -1,0 +1,148 @@
+<section class="sign-up">
+    <header>
+        <img class="logo" src="./assets/icons/logo-dark.svg" aria-hidden="true" />
+    </header>
+
+    <div class="sign-up-wrapper">
+        <button (click)="navigateService.goTo('login')" class="back-btn">
+            <img src="./assets/icons/arrow-left.svg" aria-hidden="true" />
+        </button>
+        <h2>Sign up</h2>
+        <hr />
+        <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
+            <div class="inputs inputs-sign-up">
+                <input class="input-name" type="text" placeholder="Name" formControlName="name" />
+                <div class="su-check-wrapper">
+                    <p
+                        class="form-check"
+                        [class.is-visible]="signUpForm.controls.name.invalid && signUpForm.controls.name.touched"
+                    >
+                        @if (signUpForm.controls.name.hasError('required')) {
+                            Please enter a name.
+                        } @else if (signUpForm.controls.name.hasError('namePattern')) {
+                            Please enter your first and last name.
+                        }
+                    </p>
+                </div>
+
+                <input class="input-email" type="email" placeholder="Email" formControlName="email" />
+                <div class="su-check-wrapper">
+                    <p
+                        class="form-check"
+                        [class.is-visible]="signUpForm.controls.email.invalid && signUpForm.controls.email.touched"
+                    >
+                        @if (signUpForm.controls.email.hasError('required')) {
+                            Please enter an email address.
+                        } @else if (
+                            signUpForm.controls.email.hasError('email') ||
+                            signUpForm.controls.email.hasError('emailPattern')
+                        ) {
+                            Please enter a valid email address.
+                        }
+                    </p>
+                </div>
+
+                <div class="password-input-wrapper">
+                    <input
+                        class="input-password"
+                        [type]="signUpPasswordVisible() ? 'text' : 'password'"
+                        placeholder="Password"
+                        formControlName="password"
+                        [class.has-value]="signUpForm.controls.password.value"
+                    />
+                    @if (signUpForm.controls.password.value) {
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            (click)="signUpPasswordVisible.set(!signUpPasswordVisible())"
+                        >
+                            <img
+                                [src]="
+                                    signUpPasswordVisible() ? './assets/icons/eye.svg' : './assets/icons/eye-off.svg'
+                                "
+                                alt="Toggle password visibility"
+                            />
+                        </button>
+                    }
+                </div>
+                <div class="su-check-wrapper">
+                    <p
+                        class="form-check"
+                        [class.is-visible]="
+                            signUpForm.controls.password.invalid && signUpForm.controls.password.touched
+                        "
+                    >
+                        @if (signUpForm.controls.password.hasError('required')) {
+                            Please enter a password.
+                        } @else if (signUpForm.controls.password.hasError('passwordPattern')) {
+                            Min. 8 characters, upper- and lowercase, and a number.
+                        }
+                    </p>
+                </div>
+
+                <div class="password-input-wrapper">
+                    <input
+                        class="input-password"
+                        [type]="confirmPasswordVisible() ? 'text' : 'password'"
+                        placeholder="Confirm Password"
+                        formControlName="confirmPassword"
+                        [class.has-value]="signUpForm.controls.confirmPassword.value"
+                    />
+
+                    @if (signUpForm.controls.confirmPassword.value) {
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            (click)="confirmPasswordVisible.set(!confirmPasswordVisible())"
+                        >
+                            <img
+                                [src]="
+                                    confirmPasswordVisible() ? './assets/icons/eye.svg' : './assets/icons/eye-off.svg'
+                                "
+                                alt="Toggle password visibility"
+                            />
+                        </button>
+                    }
+                </div>
+                <div class="su-check-wrapper">
+                    <p
+                        class="form-check"
+                        [class.is-visible]="
+                            (signUpForm.controls.confirmPassword.invalid &&
+                                signUpForm.controls.confirmPassword.touched) ||
+                            (signUpForm.hasError('passwordMismatch') && signUpForm.controls.confirmPassword.touched)
+                        "
+                    >
+                        @if (signUpForm.controls.confirmPassword.hasError('required')) {
+                            Please confirm your password.
+                        } @else if (signUpForm.hasError('passwordMismatch')) {
+                            Passwords do not match.
+                        }
+                    </p>
+                </div>
+            </div>
+
+            <div class="privacy-policy">
+                <input type="checkbox" formControlName="privacyAccepted" />
+                <p>
+                    I accept the
+                    <a (click)="navigateService.goTo('privacy-policy')">Privacy Policy</a>
+                </p>
+            </div>
+
+            <app-button-primary
+                [buttonType]="'submit'"
+                [small]="true"
+                [widthStr]="'126px'"
+                [isDisabled]="signUpForm.invalid"
+                >Sign up</app-button-primary
+            >
+        </form>
+    </div>
+
+    <footer>
+        <a (click)="navigateService.goTo('privacy-policy')">Privacy Policy</a>
+        <a (click)="navigateService.goTo('legal-notice')">Legal notice</a>
+    </footer>
+</section>
+<app-toast-added></app-toast-added>
