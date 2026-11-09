@@ -14,6 +14,7 @@ export class ContactService {
 
     users = signal<IUser[]>([]);
     selectedUserID = signal<number | null>(null);
+    shouldScrollToSelectedUser = signal<boolean>(false);
 
     constructor() {
         this.getUsers();
@@ -121,6 +122,18 @@ export class ContactService {
         this.toastService.setTypeMatch(ToastType.deleteContact);
         this.taskService.deleteApiUser(id);
         const response = await this.supabase.from('user').delete().eq('id', id);
+    }
+
+    async deleteAuthUser(id: number | null) {
+        const pendingDeletion = this.userList.find((entry) => entry.id === id);
+
+        if (pendingDeletion == undefined) {
+            return;
+        }
+        console.warn(pendingDeletion.uid!);
+
+        const { data, error } = await this.supabase.auth.admin.deleteUser(pendingDeletion.uid!);
+        console.log(data);
     }
 
     async editUser(user: User, showToast: boolean = false) {

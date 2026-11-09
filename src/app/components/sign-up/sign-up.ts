@@ -26,6 +26,11 @@ export class SignUp {
         }
     }
 
+    /**
+     * Reactive sign-up form containing the user's name, email, password,
+     * password confirmation and privacy policy acceptance.
+     * Uses built-in and custom validators to validate the input.
+     */
     signUpForm = new FormGroup(
         {
             name: new FormControl('', {
@@ -59,6 +64,11 @@ export class SignUp {
         }
     );
 
+    /**
+     * Validates the sign-up form and registers a new user.
+     * Resets the form, clears saved data and navigates to the login page
+     * if registration was successful.
+     */
     async signUp() {
         if (this.signUpForm.invalid) {
             return;
@@ -72,6 +82,10 @@ export class SignUp {
         }
     }
 
+    /**
+     * Saves the current form data when leaving the sign-up page,
+     * allowing the user to continue where they left off when returning.
+     */
     ngOnDestroy() {
         SignUp.savedFormData = this.signUpForm.getRawValue();
     }

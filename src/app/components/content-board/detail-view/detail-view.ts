@@ -25,6 +25,10 @@ export class DetailView {
     readonly task = computed(() => this.dialogService.selectedTask());
     toastService = inject(Toast);
 
+    /**
+     * Returns all users assigned to the currently selected task.
+     * Returns an empty array if no task is selected.
+     */
     assignedUsers = computed(() => {
         const task = this.task();
         if (!task) {
@@ -34,12 +38,20 @@ export class DetailView {
         return task.user_ids.map((id) => users.find((user) => user.id === id)).filter((user) => user !== undefined);
     });
 
+    /**
+     * Creates an effect that reacts to changes in the dialog state
+     * and updates the visibility of the task detail dialog.
+     */
     constructor() {
         effect(() => {
             this.openClose();
         });
     }
 
+    /**
+     * Opens or closes the task detail dialog depending on its current state
+     * and the active dialog mode.
+     */
     openClose() {
         const isOpen = this.dialogService.isOpen() && this.dialogService.mode() === 'task';
         const dialogRef = this.dialog();
@@ -57,6 +69,10 @@ export class DetailView {
         }
     }
 
+    /**
+     * Handles the closing event of the task detail dialog.
+     * Prevents closing when the dialog is switching to edit-task mode.
+     */
     onDialogClose() {
         if (this.dialogService.mode() === 'edit-task') {
             return;
@@ -64,12 +80,25 @@ export class DetailView {
         this.dialogService.close();
     }
 
+    /**
+     * Deletes a task from the database and closes the detail dialog.
+     *
+     * @param id - ID of the task to be deleted.
+     */
     async deleteApiTask(id: number) {
         this.toastService.setTypeMatch(ToastType.deleteTask);
         await this.taskService.deleteApiTask(id);
         this.dialogService.close();
     }
 
+    /**
+     * Toggles the completion status of a subtask and updates the selected task.
+     * Queues database updates to ensure they are processed sequentially.
+     *
+     * @param task - Task containing the subtask to be updated.
+     * @param index - Index of the subtask in the task's subtask array.
+     * @param event - Change event from the subtask checkbox.
+     */
     async toggleSubtask(task: ITask, index: number, event: Event) {
         const checkbox = event.target as HTMLInputElement;
         const updatedSubtasks = task.subtasks.map((subtask, i) =>

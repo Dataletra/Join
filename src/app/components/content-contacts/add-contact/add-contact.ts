@@ -2,15 +2,7 @@ import { Component, inject, viewChild, ElementRef, effect } from '@angular/core'
 import { ContactDialog } from '../../../services/contact-dialog';
 import { IcContact } from '../../elements/ic-contact/ic-contact';
 import { ButtonPrimary } from '../../elements/button-primary/button-primary';
-import {
-    FormControl,
-    ReactiveFormsModule,
-    FormGroup,
-    Validators,
-    ValidatorFn,
-    AbstractControl,
-    ValidationErrors,
-} from '@angular/forms';
+import { FormControl, ReactiveFormsModule, FormGroup, Validators } from '@angular/forms';
 import { User } from '../../models/user';
 import { ContactService } from '../../../services/contact-service';
 import { CustomValidators } from '../../../services/custom-validators';
@@ -22,18 +14,27 @@ import { CustomValidators } from '../../../services/custom-validators';
     templateUrl: './add-contact.html',
 })
 export class AddContact {
+    /** Service for managing contacts and communicating with the Supabase database. */
     supabaseService = inject(ContactService);
     validatorService = inject(CustomValidators);
     dialogService = inject(ContactDialog);
     dialog = viewChild<ElementRef<HTMLDialogElement>>('addContact');
     avatarName = '';
 
+    /**
+     * Creates an effect that reacts to changes in the dialog service
+     * and updates the visibility of the dialog.
+     */
     constructor() {
         effect(() => {
             this.openClose();
         });
     }
 
+    /**
+     * Opens or closes the contact dialog depending on its current state
+     * and the active dialog mode.
+     */
     openClose() {
         const isOpen = this.dialogService.isOpen() && this.dialogService.mode() === 'add';
         const dialogRef = this.dialog();
@@ -51,6 +52,7 @@ export class AddContact {
         }
     }
 
+    /** Form group containing the contact name, email address and phone number with their validators. */
     contactForm = new FormGroup({
         name: new FormControl('', {
             nonNullable: true,
@@ -73,6 +75,10 @@ export class AddContact {
         }),
     });
 
+    /**
+     * Validates the contact form and creates a new contact.
+     * Resets the form, clears the avatar name and closes the dialog after submission.
+     */
     async onSubmit() {
         if (this.contactForm.invalid) {
             return;
@@ -83,8 +89,13 @@ export class AddContact {
         this.avatarName = '';
         this.dialogService.close();
         this.supabaseService.selectedUserID.set(newUser.id);
+        this.supabaseService.shouldScrollToSelectedUser.set(true);
     }
 
+    /**
+     * Updates the avatar name based on the validity of the name input.
+     * Displays the entered name only when it passes validation.
+     */
     updateAvatar() {
         const nameControl = this.contactForm.controls.name;
         if (nameControl.valid) {

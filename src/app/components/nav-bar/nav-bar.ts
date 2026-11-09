@@ -16,6 +16,11 @@ export class NavBar {
     private readonly router = inject(Router);
     private readonly activeUrl = signal<string>('');
 
+    /**
+     * Subscribes to router events and updates the active URL
+     * whenever navigation to a new route has finished.
+     * The subscription is automatically cleaned up when the component is destroyed.
+     */
     constructor() {
         this.router.events.pipe(takeUntilDestroyed()).subscribe((event: Event) => {
             if (event instanceof NavigationEnd) {
