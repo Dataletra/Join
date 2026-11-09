@@ -49,6 +49,11 @@ export class ContentSummary {
     showcasedDate: string = '';
     isDeadlineHovered: boolean = false;
 
+    /**
+     * Initializes the summary component.
+     * Hides the welcome message after the initial render, fetches tasks
+     * and observes task data to determine the earliest deadline and its priorities.
+     */
     constructor() {
         afterNextRender(() => {
             ContentSummary.showWelcome = false;
@@ -79,6 +84,10 @@ export class ContentSummary {
         });
     }
 
+    /**
+     * Formats the given deadline date and determines whether it is overdue or upcoming.
+     * @param currentCheckDate - The earliest deadline date to display.
+     */
     updateShowcasedDateInfo(currentCheckDate: Date) {
         this.showcasedDate = new Date(currentCheckDate).toLocaleString(undefined, this.DateFormatOptions);
         if (currentCheckDate < new Date()) {
@@ -88,6 +97,11 @@ export class ContentSummary {
         }
     }
 
+    /**
+     * Calculates how many different priority levels are represented
+     * among the tasks with the next deadline.
+     * Updates the priority diversity signal accordingly.
+     */
     updatePriorityDiversity() {
         let calculatedDiversity = 0;
         if (this.deadlineLowPrioTasks().length >= 1) {
@@ -101,6 +115,11 @@ export class ContentSummary {
         }
         this.priorityDiversity.set(calculatedDiversity);
     }
+
+    /**
+     * Sets the greeting message according to the current time of day.
+     * Adds a comma if a user is logged in, otherwise an exclamation mark.
+     */
     ngOnInit() {
         const date = new Date();
         let currentTOD = date.getHours();
@@ -114,6 +133,10 @@ export class ContentSummary {
         this.greetingMessage.set(this.greetingMessage() + (this.authService.currentUser() ? ',' : '!'));
     }
 
+    /**
+     * Enables the welcome message again.
+     * Updates both the static property and the current component instance.
+     */
     setWelcome() {
         ContentSummary.showWelcome = true;
         this.showWelcome = true;

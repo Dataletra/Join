@@ -17,6 +17,7 @@ import { ContactService } from '../../../services/contact-service';
 import { IcContact } from '../ic-contact/ic-contact';
 import { TitleCasePipe } from '@angular/common';
 import { IUser } from '../../../interfaces/iuser';
+
 @Component({
     imports: [Combobox, ComboboxPopup, ComboboxWidget, Listbox, Option, OverlayModule, IcContact, TitleCasePipe],
     selector: 'app-combobox-assign-user',
@@ -34,26 +35,14 @@ export class ComboboxAssignUser {
     /** User ID in the listbox (only selected). */
     selectedValues = signal<number[]>([]);
 
-    // Output for the parent component
+    /** Emits the currently selected user IDs to the parent component. */
     selectedUser = output<number[]>();
 
-    sendData(currentSelections: number[]) {
-        this.selectedUser.emit(currentSelections);
-    }
-
-    triggerOutput() {
-        const currentSelections = this.selectedValues();
-        this.sendData(currentSelections);
-    }
-
-    isUserVisible(user: IUser): boolean {
-        const query = this.searchQuery().toLowerCase().trim();
-        return user.name.toLowerCase().includes(query);
-    }
-
-    /** Whether the popup is expanded. */
-    readonly popupExpanded = signal(false);
-
+    /**
+     * Keeps the active listbox item visible after rendering.
+     * Synchronizes the selected values with the initially provided user IDs
+     * whenever the input changes.
+     */
     constructor() {
         // Scrolls to the active item when the active option changes.
         afterRenderEffect(() => {
@@ -65,6 +54,40 @@ export class ComboboxAssignUser {
         });
     }
 
+    /**
+     * Emits the current user selections to the parent component.
+     * @param currentSelections - Array of selected user IDs.
+     */
+    sendData(currentSelections: number[]) {
+        this.selectedUser.emit(currentSelections);
+    }
+
+    /**
+     * Retrieves the current selection and forwards it to the parent component.
+     */
+    triggerOutput() {
+        const currentSelections = this.selectedValues();
+        this.sendData(currentSelections);
+    }
+
+    /**
+     * Checks whether a user matches the current search query.
+     * The comparison is case-insensitive.
+     * @param user - User whose name should be checked.
+     * @returns True if the user's name contains the search query, otherwise false.
+     */
+    isUserVisible(user: IUser): boolean {
+        const query = this.searchQuery().toLowerCase().trim();
+        return user.name.toLowerCase().includes(query);
+    }
+
+    /** Whether the popup is expanded. */
+    readonly popupExpanded = signal(false);
+
+    /**
+     * Clears all selected users and the current search query.
+     * Emits an empty selection to the parent component.
+     */
     requestReset() {
         this.selectedValues.set([]);
         this.sendData([]);

@@ -2,7 +2,6 @@ import { afterNextRender, Component, inject, signal } from '@angular/core';
 import { ButtonPrimary } from '../elements/button-primary/button-primary';
 import { TrackableNavigate } from '../../services/trackable-navigate';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CustomValidators } from '../../services/custom-validators';
 import { Authentication } from '../../services/authentication';
 import { ToastAdded } from '../elements/toast-added/toast-added';
 
@@ -21,6 +20,10 @@ export class LogIn {
     introPlayed = LogIn.introPlayed;
     static savedFormData: any = null;
 
+    /**
+     * Restores previously saved form data when the component is initialized.
+     * Marks the intro animation as played after the initial render.
+     */
     constructor() {
         if (LogIn.savedFormData) {
             this.logInForm.patchValue(LogIn.savedFormData);
@@ -31,6 +34,10 @@ export class LogIn {
         });
     }
 
+    /**
+     * Reactive login form containing email and password fields.
+     * Both fields are required, and the email field must contain a valid email address.
+     */
     logInForm = new FormGroup({
         email: new FormControl('', {
             nonNullable: true,
@@ -42,6 +49,10 @@ export class LogIn {
         }),
     });
 
+    /**
+     * Signs in a user anonymously as a guest.
+     * Navigates to the summary page if authentication is successful.
+     */
     async guestLogIn() {
         const success = await this.authentication.signInAnonymously();
         if (success) {
@@ -49,9 +60,12 @@ export class LogIn {
         }
     }
 
+    /**
+     * Validates the login form and attempts to authenticate the user
+     * with the provided email address and password.
+     * Navigates to the summary page on success or displays an error on failure.
+     */
     async logIn() {
-        console.log('login aufgerufen');
-
         if (this.logInForm.invalid) {
             return;
         }
@@ -65,6 +79,10 @@ export class LogIn {
         }
     }
 
+    /**
+     * Saves the current form data when leaving the login page,
+     * allowing the user to continue where they left off when returning.
+     */
     ngOnDestroy() {
         LogIn.savedFormData = this.logInForm.getRawValue();
     }

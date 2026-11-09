@@ -19,6 +19,10 @@ export class Namelist {
     dialogService = inject(ContactDialog);
     isFetchPending = signal<boolean>(true);
 
+    /**
+     * Observes changes to the selected user and the user list.
+     * Scrolls the selected user into view once the user exists in the list.
+     */
     constructor() {
         effect(() => {
             const selectedUserID = this.dbService.selectedUserID();
@@ -34,10 +38,18 @@ export class Namelist {
         });
     }
 
+    /**
+     * Fetches the user data when the component is initialized.
+     */
     ngOnInit() {
         this.fetchUsers();
     }
 
+    /**
+     * Retrieves users from the contact service.
+     * Updates the local user list, sorts it alphabetically
+     * and marks the loading process as complete.
+     */
     async fetchUsers() {
         await this.dbService.getUsers();
         this.userList = this.dbService.users();
@@ -45,6 +57,10 @@ export class Namelist {
         this.isFetchPending.set(false);
     }
 
+    /**
+     * Sorts the local user list alphabetically by user name.
+     * Does nothing if the user list is null.
+     */
     sortUsers() {
         if (!this.userList) {
             return;
@@ -52,6 +68,11 @@ export class Namelist {
         this.userList.sort((a, b) => a.name.localeCompare(b.name));
     }
 
+    /**
+     * Groups all users by the first letter of their names.
+     * Returns a map containing the first letter as key
+     * and the corresponding users as values.
+     */
     groupedUsers = computed(() => {
         if (!this.dbService.users()) {
             return [];
@@ -67,6 +88,11 @@ export class Namelist {
         return userMap;
     });
 
+    /**
+     * Selects a user and updates the selected user ID in the contact service.
+     * Emits the selection event after a short delay.
+     * @param id - ID of the user to select.
+     */
     selectUser(id: number) {
         this.dbService.selectedUserID.set(null);
         (setTimeout(() => {
@@ -76,6 +102,10 @@ export class Namelist {
             100);
     }
 
+    /**
+     * Scrolls the currently selected user into view.
+     * Uses smooth scrolling and positions the user as close to the visible area as possible.
+     */
     scrollToSelectedUser() {
         const selectedUserID = this.dbService.selectedUserID();
         if (selectedUserID === null) {

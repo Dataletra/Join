@@ -50,6 +50,12 @@ export class ContentAddTask {
 
     readonly isPopupOpen = computed(() => this.categoryComp()?.popupExpanded() ?? false);
 
+    /**
+     * Reactive form for creating a task.
+     * Contains title, description and due date fields.
+     * The title is required and cannot contain only whitespace.
+     * The due date is required and validated using a custom date validator.
+     */
     addTaskForm = new FormGroup({
         title: new FormControl('', {
             validators: [Validators.required, this.customValidator.containsOnlyWhitespaceValidator()],
@@ -58,27 +64,48 @@ export class ContentAddTask {
         date: new FormControl('', { validators: [Validators.required, this.customValidator.dateValidator] }),
     });
 
+    /** Calculates the number of assigned users exceeding the three displayed avatars. */
     trimmedUserIc = computed(() => {
         return '+ ' + (this.comboboxUsers().length - 3);
     });
 
+    /**
+     * Updates the assigned user objects and their corresponding IDs.
+     * @param selectedIds - IDs of the users selected in the assignment combobox.
+     */
     assignedUsers(selectedIds: number[]) {
         this.comboboxUsers.set(this.contactService.userList.filter((userObj) => selectedIds.includes(userObj.id)));
         this.selectedUserIds.set(selectedIds);
     }
 
+    /**
+     * Updates the list of subtasks received from the subtask component.
+     * @param taskArray - Array containing the selected subtasks.
+     */
     importSubtasks(taskArray: ISubtask[]) {
         this.IncomingSubtasks.set(taskArray);
     }
 
+    /**
+     * Updates the selected task category.
+     * @param category - Selected category.
+     */
     importCategory(category: string) {
         this.IncomingCategory.set(category);
     }
 
+    /**
+     * Updates the selected task priority.
+     * @param priority - Selected priority.
+     */
     importPriority(priority: string) {
         this.IncomingPriority.set(priority);
     }
 
+    /**
+     * Checks whether the required task form fields and category are valid.
+     * @returns True if the form is valid and a category has been selected, otherwise false.
+     */
     isTaskValid() {
         if (this.addTaskForm.valid && this.IncomingCategory() != '') {
             return true;
@@ -87,6 +114,11 @@ export class ContentAddTask {
         }
     }
 
+    /**
+     * Creates a new task using the entered form data and selected options.
+     * Saves the task through the task service, navigates to the board
+     * and closes the task dialog.
+     */
     async submitForm() {
         const formValues = this.addTaskForm.value;
 
@@ -106,6 +138,11 @@ export class ContentAddTask {
         this.contactDialog.close();
     }
 
+    /**
+     * Resets the task form and all child components.
+     * Clears assigned users, subtasks and category,
+     * resets the category touched state and restores medium priority.
+     */
     clearForm() {
         this.addTaskForm.reset();
         this.assignUserComp()?.requestReset();

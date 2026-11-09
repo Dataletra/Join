@@ -13,12 +13,21 @@ export class AddTask {
     dialogService = inject(ContactDialog);
     dialog = viewChild<ElementRef<HTMLDialogElement>>('addTaskDialog');
 
+    /**
+     * Observes changes to the dialog service state
+     * and updates the dialog visibility accordingly.
+     */
     constructor() {
         effect(() => {
             this.openClose();
         });
     }
 
+    /**
+     * Opens or closes the task dialog depending on the current dialog state.
+     * Clears the task form before opening and delays closing to allow
+     * the closing animation to finish.
+     */
     openClose() {
         const isOpen = this.dialogService.isOpen() && this.dialogService.mode() === 'add-task';
         const dialogRef = this.dialog();
