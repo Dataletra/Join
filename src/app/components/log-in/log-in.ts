@@ -2,12 +2,10 @@ import { afterNextRender, Component, inject, signal } from '@angular/core';
 import { ButtonPrimary } from '../elements/button-primary/button-primary';
 import { TrackableNavigate } from '../../services/trackable-navigate';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { CustomValidators } from '../../services/custom-validators';
 import { Authentication } from '../../services/authentication';
-import { ToastAdded } from '../elements/toast-added/toast-added';
 
 @Component({
-    imports: [ButtonPrimary, ReactiveFormsModule, ToastAdded],
+    imports: [ButtonPrimary, ReactiveFormsModule],
     selector: 'app-log-in',
     styleUrl: './log-in.scss',
     templateUrl: './log-in.html',
