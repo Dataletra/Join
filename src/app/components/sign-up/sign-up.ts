@@ -4,9 +4,10 @@ import { TrackableNavigate } from '../../services/trackable-navigate';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CustomValidators } from '../../services/custom-validators';
 import { Authentication } from '../../services/authentication';
+import { ButtonBack } from '../elements/button-back/button-back';
 
 @Component({
-    imports: [ButtonPrimary, ReactiveFormsModule],
+    imports: [ButtonPrimary, ReactiveFormsModule, ButtonBack],
     selector: 'app-sign-up',
     styleUrl: './sign-up.scss',
     templateUrl: './sign-up.html',

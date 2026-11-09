@@ -4,9 +4,7 @@
     </header>
 
     <div class="sign-up-wrapper">
-        <button (click)="navigateService.goTo('login')" class="back-btn">
-            <img src="./assets/icons/arrow-left.svg" aria-hidden="true" />
-        </button>
+        <app-button-back class="back-btn"></app-button-back>
         <h2>Sign up</h2>
         <hr />
         <form [formGroup]="signUpForm" (ngSubmit)="signUp()">
