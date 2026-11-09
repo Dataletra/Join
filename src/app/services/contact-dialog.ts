@@ -90,7 +90,6 @@ export class ContactDialog {
                 break;
             default:
                 this.progressType.set(Status.todo);
-                console.error('Failiure setProgressType: ' + type);
                 break;
         }
     }

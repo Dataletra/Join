@@ -4,10 +4,10 @@ import { TrackableNavigate } from '../../services/trackable-navigate';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CustomValidators } from '../../services/custom-validators';
 import { Authentication } from '../../services/authentication';
-import { ToastAdded } from '../elements/toast-added/toast-added';
+import { ButtonBack } from '../elements/button-back/button-back';
 
 @Component({
-    imports: [ButtonPrimary, ReactiveFormsModule, ToastAdded],
+    imports: [ButtonPrimary, ReactiveFormsModule, ButtonBack],
     selector: 'app-sign-up',
     styleUrl: './sign-up.scss',
     templateUrl: './sign-up.html',

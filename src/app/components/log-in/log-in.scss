@@ -1,5 +1,6 @@
 @use '../../../../public/styles/abstract/variables.scss' as *;
 @use '../../../../public/styles/abstract/helpers.scss' as *;
+@use '../../../../public/styles/abstract/mixin.scss' as *;
 
 :host {
     width: 100%;
@@ -18,6 +19,8 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    gap: 16px;
+    overflow: hidden;
 }
 
 header {
@@ -49,7 +52,8 @@ header {
 
 .log-in-wrapper {
     width: clamp(290px, calc(186.571px + 32.321vw), 652px);
-    height: 449px;
+    min-height: 0;
+    max-height: 480px;
     background-color: $color-nav-high;
     border-radius: 30px;
     box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.14);
@@ -57,8 +61,14 @@ header {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding-block: clamp(16px, calc(6.857px + 2.857vw), 48px) 0 0;
+    padding-block: clamp(16px, calc(6.857px + 2.857vw), 40px);
     padding-inline: clamp(8px, calc(-3.429px + 3.571vw), 48px);
+
+    form {
+        overflow-y: auto;
+        padding-right: 5px;
+        @include scrollbar-light(4, 8);
+    }
 }
 
 h2 {
@@ -176,6 +186,10 @@ form {
 .buttons {
     display: flex;
     gap: 35px;
+}
+
+.log-in-buttons {
+    margin-bottom: 8px;
 }
 
 footer {

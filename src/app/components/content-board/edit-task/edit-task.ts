@@ -210,7 +210,7 @@ export class EditTask {
      * Validates the form and saves the updated task if changes have been made.
      * Closes the dialog after processing.
      */
-    async saveTask() {
+    saveTask() {
         const currentTask = this.dialogService.selectedTask();
         if (!currentTask || this.addTaskForm.invalid) {
             return;
@@ -227,7 +227,7 @@ export class EditTask {
                 category: this.IncomingCategory() as Task['category'],
                 subtasks: this.IncomingSubtasks(),
             });
-            await this.tasksService.editApiTask(updatedTask, true);
+            this.tasksService.editApiTask(updatedTask, true);
         }
         this.dialogService.close();
     }

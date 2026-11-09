@@ -72,13 +72,14 @@
             </ul>
         </nav>
     </div>
-
-    <!-- <div class="legal-links">
-        <a (click)="navigateService.goTo('privacy-policy')" [class.active]="activeUrl() === '/privacy-policy'"
-            >Privacy Policy</a
-        >
-        <a (click)="navigateService.goTo('legal-notice')" [class.active]="activeUrl() === '/legal-notice'"
-            >Legal notice</a
-        >
-    </div> -->
+    @if (authService.isSignedIn()) {
+        <div class="legal-links-desktop">
+            <a (click)="navigateService.goTo('privacy-policy')" [class.active]="activeUrl() === '/privacy-policy'"
+                >Privacy Policy</a
+            >
+            <a (click)="navigateService.goTo('legal-notice')" [class.active]="activeUrl() === '/legal-notice'"
+                >Legal notice</a
+            >
+        </div>
+    }
 </div>
