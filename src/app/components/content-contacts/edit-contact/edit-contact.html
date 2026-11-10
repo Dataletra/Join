@@ -56,7 +56,13 @@
                                     }
                                 </p>
                             </div>
-                            <input name="editContactMail" class="input-email" type="email" placeholder="Email" formControlName="email" />
+                            <input
+                                name="editContactMail"
+                                class="input-email"
+                                type="email"
+                                placeholder="Email"
+                                formControlName="email"
+                            />
                             <div class="check-wrapper">
                                 <p
                                     class="form-check"
@@ -76,7 +82,13 @@
                                     }
                                 </p>
                             </div>
-                            <input name="editContactPhone" class="input-number" type="tel" placeholder="Phone" formControlName="phone" />
+                            <input
+                                name="editContactPhone"
+                                class="input-number"
+                                type="tel"
+                                placeholder="Phone"
+                                formControlName="phone"
+                            />
                             <div class="check-wrapper">
                                 <p
                                     class="form-check"
@@ -106,6 +118,11 @@
                                 [buttonType]="'submit'"
                                 [typeStr]="'createTask'"
                                 type="submit"
+                                [isDisabled]="
+                                    contactForm.controls.name.invalid ||
+                                    contactForm.controls.email.invalid ||
+                                    contactForm.controls.phone.invalid
+                                "
                                 >Save</app-button-primary
                             >
                         </div>
