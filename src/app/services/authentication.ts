@@ -12,6 +12,7 @@ export class Authentication {
     contactService = inject(ContactService);
     toastService = inject(Toast);
     navService = inject(TrackableNavigate);
+    dbService = inject(ContactService);
 
     readonly initialized = signal<boolean>(false);
     readonly session = signal<Session | null>(null);
@@ -106,6 +107,7 @@ export class Authentication {
             this.initialized.set(true);
         }
         this.navService.goTo('login');
+        this.dbService.selectedUserID.set(null);
         await this.isInitializing();
         return error ? false : true;
     }

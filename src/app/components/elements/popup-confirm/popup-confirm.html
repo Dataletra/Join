@@ -1,4 +1,4 @@
-<dialog #popupConfirm closedby="any" (click)="onBackdropClick($event)">
+<dialog #popupConfirm (click)="onBackdropClick($event)">
     <div class="popup-confirm" [class.show]="show()">
         <p><ng-content></ng-content></p>
         <div class="btn-wrapper">
