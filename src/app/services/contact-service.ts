@@ -165,12 +165,21 @@ export class ContactService {
      */
     async deleteAuthUser(id: number | null): Promise<boolean> {
         const pendingDeletion = this.userList.find((entry) => entry.id === id);
-        if (pendingDeletion == undefined) {
+        if (pendingDeletion == undefined || !pendingDeletion.uid) {
             return false;
         }
+
         this.toastService.setTypeMatch(ToastType.deleteContact);
-        const { data, error } = await this.supabase.auth.admin.deleteUser(pendingDeletion.uid!);
-        return true;
+
+        // Call your secure Supabase Edge Function
+        const { data, error } = await this.supabase.functions.invoke('delete-auth-user', {
+            body: { userId: pendingDeletion.uid },
+        });
+
+        if (error) {
+            return false;
+        }
+		return true;
     }
 
     /**
