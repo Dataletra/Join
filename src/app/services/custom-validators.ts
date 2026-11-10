@@ -21,11 +21,17 @@ export class CustomValidators {
     customNameValidator(): ValidatorFn {
         return (control: AbstractControl): ValidationErrors | null => {
             const value = control.value;
-            if (!value) {
-                return null;
-            }
-            const pattern = /^[\p{L},'-]{2,}(?:[ ][\p{L},'-]{2,})+$/u;
+            if (!value) return null;
+            const pattern = /^[\p{L}.'-]+(?: [\p{L}.'-]+)*$/u;
             return pattern.test(value) ? null : { namePattern: true };
+        };
+    }
+
+    customFullNameValidator(): ValidatorFn {
+        return (control: AbstractControl): ValidationErrors | null => {
+            const value = control.value;
+            if (!value) return null;
+            return value.trim().split(/\s+/).length >= 2 ? null : { fullName: true };
         };
     }
 
