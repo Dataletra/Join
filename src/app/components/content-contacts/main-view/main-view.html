@@ -61,7 +61,7 @@
         <p class="bold">Email</p>
         <p class="email">{{ selectedUser()?.email }}</p>
         <p class="bold">Phone</p>
-        <p>{{ selectedUser()?.phone }}</p>
+        <p>{{ selectedUser()?.phone ?? "n/a" }}</p>
     </div>
 </div>
 <button
