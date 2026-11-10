@@ -111,6 +111,7 @@
                                 [typeStr]="'light'"
                                 type="button"
                                 (click)="showConfirm.set(true)"
+                                [isDisabled]="!disableDelete()"
                                 >Delete</app-button-primary
                             >
                             <app-button-primary
