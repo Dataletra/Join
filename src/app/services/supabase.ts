@@ -1,11 +1,10 @@
 import { Service } from '@angular/core';
 import { createClient } from '@supabase/supabase-js';
-import { environment } from '../../environments/environment';
 
 @Service()
 export class SupabaseService {
     supabaseUrl = 'https://svbomumezskcpinnsucj.supabase.co';
-    supabaseKey = environment.SERVICE_KEY;
+    supabaseKey = 'sb_publishable_ND6SqwGZ7zK_2fLUPQz6PA_HtaQvgDb';
 
     /**
      * Supabase client.
