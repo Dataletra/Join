@@ -51,13 +51,21 @@
                                     "
                                 >
                                     @if (contactForm.controls.name.hasError('required')) {
-                                        Please enter a name.
-                                    } @else if (contactForm.controls.name.hasError('namePattern')) {
                                         Please enter your first and last name.
+                                    } @else if (contactForm.controls.name.hasError('namePattern')) {
+                                        Only letters, dots, hyphens and apostrophes are allowed.
+                                    } @else if (contactForm.controls.name.hasError('fullName')) {
+                                        Please enter both first and last name.
                                     }
                                 </p>
                             </div>
-                            <input  name="addContactMail" class="input-email" type="email" placeholder="Email" formControlName="email" />
+                            <input
+                                name="addContactMail"
+                                class="input-email"
+                                type="email"
+                                placeholder="Email"
+                                formControlName="email"
+                            />
                             <div class="check-wrapper">
                                 <p
                                     class="form-check"
@@ -77,7 +85,13 @@
                                     }
                                 </p>
                             </div>
-                            <input name="addContactPhone" class="input-number" type="tel" placeholder="Phone" formControlName="phone" />
+                            <input
+                                name="addContactPhone"
+                                class="input-number"
+                                type="tel"
+                                placeholder="Phone"
+                                formControlName="phone"
+                            />
                             <div class="check-wrapper">
                                 <p
                                     class="form-check"
