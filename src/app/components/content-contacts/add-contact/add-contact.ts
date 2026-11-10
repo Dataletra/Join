@@ -56,7 +56,12 @@ export class AddContact {
     contactForm = new FormGroup({
         name: new FormControl('', {
             nonNullable: true,
-            validators: [Validators.required, this.validatorService.customNameValidator()],
+            validators: [
+                Validators.required,
+                this.validatorService.customNameValidator(),
+                this.validatorService.customFullNameValidator(),
+            ],
+            updateOn: 'blur',
         }),
 
         email: new FormControl('', {

@@ -1,4 +1,4 @@
-import { Component, inject, viewChild, ElementRef, effect, signal } from '@angular/core';
+import { Component, inject, viewChild, ElementRef, effect, signal, computed } from '@angular/core';
 import { ContactDialog } from '../../../services/contact-dialog';
 import { IcContact } from '../../elements/ic-contact/ic-contact';
 import { ButtonPrimary } from '../../elements/button-primary/button-primary';
@@ -7,6 +7,7 @@ import { User } from '../../models/user';
 import { ContactService } from '../../../services/contact-service';
 import { PopupConfirm } from '../../elements/popup-confirm/popup-confirm';
 import { CustomValidators } from '../../../services/custom-validators';
+import { Authentication } from '../../../services/authentication';
 
 @Component({
     imports: [IcContact, ButtonPrimary, ReactiveFormsModule, PopupConfirm],
@@ -18,9 +19,25 @@ export class EditContact {
     supabaseService = inject(ContactService);
     validatorService = inject(CustomValidators);
     dialogService = inject(ContactDialog);
+    authService = inject(Authentication);
+
     dialog = viewChild<ElementRef<HTMLDialogElement>>('editContact');
     avatarName = signal('');
     showConfirm = signal<boolean>(false);
+
+    /**
+     * Determines whether the delete action should be disabled.
+     * Deletion is disabled if no authentication UID is available
+     * for the selected user or if the selected user is the currently logged-in user.
+     */
+    disableDelete = computed(() => {
+        const selected = this.dialogService.selectedUser();
+        const current = this.authService.currentUser();
+        if (!selected?.uid) {
+            return true;
+        }
+        return selected.uid === current?.uid;
+    });
 
     /**
      * Creates effects for controlling the dialog visibility
@@ -39,7 +56,7 @@ export class EditContact {
                 this.contactForm.setValue({
                     name: name,
                     email: user.email,
-                    phone: user.phone ?? '',
+                    phone: user.phone ?? 'n/a',
                 });
                 this.avatarName.set(user.name);
             }
@@ -59,6 +76,8 @@ export class EditContact {
         const element = dialogRef.nativeElement;
         if (isOpen && !element.open) {
             element.showModal();
+            this.contactForm.markAllAsTouched();
+            this.contactForm.updateValueAndValidity();
         }
         if (!isOpen && element.open) {
             setTimeout(() => {
@@ -71,7 +90,12 @@ export class EditContact {
     contactForm = new FormGroup({
         name: new FormControl('', {
             nonNullable: true,
-            validators: [Validators.required, this.validatorService.customNameValidator()],
+            validators: [
+                Validators.required,
+                this.validatorService.customNameValidator(),
+                this.validatorService.customFullNameValidator(),
+            ],
+            updateOn: 'blur',
         }),
 
         email: new FormControl('', {

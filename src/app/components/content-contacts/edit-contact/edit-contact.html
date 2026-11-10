@@ -50,13 +50,21 @@
                                     "
                                 >
                                     @if (contactForm.controls.name.hasError('required')) {
-                                        Please enter a name.
-                                    } @else if (contactForm.controls.name.hasError('namePattern')) {
                                         Please enter your first and last name.
+                                    } @else if (contactForm.controls.name.hasError('namePattern')) {
+                                        Only letters, dots, hyphens and apostrophes are allowed.
+                                    } @else if (contactForm.controls.name.hasError('fullName')) {
+                                        Please enter both first and last name.
                                     }
                                 </p>
                             </div>
-                            <input name="editContactMail" class="input-email" type="email" placeholder="Email" formControlName="email" />
+                            <input
+                                name="editContactMail"
+                                class="input-email"
+                                type="email"
+                                placeholder="Email"
+                                formControlName="email"
+                            />
                             <div class="check-wrapper">
                                 <p
                                     class="form-check"
@@ -76,7 +84,13 @@
                                     }
                                 </p>
                             </div>
-                            <input name="editContactPhone" class="input-number" type="tel" placeholder="Phone" formControlName="phone" />
+                            <input
+                                name="editContactPhone"
+                                class="input-number"
+                                type="tel"
+                                placeholder="Phone"
+                                formControlName="phone"
+                            />
                             <div class="check-wrapper">
                                 <p
                                     class="form-check"
@@ -99,6 +113,7 @@
                                 [typeStr]="'light'"
                                 type="button"
                                 (click)="showConfirm.set(true)"
+                                [isDisabled]="!disableDelete()"
                                 >Delete</app-button-primary
                             >
                             <app-button-primary
@@ -106,6 +121,11 @@
                                 [buttonType]="'submit'"
                                 [typeStr]="'createTask'"
                                 type="submit"
+                                [isDisabled]="
+                                    contactForm.controls.name.invalid ||
+                                    contactForm.controls.email.invalid ||
+                                    contactForm.controls.phone.invalid
+                                "
                                 >Save</app-button-primary
                             >
                         </div>

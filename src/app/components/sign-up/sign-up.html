@@ -16,9 +16,11 @@
                         [class.is-visible]="signUpForm.controls.name.invalid && signUpForm.controls.name.touched"
                     >
                         @if (signUpForm.controls.name.hasError('required')) {
-                            Please enter a name.
-                        } @else if (signUpForm.controls.name.hasError('namePattern')) {
                             Please enter your first and last name.
+                        } @else if (signUpForm.controls.name.hasError('namePattern')) {
+                            Only letters, dots, hyphens and apostrophes are allowed.
+                        } @else if (signUpForm.controls.name.hasError('fullName')) {
+                            Please enter both first and last name.
                         }
                     </p>
                 </div>

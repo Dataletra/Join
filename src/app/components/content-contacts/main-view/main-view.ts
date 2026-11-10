@@ -87,7 +87,11 @@ export class MainView {
      */
     deleteUser() {
         this.dbService.deleteApiUser(this.dbService.selectedUserID());
-        this.dbService.deleteAuthUser(this.dbService.selectedUserID());
+        this.dbService.deleteAuthUser(this.dbService.selectedUserID()).then((isSigned) => {
+            if (isSigned) {
+                this.authService.signOut();
+            }
+        });
     }
 
     /**
