@@ -39,7 +39,7 @@ export class EditContact {
                 this.contactForm.setValue({
                     name: name,
                     email: user.email,
-                    phone: user.phone ?? '',
+                    phone: user.phone ?? 'n/a',
                 });
                 this.avatarName.set(user.name);
             }
@@ -59,6 +59,8 @@ export class EditContact {
         const element = dialogRef.nativeElement;
         if (isOpen && !element.open) {
             element.showModal();
+            this.contactForm.markAllAsTouched();
+            this.contactForm.updateValueAndValidity();
         }
         if (!isOpen && element.open) {
             setTimeout(() => {
