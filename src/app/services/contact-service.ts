@@ -161,15 +161,16 @@ export class ContactService {
     /**
      * Delete Authenticated user (currently logged in user) from databank.
      * @param id {number | null} - user id to delete.
-     * @returns void on error
+     * @returns attempt to delete signed in user
      */
-    async deleteAuthUser(id: number | null) {
+    async deleteAuthUser(id: number | null): Promise<boolean> {
         const pendingDeletion = this.userList.find((entry) => entry.id === id);
         if (pendingDeletion == undefined) {
-            return;
+            return false;
         }
         this.toastService.setTypeMatch(ToastType.deleteContact);
         const { data, error } = await this.supabase.auth.admin.deleteUser(pendingDeletion.uid!);
+        return true;
     }
 
     /**
