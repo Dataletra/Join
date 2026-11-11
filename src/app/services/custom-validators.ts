@@ -1,10 +1,12 @@
 import { inject, Service } from '@angular/core';
 import { AbstractControl, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { ContactService } from './contact-service';
+import { ContactDialog } from './contact-dialog';
 
 @Service()
 export class CustomValidators {
     contactService = inject(ContactService);
+    dialogService = inject(ContactDialog);
 
     dateValidator(control: AbstractControl): { [key: string]: boolean } | null {
         if (control?.value) {
@@ -55,6 +57,28 @@ export class CustomValidators {
             const pattern = /^\+?[0-9\s()/-]+$/;
             const digitCount = value.replace(/\D/g, '').length;
             if (!pattern.test(value) || digitCount < 6) {
+                return { phonePattern: true };
+            }
+            return null;
+        };
+    }
+
+    /**
+     * Check the value for typical phone pattern. If the selected contact is a registered contact, also allow 'n/a' as 
+     * this is the default phone number upon sign up
+     * @returns null when okay, else phonePattern error
+     */
+    customPhoneEditValidator(): ValidatorFn {
+        return (control: AbstractControl): ValidationErrors | null => {
+            const value = control.value;
+            if (!value) {
+                return null;
+            }
+            const pattern = /^\+?[0-9\s()/-]+$/;
+            const digitCount = value.replace(/\D/g, '').length;
+            const uid = this.dialogService.selectedUser()?.uid;
+
+            if (((uid && value !== 'n/a') || !uid) && (!pattern.test(value) || digitCount < 6)) {
                 return { phonePattern: true };
             }
             return null;
