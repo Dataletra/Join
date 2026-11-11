@@ -112,7 +112,10 @@ export class EditContact {
 
         phone: new FormControl('', {
             nonNullable: true,
-            validators: [Validators.required, this.validatorService.customPhoneValidator()],
+            validators: [
+                Validators.required,
+                this.validatorService.customPhoneEditValidator(),
+            ],
         }),
     });
 
